@@ -1,8 +1,8 @@
 # Number
 
-Lodash provides a set of utility Number functions for working with and manipulating numbers. These functions can help you clamp numbers within a specific range, check if a number is within a given interval, or generate random numbers.
+Lodash provides a set of utility Number functions for working with and manipulating numbers. These functions can help you clamp numbers within a specific range, check if a number is within a given range, or generate random numbers.
 
-For more complex mathematical computations, refer to the [Math](./api-math.md) documentation.
+For more complex mathematical calculations, refer to the [Math](./api-math.md) section of the documentation.
 
 ---
 
@@ -36,7 +36,7 @@ _.clamp(10, -5, 5);
 
 ## inRange
 
-Checks if `n` is between `start` and up to, but not including, `end`. If `end` is not specified, `start` is set to 0. If `start` is greater than `end`, the parameters are swapped to support negative ranges.
+Checks if `n` is between `start` and up to, but not including, `end`. If `end` is not specified, it's set to `start` with `start` then set to 0. If `start` is greater than `end` the params are swapped to support negative ranges.
 
 #### Parameters
 
@@ -89,7 +89,7 @@ Produces a random number between `lower` and `upper` (inclusive). If only one ar
 |---|---|---|
 | `[lower=0]` | `number` | The lower bound. |
 | `[upper=1]` | `number` | The upper bound. |
-| `[floating]` | `boolean` | Specify returning a floating-point number. |
+| `[floating]` | `boolean` | Specifies whether to return a floating-point number. |
 
 #### Returns
 
@@ -113,4 +113,4 @@ _.random(1.2, 5.2);
 
 ---
 
-This section introduced the core utility functions in Lodash for handling numbers. These functions provide convenient methods for common number operations in daily development. Next, you can continue to explore the [Object](./api-object.md) related functions to learn how to efficiently manipulate and process objects.
+This section introduced the core utility functions in Lodash for handling numbers. These functions provide convenient methods for common number operations in daily development. Next, you can continue to explore the [Object](./api-object.md) related functions to learn how to efficiently manipulate and handle objects.

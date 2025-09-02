@@ -1,26 +1,26 @@
-# Contributing & Community
+# Contribution & Community
 
-The Lodash community welcomes all forms of contributions, whether it's reporting issues, suggesting new features, or contributing code directly. We believe that open collaboration is key to keeping the project vibrant and continuously improving. This section will provide you with all the information you need to get involved in the Lodash project.
+The growth of the Lodash project relies on the support of its community. We welcome all forms of contributions, from reporting issues and suggesting new features to directly submitting code. This section provides the essential information and links you need to get involved with the Lodash project.
 
-## Joining the Community Discussion
+## Join the Community Discussion
 
-You can connect with other Lodash users and developers through the following channels:
+You can connect with other Lodash users and developers, get help, or share ideas through the following channels:
 
-- **Gitter Chatroom**: [gitter.im/lodash/lodash](https://gitter.im/lodash/lodash) - The best place to get help, discuss features, or chat with other community members in real time.
-- **Twitter**: [@bestiejs](https://twitter.com/bestiejs) - Follow our official Twitter account for the latest project updates and announcements.
+- **Gitter Chatroom**: [gitter.im/lodash/lodash](https://gitter.im/lodash/lodash) - The best place for real-time conversations with community members, discussing features, or seeking help.
+- **Twitter**: [@bestiejs](https://twitter.com/bestiejs) - Follow the official Twitter account for the latest project updates and announcements.
 
 ## How to Contribute
 
-We greatly appreciate you taking the time to contribute to Lodash. To ensure a smooth and efficient collaboration process, please follow these guidelines.
+We greatly appreciate you taking the time to contribute to Lodash. To ensure a smooth and efficient collaboration process, please review the following key documents before you begin.
 
-### Code of Conduct
-
-Before participating in the community and contributing code, please be sure to read and adhere to our [Code of Conduct](https://js.foundation/conduct/). We are committed to maintaining a friendly, respectful, and constructive community environment.
-
-### Contributing Guide
-
-All code-related contributions should follow the official [Contributing Guide](https://github.com/lodash/lodash/blob/master/.github/CONTRIBUTING.md). This document details how to set up your development environment, run tests, submit issues, and open Pull Requests. Please read it carefully before opening a Pull Request to ensure your contribution meets the project's standards.
-
-### Project Wiki
-
-The project's [Wiki](https://github.com/lodash/lodash/wiki) contains more information about project planning and history, such as the Changelog and Roadmap. Before suggesting a new feature, consulting the Wiki may provide you with valuable background information.
+<x-cards data-columns="3">
+  <x-card data-title="Code of Conduct" data-icon="lucide:shield-check" data-href="https://js.foundation/conduct/">
+    Before participating in the community and contributing code, please be sure to read and adhere to our Code of Conduct. We are committed to maintaining a friendly and respectful community environment.
+  </x-card>
+  <x-card data-title="Contributing Guide" data-icon="lucide:git-pull-request-draft" data-href="https://github.com/lodash/lodash/blob/master/.github/CONTRIBUTING.md">
+    All code-related contributions should follow this guide. It details the complete process for setting up the development environment, running tests, submitting Issues, and creating Pull Requests.
+  </x-card>
+  <x-card data-title="Project Wiki" data-icon="lucide:book-open" data-href="https://github.com/lodash/lodash/wiki">
+    The Wiki contains more information about project planning and history, such as the Changelog and Roadmap. It's helpful to check the Wiki before proposing new features.
+  </x-card>
+</x-cards>

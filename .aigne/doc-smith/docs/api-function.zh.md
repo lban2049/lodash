@@ -2,11 +2,11 @@
 
 本节详细介绍了 Lodash 中用于操作或返回函数的实用工具。这些函数支持函数式编程技术，如柯里化（currying）、防抖（debouncing）、节流（throttling）和部分应用（partial application），从而可以创建更强大、更灵活的代码。
 
-这些工具在处理事件处理、异步操作和函数组合等场景时尤其有用。要了解如何将这些函数与方法链结合使用，请参阅 [Seq (序列)](./api-seq.md) 部分的文档。
+这些工具在处理事件处理、异步操作和函数组合等场景时尤其有用。要了解如何将这些函数与方法链结合使用，请参阅 [Seq](./api-seq.md) 部分的文档。
 
 ## after
 
-创建一个函数，该函数在被调用 `n` 次或更多次后才会调用 `func`。 `_.before` 的反向操作。
+`_.before` 的反向操作，创建一个函数，该函数在被调用 `n` 次或更多次后才会调用 `func`。
 
 | 参数 | 类型 | 描述 |
 | --- | --- | --- |
@@ -207,26 +207,17 @@ curried(2, 3)(1);
 
 创建一个防抖函数，该函数延迟调用 `func`，直到自上次调用防抖函数后经过 `wait` 毫秒。防抖函数附带一个 `cancel` 方法用于取消延迟的 `func` 调用和一个 `flush` 方法用于立即调用它们。提供 `options` 来指示 `func` 是否应在 `wait` 超时的前缘和/或后缘调用。
 
-```mermaid
-sequenceDiagram
-    participant User as 用户操作
-    participant Debounced as _.debounce(func)
-    participant Func as 原始函数
-    participant Timer as 定时器
+```d2
+shape: sequence_diagram
 
-    User->>Debounced: 调用 1 (参数1)
-    Debounced->>Timer: 启动等待定时器
-    Note over User, Timer: 等待期开始
+"用户操作" -> "_.debounce(func)": "调用 1 (参数1)"
+"_.debounce(func)" -> "定时器": "启动等待定时器"
 
-    User->>Debounced: 调用 2 (参数2)
-    Debounced->>Timer: 重置等待定时器
-    Note over User, Timer: 定时器重启
+"用户操作" -> "_.debounce(func)": "调用 2 (参数2)"
+"_.debounce(func)" -> "定时器": "重置等待定时器"
 
-    loop 等待期
-        Note right of Timer: 等待无活动...
-    end
-    Timer->>Debounced: 定时器到期
-    Debounced->>Func: 使用最新参数(参数2)调用
+"定时器" -> "_.debounce(func)": "定时器到期"
+"_.debounce(func)" -> "原始函数": "使用最新参数(参数2)调用"
 ```
 
 | 参数 | 类型 | 描述 |
@@ -565,26 +556,15 @@ say(['fred', 'hello']);
 
 创建一个节流函数，该函数在每 `wait` 毫秒内最多只调用 `func` 一次。节流函数附带一个 `cancel` 方法用于取消延迟的 `func` 调用和一个 `flush` 方法用于立即调用它们。
 
-```mermaid
-sequenceDiagram
-    participant User as 用户操作
-    participant Throttled as _.throttle(func, wait)
-    participant Func as 原始函数
+```d2
+shape: sequence_diagram
 
-    Note over User, Func: leading=true, trailing=true (默认)
+"用户操作" -> "_.throttle(func, wait)": "调用 1"
+"_.throttle(func, wait)" -> "原始函数": "调用 (前缘)"
 
-    User->>Throttled: 调用 1
-    Throttled->>Func: 调用 (前缘)
-    Note right of Throttled: 冷却期开始 (wait ms)
+"用户操作" -> "_.throttle(func, wait)": "调用 2"
 
-    User->>Throttled: 调用 2
-    Note right of Throttled: 调用被忽略，但参数被保存
-
-    loop wait ms
-    end
-
-    Throttled->>Func: 使用调用2的参数调用 (后缘)
-    Note right of Throttled: 冷却期结束
+"_.throttle(func, wait)" -> "原始函数": "使用调用2的参数调用 (后缘)"
 ```
 
 | 参数 | 类型 | 描述 |

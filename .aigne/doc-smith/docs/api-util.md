@@ -1,14 +1,14 @@
 # Util
 
-This section provides a detailed reference for the various utility functions in Lodash, which offer foundational capabilities for creating functions, handling function arguments, and performing other metaprogramming tasks.
+This section provides a detailed reference for the various utility functions in Lodash, which offer foundational capabilities for creating functions, handling function arguments, and performing other meta-programming tasks.
 
 ## Function List
 
 | Function | Description |
 | --- | --- |
 | [_.attempt](#_attemptfunc-args) | Attempts to invoke a function, returning its result or the caught error object. |
-| [_.bindAll](#_bindallobject-methodnames) | Binds the methods of an object to the object itself, overwriting existing methods. |
-| [_.cond](#_condpairs) | Creates a function that iterates over a series of predicate-function pairs and executes the function corresponding to the first predicate that returns a truthy value. |
+| [_.bindAll](#_bindallobject-methodnames) | Binds methods of an object to the object itself, overwriting existing methods. |
+| [_.cond](#_condpairs) | Creates a function that iterates through a series of predicate-function pairs and executes the function corresponding to the first predicate that returns a truthy value. |
 | [_.conforms](#_conformssource) | Creates a function that checks if a given object conforms to the structure of `source` by invoking the predicate properties of `source`. |
 | [_.constant](#_constantvalue) | Creates a function that returns the given value. |
 | [_.defaultTo](#_defaulttovalue-defaultvalue) | Checks a value and returns a default value if it is `NaN`, `null`, or `undefined`. |
@@ -20,7 +20,7 @@ This section provides a detailed reference for the various utility functions in 
 | [_.matchesProperty](#_matchespropertypath-srcvalue) | Creates a function that performs a partial deep comparison between the value at `path` of a given object and `srcValue`. |
 | [_.method](#_methodpath-args) | Creates a function that invokes the method at `path` of a given object. |
 | [_.methodOf](#_methodofobject-args) | The inverse of `_.method`; creates a function that invokes the method on `object` at a given path. |
-| [_.mixin](#_mixinobject-source-options) | Adds all own enumerable function properties of a source object to a destination object. |
+| [_.mixin](#_mixinobject-source-options) | Adds all enumerable function properties of a source object to a destination object. |
 | [_.noConflict](#_noconflict) | Reverts the `_` variable to its previous value and returns a reference to the `lodash` function. |
 | [_.noop](#_noop) | A function that does nothing and returns `undefined`. |
 | [_.nthArg](#_nthargn) | Creates a function that returns the nth argument. |
@@ -31,6 +31,7 @@ This section provides a detailed reference for the various utility functions in 
 | [_.propertyOf](#_propertyofobject) | The inverse of `_.property`; creates a function that returns the value at a given path of `object`. |
 | [_.range](#_rangestart-end-step) | Creates an array of numbers in a range. |
 | [_.rangeRight](#_rangerightstart-end-step) | Similar to `_.range`, but populates values in descending order. |
+| [_.runInContext](#_runincontextcontext) | Creates a new, pristine `lodash` function using a `context` object. |
 | [_.stubArray](#_stubarray) | Returns a new empty array. |
 | [_.stubFalse](#_stubfalse) | Returns `false`. |
 | [_.stubObject](#_stubobject) | Returns a new empty object. |
@@ -50,7 +51,7 @@ Attempts to invoke `func`, returning the result or the caught error object. Any 
 
 **Arguments**
 
-| Parameter | Type | Description |
+| Argument | Type | Description |
 | --- | --- | --- |
 | `func` | `Function` | The function to attempt. |
 | `[...args]` | `*` | The arguments to invoke `func` with. |
@@ -74,7 +75,7 @@ if (_.isError(elements)) {
 
 ### _.bindAll(object, methodNames)
 
-Binds methods of an `object` to the `object` itself, overwriting the existing method.
+Binds methods of an object to the object itself, overwriting existing methods.
 
 **Note:** This method doesn't set the "length" property of bound functions.
 
@@ -82,7 +83,7 @@ Binds methods of an `object` to the `object` itself, overwriting the existing me
 
 **Arguments**
 
-| Parameter | Type | Description |
+| Argument | Type | Description |
 | --- | --- | --- |
 | `object` | `Object` | The object to bind and assign the bound methods to. |
 | `methodNames` | `...(string|string[])` | The object method names to bind. |
@@ -103,18 +104,18 @@ var view = {
 
 _.bindAll(view, ['click']);
 jQuery(element).on('click', view.click);
-// => Logs 'clicked docs' when clicked.
+// => Logs 'clicked docs' on click.
 ```
 
 ### _.cond(pairs)
 
-Creates a function that iterates over `pairs` (predicate-function pairs) and invokes the function corresponding to the first predicate to return a truthy value. The predicate-function pairs are invoked with the `this` binding and arguments of the created function.
+Creates a function that iterates through `pairs` (predicate-function pairs) and invokes the corresponding function of the first predicate to return a truthy value. The predicate-function pairs are invoked with the `this` binding and arguments of the created function.
 
 **Since `4.0.0`**
 
 **Arguments**
 
-| Parameter | Type | Description |
+| Argument | Type | Description |
 | --- | --- | --- |
 | `pairs` | `Array` | The predicate-function pairs. |
 
@@ -143,13 +144,13 @@ func({ 'a': '1', 'b': '2' });
 
 ### _.conforms(source)
 
-Creates a function that invokes the predicate properties of `source` with the corresponding property values of a given object. Returns `true` if all predicates return truthy values, else `false`.
+Creates a function that invokes the predicate properties of `source` with the corresponding property values of a given object. Returns `true` if all predicates return truthy, else `false`.
 
 **Since `4.0.0`**
 
 **Arguments**
 
-| Parameter | Type | Description |
+| Argument | Type | Description |
 | --- | --- | --- |
 | `source` | `Object` | The object of property predicates to conform to. |
 
@@ -177,7 +178,7 @@ Creates a function that returns `value`.
 
 **Arguments**
 
-| Parameter | Type | Description |
+| Argument | Type | Description |
 | --- | --- | --- |
 | `value` | `*` | The value to return from the new function. |
 
@@ -205,7 +206,7 @@ Checks `value` to determine if a default value should be returned. If `value` is
 
 **Arguments**
 
-| Parameter | Type | Description |
+| Argument | Type | Description |
 | --- | --- | --- |
 | `value` | `*` | The value to check. |
 | `defaultValue` | `*` | The default value. |
@@ -232,7 +233,7 @@ Creates a function that returns the result of invoking the given functions in se
 
 **Arguments**
 
-| Parameter | Type | Description |
+| Argument | Type | Description |
 | --- | --- | --- |
 | `[...funcs]` | `...(Function|Function[])` | The functions to invoke. |
 
@@ -260,7 +261,7 @@ This method is like `_.flow` except that it creates a function that invokes the 
 
 **Arguments**
 
-| Parameter | Type | Description |
+| Argument | Type | Description |
 | --- | --- | --- |
 | `[...funcs]` | `...(Function|Function[])` | The functions to invoke. |
 
@@ -288,7 +289,7 @@ This method returns the first argument it receives.
 
 **Arguments**
 
-| Parameter | Type | Description |
+| Argument | Type | Description |
 | --- | --- | --- |
 | `value` | `*` | Any value. |
 
@@ -307,19 +308,19 @@ console.log(_.identity(object) === object);
 
 ### _.iteratee([func=_.identity])
 
-Creates a function that invokes `func` with the arguments of the created function. If `func` is a property name, the created function returns the property value for a given element. If `func` is an array or object, the created function returns `true` for elements that contain the equivalent source properties, otherwise it returns `false`.
+Creates a function that invokes `func` with the arguments of the created function. If `func` is a property name, the created function returns the property value of a given element. If `func` is an array or object, the created function returns `true` for elements that have equivalent source properties, otherwise it returns `false`.
 
 **Since `4.0.0`**
 
 **Arguments**
 
-| Parameter | Type | Description |
+| Argument | Type | Description |
 | --- | --- | --- |
-| `[func=_.identity]` | `*` | The value to convert to an iteratee. |
+| `[func=_.identity]` | `*` | The value to convert to a callback. |
 
 **Returns**
 
-`(Function)`: Returns the iteratee.
+`(Function)`: Returns the callback.
 
 **Example**
 
@@ -342,7 +343,7 @@ Creates a function that performs a partial deep comparison between a given objec
 
 **Arguments**
 
-| Parameter | Type | Description |
+| Argument | Type | Description |
 | --- | --- | --- |
 | `source` | `Object` | The object of property values to match. |
 
@@ -370,9 +371,9 @@ Creates a function that performs a partial deep comparison between the value at 
 
 **Arguments**
 
-| Parameter | Type | Description |
+| Argument | Type | Description |
 | --- | --- | --- |
-| `path` | `Array|string` | The path of the property to retrieve. |
+| `path` | `Array|string` | The path of the property to get. |
 | `srcValue` | `*` | The value to match. |
 
 **Returns**
@@ -399,7 +400,7 @@ Creates a function that invokes the method at `path` of a given object. Any addi
 
 **Arguments**
 
-| Parameter | Type | Description |
+| Argument | Type | Description |
 | --- | --- | --- |
 | `path` | `Array|string` | The path of the method to invoke. |
 | `[...args]` | `*` | The arguments to invoke the method with. |
@@ -422,13 +423,13 @@ _.map(objects, _.method('a.b'));
 
 ### _.methodOf(object, [...args])
 
-The inverse of `_.method`; this method creates a function that invokes the method at a given path of `object`. Any additional arguments are provided to the invoked method.
+The inverse of `_.method`; this method creates a function that invokes the method at a given path on `object`. Any additional arguments are provided to the invoked method.
 
 **Since `3.7.0`**
 
 **Arguments**
 
-| Parameter | Type | Description |
+| Argument | Type | Description |
 | --- | --- | --- |
 | `object` | `Object` | The object to query. |
 | `[...args]` | `*` | The arguments to invoke the method with. |
@@ -449,13 +450,13 @@ _.map(['a[2]', 'c[0]'], _.methodOf(object));
 
 ### _.mixin([object=lodash], source, [options={}])
 
-Adds all own enumerable string keyed function properties of a source object to a destination object. If `object` is a function, methods are added to its prototype as well.
+Adds all own enumerable string keyed function properties of a source object to the destination object. If `object` is a function, methods are added to its prototype as well.
 
 **Since `0.1.0`**
 
 **Arguments**
 
-| Parameter | Type | Description |
+| Argument | Type | Description |
 | --- | --- | --- |
 | `[object=lodash]` | `Function|Object` | The destination object. |
 | `source` | `Object` | The object of functions to add. |
@@ -511,13 +512,13 @@ _.times(2, _.noop);
 
 ### _.nthArg([n=0])
 
-Creates a function that gets the argument at index `n`. If `n` is negative, the nth argument from the end is returned.
+Creates a function that gets the `n`th argument. If `n` is negative, the nth argument from the end is returned.
 
 **Since `4.0.0`**
 
 **Arguments**
 
-| Parameter | Type | Description |
+| Argument | Type | Description |
 | --- | --- | --- |
 | `[n=0]` | `number` | The index of the argument to return. |
 
@@ -545,7 +546,7 @@ Creates a function that invokes `iteratees` with the arguments it receives and r
 
 **Arguments**
 
-| Parameter | Type | Description |
+| Argument | Type | Description |
 | --- | --- | --- |
 | `[...iteratees=[_.identity]]` | `...(Function|Function[])` | The iteratees to invoke. |
 
@@ -570,7 +571,7 @@ Creates a function that checks if all `predicates` return truthy when invoked wi
 
 **Arguments**
 
-| Parameter | Type | Description |
+| Argument | Type | Description |
 | --- | --- | --- |
 | `[...predicates=[_.identity]]` | `...(Function|Function[])` | The predicates to check. |
 
@@ -598,7 +599,7 @@ Creates a function that checks if any of the `predicates` return truthy when inv
 
 **Arguments**
 
-| Parameter | Type | Description |
+| Argument | Type | Description |
 | --- | --- | --- |
 | `[...predicates=[_.identity]]` | `...(Function|Function[])` | The predicates to check. |
 
@@ -626,7 +627,7 @@ Creates a function that returns the value at `path` of a given object.
 
 **Arguments**
 
-| Parameter | Type | Description |
+| Argument | Type | Description |
 | --- | --- | --- |
 | `path` | `Array|string` | The path of the property to retrieve. |
 
@@ -654,7 +655,7 @@ The inverse of `_.property`; this method creates a function that returns the val
 
 **Arguments**
 
-| Parameter | Type | Description |
+| Argument | Type | Description |
 | --- | --- | --- |
 | `object` | `Object` | The object to query. |
 
@@ -674,13 +675,13 @@ _.map(['a[2]', 'c[0]'], _.propertyOf(object));
 
 ### _.range([start=0], end, [step=1])
 
-Creates an array of numbers from `start` up to, but not including, `end`. If `start` is negative and `end` or `step` is not specified, step is `-1`. If `end` is not specified, it's set to `start` with `start` then set to `0`.
+Creates an array of numbers from `start` up to, but not including, `end`. If `start` is negative and `end` or `step` is not specified, `step` is `-1`. If `end` is not specified, it's set to `start` with `start` then set to `0`.
 
 **Since `0.1.0`**
 
 **Arguments**
 
-| Parameter | Type | Description |
+| Argument | Type | Description |
 | --- | --- | --- |
 | `[start=0]` | `number` | The start of the range. |
 | `end` | `number` | The end of the range. |
@@ -711,7 +712,7 @@ This method is like `_.range` except that it populates values in descending orde
 
 **Arguments**
 
-| Parameter | Type | Description |
+| Argument | Type | Description |
 | --- | --- | --- |
 | `[start=0]` | `number` | The start of the range. |
 | `end` | `number` | The end of the range. |
@@ -729,6 +730,44 @@ _.rangeRight(4);
 
 _.rangeRight(1, 5);
 // => [4, 3, 2, 1]
+```
+
+### _.runInContext([context=root])
+
+Creates a new, pristine `lodash` function using the `context` object.
+
+**Since `1.1.0`**
+
+**Arguments**
+
+| Argument | Type | Description |
+| --- | --- | --- |
+| `[context=root]` | `Object` | The context object. |
+
+**Returns**
+
+`(Function)`: Returns a new `lodash` function.
+
+**Example**
+
+```javascript
+_.mixin({ 'foo': _.constant('foo') });
+
+var lodash = _.runInContext();
+lodash.mixin({ 'bar': lodash.constant('bar') });
+
+_.isFunction(_.foo);
+// => true
+_.isFunction(_.bar);
+// => false
+
+lodash.isFunction(lodash.foo);
+// => false
+lodash.isFunction(lodash.bar);
+// => true
+
+// Create a suped-up `defer` in Node.js.
+var defer = _.runInContext({ 'setTimeout': setImmediate }).defer;
 ```
 
 ### _.stubArray()
@@ -822,13 +861,13 @@ _.times(2, _.stubTrue);
 
 ### _.times(n, [iteratee=_.identity])
 
-Invokes the iteratee `n` times, returning an array of the results of each invocation. The iteratee is invoked with one argument: `(index)`.
+Invokes `iteratee` `n` times, returning an array of the results of each invocation. The `iteratee` is invoked with one argument: `(index)`.
 
 **Since `0.1.0`**
 
 **Arguments**
 
-| Parameter | Type | Description |
+| Argument | Type | Description |
 | --- | --- | --- |
 | `n` | `number` | The number of times to invoke `iteratee`. |
 | `[iteratee=_.identity]` | `Function` | The function invoked per iteration. |
@@ -852,7 +891,7 @@ Converts `value` to a property path array.
 
 **Arguments**
 
-| Parameter | Type | Description |
+| Argument | Type | Description |
 | --- | --- | --- |
 | `value` | `*` | The value to convert. |
 
@@ -878,9 +917,9 @@ Generates a unique ID. If `prefix` is given, the ID is appended to it.
 
 **Arguments**
 
-| Parameter | Type | Description |
+| Argument | Type | Description |
 | --- | --- | --- |
-| `[prefix='']` | `string` | The prefix to prepend to the ID. |
+| `[prefix='']` | `string` | The prefix of the ID. |
 
 **Returns**
 
@@ -898,4 +937,4 @@ _.uniqueId();
 
 ---
 
-Now that you've learned about Lodash's utility functions, feel free to explore the documentation for the [Function](./api-function.md) or [Seq](./api-seq.md) sections to learn more about functional programming and chaining.
+Now that you're familiar with Lodash's utility functions, feel free to explore the documentation for the [Function](./api-function.md) or [Seq](./api-seq.md) sections to learn more about functional programming and chaining.

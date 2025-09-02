@@ -1,14 +1,14 @@
 # Date
 
-This section details the functions in Lodash for handling dates and timestamps. These utility functions can help you easily get the current time.
+This section details the functions in Lodash used for handling dates and timestamps. These utility functions can help you easily get the current time.
 
-Lodash's date functions focus on providing core functionality. For a wider range of utilities, refer to the [Util](./api-util.md) and [Lang](./api-lang.md) sections.
+Lodash's date functions focus on providing core functionality. For a broader range of utilities, please refer to the [Util](./api-util.md) and [Lang](./api-lang.md) sections.
 
 ---
 
 ## `_.now()`
 
-Gets the timestamp as the number of milliseconds that have elapsed since the Unix epoch (1 January 1970 00:00:00 UTC). This method is a wrapper for `Date.now()`, providing cross-environment consistency.
+Gets the number of milliseconds that have elapsed since the Unix epoch (1 January 1970 00:00:00 UTC) as a timestamp. This method is a wrapper for `Date.now()` and provides consistency across environments.
 
 ### Arguments
 
@@ -16,7 +16,7 @@ This function does not accept any arguments.
 
 ### Returns
 
-`(number)`: Returns the current timestamp.
+`(number)`: Returns the current timestamp (in milliseconds).
 
 ### Example
 
@@ -43,11 +43,11 @@ Another example is combining it with `_.defer` to check the time difference of a
 _.defer(function(stamp) {
   console.log(_.now() - stamp);
 }, _.now());
-// => Logs the time difference of the deferred call after about 1ms, e.g., 1
+// => Logs the number of milliseconds the deferred call was delayed after about 1ms.
 ```
-
----
 
 `_.now` is a simple and efficient method for getting a high-precision timestamp, often used for performance measurement and timing.
 
-After exploring the date functions, you can continue to explore the [Util](./api-util.md) section to learn about more general-purpose helper functions.
+---
+
+After exploring the date functions, you can continue to the [Function](./api-function.md) section to learn more helper functions for functional programming.

@@ -695,7 +695,7 @@ _.trimStart('  abc  ');
 // => 'abc  '
 
 _.trimStart('-_-abc-_-', '_-');
-// => 'abc-_-'
+// => 'abc-_-' 
 ```
 
 ### truncate
@@ -727,6 +727,17 @@ _.truncate('hi-diddly-ho there, neighborino', {
   'separator': ' '
 });
 // => 'hi-diddly-ho there,...'
+
+_.truncate('hi-diddly-ho there, neighborino', {
+  'length': 24,
+  'separator': /,? +/
+});
+// => 'hi-diddly-ho there...'
+
+_.truncate('hi-diddly-ho there, neighborino', {
+  'omission': ' [...]'
+});
+// => 'hi-diddly-ho there, neig [...]'
 ```
 
 ### unescape
@@ -826,4 +837,4 @@ _.words('fred, barney, & pebbles', /[^, ]+/g);
 // => ['fred', 'barney', '&', 'pebbles']
 ```
 
-以上是 Lodash 中所有字符串相关函数的详细参考。
+以上是 Lodash 中所有可用的字符串函数。要继续浏览其他函数类别，请返回 [API 参考](./api.md) 目录。

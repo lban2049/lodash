@@ -1,12 +1,12 @@
 # Function
 
-This section details utilities in Lodash for manipulating or returning functions. These functions support functional programming techniques like currying, debouncing, throttling, and partial application, enabling the creation of more robust and flexible code.
+This section details the utilities in Lodash for manipulating or returning functions. These functions support functional programming techniques like currying, debouncing, throttling, and partial application, enabling the creation of more powerful and flexible code.
 
-These tools are particularly useful in scenarios such as event handling, asynchronous operations, and function composition. To learn how to use these functions with method chaining, see the documentation for the [Seq (Sequence)](./api-seq.md) section.
+These tools are especially useful in scenarios like event handling, asynchronous operations, and function composition. To learn how to use these functions with method chaining, please refer to the documentation in the [Seq](./api-seq.md) section.
 
 ## after
 
-Creates a function that invokes `func` once it's called `n` or more times. The inverse of `_.before`.
+The opposite of `_.before`, this method creates a function that invokes `func` once it's called `n` or more times.
 
 | Arguments | Type | Description |
 | --- | --- | --- |
@@ -107,7 +107,7 @@ bound('hi');
 
 ## bindKey
 
-Creates a function that invokes the method at `object[key]` with `partials` prepended to the arguments it receives. This method differs from `_.bind` by allowing the bound function to reference a method that may be redefined or not yet exist.
+Creates a function that invokes the method at `object[key]` with `partials` prepended to the arguments it receives. This method differs from `_.bind` by allowing bound functions to reference methods that may be redefined or not yet exist.
 
 | Arguments | Type | Description |
 | --- | --- | --- |
@@ -143,7 +143,7 @@ bound('!');
 
 ## curry
 
-Creates a function that accepts arguments for `func`. If enough arguments are provided, it invokes `func` and returns the result; otherwise, it returns a function that accepts the remaining arguments. The `_.curry.placeholder` value can be used as a placeholder for arguments.
+Creates a function that accepts arguments for `func`. If enough arguments are provided, it invokes `func` and returns the result; otherwise, it returns a function that accepts the remaining arguments. The `_.curry.placeholder` value may be used as a placeholder for arguments.
 
 | Arguments | Type | Description |
 | --- | --- | --- |
@@ -207,26 +207,17 @@ curried(2, 3)(1);
 
 Creates a debounced function that delays invoking `func` until after `wait` milliseconds have elapsed since the last time the debounced function was invoked. The debounced function comes with a `cancel` method to cancel delayed `func` invocations and a `flush` method to immediately invoke them. Provide `options` to indicate whether `func` should be invoked on the leading and/or trailing edge of the `wait` timeout.
 
-```mermaid
-sequenceDiagram
-    participant User as User Action
-    participant Debounced as _.debounce(func)
-    participant Func as Original Function
-    participant Timer as Timer
+```d2
+shape: sequence_diagram
 
-    User->>Debounced: Call 1 (args1)
-    Debounced->>Timer: Start wait timer
-    Note over User, Timer: Wait period begins
+"User Action" -> "_.debounce(func)": "Call 1 (arg1)"
+"_.debounce(func)" -> "Timer": "Start wait timer"
 
-    User->>Debounced: Call 2 (args2)
-    Debounced->>Timer: Reset wait timer
-    Note over User, Timer: Timer restarts
+"User Action" -> "_.debounce(func)": "Call 2 (arg2)"
+"_.debounce(func)" -> "Timer": "Reset wait timer"
 
-    loop Wait period
-        Note right of Timer: Waiting for inactivity...
-    end
-    Timer->>Debounced: Timer expires
-    Debounced->>Func: Invoke with latest args (args2)
+"Timer" -> "_.debounce(func)": "Timer expires"
+"_.debounce(func)" -> "Original Function": "Invoke with latest args (arg2)"
 ```
 
 | Arguments | Type | Description |
@@ -248,8 +239,7 @@ sequenceDiagram
 // Avoid costly calculations while the window size is in flux.
 jQuery(window).on('resize', _.debounce(calculateLayout, 150));
 
-// Invoke `sendMail` at the leading edge of the debounce, and disregard
-// trailing calls.
+// Invoke `sendMail` at the leading edge of the timeout.
 jQuery(element).on('click', _.debounce(sendMail, 300, {
   'leading': true,
   'trailing': false
@@ -329,7 +319,7 @@ flipped('a', 'b', 'c', 'd');
 
 ## memoize
 
-Creates a function that memoizes the result of `func`. If `resolver` is provided, it determines the cache key for storing the result based on the arguments provided to the memoized function. By default, the first argument provided to the memoized function is used as the cache key.
+Creates a function that memoizes the result of `func`. If `resolver` is provided, it determines the cache key for storing the result based on the arguments provided to the memoized function. By default, the first argument provided to the memoized function is used as the map cache key.
 
 | Arguments | Type | Description |
 | --- | --- | --- |
@@ -355,7 +345,7 @@ values(other);
 
 object.a = 2;
 values(object);
-// => [1, 2] (returns cached result)
+// => [1, 2] (cached)
 
 // Modify the result cache.
 values.cache.set(object, ['a', 'b']);
@@ -441,7 +431,7 @@ func(9, 3);
 
 ## partial
 
-Creates a function that invokes `func` with `partials` prepended to the arguments it receives. This method is like `_.bind` except it does not alter the `this` binding.
+Creates a function that invokes `func` with `partials` prepended to the arguments it receives. This method is like `_.bind` without `this` binding.
 
 | Arguments | Type | Description |
 | --- | --- | --- |
@@ -496,7 +486,7 @@ Creates a function that invokes `func` with arguments rearranged according to th
 | Arguments | Type | Description |
 | --- | --- | --- |
 | `func` | `Function` | The function to rearrange arguments for. |
-| `[...indexes]` | `(number|number[])` | The rearranged argument indexes. |
+| `[...indexes]` | `(number|number[])` | The arranged argument indexes. |
 
 **Returns**
 
@@ -515,12 +505,12 @@ rearged('b', 'c', 'a')
 
 ## rest
 
-Creates a function that invokes `func` with the `this` binding and an array of arguments from the `start` position.
+Creates a function that invokes `func` with the `this` binding and an array of arguments from the `start` position onwards.
 
 | Arguments | Type | Description |
 | --- | --- | --- |
-| `func` | `Function` | The function to apply rest parameters to. |
-| `[start=func.length-1]` | `number` | The start position of rest parameters. |
+| `func` | `Function` | The function to apply rest arguments to. |
+| `[start=func.length-1]` | `number` | The start position of rest arguments. |
 
 **Returns**
 
@@ -540,7 +530,7 @@ say('hello', 'fred', 'barney', 'pebbles');
 
 ## spread
 
-Creates a function that invokes `func` with a `this` binding and an array of arguments, similar to `Function#apply`.
+Creates a function that invokes `func` with the `this` binding and an array of arguments, similar to `Function#apply`.
 
 | Arguments | Type | Description |
 | --- | --- | --- |
@@ -566,26 +556,15 @@ say(['fred', 'hello']);
 
 Creates a throttled function that only invokes `func` at most once per every `wait` milliseconds. The throttled function comes with a `cancel` method to cancel delayed `func` invocations and a `flush` method to immediately invoke them.
 
-```mermaid
-sequenceDiagram
-    participant User as User Action
-    participant Throttled as _.throttle(func, wait)
-    participant Func as Original Function
+```d2
+shape: sequence_diagram
 
-    Note over User, Func: leading=true, trailing=true (default)
+"User Action" -> "_.throttle(func, wait)": "Call 1"
+"_.throttle(func, wait)" -> "Original Function": "Invoke (leading)"
 
-    User->>Throttled: Call 1
-    Throttled->>Func: Invoke (leading edge)
-    Note right of Throttled: Cooldown begins (wait ms)
+"User Action" -> "_.throttle(func, wait)": "Call 2"
 
-    User->>Throttled: Call 2
-    Note right of Throttled: Call ignored, but args saved
-
-    loop wait ms
-    end
-
-    Throttled->>Func: Invoke with args from Call 2 (trailing edge)
-    Note right of Throttled: Cooldown ends
+"_.throttle(func, wait)" -> "Original Function": "Invoke with Call 2 args (trailing)"
 ```
 
 | Arguments | Type | Description |
@@ -636,7 +615,7 @@ Creates a function that provides `value` to `wrapper` as its first argument. Any
 | Arguments | Type | Description |
 | --- | --- | --- |
 | `value` | `*` | The value to wrap. |
-| `[wrapper=identity]` | `Function` | The wrapping function. |
+| `[wrapper=identity]` | `Function` | The wrapper function. |
 
 **Returns**
 
@@ -655,4 +634,4 @@ p('fred, barney, & pebbles');
 
 ---
 
-This section covers the core functional utilities in Lodash. Mastering these functions will help you write more concise, declarative code. Next, you can explore the [Lang](./api-lang.md) section for utilities like type checking and object cloning.
+This section covers the core functional utilities in Lodash. Mastering these functions will help in writing more concise and declarative code. Next, you can explore the [Lang](./api-lang.md) section for utilities like type checking and object cloning.

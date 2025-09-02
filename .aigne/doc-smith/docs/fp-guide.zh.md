@@ -1,167 +1,146 @@
-# Functional Programming Guide
+# 函数式编程指南
 
-`lodash/fp` 模块提供了 Lodash 的函数式编程（FP）版本，专为偏爱不可变、自动柯里化、迭代优先和数据置后风格的开发者设计。本指南将详细介绍其核心概念和使用方法。
+Lodash FP 模块 (`lodash/fp`) 提供了一个函数式编程风格的 Lodash 版本。它遵循不可变性、自动柯里化、迭代器优先和数据置后的核心原则，这使得函数组合和代码复用变得更加简洁和强大。
 
-函数式版本的主要特性包括：
+与标准的 Lodash 方法不同，FP 版本的方法经过精心设计，以支持一种更具声明性的编程范式。你可以在 [FP Guide](https://github.com/lodash/lodash/wiki/FP-Guide) Wiki 页面找到更多信息。
 
-- **不可变性 (Immutability)**: 方法不会修改输入数据，而是返回新的数据副本。
-- **自动柯里化 (Auto-currying)**: 所有方法都经过柯里化处理，可以轻松地创建偏函数。
-- **迭代优先、数据置后 (Iteratee-first, data-last)**: 函数签名经过重新排列，将数据集合作为最后一个参数，便于函数组合。
-- **固定元数 (Fixed arity)**: 函数具有固定的参数数量，以支持柯里化。
+## 核心原则
 
-## 核心概念
+Lodash FP 的设计基于四个核心原则，这些原则共同作用，为 JavaScript 提供了强大的函数式编程能力。
 
-### 不可变性 (Immutability)
+<x-cards data-columns="2">
+  <x-card data-title="数据置后 (Data-Last)" data-icon="lucide:align-end-vertical">
+    集合或数据对象始终作为最后一个参数传递。这使得你可以轻松地创建新函数，等待数据传入后执行。
+  </x-card>
+  <x-card data-title="自动柯里化 (Auto-Curried)" data-icon="lucide:git-fork">
+    所有方法都是自动柯里化的，这意味着你可以传递部分参数并返回一个等待其余参数的新函数。
+  </x-card>
+  <x-card data-title="不可变性 (Immutability)" data-icon="lucide:shield-check">
+    FP 方法不会修改输入数据。任何会产生副作用的操作（如 `fill` 或 `assign`）都会返回一个新的实例，而原始数据保持不变。
+  </x-card>
+  <x-card data-title="迭代器优先 (Iteratee-First)" data-icon="lucide:list-filter">
+    处理集合的函数（迭代器）作为第一个参数传递。这与数据置后原则相辅相成，便于函数的创建和组合。
+  </x-card>
+</x-cards>
 
-在标准 Lodash 中，一些方法会直接修改传入的数组或对象（例如 `_.pull`）。而在 `lodash/fp` 中，所有具有副作用的方法都被封装为纯函数，确保不会修改原始数据。它们会返回一个经过修改的新实例。
+### 数据流对比
 
-以下是经过不可变处理的方法列表：
+为了更直观地理解标准 Lodash 和 Lodash FP 之间的差异，下面的图表演示了 `map` 函数在两种模式下的数据流。
 
-| 类型 | 方法 |
-|---|---|
-| **Array** | `fill`, `pull`, `pullAll`, `pullAllBy`, `pullAllWith`, `pullAt`, `remove`, `reverse` |
-| **Object** | `assign`, `assignAll`, `assignAllWith`, `assignIn`, `assignInAll`, `assignInAllWith`, `assignInWith`, `assignWith`, `defaults`, `defaultsAll`, `defaultsDeep`, `defaultsDeepAll`, `merge`, `mergeAll`, `mergeAllWith`, `mergeWith` |
-| **Set** | `set`, `setWith`, `unset`, `update`, `updateWith` |
+```d2
+direction: down
 
-### 自动柯里化与数据置后
+"Standard Lodash Data Flow": {
+  direction: right
+  data: "Collection\n[1, 2, 3]"
+  iteratee: "Iteratee\nn => n * 2"
+  map_func: "_.map(collection, iteratee)"
+  result: "Result\n[2, 4, 6]"
+  
+  data -> map_func
+  iteratee -> map_func
+  map_func -> result
+}
 
-`lodash/fp` 中的所有函数都是自动柯里化的。这意味着当你使用比函数预期更少的参数调用它时，它会返回一个新函数，等待接收剩余的参数。这种机制与“数据置后”的参数顺序相结合，极大地增强了函数的可组合性。
+"Lodash FP Data Flow (Point-free style)": {
+  direction: right
+  iteratee_fp: "Iteratee\nn => n * 2"
+  curried_func: "fp.map(iteratee)"
+  data_fp: "Collection\n[1, 2, 3]"
+  apply_data: "curriedMapFn([1, 2, 3])"
+  result_fp: "Result\n[2, 4, 6]"
 
-例如，你可以轻松创建一个可重用的函数来提取对象中的特定属性：
-
-```javascript
-const fp = require('lodash/fp');
-
-// `fp.get` 需要一个路径参数。由于只提供了一个参数，
-// 它返回一个新函数，该函数等待接收一个对象。
-const getName = fp.get('name');
-
-const user1 = { name: 'Alice', age: 30 };
-const user2 = { name: 'Bob', age: 40 };
-
-// 将新函数应用于不同的数据
-console.log(getName(user1)); // 输出: 'Alice'
-console.log(getName(user2)); // 输出: 'Bob'
+  iteratee_fp -> curried_func: "返回一个新函数 `curriedMapFn`"
+  curried_func -> apply_data
+  data_fp -> apply_data
+  apply_data -> result_fp
+}
 ```
 
-这个过程可以用下图来表示：
+## 方法转换
 
-```mermaid
-flowchart TD
-    A["fp.map(transformFn)"] -- "返回一个等待数据的新函数" --> B["mapper = fp.map(transformFn)"];
-    C["[data1, data2, data3]"] -- "将数据传递给新函数" --> D["mapper([data1, data2, data3])"];
-    D -- "执行转换并返回新数组" --> E["[transformed_data1, transformed_data2, transformed_data3]"];
-```
+为了实现函数式风格，FP 模块对标准 Lodash 方法进行了转换。主要包括参数重排和提供别名。
 
-#### 占位符 (Placeholder)
+### 参数顺序
 
-`lodash/fp` 支持使用占位符 `_` 来进行柯里化，允许你先指定后面的参数。占位符是 `fp` 对象本身。
+大多数接受集合或对象作为参数的方法都已重新排列，以将数据参数放在最后。这对于柯里化和函数组合至关重要。
 
-```javascript
-const fp = require('lodash/fp');
-
-// 创建一个函数，它会从任意数字中减去 10
-const subtract10 = fp.subtract(_, 10);
-
-console.log(subtract10(25)); // 输出: 15
-```
-
-### 参数顺序重排
-
-为了实现“数据置后”的原则，`lodash/fp` 对许多原生 Lodash 方法的参数顺序进行了调整。通常，迭代函数（iteratee）、属性路径（path）或配置对象会作为第一个参数，而要操作的集合或对象则作为最后一个参数。
-
-下表展示了一些常见方法的参数顺序对比：
-
-| 方法 | 标准 Lodash 签名 | `lodash/fp` 签名 |
+| 标准 Lodash | Lodash FP | 参数重排说明 |
 |---|---|---|
-| `map` | `_.map(collection, iteratee)` | `fp.map(iteratee)(collection)` |
-| `filter` | `_.filter(collection, predicate)` | `fp.filter(predicate)(collection)` |
-| `get` | `_.get(object, path, [defaultValue])` | `fp.get(path)(object)` 或 `fp.getOr(defaultValue, path)(object)` |
-| `reduce` | `_.reduce(collection, iteratee, [accumulator])` | `fp.reduce(iteratee, accumulator)(collection)` |
-| `set` | `_.set(object, path, value)` | `fp.set(path, value)(object)` |
+| `_.filter(collection, predicate)` | `fp.filter(predicate)(collection)` | `predicate` 优先，`collection` 置后。 |
+| `_.get(object, path, defaultValue)` | `fp.get(path)(object)` 或 `fp.getOr(defaultValue, path)(object)` | `path` 优先，`object` 置后。`getOr` 是一个独立的变体。 |
+| `_.isMatchWith(object, source, customizer)` | `fp.isMatchWith(customizer, source)(object)` | `customizer` 和 `source` 优先，`object` 置后。 |
+| `_.reduce(collection, iteratee, accumulator)` | `fp.reduce(iteratee, accumulator)(collection)` | `iteratee` 和 `accumulator` 优先，`collection` 置后。 |
+| `_.set(object, path, value)` | `fp.set(path, value)(object)` | `path` 和 `value` 优先，`object` 置后。 |
 
-## 方法别名
+### 方法别名
 
-为了提升与其他函数式编程库（如 Ramda）的兼容性并提供更符合语义的命名，`lodash/fp` 引入了大量的方法别名。
+为了给熟悉 Ramda 等其他函数式库的开发者提供便利，`lodash/fp` 提供了许多常见方法的别名。
 
-### Lodash 内部别名
+| Lodash FP 别名 | 原始 Lodash 方法 | 描述 |
+|---|---|---|
+| `pipe` | `flow` | 从左到右组合函数。 |
+| `compose` | `flowRight` | 从右到左组合函数。 |
+| `prop` | `get` | 获取对象的属性值。 |
+| `assoc` | `set` | 设置对象的属性值（不可变）。 |
+| `contains` | `includes` | 检查集合是否包含某个值。 |
+| `all` | `every` | 检查集合中的所有元素是否都满足断言。 |
+| `any` | `some` | 检查集合中是否有任何元素满足断言。 |
+| `__` | `placeholder` | 用于部分应用的占位符。 |
+| `T` | `stubTrue` | 返回 `true` 的函数。 |
+| `F` | `stubFalse` | 返回 `false` 的函数。 |
 
-| 真实名称 | 别名 |
-|---|---|
-| `forEach` | `each` |
-| `forEachRight` | `eachRight` |
-| `toPairs` | `entries` |
-| `toPairsIn` | `entriesIn`|
-| `assignIn` | `extend` |
-| `head` | `first` |
+## 使用占位符进行部分应用
 
-### Ramda 兼容性别名
+当你需要在一个非首位的参数位置上预先填充数据时，可以使用占位符 `fp.placeholder`（或其别名 `__`）。这在创建需要特定参数顺序的函数时非常有用。
 
-| 真实名称 | Ramda 别名 |
-|---|---|
-| `placeholder` | `__` |
-| `stubFalse` | `F` |
-| `stubTrue` | `T` |
-| `every` | `all` |
-| `overEvery` | `allPass` |
-| `constant` | `always` |
-| `some` | `any` |
-| `overSome` | `anyPass` |
-| `spread` | `apply` |
-| `set` | `assoc`, `assocPath` |
-| `negate` | `complement` |
-| `flowRight` | `compose` |
-| `includes` | `contains` |
-| `unset` | `dissoc`, `dissocPath` |
-| `dropRight` | `dropLast` |
-| `isEqual` | `equals` |
-| `eq` | `identical` |
-| `keyBy` | `indexBy` |
-| `initial` | `init` |
-| `invert` | `invertObj` |
-| `over` | `juxt` |
-| `flow` | `pipe` |
-| `get` | `path`, `prop` |
-| `at` | `paths`, `props` |
-| `matchesProperty` | `pathEq`, `propEq` |
-| `xor` | `symmetricDifference` |
-| `flatten` | `unnest` |
-| `overArgs` | `useWith` |
-| `conformsTo` | `where` |
-| `isMatch` | `whereEq` |
-| `zipObject` | `zipObj` |
-
-## 自定义转换
-
-`lodash/fp` 提供了 `convert` 方法，允许你根据特定需求创建一个自定义的 `lodash` 实例。你可以精细地控制柯里化、不可变性等行为。
-
-`convert` 方法接受一个配置对象，包含以下选项：
-
-- `cap` (boolean): 是否限制迭代函数的参数数量，默认为 `true`。
-- `curry` (boolean): 是否进行柯里化，默认为 `true`。
-- `fixed` (boolean): 是否使用固定元数，默认为 `true`。
-- `immutable` (boolean): 是否强制不可变性，默认为 `true`。
-- `rearg` (boolean): 是否重排参数顺序，默认为 `true`。
-
-**示例：创建一个禁用参数重排的 FP 版本**
+例如，`fp.subtract` 的签名是 `fp.subtract(subtrahend)(minuend)`，它计算 `minuend - subtrahend`。
 
 ```javascript
 const fp = require('lodash/fp');
-const _ = require('lodash');
 
-// 创建一个自定义实例，其函数签名与标准 lodash 保持一致，但仍支持自动柯里化
-const customFp = fp.convert({ 'rearg': false });
+// 创建一个函数，从 10 中减去一个数
+// 相当于创建一个函数 x => 10 - x
+const subtractFrom10 = fp.subtract(fp.__, 10);
 
-const collection = [{ 'a': 1 }, { 'a': 2 }];
-
-// 标准 lodash 风格调用
-const result1 = customFp.map(collection, 'a');
-console.log(result1); // 输出: [1, 2]
-
-// 柯里化仍然有效
-const getA = customFp.map(_, 'a');
-const result2 = getA(collection);
-console.log(result2); // 输出: [1, 2]
+const result = subtractFrom10(4);
+console.log(result);
+// => 6
 ```
 
-这个功能允许开发者根据项目的具体函数式编程风格来精确定制库的行为。
+在这个例子中，占位符 `__` 占据了第一个参数（`subtrahend`）的位置，允许我们先提供第二个参数 `10`（`minuend`）。
+
+## 高级定制：`convert` 函数
+
+如果你需要对 FP 模块的行为进行更精细的控制，可以使用 `convert` 函数。它允许你创建一个自定义的 Lodash FP 实例，并可以配置其行为，例如禁用自动柯里化或不可变性。
+
+```javascript
+const _ = require('lodash');
+const fp = require('lodash/fp');
+
+// 创建一个禁用了自动柯里化功能的 Lodash FP 版本
+const nonCurriedFp = fp.convert({ 'curry': false });
+
+const iteratee = x => x * 2;
+const collection = [1, 2, 3];
+
+// 由于禁用了柯里化，下面的调用方式会抛出错误
+// nonCurriedFp.map(iteratee)(collection);
+
+// 你必须像调用标准 Lodash 函数一样一次性提供所有参数
+const result = nonCurriedFp.map(iteratee, collection);
+console.log(result);
+// => [2, 4, 6]
+```
+
+`convert` 函数接受一个配置对象，你可以通过它来开启或关闭以下特性：
+
+| 配置项 | 默认值 | 描述 |
+|---|---|---|
+| `cap` | `true` | 是否限制迭代器的参数数量。 |
+| `curry` | `true` | 是否启用自动柯里化。 |
+| `fixed` | `true` | 是否固定函数参数个数，以支持柯里化。 |
+| `immutable` | `true` | 是否强制不可变性，对有副作用的方法进行包装。 |
+| `rearg` | `true` | 是否重排参数顺序以实现数据置后。 |
+
+通过本指南，你应该对 Lodash FP 的核心概念和用法有了深入的了解。要查看所有可用的函数，请继续浏览 [API 参考](./api.md)。

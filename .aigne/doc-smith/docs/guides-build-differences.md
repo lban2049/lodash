@@ -1,111 +1,144 @@
 # Build Differences
 
-Lodash offers various build versions and module formats to suit different development environments and performance requirements. Choosing the right build version can significantly optimize your application's bundle size and loading speed. This guide will explain in detail the differences between the various available build versions and guide you on how to choose the one that best suits your project.
+Lodash is available in a variety of builds and module formats to accommodate different development environments and performance needs. Selecting the appropriate build can significantly optimize your application's bundle size and load time. This guide explains the differences between the available builds and helps you choose the one that best fits your project.
 
-## Main Builds
+## Core vs. Full Builds
 
-Lodash primarily provides two pre-compiled builds: the full build and the core build.
+Lodash offers two primary pre-compiled builds: a lightweight **Core** build and a comprehensive **Full** build.
 
 | Feature | Full Build | Core Build |
 |---|---|---|
-| Description | The complete version that includes all Lodash functionalities. | A lightweight version that includes only the most common and core functions, without extra features like `chain`. |
-| gzipped Size | ~24 kB | ~4 kB |
-| How to Import | `require('lodash')` | `require('lodash/core')` |
-| Use Cases | Node.js backends, rapid prototyping, or applications where bundle size is not a concern. | Front-end projects, mobile applications, and scenarios with high initial load performance requirements. |
+| **Description** | Includes all Lodash functions for a wide range of utilities. | A lightweight version containing a subset of the most common functions, suitable for environments where bundle size is critical. |
+| **Gzipped Size** | ~24 kB | ~4 kB |
+| **Node.js Import** | `require('lodash')` | `require('lodash/core')` |
+| **Use Case** | Ideal for Node.js applications or projects where bundle size is not a primary concern. | Recommended for front-end applications, mobile web, or any scenario where initial load performance is a priority. |
 
-You can download these builds directly from the official website or a CDN:
+You can download these builds directly or use a CDN:
 
 - **Core Build**: [lodash.core.js](https://raw.githubusercontent.com/lodash/lodash/4.17.21/dist/lodash.core.js)
 - **Full Build**: [lodash.js](https://raw.githubusercontent.com/lodash/lodash/4.17.21/dist/lodash.js)
-- **More CDN Options**: [JSDelivr](https://www.jsdelivr.com/projects/lodash)
+- **CDN Options**: [jsdelivr](https://www.jsdelivr.com/projects/lodash)
 
-## Module Formats and On-Demand Loading
+## Module Formats and Optimization
 
-To better integrate with the modern JavaScript ecosystem, Lodash supports multiple module formats and encourages on-demand loading to minimize the final bundle size.
+To integrate with modern JavaScript tooling, Lodash supports several module formats that enable optimizations like tree-shaking.
 
-### 1. UMD (Universal Module Definition)
+### UMD (Universal Module Definition)
 
-The standard `lodash` npm package uses the UMD format, allowing it to work seamlessly in various environments, including browser globals, AMD (like RequireJS), and CommonJS (like Node.js).
+The standard `lodash` package uses the UMD format, making it compatible with various environments.
 
-**Browser Environment:**
+**In a browser:**
 ```html
 <script src="lodash.js"></script>
 ```
 
-**Node.js Environment:**
+**In Node.js:**
 ```javascript
-// Load the full build
+// Load the full build.
 var _ = require('lodash');
 
-// Load the core build
+// Load the core build.
 var _ = require('lodash/core');
 ```
 
-### 2. Cherry-picking Individual Methods
+### Cherry-picking Methods
 
-This is the most recommended optimization method for front-end projects. You can import only the methods you need, and bundlers (like webpack or Rollup) will automatically perform tree shaking, significantly reducing the bundle size.
+For front-end projects, the most effective optimization is to import only the methods you need. This allows bundlers like webpack or Rollup to perform tree-shaking and exclude unused code from the final bundle.
 
 ```javascript
-// Import only the at method, not the entire library
+// Cherry-pick methods for smaller bundles.
 var at = require('lodash/at');
-
-// Also applicable to the FP build
 var curryN = require('lodash/fp/curryN');
 ```
 
-### 3. ES Modules (`lodash-es`)
+### ES Modules
 
-If you are working in an environment that supports ES modules, you can install the `lodash-es` package. It provides native ES module import and export syntax, which works better with modern front-end toolchains (like Vite, webpack) for more efficient tree shaking.
+For projects using ES modules, the `lodash-es` package is recommended. It provides native ES module exports, which allows for more efficient tree-shaking with modern build tools. To further automate this process, you can use [babel-plugin-lodash](https://www.npmjs.com/package/babel-plugin-lodash) and [lodash-webpack-plugin](https://www.npmjs.com/package/lodash-webpack-plugin).
 
-You can also use [babel-plugin-lodash](https://www.npmjs.com/package/babel-plugin-lodash) and [lodash-webpack-plugin](https://www.npmjs.com/package/lodash-webpack-plugin) to automate the process of cherry-picking.
+### Functional Programming (FP) Build
 
-### 4. Functional Programming (FP) Build
-
-Lodash offers a dedicated functional programming version, which features auto-curried methods, an "iteratee-first, data-last" argument order, and is immutable.
+Lodash also provides a build for functional programming. This version features immutable, auto-curried, iteratee-first, and data-last methods.
 
 ```javascript
-// Load the FP build
+// Load the FP build.
 var fp = require('lodash/fp');
 ```
+For a deeper dive into this paradigm, see the [Functional Programming Guide](./fp-guide.md).
 
-For more information on the FP build, please refer to the [FP Guide](./fp-guide.md).
+## How to Choose
 
-## How to Choose the Right Build
+Use this chart to determine the best build for your needs:
 
-You can use the following flowchart to make a decision:
+```d2
+direction: down
 
-```mermaid
-graph TD
-    A["Start: Choose a Lodash Build"] --> B{"What is your development environment?"};
-    B -- "Browser" --> C{"Is initial load size critical?"};
-    B -- "Node.js" --> D["Use the full lodash package (CommonJS)"];
-    B -- "Modern Bundler (Webpack, Vite)" --> E["Use lodash-es or cherry-pick methods"];
-    C -- "Yes" --> F["Use the core build lodash.core.js"];
-    C -- "No" --> G["Use the full build lodash.js"];
-    E --> H{"Do you prefer a functional programming style?"};
-    D --> H;
-    H -- "Yes" --> I["Use lodash/fp or FP methods from lodash-es"];
-    H -- "No" --> J["Selection Complete"];
-    F --> J;
-    G --> J;
-    I --> J;
+start: "Start: Choose Lodash Build"
+
+env_check: "What is your environment?"
+
+start -> env_check
+
+subgraph "Browser" {
+  direction: down
+  bundle_sensitive: "Is bundle size critical?"
+  use_core: "Use Core Build (lodash.core.js) or Cherry-pick methods."
+  use_full: "Use Full Build (lodash.js)."
+
+  bundle_sensitive -> use_core: "Yes"
+  bundle_sensitive -> use_full: "No"
+}
+
+subgraph "Node.js" {
+  direction: down
+  use_full_node: "Use the full 'lodash' package."
+}
+
+subgraph "Modern Bundler (webpack, Vite)" {
+  direction: down
+  use_es: "Use 'lodash-es' or Cherry-pick methods for optimal tree-shaking."
+}
+
+env_check -> bundle_sensitive: "Browser"
+env_check -> use_full_node: "Node.js"
+env_check -> use_es: "Modern Bundler"
+
+fp_check: "Do you prefer a functional programming style?"
+
+use_core --> fp_check
+use_full --> fp_check
+use_full_node --> fp_check
+use_es --> fp_check
+
+end: "Selection Complete"
+
+use_fp: "Use the 'lodash/fp' variant."
+
+fp_check -> use_fp: "Yes"
+fp_check -> end: "No"
+use_fp -> end
 ```
 
-## Creating Custom Builds
+## Custom Builds
 
-For advanced users with special requirements, the `lodash-cli` tool can be used to create custom builds that include only the methods you need.
+For full control, you can create a custom build using `lodash-cli` to include only the specific methods your project requires. The build process can be initiated through npm scripts defined in `package.json`.
 
-First, ensure that the project dependencies are installed, then you can run the build scripts.
+**Generate Standard Builds**
+
+This command will generate the main and FP distribution files in the `./dist/` directory.
+```shell
+$ npm run build
+```
+
+**Use lodash-cli Directly**
+
+Alternatively, you can use the `lodash-cli` to generate specific builds.
 
 ```shell
-# Run the built-in build script to generate files in the dist directory
-$ npm run build
-
-# Use lodash-cli to create a full build
+# Create a full build
 $ lodash -o ./dist/lodash.js
 
-# Use lodash-cli to create a core build
+# Create the core build
 $ lodash core -o ./dist/lodash.core.js
 ```
 
-By understanding the differences between these builds, you can make the best choice for your project, finding the perfect balance between functionality and performance. Next, you may want to delve into [Performance Optimization Tips](./guides-performance.md) to further improve your code's efficiency.
+By understanding these build differences, you can make an informed choice that balances functionality with performance. To further optimize your code, consider reading our guide on [Performance](./guides-performance.md).

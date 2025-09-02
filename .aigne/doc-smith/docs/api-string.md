@@ -1,14 +1,14 @@
 # String
 
-This section details the functions in Lodash for string manipulation and inspection. These tools can help you easily handle common string tasks like case conversion, trimming, padding, truncating, and more. For functions that operate on other data types, please refer to our [API Reference](./api.md) home page.
+This section details the functions in Lodash for string manipulation and inspection. These tools can help you easily handle common string tasks such as case conversion, trimming, padding, truncation, and more. To learn about functions for other data types, please refer to our [API Reference](./api.md) home page.
 
 ## Function List
 
 | Function | Description |
 | --- | --- |
-| [camelCase](#camelcase) | Converts string to camel case. |
+| [camelCase](#camelcase) | Converts a string to camel case. |
 | [capitalize](#capitalize) | Converts the first character of a string to upper case and the remaining to lower case. |
-| [deburr](#deburr) | Deburrs a string by converting Latin-1 Supplement & Latin Extended-A letters to basic Latin letters and removing combining diacritical marks. |
+| [deburr](#deburr) | Deburrs a string by converting Latin-1 Supplement and Latin Extended-A letters to basic Latin letters and removing combining diacritical marks. |
 | [endsWith](#endswith) | Checks if a string ends with the given target string. |
 | [escape](#escape) | Converts the characters `&`, `<`, `>`, `"`, and `'` in a string to their corresponding HTML entities. |
 | [escapeRegExp](#escaperegexp) | Escapes the `RegExp` special characters. |
@@ -20,9 +20,9 @@ This section details the functions in Lodash for string manipulation and inspect
 | [padStart](#padstart) | Pads a string on the left side if it's shorter than the specified length. |
 | [parseInt](#parseint) | Converts a string to an integer of the specified radix. |
 | [repeat](#repeat) | Repeats the given string `n` times. |
-| [replace](#replace) | Replaces matches for `pattern` in a string. |
+| [replace](#replace) | Replaces matches for a `pattern` in a string. |
 | [snakeCase](#snakecase) | Converts a string to snake case. |
-| [split](#split) | Splits a string by `separator`. |
+| [split](#split) | Splits a string by a `separator`. |
 | [startCase](#startcase) | Converts a string to start case. |
 | [startsWith](#startswith) | Checks if a string starts with the given target string. |
 | [template](#template) | Creates a compiled template function. |
@@ -41,17 +41,17 @@ This section details the functions in Lodash for string manipulation and inspect
 
 ### camelCase
 
-Converts a string to [camel case](https://en.wikipedia.org/wiki/CamelCase).
+Converts string to [camel case](https://en.wikipedia.org/wiki/CamelCase).
 
-**Arguments**
+**Parameters**
 
-| Argument | Type | Description |
+| Parameter | Type | Description |
 | --- | --- | --- |
 | `[string='']` | `string` | The string to convert. |
 
 **Returns**
 
-`(string)`: Returns the camel-cased string.
+`(string)`: Returns the camel cased string.
 
 **Example**
 
@@ -68,11 +68,11 @@ _.camelCase('__FOO_BAR__');
 
 ### capitalize
 
-Converts the first character of a string to upper case and the remaining to lower case.
+Converts the first character of string to upper case and the remaining to lower case.
 
-**Arguments**
+**Parameters**
 
-| Argument | Type | Description |
+| Parameter | Type | Description |
 | --- | --- | --- |
 | `[string='']` | `string` | The string to capitalize. |
 
@@ -89,11 +89,11 @@ _.capitalize('FRED');
 
 ### deburr
 
-Deburrs a string by converting [Latin-1 Supplement](https://en.wikipedia.org/wiki/Latin-1_Supplement_(Unicode_block)#Character_table) and [Latin Extended-A](https://en.wikipedia.org/wiki/Latin_Extended-A) letters to basic Latin letters and removing [combining diacritical marks](https://en.wikipedia.org/wiki/Combining_Diacritical_Marks).
+Deburrs string by converting [Latin-1 Supplement](https://en.wikipedia.org/wiki/Latin-1_Supplement_(Unicode_block)#Character_table) and [Latin Extended-A](https://en.wikipedia.org/wiki/Latin_Extended-A) letters to basic Latin letters and removing [combining diacritical marks](https://en.wikipedia.org/wiki/Combining_Diacritical_Marks).
 
-**Arguments**
+**Parameters**
 
-| Argument | Type | Description |
+| Parameter | Type | Description |
 | --- | --- | --- |
 | `[string='']` | `string` | The string to deburr. |
 
@@ -110,11 +110,11 @@ _.deburr('déjà vu');
 
 ### endsWith
 
-Checks if a string ends with the given target string.
+Checks if string ends with the given target string.
 
-**Arguments**
+**Parameters**
 
-| Argument | Type | Description |
+| Parameter | Type | Description |
 | --- | --- | --- |
 | `[string='']` | `string` | The string to inspect. |
 | `[target]` | `string` | The string to search for. |
@@ -122,7 +122,7 @@ Checks if a string ends with the given target string.
 
 **Returns**
 
-`(boolean)`: Returns `true` if the string ends with `target`, else `false`.
+`(boolean)`: Returns `true` if `string` ends with `target`, else `false`.
 
 **Example**
 
@@ -141,9 +141,9 @@ _.endsWith('abc', 'b', 2);
 
 Converts the characters `&`, `<`, `>`, `"`, and `'` in a string to their corresponding HTML entities.
 
-**Arguments**
+**Parameters**
 
-| Argument | Type | Description |
+| Parameter | Type | Description |
 | --- | --- | --- |
 | `[string='']` | `string` | The string to escape. |
 
@@ -162,9 +162,9 @@ _.escape('fred, barney, & pebbles');
 
 Escapes the `RegExp` special characters `^`, `$`, `\`, `.`, `*`, `+`, `?`, `(`, `)`, `[`, `]`, `{`, `}`, and `|`.
 
-**Arguments**
+**Parameters**
 
-| Argument | Type | Description |
+| Parameter | Type | Description |
 | --- | --- | --- |
 | `[string='']` | `string` | The string to escape. |
 
@@ -181,17 +181,17 @@ _.escapeRegExp('[lodash](https://lodash.com/)');
 
 ### kebabCase
 
-Converts a string to [kebab case](https://en.wikipedia.org/wiki/Letter_case#Special_case_styles).
+Converts string to [kebab case](https://en.wikipedia.org/wiki/Letter_case#Special_case_styles).
 
-**Arguments**
+**Parameters**
 
-| Argument | Type | Description |
+| Parameter | Type | Description |
 | --- | --- | --- |
 | `[string='']` | `string` | The string to convert. |
 
 **Returns**
 
-`(string)`: Returns the kebab-cased string.
+`(string)`: Returns the kebab cased string.
 
 **Example**
 
@@ -208,17 +208,17 @@ _.kebabCase('__FOO_BAR__');
 
 ### lowerCase
 
-Converts a string, as space-separated words, to lower case.
+Converts string, as space-separated words, to lower case.
 
-**Arguments**
+**Parameters**
 
-| Argument | Type | Description |
+| Parameter | Type | Description |
 | --- | --- | --- |
 | `[string='']` | `string` | The string to convert. |
 
 **Returns**
 
-`(string)`: Returns the lower-cased string.
+`(string)`: Returns the lower cased string.
 
 **Example**
 
@@ -237,9 +237,9 @@ _.lowerCase('__FOO_BAR__');
 
 Converts the first character of a string to lower case.
 
-**Arguments**
+**Parameters**
 
-| Argument | Type | Description |
+| Parameter | Type | Description |
 | --- | --- | --- |
 | `[string='']` | `string` | The string to convert. |
 
@@ -261,13 +261,13 @@ _.lowerFirst('FRED');
 
 Pads `string` on the left and right sides if it's shorter than `length`. Padding characters are truncated if they can't be evenly divided.
 
-**Arguments**
+**Parameters**
 
-| Argument | Type | Description |
+| Parameter | Type | Description |
 | --- | --- | --- |
 | `[string='']` | `string` | The string to pad. |
 | `[length=0]` | `number` | The padding length. |
-| `[chars=' ']` | `string` | The string used as padding. |
+| `[chars=' ']` | `string` | The string to pad with. |
 
 **Returns**
 
@@ -290,13 +290,13 @@ _.pad('abc', 3);
 
 Pads `string` on the right side if it's shorter than `length`. Padding characters are truncated if they exceed `length`.
 
-**Arguments**
+**Parameters**
 
-| Argument | Type | Description |
+| Parameter | Type | Description |
 | --- | --- | --- |
 | `[string='']` | `string` | The string to pad. |
 | `[length=0]` | `number` | The padding length. |
-| `[chars=' ']` | `string` | The string used as padding. |
+| `[chars=' ']` | `string` | The string to pad with. |
 
 **Returns**
 
@@ -319,13 +319,13 @@ _.padEnd('abc', 3);
 
 Pads `string` on the left side if it's shorter than `length`. Padding characters are truncated if they exceed `length`.
 
-**Arguments**
+**Parameters**
 
-| Argument | Type | Description |
+| Parameter | Type | Description |
 | --- | --- | --- |
 | `[string='']` | `string` | The string to pad. |
 | `[length=0]` | `number` | The padding length. |
-| `[chars=' ']` | `string` | The string used as padding. |
+| `[chars=' ']` | `string` | The string to pad with. |
 
 **Returns**
 
@@ -348,9 +348,9 @@ _.padStart('abc', 3);
 
 Converts a string to an integer of the specified radix. If `radix` is `undefined` or `0`, `radix` defaults to `10` unless `value` is a hexadecimal string, in which case `radix` is `16`.
 
-**Arguments**
+**Parameters**
 
-| Argument | Type | Description |
+| Parameter | Type | Description |
 | --- | --- | --- |
 | `string` | `string` | The string to convert. |
 | `[radix=10]` | `number` | The radix to interpret `value` by. |
@@ -373,9 +373,9 @@ _.map(['6', '08', '10'], _.parseInt);
 
 Repeats the given string `n` times.
 
-**Arguments**
+**Parameters**
 
-| Argument | Type | Description |
+| Parameter | Type | Description |
 | --- | --- | --- |
 | `[string='']` | `string` | The string to repeat. |
 | `[n=1]` | `number` | The number of times to repeat. |
@@ -401,9 +401,9 @@ _.repeat('abc', 0);
 
 Replaces matches for `pattern` in a string with `replacement`.
 
-**Arguments**
+**Parameters**
 
-| Argument | Type | Description |
+| Parameter | Type | Description |
 | --- | --- | --- |
 | `[string='']` | `string` | The string to modify. |
 | `pattern` | `RegExp`\|`string` | The pattern to replace. |
@@ -422,17 +422,17 @@ _.replace('Hi Fred', 'Fred', 'Barney');
 
 ### snakeCase
 
-Converts a string to [snake case](https://en.wikipedia.org/wiki/Snake_case).
+Converts string to [snake case](https://en.wikipedia.org/wiki/Snake_case).
 
-**Arguments**
+**Parameters**
 
-| Argument | Type | Description |
+| Parameter | Type | Description |
 | --- | --- | --- |
 | `[string='']` | `string` | The string to convert. |
 
 **Returns**
 
-`(string)`: Returns the snake-cased string.
+`(string)`: Returns the snake cased string.
 
 **Example**
 
@@ -451,12 +451,12 @@ _.snakeCase('--FOO-BAR--');
 
 Splits a string by `separator`.
 
-**Arguments**
+**Parameters**
 
-| Argument | Type | Description |
+| Parameter | Type | Description |
 | --- | --- | --- |
 | `[string='']` | `string` | The string to split. |
-| `separator` | `RegExp`\|`string` | The separator pattern. |
+| `separator` | `RegExp`\|`string` | The pattern to split by. |
 | `[limit]` | `number` | The length to truncate results to. |
 
 **Returns**
@@ -472,17 +472,17 @@ _.split('a-b-c', '-', 2);
 
 ### startCase
 
-Converts a string to [start case](https://en.wikipedia.org/wiki/Letter_case#Stylistic_or_specialised_usage).
+Converts string to [start case](https://en.wikipedia.org/wiki/Letter_case#Stylistic_or_specialised_usage).
 
-**Arguments**
+**Parameters**
 
-| Argument | Type | Description |
+| Parameter | Type | Description |
 | --- | --- | --- |
 | `[string='']` | `string` | The string to convert. |
 
 **Returns**
 
-`(string)`: Returns the start-cased string.
+`(string)`: Returns the start cased string.
 
 **Example**
 
@@ -501,9 +501,9 @@ _.startCase('__FOO_BAR__');
 
 Checks if a string starts with the given target string.
 
-**Arguments**
+**Parameters**
 
-| Argument | Type | Description |
+| Parameter | Type | Description |
 | --- | --- | --- |
 | `[string='']` | `string` | The string to inspect. |
 | `[target]` | `string` | The string to search for. |
@@ -511,7 +511,7 @@ Checks if a string starts with the given target string.
 
 **Returns**
 
-`(boolean)`: Returns `true` if the string starts with `target`, else `false`.
+`(boolean)`: Returns `true` if `string` starts with `target`, else `false`.
 
 **Example**
 
@@ -528,17 +528,17 @@ _.startsWith('abc', 'b', 1);
 
 ### template
 
-Creates a compiled template function that can interpolate data properties. If an options object is provided, it will override `_.templateSettings`'s values.
+Creates a compiled template function that can interpolate data properties. If an options object is provided, it will override values in `_.templateSettings`.
 
-**Arguments**
+**Parameters**
 
-| Argument | Type | Description |
+| Parameter | Type | Description |
 | --- | --- | --- |
 | `[string='']` | `string` | The template string. |
 | `[options={}]` | `Object` | The options object. |
 | `[options.escape]` | `RegExp` | The HTML "escape" delimiter. |
 | `[options.evaluate]` | `RegExp` | The "evaluate" delimiter. |
-| `[options.imports]` | `Object` | An object of values to import into the template as free variables. |
+| `[options.imports]` | `Object` | The object of imports to make available as free variables within the template. |
 | `[options.interpolate]` | `RegExp` | The "interpolate" delimiter. |
 | `[options.sourceURL]` | `string` | The sourceURL of the compiled template. |
 | `[options.variable]` | `string` | The data object variable name. |
@@ -570,15 +570,15 @@ compiled({ 'users': ['fred', 'barney'] });
 
 Converts the entire string to lower case, similar to `String#toLowerCase`.
 
-**Arguments**
+**Parameters**
 
-| Argument | Type | Description |
+| Parameter | Type | Description |
 | --- | --- | --- |
 | `[string='']` | `string` | The string to convert. |
 
 **Returns**
 
-`(string)`: Returns the lower-cased string.
+`(string)`: Returns the lower cased string.
 
 **Example**
 
@@ -597,15 +597,15 @@ _.toLower('__FOO_BAR__');
 
 Converts the entire string to upper case, similar to `String#toUpperCase`.
 
-**Arguments**
+**Parameters**
 
-| Argument | Type | Description |
+| Parameter | Type | Description |
 | --- | --- | --- |
 | `[string='']` | `string` | The string to convert. |
 
 **Returns**
 
-`(string)`: Returns the upper-cased string.
+`(string)`: Returns the upper cased string.
 
 **Example**
 
@@ -624,9 +624,9 @@ _.toUpper('__foo_bar__');
 
 Removes leading and trailing whitespace or specified characters from a string.
 
-**Arguments**
+**Parameters**
 
-| Argument | Type | Description |
+| Parameter | Type | Description |
 | --- | --- | --- |
 | `[string='']` | `string` | The string to trim. |
 | `[chars=whitespace]` | `string` | The characters to trim. |
@@ -652,9 +652,9 @@ _.map(['  foo  ', '  bar  '], _.trim);
 
 Removes trailing whitespace or specified characters from a string.
 
-**Arguments**
+**Parameters**
 
-| Argument | Type | Description |
+| Parameter | Type | Description |
 | --- | --- | --- |
 | `[string='']` | `string` | The string to trim. |
 | `[chars=whitespace]` | `string` | The characters to trim. |
@@ -677,9 +677,9 @@ _.trimEnd('-_-abc-_-', '_-');
 
 Removes leading whitespace or specified characters from a string.
 
-**Arguments**
+**Parameters**
 
-| Argument | Type | Description |
+| Parameter | Type | Description |
 | --- | --- | --- |
 | `[string='']` | `string` | The string to trim. |
 | `[chars=whitespace]` | `string` | The characters to trim. |
@@ -695,22 +695,22 @@ _.trimStart('  abc  ');
 // => 'abc  '
 
 _.trimStart('-_-abc-_-', '_-');
-// => 'abc-_-'
+// => 'abc-_-' 
 ```
 
 ### truncate
 
-Truncates a string if it's longer than the given maximum length. The last characters of the truncated string are replaced with an omission string, which defaults to `...`.
+Truncates a string if it's longer than the given maximum string length. The last characters of the truncated string are replaced with an omission string, which defaults to `...`.
 
-**Arguments**
+**Parameters**
 
-| Argument | Type | Description |
+| Parameter | Type | Description |
 | --- | --- | --- |
 | `[string='']` | `string` | The string to truncate. |
 | `[options={}]` | `Object` | The options object. |
 | `[options.length=30]` | `number` | The maximum string length. |
 | `[options.omission='...']` | `string` | The string to indicate text is omitted. |
-| `[options.separator]` | `RegExp`\|`string` | The separator pattern to truncate to. |
+| `[options.separator]` | `RegExp`\|`string` | The separator pattern to truncate by. |
 
 **Returns**
 
@@ -727,15 +727,26 @@ _.truncate('hi-diddly-ho there, neighborino', {
   'separator': ' '
 });
 // => 'hi-diddly-ho there,...'
+
+_.truncate('hi-diddly-ho there, neighborino', {
+  'length': 24,
+  'separator': /,? +/
+});
+// => 'hi-diddly-ho there...'
+
+_.truncate('hi-diddly-ho there, neighborino', {
+  'omission': ' [...]'
+});
+// => 'hi-diddly-ho there, neig [...]'
 ```
 
 ### unescape
 
 The inverse of `_.escape`. This method converts the HTML entities `&amp;`, `&lt;`, `&gt;`, `&quot;`, and `&#39;` back to their corresponding characters.
 
-**Arguments**
+**Parameters**
 
-| Argument | Type | Description |
+| Parameter | Type | Description |
 | --- | --- | --- |
 | `[string='']` | `string` | The string to unescape. |
 
@@ -754,15 +765,15 @@ _.unescape('fred, barney, &amp; pebbles');
 
 Converts a string, as space-separated words, to upper case.
 
-**Arguments**
+**Parameters**
 
-| Argument | Type | Description |
+| Parameter | Type | Description |
 | --- | --- | --- |
 | `[string='']` | `string` | The string to convert. |
 
 **Returns**
 
-`(string)`: Returns the upper-cased string.
+`(string)`: Returns the upper cased string.
 
 **Example**
 
@@ -781,9 +792,9 @@ _.upperCase('__foo_bar__');
 
 Converts the first character of a string to upper case.
 
-**Arguments**
+**Parameters**
 
-| Argument | Type | Description |
+| Parameter | Type | Description |
 | --- | --- | --- |
 | `[string='']` | `string` | The string to convert. |
 
@@ -805,9 +816,9 @@ _.upperFirst('FRED');
 
 Splits a string into an array of its words.
 
-**Arguments**
+**Parameters**
 
-| Argument | Type | Description |
+| Parameter | Type | Description |
 | --- | --- | --- |
 | `[string='']` | `string` | The string to inspect. |
 | `[pattern]` | `RegExp`\|`string` | The pattern to match words. |
@@ -826,4 +837,4 @@ _.words('fred, barney, & pebbles', /[^, ]+/g);
 // => ['fred', 'barney', '&', 'pebbles']
 ```
 
-The above is a detailed reference for all string-related functions in Lodash.
+These are all the available string functions in Lodash. To continue browsing other function categories, please return to the [API Reference](./api.md) directory.

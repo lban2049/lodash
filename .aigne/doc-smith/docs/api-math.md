@@ -1,8 +1,8 @@
 # Math
 
-The math function library provides a series of utility tools for performing basic mathematical operations. These functions cover everything from simple addition, subtraction, multiplication, and division to more complex aggregate calculations, such as sum, average, maximum, and minimum.
+The math function library provides a suite of utility tools for performing basic mathematical operations. These functions cover everything from simple addition, subtraction, multiplication, and division to more complex aggregate calculations, such as sum, average, maximum, and minimum.
 
-For specific functions for handling numbers (e.g., range checking), see the [Number API Reference](./api-number.md).
+For specific functions for handling numbers (e.g., range checking), see the [Number API reference](./api-number.md).
 
 ---
 
@@ -14,12 +14,12 @@ Computes the sum of two numbers.
 
 | Parameter | Type | Description |
 | --- | --- | --- |
-| `augend` | `number` | The augend. |
-| `addend` | `number` | The addend. |
+| `augend` | `number` | The first number in an addition. |
+| `addend` | `number` | The second number in an addition. |
 
 **Returns**
 
-- `(number)`: Returns the sum.
+- `(number)`: Returns the sum of the two numbers.
 
 **Example**
 
@@ -32,14 +32,14 @@ _.add(6, 4);
 
 ## `_.ceil`
 
-Rounds `number` up to a given precision.
+Rounds `number` up to the specified precision.
 
 **Parameters**
 
 | Parameter | Type | Description |
 | --- | --- | --- |
 | `number` | `number` | The number to round up. |
-| `[precision=0]` | `number` | The precision to round up to. |
+| `[precision=0]` | `number` | The precision to round to. |
 
 **Returns**
 
@@ -68,12 +68,12 @@ Computes the quotient of two numbers.
 
 | Parameter | Type | Description |
 | --- | --- | --- |
-| `dividend` | `number` | The dividend. |
-| `divisor` | `number` | The divisor. |
+| `dividend` | `number` | The number to be divided. |
+| `divisor` | `number` | The number to divide by. |
 
 **Returns**
 
-- `(number)`: Returns the quotient.
+- `(number)`: Returns the quotient of the two numbers.
 
 **Example**
 
@@ -86,14 +86,14 @@ _.divide(6, 4);
 
 ## `_.floor`
 
-Rounds `number` down to a given precision.
+Rounds `number` down to the specified precision.
 
 **Parameters**
 
 | Parameter | Type | Description |
 | --- | --- | --- |
 | `number` | `number` | The number to round down. |
-| `[precision=0]` | `number` | The precision to round down to. |
+| `[precision=0]` | `number` | The precision to round to. |
 
 **Returns**
 
@@ -116,7 +116,7 @@ _.floor(4060, -2);
 
 ## `_.max`
 
-Computes the maximum value of `array`. If `array` is empty or falsey, `undefined` is returned.
+Computes the maximum value of `array`. If `array` is empty or falsy, `undefined` is returned.
 
 **Parameters**
 
@@ -142,7 +142,7 @@ _.max([]);
 
 ## `_.maxBy`
 
-This method is like `_.max` except that it accepts an `iteratee` which is invoked for each element in `array` to generate the criterion to compare.
+This method is like `_.max` except that it accepts an `iteratee` which is invoked for each element in `array` to generate the criterion to rank by.
 
 **Parameters**
 
@@ -163,7 +163,7 @@ var objects = [{ 'n': 1 }, { 'n': 2 }];
 _.maxBy(objects, function(o) { return o.n; });
 // => { 'n': 2 }
 
-// The `_.property` iteratee shorthand.
+// The _.property iteratee shorthand.
 _.maxBy(objects, 'n');
 // => { 'n': 2 }
 ```
@@ -182,7 +182,7 @@ Computes the mean of the values in `array`.
 
 **Returns**
 
-- `(number)`: Returns the mean.
+- `(number)`: Returns the mean value.
 
 **Example**
 
@@ -206,7 +206,7 @@ This method is like `_.mean` except that it accepts an `iteratee` which is invok
 
 **Returns**
 
-- `(number)`: Returns the mean.
+- `(number)`: Returns the mean value.
 
 **Example**
 
@@ -216,7 +216,7 @@ var objects = [{ 'n': 4 }, { 'n': 2 }, { 'n': 8 }, { 'n': 6 }];
 _.meanBy(objects, function(o) { return o.n; });
 // => 5
 
-// The `_.property` iteratee shorthand.
+// The _.property iteratee shorthand.
 _.meanBy(objects, 'n');
 // => 5
 ```
@@ -225,7 +225,7 @@ _.meanBy(objects, 'n');
 
 ## `_.min`
 
-Computes the minimum value of `array`. If `array` is empty or falsey, `undefined` is returned.
+Computes the minimum value of `array`. If `array` is empty or falsy, `undefined` is returned.
 
 **Parameters**
 
@@ -251,7 +251,7 @@ _.min([]);
 
 ## `_.minBy`
 
-This method is like `_.min` except that it accepts an `iteratee` which is invoked for each element in `array` to generate the criterion to compare.
+This method is like `_.min` except that it accepts an `iteratee` which is invoked for each element in `array` to generate the criterion to rank by.
 
 **Parameters**
 
@@ -272,7 +272,7 @@ var objects = [{ 'n': 1 }, { 'n': 2 }];
 _.minBy(objects, function(o) { return o.n; });
 // => { 'n': 1 }
 
-// The `_.property` iteratee shorthand.
+// The _.property iteratee shorthand.
 _.minBy(objects, 'n');
 // => { 'n': 1 }
 ```
@@ -287,12 +287,12 @@ Computes the product of two numbers.
 
 | Parameter | Type | Description |
 | --- | --- | --- |
-| `multiplier` | `number` | The multiplier. |
-| `multiplicand` | `number` | The multiplicand. |
+| `multiplier` | `number` | The first number in a multiplication. |
+| `multiplicand` | `number` | The second number in a multiplication. |
 
 **Returns**
 
-- `(number)`: Returns the product.
+- `(number)`: Returns the product of the two numbers.
 
 **Example**
 
@@ -305,7 +305,7 @@ _.multiply(6, 4);
 
 ## `_.round`
 
-Rounds `number` to a given precision.
+Rounds `number` to the specified precision.
 
 **Parameters**
 
@@ -341,12 +341,12 @@ Computes the difference of two numbers.
 
 | Parameter | Type | Description |
 | --- | --- | --- |
-| `minuend` | `number` | The minuend. |
-| `subtrahend` | `number` | The subtrahend. |
+| `minuend` | `number` | The number to subtract from. |
+| `subtrahend` | `number` | The number to subtract. |
 
 **Returns**
 
-- `(number)`: Returns the difference.
+- `(number)`: Returns the difference of the two numbers.
 
 **Example**
 
@@ -403,11 +403,11 @@ var objects = [{ 'n': 4 }, { 'n': 2 }, { 'n': 8 }, { 'n': 6 }];
 _.sumBy(objects, function(o) { return o.n; });
 // => 20
 
-// The `_.property` iteratee shorthand.
+// The _.property iteratee shorthand.
 _.sumBy(objects, 'n');
 // => 20
 ```
 
 ---
 
-Now that you are familiar with the Math functions, you can continue to explore the [Number API Reference](./api-number.md) for more tools for number processing.
+Now that you are familiar with the math functions, you can continue exploring the [Number API reference](./api-number.md) for more number manipulation tools.

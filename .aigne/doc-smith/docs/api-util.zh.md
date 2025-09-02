@@ -31,6 +31,7 @@
 | [_.propertyOf](#_propertyofobject) | `_.property` 的反向版本；创建一个返回 `object` 给定路径处值的函数。 |
 | [_.range](#_rangestart-end-step) | 创建一个数字范围的数组。 |
 | [_.rangeRight](#_rangerightstart-end-step) | 类似于 `_.range`，但以递减顺序填充值。 |
+| [_.runInContext](#_runincontextcontext) | 使用 `context` 对象创建一个新的纯净 `lodash` 函数。 |
 | [_.stubArray](#_stubarray) | 返回一个新的空数组。 |
 | [_.stubFalse](#_stubfalse) | 返回 `false`。 |
 | [_.stubObject](#_stubobject) | 返回一个新的空对象。 |
@@ -731,6 +732,44 @@ _.rangeRight(1, 5);
 // => [4, 3, 2, 1]
 ```
 
+### _.runInContext([context=root])
+
+使用 `context` 对象创建一个新的纯净 `lodash` 函数。
+
+**从 `1.1.0` 版本开始**
+
+**参数**
+
+| 参数 | 类型 | 描述 |
+| --- | --- | --- |
+| `[context=root]` | `Object` | 上下文对象。 |
+
+**返回**
+
+`(Function)`: 返回一个新的 `lodash` 函数。
+
+**示例**
+
+```javascript
+_.mixin({ 'foo': _.constant('foo') });
+
+var lodash = _.runInContext();
+lodash.mixin({ 'bar': lodash.constant('bar') });
+
+_.isFunction(_.foo);
+// => true
+_.isFunction(_.bar);
+// => false
+
+lodash.isFunction(lodash.foo);
+// => false
+lodash.isFunction(lodash.bar);
+// => true
+
+// 在 Node.js 中创建一个增强的 `defer`。
+var defer = _.runInContext({ 'setTimeout': setImmediate }).defer;
+```
+
 ### _.stubArray()
 
 此方法返回一个新的空数组。
@@ -898,4 +937,4 @@ _.uniqueId();
 
 ---
 
-现在您已经了解了 Lodash 的实用工具函数，可以继续探索[函数（Function）](./api-function.md)或[序列（Seq）](./api-seq.md)部分的文档，以了解更多关于函数式编程和链式调用的内容。
+现在您已经了解了 Lodash 的实用工具函数，可以继续探索[函数 (Function)](./api-function.md)或[序列 (Seq)](./api-seq.md)部分的文档，以了解更多关于函数式编程和链式调用的内容。

@@ -4,7 +4,7 @@ Functions in the Lang category provide a series of core JavaScript language util
 
 ## castArray
 
-Converts `value` to an array if it's not one.
+Casts `value` as an array if it's not one.
 
 **Since**
 4.4.0
@@ -17,7 +17,7 @@ Converts `value` to an array if it's not one.
 
 **Returns**
 
-- `(Array)`: Returns the converted array.
+- `(Array)`: Returns the cast array.
 
 **Example**
 
@@ -47,7 +47,7 @@ console.log(_.castArray(array) === array);
 
 ## clone
 
-Creates a shallow clone of `value`. Supports cloning arrays, array buffers, booleans, date objects, maps, numbers, `Object` objects, regular expressions, sets, strings, symbols, and typed arrays. The enumerable properties of `arguments` objects are cloned as plain objects. For unclonable values (such as error objects, functions, DOM nodes, and WeakMaps), an empty object is returned.
+Creates a shallow clone of `value`. Supported values are arrays, array buffers, booleans, date objects, maps, numbers, `Object` objects, regexes, sets, strings, symbols, and typed arrays. The enumerable properties of `arguments` objects are cloned as plain objects. Unclonable values, such as error objects, functions, DOM nodes, and WeakMaps, are returned as empty objects.
 
 **Since**
 0.1.0
@@ -87,7 +87,7 @@ This method is like `_.clone` except that it recursively clones `value`.
 
 **Returns**
 
-- `(*)`: Returns the deeply cloned value.
+- `(*)`: Returns the deep cloned value.
 
 **Example**
 
@@ -111,11 +111,11 @@ This method is like `_.cloneWith` except that it recursively clones `value`.
 | Name | Type | Description |
 | --- | --- | --- |
 | `value` | `*` | The value to recursively clone. |
-| `customizer` | `Function` | (optional) The function to customize cloning. |
+| `customizer` | `Function` | (Optional) The function to customize cloning. |
 
 **Returns**
 
-- `(*)`: Returns the deeply cloned value.
+- `(*)`: Returns the deep cloned value.
 
 **Example**
 
@@ -148,7 +148,7 @@ This method is like `_.clone` except that it accepts `customizer` which is invok
 | Name | Type | Description |
 | --- | --- | --- |
 | `value` | `*` | The value to clone. |
-| `customizer` | `Function` | (optional) The function to customize cloning. |
+| `customizer` | `Function` | (Optional) The function to customize cloning. |
 
 **Returns**
 
@@ -185,7 +185,7 @@ Checks if `object` conforms to `source` by invoking the predicate properties of 
 | Name | Type | Description |
 | --- | --- | --- |
 | `object` | `Object` | The object to inspect. |
-| `source` | `Object` | The object of property predicates. |
+| `source` | `Object` | The object of property predicates to conform to. |
 
 **Returns**
 
@@ -604,7 +604,7 @@ _.isEmpty({ 'a': 1 });
 
 ## isEqual
 
-Performs a deep comparison between two values to determine if they are equivalent. Supports comparing arrays, array buffers, booleans, date objects, error objects, maps, numbers, `Object` objects, regular expressions, sets, strings, symbols, and typed arrays. `Object` objects are compared by their own, not inherited, enumerable properties. Functions and DOM nodes are compared by strict equality (`===`).
+Performs a deep comparison between two values to determine if they are equivalent. Supported values are arrays, array buffers, booleans, date objects, error objects, maps, numbers, `Object` objects, regexes, sets, strings, symbols, and typed arrays. `Object` objects are compared by their own, not inherited, enumerable properties. Functions and DOM nodes are compared by strict equality (`===`).
 
 **Since**
 0.1.0
@@ -646,7 +646,7 @@ This method is like `_.isEqual` except that it accepts `customizer` which is inv
 | --- | --- | --- |
 | `value` | `*` | The value to compare. |
 | `other` | `*` | The other value to compare. |
-| `customizer` | `Function` | (optional) The function to customize comparisons. |
+| `customizer` | `Function` | (Optional) The function to customize comparisons. |
 
 **Returns**
 
@@ -868,7 +868,7 @@ Performs a partial deep comparison between `object` and `source` to determine if
 
 **Returns**
 
-- `(boolean)`: Returns `true` if `object` matches, else `false`.
+- `(boolean)`: Returns `true` if `object` is a match, else `false`.
 
 **Example**
 
@@ -895,11 +895,11 @@ This method is like `_.isMatch` except that it accepts `customizer` which is inv
 | --- | --- | --- |
 | `object` | `Object` | The object to inspect. |
 | `source` | `Object` | The object of property values to match. |
-| `customizer` | `Function` | (optional) The function to customize comparisons. |
+| `customizer` | `Function` | (Optional) The function to customize comparisons. |
 
 **Returns**
 
-- `(boolean)`: Returns `true` if `object` matches, else `false`.
+- `(boolean)`: Returns `true` if `object` is a match, else `false`.
 
 **Example**
 
@@ -923,7 +923,7 @@ _.isMatchWith(object, source, customizer);
 
 ## isNaN
 
-Checks if `value` is `NaN`. Note: This method is unlike the global `isNaN` which returns `true` for `undefined` and other non-number values.
+Checks if `value` is `NaN`. Note: This method is not the same as the global `isNaN` which returns `true` for `undefined` and other non-number values.
 
 **Since**
 0.1.0
@@ -956,7 +956,7 @@ _.isNaN(undefined);
 
 ## isNative
 
-Checks if `value` is a native function.
+Checks if `value` is a pristine native function.
 
 **Since**
 3.0.0
@@ -1073,7 +1073,7 @@ _.isNumber('3');
 
 ## isObject
 
-Checks if `value` is the language type of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+Checks if `value` is the language type of `Object` (e.g., arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`).
 
 **Since**
 0.1.0
@@ -1203,7 +1203,7 @@ _.isRegExp('/abc/');
 
 ## isSafeInteger
 
-Checks if `value` is a safe integer. An integer is safe if it is an IEEE-754 double-precision number and not the result of rounding an unsafe integer.
+Checks if `value` is a safe integer. An integer is safe if it's an IEEE-754 double precision number which isn't the result of an unsafe rounding.
 
 **Since**
 4.0.0
@@ -1748,4 +1748,4 @@ _.toString([1, 2, 3]);
 
 ---
 
-This section introduced Lodash's core language utility functions. To learn more about functions for numerical computation, please refer to the [Math API](./api-math.md) section.
+This section introduced Lodash's core language utility functions. To learn more about functions for numerical computations, see the [Math API](./api-math.md) section.

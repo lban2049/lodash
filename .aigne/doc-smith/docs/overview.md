@@ -1,95 +1,98 @@
 # Overview
 
-Lodash is a modern JavaScript utility library that provides modularity, high performance, and customizable builds. It makes JavaScript programming easier by simplifying common operations on data structures such as arrays, numbers, objects, and strings. Lodash is released under the MIT license, and its current version is v4.17.21.
+Lodash is a modern JavaScript utility library that delivers modularity, performance, and customization. It makes JavaScript programming easier by simplifying operations on common data structures like arrays, numbers, objects, and strings. Lodash is released under the MIT license, and its current version is v4.17.21.
 
-### Core Philosophy & Features
+### Core Philosophy and Features
 
-Lodash's design philosophy centers on modularity and consistency. It offers a vast collection of performance-optimized helper functions designed to address common pain points in JavaScript development. Its key features include:
+Lodash's design philosophy revolves around modularity, consistency, and performance. It provides a large number of optimized helper functions aimed at solving common problems in JavaScript development.
 
-- **Collection Iteration**: Easily iterate over arrays, objects, and strings.
-- **Value Manipulation & Testing**: Provides a rich set of tools for handling and validating various data types.
-- **Composite Function Creation**: Powerful functional programming support for creating composite functions.
+<x-cards data-columns="3">
+  <x-card data-title="Collection Iteration" data-icon="lucide:list-tree">
+    Provides a unified API to easily iterate over arrays, objects, and strings, handling various data collections.
+  </x-card>
+  <x-card data-title="Value Manipulation & Testing" data-icon="lucide:clipboard-check">
+    Includes a rich set of tools for manipulating and validating various data types, ensuring code robustness.
+  </x-card>
+  <x-card data-title="Composite Function Creation" data-icon="lucide:function-square">
+    Supports functional programming paradigms, making it easy to create composite functions like curried, composed, and deferred functions.
+  </x-card>
+</x-cards>
 
 ### Modular Architecture
 
-Lodash uses a modular architecture, allowing developers to selectively load features based on their needs, thus optimizing the final application's bundle size. This structure has also given rise to various build versions and usage methods.
+Lodash uses a modular architecture, allowing developers to load features on demand, which significantly optimizes the final application size. This structure has also led to a variety of different build versions and usage methods.
 
-```mermaid
-graph TD
-    subgraph "Lodash Core"
-        A["Core Utilities (e.g., identity, constant)"]
-    end
+```d2
+direction: down
 
-    subgraph "Functional Modules"
-        B["Array Functions (e.g., chunk, drop)"]
-        C["Collection Functions (e.g., map, filter)"]
-        D["Object Functions (e.g., get, set)"]
-        E["String Functions (e.g., camelCase, trim)"]
-        F["Other Utilities (Math, Lang, etc.)"]
-    end
+"Lodash Core": {
+  "Core Utilities (e.g., identity, constant)": {
+    shape: package
+  }
+}
 
-    A --> B
-    A --> C
-    A --> D
-    A --> E
-    A --> F
+"Feature Modules": {
+  grid-columns: 3
+  "Arrays (e.g., chunk, drop)": {}
+  "Collections (e.g., map, filter)": {}
+  "Objects (e.g., get, set)": {}
+  "Strings (e.g., camelCase, trim)": {}
+  "Functions (e.g., debounce, curry)": {}
+  "Others (Math, Lang, etc.)": {}
+}
 
-    subgraph "Build Targets & Formats"
-        G["Full Build (lodash)"]
-        H["FP Build (lodash/fp)"]
-        I["ES Modules (lodash-es)"]
-        J["Per-method Packages (e.g., lodash.map)"]
-    end
+"Build Targets & Formats": {
+  grid-columns: 3
+  "Full Build (lodash)": {}
+  "FP Build (lodash/fp)": {}
+  "ES Modules (lodash-es)": {}
+  "Per-Method Packages (lodash.map)": {}
+  "Plugins (babel-plugin-lodash)": {}
+  "CDN": {}
+}
 
-    B --> G
-    C --> G
-    D --> G
-    E --> G
-    F --> G
-
-    B --> H
-    C --> H
-    D --> H
-    E --> H
-    F --> H
-
-    B --> I
-    C --> I
-    D --> I
-    E --> I
-    F --> I
-
-    B --> J
-    C --> J
-    D --> J
-    E --> J
-    F --> J
+"Lodash Core" -> "Feature Modules"
+"Feature Modules" -> "Build Targets & Formats"
 ```
 
 ### Available Module Formats
 
-Lodash offers various build versions and module formats to accommodate different project requirements and bundlers. For more details, please see the [Build Differences Guide](./guides-build-differences.md).
+Lodash offers various build versions and module formats to suit different project needs and bundlers. For more details, please refer to the [Build Differences Guide](./guides-build-differences.md).
 
 | Format/Build Version | NPM Package | Description |
 |---|---|---|
 | Standard Build | `lodash` | Provides the full feature set in UMD format, suitable for Node.js and browser environments. |
-| Per-method Packages | `lodash.map`, `lodash.get`, ... | Each method is published as an individual package, allowing for fine-grained, on-demand loading. This is ideal for small projects or scenarios with strict bundle size requirements. |
+| Per-Method Packages | `lodash.map`, `lodash.get`, ... | Publishes each method as a separate package for ultimate on-demand loading, ideal for scenarios with strict bundle size requirements. |
 | ES Modules | `lodash-es` | Provides an ES module version, facilitating Tree Shaking with modern bundlers like Webpack and Rollup. |
-| Functional Programming (FP) | `lodash/fp` | Provides an immutable, auto-curried, function-first, data-last functional programming version. |
+| Functional Programming (FP) | `lodash/fp` | Provides an immutable, auto-curried, function-first, data-last version for functional programming. |
 | AMD Build | `lodash-amd` | A build version specifically for projects using the AMD specification (like RequireJS). |
-| Plugins | `babel-plugin-lodash`, `lodash-webpack-plugin` | Automatically transforms `import` statements into per-method imports via Babel or Webpack plugins, simplifying the optimization process. |
+| Plugins | `babel-plugin-lodash`, `lodash-webpack-plugin` | Automatically optimizes module imports through Babel or Webpack plugins, simplifying the development process. |
 
 ### How to Use This Documentation
 
 To help you quickly find the information you need, this documentation is organized by topic:
 
-- **[Getting Started](./getting-started.md)**: Provides instructions for quickly installing and using Lodash in different environments.
-- **[API Reference](./api.md)**: A complete list of methods organized by data type, including detailed parameter descriptions and examples.
-- **[Functional Programming Guide](./fp-guide.md)**: An in-depth look at Lodash's functional programming features.
-- **[Advanced Guides](./guides.md)**: Covers advanced topics such as performance optimization and custom builds.
-- **[Security Policy](./security.md)**: Learn about the project's security update policy and vulnerability reporting process.
-- **[Community & Contributing](./contributing.md)**: Join community discussions or contribute code to the project.
+<x-cards data-columns="2">
+  <x-card data-title="Getting Started Guide" data-icon="lucide:rocket" data-href="/getting-started">
+    Provides instructions for quickly installing and using Lodash in different environments.
+  </x-card>
+  <x-card data-title="API Reference" data-icon="lucide:book-open" data-href="/api">
+    A complete list of methods organized by data type, including detailed parameter descriptions and examples.
+  </x-card>
+  <x-card data-title="Functional Programming Guide" data-icon="lucide:function-square" data-href="/fp-guide">
+    An in-depth look at Lodash's functional programming features, including immutability, auto-currying, and more.
+  </x-card>
+  <x-card data-title="Advanced Guides" data-icon="lucide:compass" data-href="/guides">
+    Covers advanced topics such as performance optimization and custom builds.
+  </x-card>
+  <x-card data-title="Security Policy" data-icon="lucide:shield" data-href="/security">
+    Learn about the project's security update policy and vulnerability reporting process.
+  </x-card>
+  <x-card data-title="Community & Contributing" data-icon="lucide:github" data-href="/contributing">
+    Join community discussions or contribute code to the project.
+  </x-card>
+</x-cards>
 
 ### Next Steps
 
-Now that you have a basic understanding of Lodash, we recommend starting with the [Getting Started guide](./getting-started.md) to quickly integrate it into your project.
+Now that you have a basic understanding of Lodash, we recommend you start with the [Getting Started Guide](./getting-started.md) to quickly integrate Lodash into your project.

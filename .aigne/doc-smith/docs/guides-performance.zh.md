@@ -8,17 +8,34 @@ Lodash 使用 [Benchmark.js](https://benchmarkjs.com/) 库来确保测试结果�
 
 以下是性能测试的基本流程：
 
-```mermaid
-graph TD
-    A["开始：加载测试环境"] --> B["准备测试数据(数组、对象等)"];
-    B --> C{"执行测试套件"};
-    C -- "Lodash" --> D["执行 lodash[function]"];
-    D --> E["记录每秒操作数 (Hz)"];
-    C -- "Underscore" --> F["执行 underscore[function]"];
-    F --> G["记录每秒操作数 (Hz)"];
-    E --> H["比较结果"];
-    G --> H;
-    H --> I["输出性能报告"];
+```d2
+direction: down
+
+"Setup": {
+  "Load Libraries": "Lodash, Underscore.js, Benchmark.js"
+  "Prepare Data": "Arrays, Objects, Strings, etc."
+}
+
+"Execution": {
+  shape: sequence_diagram
+
+  "Benchmark.js": {}
+
+  "Benchmark.js" -> "Lodash Test": "Run Suite"
+  "Lodash Test" -> "Benchmark.js": "Ops/sec (Hz)"
+
+  "Benchmark.js" -> "Competitor Test": "Run Suite"
+  "Competitor Test" -> "Benchmark.js": "Ops/sec (Hz)"
+}
+
+"Analysis": {
+  "Compare Results": "Calculate percentage difference for each suite"
+  "Aggregate Score": "Calculate geometric mean for overall score"
+  "Generate Report": "Log detailed results to the console"
+}
+
+"Setup" -> "Execution": "Start Tests"
+"Execution" -> "Analysis": "Process Results"
 ```
 
 每个测试套件都会比较 Lodash 和另一个库（通常是 Underscore.js）在相同任务上的表现，并报告哪个更快以及快了多少。最终，所有测试的结果会被汇总，通过几何平均数计算出一个总体的性能优劣势。
@@ -55,7 +72,7 @@ graph TD
 当您将多个方法链接在一起时，Lodash 会使用惰性求值来延迟执行，直到显式或隐式地调用 `value()`。这种机制通过将多个操作合并为一次迭代来最小化迭代次数，从而显著提升性能，尤其是在处理大型数据集时。
 
 ```javascript
-// 这个链式调用只会迭代一次，而不是三次
+// 这个链式调用只会对数据进行一次遍历，而不是三次
 const result = _(largeArray)
   .map(square)
   .filter(even)
@@ -63,7 +80,7 @@ const result = _(largeArray)
   .value();
 ```
 
-更多关于链式调用的信息，请参阅 [Seq (链式调用)](./api-seq.md) 部分。
+更多关于链式调用的信息，请参阅 [Seq API](./api-seq.md) 部分。
 
 ### 2. 使用属性简写
 

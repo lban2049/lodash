@@ -1,30 +1,39 @@
 # Seq
 
-Functions in the Seq (Sequence) category are used to create and process method chains. By wrapping a value in a Lodash instance, you can chain multiple methods together to process data in an expressive and efficient way. This chaining supports lazy evaluation, which means that the operations in the chain are deferred until the `value()` method is called explicitly or implicitly.
+Lodash provides powerful method chaining capabilities, allowing you to string multiple operations together to process data in a clear and readable manner. The core of this approach is the Lodash wrapper object, which encapsulates your data and allows Lodash methods to be called on it.
 
-## Chaining Flow
+Chaining supports **Lazy Evaluation**. This means that intermediate operations are not executed until `_#value()` is called, either explicitly or implicitly. This mechanism optimizes performance through "shortcut fusion" by avoiding the creation of intermediate arrays, which significantly reduces the number of iterations, especially when processing large datasets.
 
-The core idea of a method chain is to create a wrapper object, apply a series of transformations to it, and finally extract the final result. This process can be clearly illustrated by the following diagram:
+### Chaining Flow
 
-```mermaid
-flowchart TD
-    A["Original Array<br/>e.g., [1, 2, 3, 4]"] --> B["Wrap with _.chain() or _()"];
-    B --> C{"Execute Chained Methods"};
-    C -- ".filter(isEven)" --> D["Lazy Evaluation<br/>(Intermediate arrays are not created)"];
-    D -- ".map(square)" --> E["Lazy Evaluation<br/>(Intermediate arrays are not created)"];
-    E -- ".value()" --> F["Execute Sequence and Return Value"];
-    F --> G["Final Result<br/>[4, 16]"];
+The following diagram illustrates a typical data processing chain:
+
+```d2
+direction: right
+
+A: "Original Array\n[1, 2, 3, 4]"
+B: "_.map(n => n * n)\n[1, 4, 9, 16]"
+C: "_.filter(n => n > 5)\n[9, 16]"
+D: "_.take(1)\n[9]"
+E: "_.value()\nGet the final result"
+F: "Final Result\n[9]"
+
+A -> B: "Map" { style.animated: true }
+B -> C: "Filter" { style.animated: true }
+C -> D: "Take" { style.animated: true }
+D -> E: "Evaluate" { style.animated: true }
+E -> F
 ```
 
-## API Reference
+## Core Functions
 
-The following are the main functions related to sequence chaining:
+The following are the core functions related to sequence method chaining.
 
-### _.chain
+### _.chain(value)
 
-Creates a `lodash` wrapper instance that enables explicit method chaining. Explicit chaining means that the `_#value` method must be used to unwrap and get the resulting value.
+Creates a Lodash wrapper instance with explicit method chaining enabled. Sequences started with `_.chain` must use the `_#value()` method to get the final result.
 
-**Arguments**
+**Parameters**
 
 | Name | Type | Description |
 |---|---|---|
@@ -32,7 +41,7 @@ Creates a `lodash` wrapper instance that enables explicit method chaining. Expli
 
 **Returns**
 
-(`Object`): Returns the new `lodash` wrapper instance.
+- `(Object)`: Returns the new Lodash wrapper instance.
 
 **Example**
 
@@ -51,30 +60,32 @@ var youngest = _
   })
   .head()
   .value();
+
 // => 'pebbles is 1'
 ```
 
-### _.tap
+### _.tap(value, interceptor)
 
-This method invokes `interceptor` and returns `value`. The `interceptor` is invoked with one argument: (`value`). The purpose of this method is to "tap into" a method chain sequence in order to modify intermediate results or perform other operations (side effects) in the chain.
+This method invokes `interceptor` and returns `value`. The `interceptor` is invoked with one argument: `value`. The main purpose of this method is to "tap into" a method chain to perform actions without changing the value in the chain, such as logging or modifying external variables.
 
-**Arguments**
+**Parameters**
 
 | Name | Type | Description |
 |---|---|---|
-| `value` | `*` | The value to provide to `interceptor`. |
+| `value` | `*` | The value to provide to the `interceptor`. |
 | `interceptor` | `Function` | The function to invoke. |
 
 **Returns**
 
-(`*`): Returns `value`.
+- `(*)`: Returns `value`.
 
 **Example**
 
 ```javascript
 _([1, 2, 3])
  .tap(function(array) {
-   // Mutate the array.
+   // You can operate on the array here, e.g., for logging
+   console.log(array); // Outputs [1, 2, 3]
    array.pop();
  })
  .reverse()
@@ -82,20 +93,20 @@ _([1, 2, 3])
 // => [2, 1]
 ```
 
-### _.thru
+### _.thru(value, interceptor)
 
-This method is like `_.tap` except that it returns the result of `interceptor`. The purpose of this method is to "pass thru" a value to replace the intermediate result in a method chain sequence.
+This method is like `_.tap` except that it returns the result of `interceptor`. This allows you to pass and replace intermediate results within a method chain.
 
-**Arguments**
+**Parameters**
 
 | Name | Type | Description |
 |---|---|---|
-| `value` | `*` | The value to provide to `interceptor`. |
+| `value` | `*` | The value to provide to the `interceptor`. |
 | `interceptor` | `Function` | The function to invoke. |
 
 **Returns**
 
-(`*`): Returns the result of `interceptor`.
+- `(*)`: Returns the result of `interceptor`.
 
 **Example**
 
@@ -104,19 +115,93 @@ _('  abc  ')
  .chain()
  .trim()
  .thru(function(value) {
-   return [value];
+   return [value, value.length];
  })
  .value();
-// => ['abc']
+// => ['abc', 3]
 ```
 
-### commit
+## Wrapper Methods
 
-Executes the chained sequence and returns the wrapped result.
+### _#value()
+
+Executes the chained sequence to extract the wrapped value. This is the endpoint for explicit chaining.
+
+**Aliases**: `_#toJSON`, `_#valueOf`
 
 **Returns**
 
-(`Object`): Returns the new `lodash` wrapper instance.
+- `(*)`: Returns the resolved unwrapped value.
+
+**Example**
+
+```javascript
+_([1, 2, 3]).value();
+// => [1, 2, 3]
+
+_('  abc  ').chain().trim().value();
+// => 'abc'
+```
+
+### _#at(...paths)
+
+The wrapper version of `_.at`. Selects values based on specified property paths.
+
+**Parameters**
+
+| Name | Type | Description |
+|---|---|---|
+| `...paths` | `(string|string[])` | The property paths to pick. |
+
+**Returns**
+
+- `(Object)`: Returns the new Lodash wrapper instance.
+
+**Example**
+
+```javascript
+var object = { 'a': [{ 'b': { 'c': 3 } }, 4] };
+ 
+_(object).at(['a[0].b.c', 'a[1]']).value();
+// => [3, 4]
+```
+
+### _#chain()
+
+Enables explicit chaining on an existing wrapper instance.
+
+**Returns**
+
+- `(Object)`: Returns the new Lodash wrapper instance.
+
+**Example**
+
+```javascript
+var users = [
+  { 'user': 'barney', 'age': 36 },
+  { 'user': 'fred',   'age': 40 }
+];
+
+// Without explicit chaining
+_(users).head();
+// => { 'user': 'barney', 'age': 36 }
+
+// With explicit chaining
+_(users)
+  .chain()
+  .head()
+  .pick('user')
+  .value();
+// => { 'user': 'barney' }
+```
+
+### _#commit()
+
+Executes the current chained sequence and returns a new Lodash wrapper instance with the result. This allows you to "commit" partial results in a chain and then continue chaining other methods.
+
+**Returns**
+
+- `(Object)`: Returns the new Lodash wrapper instance.
 
 **Example**
 
@@ -133,16 +218,13 @@ console.log(array);
 
 wrapped.last();
 // => 3
-
-console.log(array);
-// => [1, 2, 3]
 ```
 
-### plant
+### _#plant(value)
 
-Creates a clone of the chained sequence, planting `value` as the wrapped value. This allows you to reuse a sequence of chained operations but apply it to different initial data.
+Creates a clone of the chained sequence and sets `value` as the new wrapped value. This is useful for applying the same sequence of operations to different datasets while preserving the original sequence.
 
-**Arguments**
+**Parameters**
 
 | Name | Type | Description |
 |---|---|---|
@@ -150,7 +232,7 @@ Creates a clone of the chained sequence, planting `value` as the wrapped value. 
 
 **Returns**
 
-(`Object`): Returns the new `lodash` wrapper instance.
+- `(Object)`: Returns the new Lodash wrapper instance.
 
 **Example**
 
@@ -162,28 +244,33 @@ function square(n) {
 var wrapped = _([1, 2]).map(square);
 var other = wrapped.plant([3, 4]);
 
-other.value();
+console.log(other.value());
 // => [9, 16]
 
-wrapped.value();
+console.log(wrapped.value());
 // => [1, 4]
 ```
 
-### value
+### _#reverse()
 
-Executes the chained sequence to resolve the unwrapped value. This is the standard way to get the final result of a chain.
-
-**Aliases**
-
-`toJSON`, `valueOf`
+The wrapper version of `_.reverse`. Reverses the wrapped array. This is an in-place operation that mutates the original array.
 
 **Returns**
 
-(`*`): Returns the resolved unwrapped value.
+- `(Object)`: Returns the new Lodash wrapper instance.
 
 **Example**
 
 ```javascript
-_([1, 2, 3]).value();
-// => [1, 2, 3]
+var array = [1, 2, 3];
+
+_(array).reverse().value();
+// => [3, 2, 1]
+
+console.log(array);
+// => [3, 2, 1]
 ```
+
+---
+
+By mastering Lodash's chaining methods, you can build more expressive and readable data processing pipelines. Next, you can delve into the [Collection](./api-collection.md) or [Array](./api-array.md) methods to explore the powerful functions available for use in chained calls.

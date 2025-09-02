@@ -1,28 +1,37 @@
 # Seq
 
-Seq（序列）类别下的函数用于创建和处理方法链。通过将值包装在 Lodash 实例中，您可以将多个方法串联起来，以一种富有表现力且高效的方式处理数据。这种链式调用支持惰性求值，这意味着在显式或隐式调用 `value()` 方法之前，链中的操作会被延迟执行。
+Lodash 提供了强大的方法链式调用能力，允许你将多个操作串联起来，以一种清晰、可读的方式处理数据。这种方式的核心是 Lodash 包装器对象，它封装了你的数据，并允许在其上调用 Lodash 方法。
 
-## 链式调用流程
+链式调用支持**惰性求值 (Lazy Evaluation)**。这意味着在显式或隐式地调用 `_#value()` 之前，中间操作不会被执行。这种机制通过“快捷融合”优化了性能，避免了创建中间数组，从而大大减少了迭代次数，尤其是在处理大型数据集时。
 
-方法链的核心思想是创建一个包装器对象，对该对象应用一系列转换，最后提取最终结果。这个过程可以通过下图清晰地展示：
+### 链式调用流程
 
-```mermaid
-flowchart TD
-    A["原始数组<br/>e.g., [1, 2, 3, 4]"] --> B["使用 _.chain() 或 _() 进行包装"];
-    B --> C{"执行链式方法"};
-    C -- ".filter(isEven)" --> D["惰性求值<br/>(中间数组不被创建)"];
-    D -- ".map(square)" --> E["惰性求值<br/>(中间数组不被创建)"];
-    E -- ".value()" --> F["执行序列并返回值"];
-    F --> G["最终结果<br/>[4, 16]"];
+下面的图表演示了一个典型的数据处理链：
+
+```d2
+direction: right
+
+A: "原始数组\n[1, 2, 3, 4]"
+B: "_.map(n => n * n)\n[1, 4, 9, 16]"
+C: "_.filter(n => n > 5)\n[9, 16]"
+D: "_.take(1)\n[9]"
+E: "_.value()\n获取最终结果"
+F: "最终结果\n[9]"
+
+A -> B: "映射" { style.animated: true }
+B -> C: "过滤" { style.animated: true }
+C -> D: "截取" { style.animated: true }
+D -> E: "求值" { style.animated: true }
+E -> F
 ```
 
-## API 参考
+## 核心函数
 
-以下是与序列化链式调用相关的主要函数：
+以下是与序列化方法链相关的核心函数。
 
-### _.chain
+### _.chain(value)
 
-创建一个启用了显式方法链的 `lodash` 包装器实例。显式链式调用意味着必须使用 `_#value` 方法来解开包装并获取结果值。
+创建一个启用了显式方法链的 Lodash 包装器实例。通过 `_.chain` 开始的序列必须使用 `_#value()` 方法来获取最终结果。
 
 **参数**
 
@@ -32,7 +41,7 @@ flowchart TD
 
 **返回**
 
-(`Object`): 返回新的 `lodash` 包装器实例。
+- `(Object)`: 返回新的 Lodash 包装器实例。
 
 **示例**
 
@@ -51,12 +60,13 @@ var youngest = _
   })
   .head()
   .value();
+
 // => 'pebbles is 1'
 ```
 
-### _.tap
+### _.tap(value, interceptor)
 
-此方法调用 `interceptor` 并返回 `value`。`interceptor` 被调用时会传入一个参数：(`value`)。此方法的目的是“接入”一个方法链序列，以便在链中修改中间结果或执行其他操作（副作用）。
+此方法调用 `interceptor` 并返回 `value`。`interceptor` 接收 `value` 作为其唯一参数。这个方法的主要目的是“接入”一个方法链，以便在不改变链中值的情况下执行某些操作，例如记录日志或修改外部变量。
 
 **参数**
 
@@ -67,14 +77,15 @@ var youngest = _
 
 **返回**
 
-(`*`): 返回 `value`。
+- `(*)`: 返回 `value`。
 
 **示例**
 
 ```javascript
 _([1, 2, 3])
  .tap(function(array) {
-   // 改变输入的数组
+   // 在此处可以对数组进行操作，例如记录日志
+   console.log(array); // 输出 [1, 2, 3]
    array.pop();
  })
  .reverse()
@@ -82,9 +93,9 @@ _([1, 2, 3])
 // => [2, 1]
 ```
 
-### _.thru
+### _.thru(value, interceptor)
 
-此方法类似于 `_.tap`，但它返回 `interceptor` 的结果。此方法的目的是“传递”值，在方法链序列中替换中间结果。
+此方法与 `_.tap` 类似，但它返回 `interceptor` 的执行结果。这使得你可以在方法链中传递和替换中间结果。
 
 **参数**
 
@@ -95,7 +106,7 @@ _([1, 2, 3])
 
 **返回**
 
-(`*`): 返回 `interceptor` 的结果。
+- `(*)`: 返回 `interceptor` 的结果。
 
 **示例**
 
@@ -104,19 +115,93 @@ _('  abc  ')
  .chain()
  .trim()
  .thru(function(value) {
-   return [value];
+   return [value, value.length];
  })
  .value();
-// => ['abc']
+// => ['abc', 3]
 ```
 
-### commit
+## 包装器方法
 
-执行链式调用序列并返回包装后的结果。
+### _#value()
+
+执行链式调用序列以获取最终被包装的值。这是显式链式调用的终点。
+
+**别名**: `_#toJSON`, `_#valueOf`
 
 **返回**
 
-(`Object`): 返回新的 `lodash` 包装器实例。
+- `(*)`: 返回解析后的未包装值。
+
+**示例**
+
+```javascript
+_([1, 2, 3]).value();
+// => [1, 2, 3]
+
+_('  abc  ').chain().trim().value();
+// => 'abc'
+```
+
+### _#at(...paths)
+
+`_.at` 的包装器版本。根据指定的属性路径选择值。
+
+**参数**
+
+| 名称 | 类型 | 描述 |
+|---|---|---|
+| `...paths` | `(string|string[])` | 要选择的属性路径。 |
+
+**返回**
+
+- `(Object)`: 返回新的 Lodash 包装器实例。
+
+**示例**
+
+```javascript
+var object = { 'a': [{ 'b': { 'c': 3 } }, 4] };
+ 
+_(object).at(['a[0].b.c', 'a[1]']).value();
+// => [3, 4]
+```
+
+### _#chain()
+
+在现有的包装器实例上启用显式链式调用。
+
+**返回**
+
+- `(Object)`: 返回新的 Lodash 包装器实例。
+
+**示例**
+
+```javascript
+var users = [
+  { 'user': 'barney', 'age': 36 },
+  { 'user': 'fred',   'age': 40 }
+];
+
+// 没有显式链
+_(users).head();
+// => { 'user': 'barney', 'age': 36 }
+
+// 带有显式链
+_(users)
+  .chain()
+  .head()
+  .pick('user')
+  .value();
+// => { 'user': 'barney' }
+```
+
+### _#commit()
+
+执行当前的链式序列并返回一个包含结果的新 Lodash 包装器实例。这允许你在一个链中“提交”部分结果，然后继续链接其他方法。
+
+**返回**
+
+- `(Object)`: 返回新的 Lodash 包装器实例。
 
 **示例**
 
@@ -133,14 +218,11 @@ console.log(array);
 
 wrapped.last();
 // => 3
-
-console.log(array);
-// => [1, 2, 3]
 ```
 
-### plant
+### _#plant(value)
 
-创建一个链式调用序列的克隆，并将 `value` 作为包装值植入。这允许您复用一个链式操作序列，但作用于不同的初始数据。
+创建一个链式序列的克隆，并将 `value` 作为新的被包装值。这对于在保持相同操作序列的同时，对不同的数据集应用这些操作非常有用。
 
 **参数**
 
@@ -150,7 +232,7 @@ console.log(array);
 
 **返回**
 
-(`Object`): 返回新的 `lodash` 包装器实例。
+- `(Object)`: 返回新的 Lodash 包装器实例。
 
 **示例**
 
@@ -162,28 +244,33 @@ function square(n) {
 var wrapped = _([1, 2]).map(square);
 var other = wrapped.plant([3, 4]);
 
-other.value();
+console.log(other.value());
 // => [9, 16]
 
-wrapped.value();
+console.log(wrapped.value());
 // => [1, 4]
 ```
 
-### value
+### _#reverse()
 
-执行链式调用序列以解析出未包装的值。这是获取链式调用最终结果的标准方法。
-
-**别名**
-
-`toJSON`, `valueOf`
+`_.reverse` 的包装器版本。反转包装的数组。这是一个原地操作，会改变原始数组。
 
 **返回**
 
-(`*`): 返回解析后的未包装值。
+- `(Object)`: 返回新的 Lodash 包装器实例。
 
 **示例**
 
 ```javascript
-_([1, 2, 3]).value();
-// => [1, 2, 3]
+var array = [1, 2, 3];
+
+_(array).reverse().value();
+// => [3, 2, 1]
+
+console.log(array);
+// => [3, 2, 1]
 ```
+
+---
+
+掌握了 Lodash 的链式调用方法，你可以构建出更具表现力和可读性的数据处理流水线。接下来，可以深入了解 [Collection](./api-collection.md) 或 [Array](./api-array.md) 方法，探索可以在链式调用中使用的强大函数。

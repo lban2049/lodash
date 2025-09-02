@@ -1,167 +1,146 @@
-# Functional Programming Guide
+# A Guide to Functional Programming
 
-The `lodash/fp` module provides a functional programming (FP) version of Lodash, designed for developers who prefer an immutable, auto-curried, iteratee-first, and data-last style. This guide will detail its core concepts and usage.
+The Lodash FP module (`lodash/fp`) provides a functional programming version of Lodash. It follows the core principles of immutability, auto-currying, iteratee-first, and data-last, which makes function composition and code reuse more concise and powerful.
 
-The main features of the functional version include:
+Unlike standard Lodash methods, the methods in the FP version are carefully designed to support a more declarative programming paradigm. You can find more information on the [FP Guide](https://github.com/lodash/lodash/wiki/FP-Guide) wiki page.
 
-- **Immutability**: Methods do not mutate input data, but instead return new data copies.
-- **Auto-currying**: All methods are curried, making it easy to create partial functions.
-- **Iteratee-first, data-last**: Function signatures are rearranged to take the data collection as the last argument, facilitating function composition.
-- **Fixed arity**: Functions have a fixed number of parameters to support currying.
+## Core Principles
 
-## Core Concepts
+The design of Lodash FP is based on four core principles that work together to provide powerful functional programming capabilities for JavaScript.
 
-### Immutability
+<x-cards data-columns="2">
+  <x-card data-title="Data-Last" data-icon="lucide:align-end-vertical">
+    The collection or data object is always passed as the last argument. This makes it easy to create new functions that wait for data to be passed in before executing.
+  </x-card>
+  <x-card data-title="Auto-Curried" data-icon="lucide:git-fork">
+    All methods are auto-curried, which means you can pass partial arguments and get back a new function that waits for the rest of the arguments.
+  </x-card>
+  <x-card data-title="Immutability" data-icon="lucide:shield-check">
+    FP methods do not modify input data. Any operation that would cause side effects (like `fill` or `assign`) returns a new instance, leaving the original data unchanged.
+  </x-card>
+  <x-card data-title="Iteratee-First" data-icon="lucide:list-filter">
+    The function that processes the collection (the iteratee) is passed as the first argument. This complements the data-last principle, facilitating function creation and composition.
+  </x-card>
+</x-cards>
 
-In standard Lodash, some methods mutate the input array or object directly (e.g., `_.pull`). In `lodash/fp`, all methods with side effects are wrapped as pure functions to ensure they do not modify the original data. They return a new, modified instance.
+### Data Flow Comparison
 
-Here is a list of methods that have been made immutable:
+To better visualize the difference between standard Lodash and Lodash FP, the diagram below illustrates the data flow for the `map` function in both modes.
 
-| Type | Methods |
-|---|---|
-| **Array** | `fill`, `pull`, `pullAll`, `pullAllBy`, `pullAllWith`, `pullAt`, `remove`, `reverse` |
-| **Object** | `assign`, `assignAll`, `assignAllWith`, `assignIn`, `assignInAll`, `assignInAllWith`, `assignInWith`, `assignWith`, `defaults`, `defaultsAll`, `defaultsDeep`, `defaultsDeepAll`, `merge`, `mergeAll`, `mergeAllWith`, `mergeWith` |
-| **Set** | `set`, `setWith`, `unset`, `update`, `updateWith` |
+```d2
+direction: down
 
-### Auto-currying and Data-last
+"Standard Lodash Data Flow": {
+  direction: right
+  data: "Collection\n[1, 2, 3]"
+  iteratee: "Iteratee\nn => n * 2"
+  map_func: "_.map(collection, iteratee)"
+  result: "Result\n[2, 4, 6]"
+  
+  data -> map_func
+  iteratee -> map_func
+  map_func -> result
+}
 
-All functions in `lodash/fp` are auto-curried. This means when you call a function with fewer arguments than it expects, it returns a new function that waits to receive the remaining arguments. This mechanism, combined with the "data-last" parameter order, greatly enhances the composability of functions.
+"Lodash FP Data Flow (Point-free style)": {
+  direction: right
+  iteratee_fp: "Iteratee\nn => n * 2"
+  curried_func: "fp.map(iteratee)"
+  data_fp: "Collection\n[1, 2, 3]"
+  apply_data: "curriedMapFn([1, 2, 3])"
+  result_fp: "Result\n[2, 4, 6]"
 
-For example, you can easily create a reusable function to extract a specific property from an object:
-
-```javascript
-const fp = require('lodash/fp');
-
-// `fp.get` requires a path argument. Since only one argument is provided,
-// it returns a new function that waits to receive an object.
-const getName = fp.get('name');
-
-const user1 = { name: 'Alice', age: 30 };
-const user2 = { name: 'Bob', age: 40 };
-
-// Apply the new function to different data
-console.log(getName(user1)); // Outputs: 'Alice'
-console.log(getName(user2)); // Outputs: 'Bob'
+  iteratee_fp -> curried_func: "Returns a new function `curriedMapFn`"
+  curried_func -> apply_data
+  data_fp -> apply_data
+  apply_data -> result_fp
+}
 ```
 
-This process can be illustrated by the following diagram:
+## Method Conversions
 
-```mermaid
-flowchart TD
-    A["fp.map(transformFn)"] -- "Returns a new function waiting for data" --> B["mapper = fp.map(transformFn)"];
-    C["[data1, data2, data3]"] -- "Passes data to the new function" --> D["mapper([data1, data2, data3])"];
-    D -- "Executes the transformation and returns a new array" --> E["[transformed_data1, transformed_data2, transformed_data3]"];
-```
+To achieve a functional style, the FP module converts standard Lodash methods. This mainly involves argument reordering and providing aliases.
 
-#### Placeholder
+### Argument Order
 
-`lodash/fp` supports using a placeholder `_` for currying, allowing you to specify later arguments first. The placeholder is the `fp` object itself.
+Most methods that accept a collection or object as an argument have been rearranged to place the data argument last. This is crucial for currying and function composition.
 
-```javascript
-const fp = require('lodash/fp');
-
-// Create a function that subtracts 10 from any number
-const subtract10 = fp.subtract(_, 10);
-
-console.log(subtract10(25)); // Outputs: 15
-```
-
-### Argument Order Rearrangement
-
-To implement the "data-last" principle, `lodash/fp` has adjusted the argument order of many native Lodash methods. Typically, the iteratee, path, or configuration object is the first argument, while the collection or object to be operated on is the last.
-
-The following table shows a comparison of the argument order for some common methods:
-
-| Method | Standard Lodash Signature | `lodash/fp` Signature |
+| Standard Lodash | Lodash FP | Argument Rearrangement Explanation |
 |---|---|---|
-| `map` | `_.map(collection, iteratee)` | `fp.map(iteratee)(collection)` |
-| `filter` | `_.filter(collection, predicate)` | `fp.filter(predicate)(collection)` |
-| `get` | `_.get(object, path, [defaultValue])` | `fp.get(path)(object)` or `fp.getOr(defaultValue, path)(object)` |
-| `reduce` | `_.reduce(collection, iteratee, [accumulator])` | `fp.reduce(iteratee, accumulator)(collection)` |
-| `set` | `_.set(object, path, value)` | `fp.set(path, value)(object)` |
+| `_.filter(collection, predicate)` | `fp.filter(predicate)(collection)` | `predicate` comes first, `collection` comes last. |
+| `_.get(object, path, defaultValue)` | `fp.get(path)(object)` or `fp.getOr(defaultValue, path)(object)` | `path` comes first, `object` comes last. `getOr` is a separate variant. |
+| `_.isMatchWith(object, source, customizer)` | `fp.isMatchWith(customizer, source)(object)` | `customizer` and `source` come first, `object` comes last. |
+| `_.reduce(collection, iteratee, accumulator)` | `fp.reduce(iteratee, accumulator)(collection)` | `iteratee` and `accumulator` come first, `collection` comes last. |
+| `_.set(object, path, value)` | `fp.set(path, value)(object)` | `path` and `value` come first, `object` comes last. |
 
-## Method Aliases
+### Method Aliases
 
-To improve compatibility with other functional programming libraries (like Ramda) and provide more semantic naming, `lodash/fp` introduces numerous method aliases.
+To accommodate developers familiar with other functional libraries like Ramda, `lodash/fp` provides aliases for many common methods.
 
-### Internal Lodash Aliases
+| Lodash FP Alias | Original Lodash Method | Description |
+|---|---|---|
+| `pipe` | `flow` | Composes functions from left to right. |
+| `compose` | `flowRight` | Composes functions from right to left. |
+| `prop` | `get` | Gets the value of a property on an object. |
+| `assoc` | `set` | Sets the value of a property on an object (immutable). |
+| `contains` | `includes` | Checks if a collection includes a certain value. |
+| `all` | `every` | Checks if all elements in the collection satisfy the predicate. |
+| `any` | `some` | Checks if any element in the collection satisfies the predicate. |
+| `__` | `placeholder` | A placeholder for partial application. |
+| `T` | `stubTrue` | A function that returns `true`. |
+| `F` | `stubFalse` | A function that returns `false`. |
 
-| Real Name | Alias |
-|---|---|
-| `forEach` | `each` |
-| `forEachRight` | `eachRight` |
-| `toPairs` | `entries` |
-| `toPairsIn` | `entriesIn`|
-| `assignIn` | `extend` |
-| `head` | `first` |
+## Partial Application with Placeholders
 
-### Ramda Compatibility Aliases
+When you need to pre-fill data in a non-initial argument position, you can use the placeholder `fp.placeholder` (or its alias `__`). This is very useful for creating functions that require a specific argument order.
 
-| Real Name | Ramda Alias |
-|---|---|
-| `placeholder` | `__` |
-| `stubFalse` | `F` |
-| `stubTrue` | `T` |
-| `every` | `all` |
-| `overEvery` | `allPass` |
-| `constant` | `always` |
-| `some` | `any` |
-| `overSome` | `anyPass` |
-| `spread` | `apply` |
-| `set` | `assoc`, `assocPath` |
-| `negate` | `complement` |
-| `flowRight` | `compose` |
-| `includes` | `contains` |
-| `unset` | `dissoc`, `dissocPath` |
-| `dropRight` | `dropLast` |
-| `isEqual` | `equals` |
-| `eq` | `identical` |
-| `keyBy` | `indexBy` |
-| `initial` | `init` |
-| `invert` | `invertObj` |
-| `over` | `juxt` |
-| `flow` | `pipe` |
-| `get` | `path`, `prop` |
-| `at` | `paths`, `props` |
-| `matchesProperty` | `pathEq`, `propEq` |
-| `xor` | `symmetricDifference` |
-| `flatten` | `unnest` |
-| `overArgs` | `useWith` |
-| `conformsTo` | `where` |
-| `isMatch` | `whereEq` |
-| `zipObject` | `zipObj` |
-
-## Custom Conversions
-
-`lodash/fp` provides a `convert` method that allows you to create a custom `lodash` instance based on specific requirements. You can finely control behaviors like currying, immutability, and more.
-
-The `convert` method accepts a configuration object with the following options:
-
-- `cap` (boolean): Whether to cap the number of arguments for iteratees. Default is `true`.
-- `curry` (boolean): Whether to enable currying. Default is `true`.
-- `fixed` (boolean): Whether to use a fixed arity. Default is `true`.
-- `immutable` (boolean): Whether to enforce immutability. Default is `true`.
-- `rearg` (boolean): Whether to reorder argument positions. Default is `true`.
-
-**Example: Creating an FP version with argument rearrangement disabled**
+For example, the signature of `fp.subtract` is `fp.subtract(subtrahend)(minuend)`, which calculates `minuend - subtrahend`.
 
 ```javascript
 const fp = require('lodash/fp');
-const _ = require('lodash');
 
-// Create a custom instance whose function signatures are consistent with standard lodash, but still supports auto-currying
-const customFp = fp.convert({ 'rearg': false });
+// Create a function that subtracts a number from 10
+// Equivalent to creating a function x => 10 - x
+const subtractFrom10 = fp.subtract(fp.__, 10);
 
-const collection = [{ 'a': 1 }, { 'a': 2 }];
-
-// Standard lodash style call
-const result1 = customFp.map(collection, 'a');
-console.log(result1); // Outputs: [1, 2]
-
-// Currying still works
-const getA = customFp.map(_, 'a');
-const result2 = getA(collection);
-console.log(result2); // Outputs: [1, 2]
+const result = subtractFrom10(4);
+console.log(result);
+// => 6
 ```
 
-This feature allows developers to precisely customize the library's behavior according to their project's specific functional programming style.
+In this example, the placeholder `__` occupies the position of the first argument (`subtrahend`), allowing us to provide the second argument, `10` (`minuend`), first.
+
+## Advanced Customization: The `convert` Function
+
+If you need finer control over the behavior of the FP module, you can use the `convert` function. It allows you to create a custom instance of Lodash FP and configure its behavior, such as disabling auto-currying or immutability.
+
+```javascript
+const _ = require('lodash');
+const fp = require('lodash/fp');
+
+// Create a version of Lodash FP with auto-currying disabled
+const nonCurriedFp = fp.convert({ 'curry': false });
+
+const iteratee = x => x * 2;
+const collection = [1, 2, 3];
+
+// Since currying is disabled, the following call will throw an error
+// nonCurriedFp.map(iteratee)(collection);
+
+// You must provide all arguments at once, like a standard Lodash function
+const result = nonCurriedFp.map(iteratee, collection);
+console.log(result);
+// => [2, 4, 6]
+```
+
+The `convert` function accepts a configuration object that you can use to enable or disable the following features:
+
+| Option | Default | Description |
+|---|---|---|
+| `cap` | `true` | Whether to cap the number of arguments for iteratees. |
+| `curry` | `true` | Whether to enable auto-currying. |
+| `fixed` | `true` | Whether to fix the number of function arguments to support currying. |
+| `immutable` | `true` | Whether to enforce immutability by wrapping methods with side effects. |
+| `rearg` | `true` | Whether to reorder arguments to achieve a data-last style. |
+
+With this guide, you should have a solid understanding of the core concepts and usage of Lodash FP. To see all available functions, continue to the [API Reference](./api.md).
