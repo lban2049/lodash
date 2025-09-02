@@ -1,0 +1,101 @@
+[
+  {
+    "title": "Overview",
+    "description": "Discover Lodash, a modern JavaScript utility library providing a wide range of modular methods for common programming tasks, designed for performance and ease of use. This section introduces the library's purpose, key features, and overall architecture.",
+    "path": "/overview",
+    "parentId": null,
+    "sourceIds": [
+      "README.md",
+      "lodash.js",
+      "package.json",
+      "SECURITY.md",
+      "fp/_mapping.js"
+    ]
+  },
+  {
+    "title": "Getting Started",
+    "description": "Learn how to quickly integrate Lodash into your development environment. This guide covers installation via various package managers, basic setup in different JavaScript environments (browser, Node.js), and a simple 'Hello World' example.",
+    "path": "/getting-started",
+    "parentId": null,
+    "sourceIds": [
+      "README.md",
+      "package.json",
+      "lodash.js"
+    ]
+  },
+  {
+    "title": "Core Concepts",
+    "description": "Understand the fundamental principles behind Lodash, including its modular design, the types of operations it excels at (collections, objects, strings), and its various distribution formats, which are crucial for optimizing application size and performance.",
+    "path": "/core-concepts",
+    "parentId": null,
+    "sourceIds": [
+      "README.md",
+      "lodash.js"
+    ]
+  },
+  {
+    "title": "Module Formats & Custom Builds",
+    "description": "Detailed information on various Lodash module formats (UMD, ES Modules, FP) and how to create custom builds to include only the necessary functions, reducing bundle size and improving load times.",
+    "path": "/core-concepts/module-formats",
+    "parentId": "/core-concepts",
+    "sourceIds": [
+      "README.md",
+      "lib/main/build-modules.js",
+      "lib/fp/build-modules.js",
+      "lib/main/build-dist.js",
+      "lib/fp/build-dist.js",
+      "lib/common/minify.js",
+      "lib/common/uglify.options.js",
+      "lib/common/util.js",
+      "lib/common/file.js"
+    ]
+  },
+  {
+    "title": "API Reference",
+    "description": "A comprehensive guide to all Lodash methods, categorized by their primary data type or utility. Each method includes its syntax, parameters, return values, and practical examples to aid in development.",
+    "path": "/api-reference",
+    "parentId": null,
+    "sourceIds": [
+      "lodash.js"
+    ]
+  },
+  {
+    "title": "Functional Programming (FP)",
+    "description": "Dive into the functional programming paradigm with Lodash's `lodash/fp` module. This section explains curried, iteratee-first, and data-last methods, along with mappings for common aliases, enabling a more declarative and immutable coding style.",
+    "path": "/functional-programming",
+    "parentId": null,
+    "sourceIds": [
+      "fp/_mapping.js",
+      "fp/placeholder.js",
+      "fp/_baseConvert.js",
+      "fp/_convertBrowser.js"
+    ]
+  },
+  {
+    "title": "Security Policy",
+    "description": "Understand Lodash's security posture, including information on supported versions, the responsible disclosure process for vulnerabilities, and guidelines on how to report security issues to maintainers.",
+    "path": "/security",
+    "parentId": null,
+    "sourceIds": [
+      "SECURITY.md"
+    ]
+  },
+  {
+    "title": "Contributing",
+    "description": "Guidelines for developers interested in contributing to the Lodash project, covering the codebase, style conventions, testing procedures, and release process to ensure high-quality contributions.",
+    "path": "/contributing",
+    "parentId": null,
+    "sourceIds": [
+      "README.md",
+      "package.json",
+      "lib/main/build-doc.js",
+      "lib/main/build-site.js",
+      "lib/main/build-dist.js",
+      "lib/common/minify.js",
+      "lib/common/uglify.options.js",
+      "lib/common/util.js",
+      "lib/common/file.js",
+      "lib/common/mapping.js"
+    ]
+  }
+]

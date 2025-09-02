@@ -1,0 +1,244 @@
+[
+  {
+    "description": "Provides a high-level overview of Lodash, its core philosophy, key features, and guidance on navigating the documentation.",
+    "parentId": null,
+    "path": "/overview",
+    "sourceIds": [
+      "package-lock.json",
+      "package.json",
+      "SECURITY.md",
+      "README.md",
+      "fp/placeholder.js",
+      "fp/_convertBrowser.js",
+      "fp/_mapping.js",
+      "lib/main/build-modules.js",
+      "fp/_baseConvert.js",
+      "perf/perf.js",
+      "perf/index.html",
+      "lib/main/build-site.js",
+      "lib/main/build-doc.js",
+      "lib/main/build-dist.js",
+      "lib/common/uglify.options.js",
+      "lib/common/minify.js",
+      "lib/common/mapping.js",
+      "lib/common/util.js",
+      "lib/common/file.js",
+      "lib/fp/build-modules.js",
+      "lib/fp/build-doc.js",
+      "lib/fp/build-dist.js",
+      "perf/asset/perf-ui.js",
+      "lodash.js"
+    ],
+    "title": "Overview"
+  },
+  {
+    "description": "Offers concise, copy-paste ready instructions for installing and making the first function call with Lodash in various environments like browsers and Node.js.",
+    "parentId": null,
+    "path": "/getting-started",
+    "sourceIds": [
+      "package-lock.json",
+      "package.json",
+      "SECURITY.md",
+      "README.md",
+      "fp/placeholder.js",
+      "fp/_convertBrowser.js",
+      "fp/_mapping.js",
+      "lib/main/build-modules.js",
+      "fp/_baseConvert.js",
+      "perf/perf.js",
+      "perf/index.html",
+      "lib/main/build-site.js",
+      "lib/main/build-doc.js",
+      "lib/main/build-dist.js",
+      "lib/common/uglify.options.js",
+      "lib/common/minify.js",
+      "lib/common/mapping.js",
+      "lib/common/util.js",
+      "lib/common/file.js",
+      "lib/fp/build-modules.js",
+      "lib/fp/build-doc.js",
+      "lib/fp/build-dist.js",
+      "perf/asset/perf-ui.js",
+      "lodash.js"
+    ],
+    "title": "Getting Started"
+  },
+  {
+    "description": "Provides a comprehensive, searchable reference for all Lodash methods, organized by data type for quick look-up.",
+    "parentId": null,
+    "path": "/api",
+    "sourceIds": [
+      "lodash.js",
+      "fp/_mapping.js"
+    ],
+    "title": "API Reference"
+  },
+  {
+    "description": "Explains the functional programming paradigm within Lodash, including immutability, auto-currying, and data-last method signatures.",
+    "parentId": null,
+    "path": "/fp-guide",
+    "sourceIds": [
+      "README.md",
+      "fp/placeholder.js",
+      "fp/_convertBrowser.js",
+      "fp/_mapping.js",
+      "fp/_baseConvert.js",
+      "lib/fp/build-doc.js"
+    ],
+    "title": "Functional Programming Guide"
+  },
+  {
+    "description": "Contains technical guides for advanced use cases, including performance optimization and using different library builds.",
+    "parentId": null,
+    "path": "/guides",
+    "sourceIds": [
+      "README.md",
+      "lib/main/build-dist.js",
+      "lib/main/build-modules.js",
+      "perf/perf.js"
+    ],
+    "title": "Guides"
+  },
+  {
+    "description": "Details the project's security policy, supported versions for security updates, and procedures for responsibly disclosing vulnerabilities.",
+    "parentId": null,
+    "path": "/security",
+    "sourceIds": [
+      "SECURITY.md"
+    ],
+    "title": "Security"
+  },
+  {
+    "description": "Information on how to contribute to the Lodash project, including code contribution guidelines and links to community discussion channels.",
+    "parentId": null,
+    "path": "/contributing",
+    "sourceIds": [
+      "README.md"
+    ],
+    "title": "Contributing & Community"
+  },
+  {
+    "description": "A detailed reference for all Lodash functions that operate on or return arrays.",
+    "parentId": "/api",
+    "path": "/api/array",
+    "sourceIds": [
+      "lodash.js"
+    ],
+    "title": "Array"
+  },
+  {
+    "description": "A detailed reference for all Lodash functions that iterate over collections like arrays and objects.",
+    "parentId": "/api",
+    "path": "/api/collection",
+    "sourceIds": [
+      "lodash.js"
+    ],
+    "title": "Collection"
+  },
+  {
+    "description": "A detailed reference for all Lodash functions for working with Date objects.",
+    "parentId": "/api",
+    "path": "/api/date",
+    "sourceIds": [
+      "lodash.js"
+    ],
+    "title": "Date"
+  },
+  {
+    "description": "A detailed reference for all Lodash functions that operate on or return functions, such as debouncing and currying.",
+    "parentId": "/api",
+    "path": "/api/function",
+    "sourceIds": [
+      "lodash.js"
+    ],
+    "title": "Function"
+  },
+  {
+    "description": "A detailed reference for all Lodash language utility functions, including type checking and cloning.",
+    "parentId": "/api",
+    "path": "/api/lang",
+    "sourceIds": [
+      "lodash.js"
+    ],
+    "title": "Lang"
+  },
+  {
+    "description": "A detailed reference for all Lodash mathematical utility functions.",
+    "parentId": "/api",
+    "path": "/api/math",
+    "sourceIds": [
+      "lodash.js"
+    ],
+    "title": "Math"
+  },
+  {
+    "description": "A detailed reference for all Lodash functions that operate on or return numbers.",
+    "parentId": "/api",
+    "path": "/api/number",
+    "sourceIds": [
+      "lodash.js"
+    ],
+    "title": "Number"
+  },
+  {
+    "description": "A detailed reference for all Lodash functions for manipulating and working with objects.",
+    "parentId": "/api",
+    "path": "/api/object",
+    "sourceIds": [
+      "lodash.js"
+    ],
+    "title": "Object"
+  },
+  {
+    "description": "A detailed reference for all Lodash functions related to sequential method chaining.",
+    "parentId": "/api",
+    "path": "/api/seq",
+    "sourceIds": [
+      "lodash.js"
+    ],
+    "title": "Seq"
+  },
+  {
+    "description": "A detailed reference for all Lodash functions for string manipulation and inspection.",
+    "parentId": "/api",
+    "path": "/api/string",
+    "sourceIds": [
+      "lodash.js"
+    ],
+    "title": "String"
+  },
+  {
+    "description": "A detailed reference for miscellaneous Lodash utility functions.",
+    "parentId": "/api",
+    "path": "/api/util",
+    "sourceIds": [
+      "lodash.js"
+    ],
+    "title": "Util"
+  },
+  {
+    "description": "Explains the different Lodash builds available (e.g., core, full, ES modules) and how to create custom builds for optimized bundle sizes.",
+    "parentId": "/guides",
+    "path": "/guides/build-differences",
+    "sourceIds": [
+      "README.md",
+      "package.json",
+      "lib/main/build-dist.js",
+      "lib/main/build-modules.js",
+      "lib/fp/build-dist.js",
+      "lib/common/file.js"
+    ],
+    "title": "Build Differences"
+  },
+  {
+    "description": "Provides insights and benchmarks for writing high-performance code with Lodash, leveraging the library's internal optimizations.",
+    "parentId": "/guides",
+    "path": "/guides/performance",
+    "sourceIds": [
+      "perf/perf.js",
+      "perf/index.html",
+      "perf/asset/perf-ui.js"
+    ],
+    "title": "Performance"
+  }
+]
