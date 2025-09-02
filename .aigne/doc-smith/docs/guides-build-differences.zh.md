@@ -1,144 +1,144 @@
-# Build Differences
+# 构建版本的差异
 
-Lodash is available in a variety of builds and module formats to accommodate different development environments and performance needs. Selecting the appropriate build can significantly optimize your application's bundle size and load time. This guide explains the differences between the available builds and helps you choose the one that best fits your project.
+Lodash 提供多种构建版本和模块格式，以适应不同的开发环境和性能需求。选择合适的构建版本可以显著优化应用程序的包大小和加载时间。本指南将解释不同构建版本之间的差异，并帮助您选择最适合您项目的版本。
 
-## Core vs. Full Builds
+## 核心版与完整版构建
 
-Lodash offers two primary pre-compiled builds: a lightweight **Core** build and a comprehensive **Full** build.
+Lodash 提供两种主要的预编译构建版本：轻量级的**核心版**构建和功能全面的**完整版**构建。
 
-| Feature | Full Build | Core Build |
+| 特性 | 完整版构建 | 核心版构建 |
 |---|---|---|
-| **Description** | Includes all Lodash functions for a wide range of utilities. | A lightweight version containing a subset of the most common functions, suitable for environments where bundle size is critical. |
-| **Gzipped Size** | ~24 kB | ~4 kB |
-| **Node.js Import** | `require('lodash')` | `require('lodash/core')` |
-| **Use Case** | Ideal for Node.js applications or projects where bundle size is not a primary concern. | Recommended for front-end applications, mobile web, or any scenario where initial load performance is a priority. |
+| **描述** | 包含所有 Lodash 函数，提供广泛的实用功能。 | 一个轻量级版本，包含最常用函数的一个子集，适用于包大小至关重要的环境。 |
+| **Gzipped 大小** | ~24 kB | ~4 kB |
+| **Node.js 导入** | `require('lodash')` | `require('lodash/core')` |
+| **使用场景** | 适用于 Node.js 应用程序或对包大小没有主要考量的项目。 | 推荐用于前端应用程序、移动 Web 或任何优先考虑初始加载性能的场景。 |
 
-You can download these builds directly or use a CDN:
+您可以直接下载这些构建版本或使用 CDN：
 
-- **Core Build**: [lodash.core.js](https://raw.githubusercontent.com/lodash/lodash/4.17.21/dist/lodash.core.js)
-- **Full Build**: [lodash.js](https://raw.githubusercontent.com/lodash/lodash/4.17.21/dist/lodash.js)
-- **CDN Options**: [jsdelivr](https://www.jsdelivr.com/projects/lodash)
+- **核心版构建**: [lodash.core.js](https://raw.githubusercontent.com/lodash/lodash/4.17.21/dist/lodash.core.js)
+- **完整版构建**: [lodash.js](https://raw.githubusercontent.com/lodash/lodash/4.17.21/dist/lodash.js)
+- **CDN 选项**: [jsdelivr](https://www.jsdelivr.com/projects/lodash)
 
-## Module Formats and Optimization
+## 模块格式与优化
 
-To integrate with modern JavaScript tooling, Lodash supports several module formats that enable optimizations like tree-shaking.
+为了与现代 JavaScript 工具链集成，Lodash 支持多种模块格式，这些格式可以实现诸如摇树优化（tree-shaking）等优化。
 
-### UMD (Universal Module Definition)
+### UMD (通用模块定义)
 
-The standard `lodash` package uses the UMD format, making it compatible with various environments.
+标准的 `lodash` 包使用 UMD 格式，使其与各种环境兼容。
 
-**In a browser:**
+**在浏览器中：**
 ```html
 <script src="lodash.js"></script>
 ```
 
-**In Node.js:**
+**在 Node.js 中：**
 ```javascript
-// Load the full build.
+// 加载完整版构建。
 var _ = require('lodash');
 
-// Load the core build.
+// 加载核心版构建。
 var _ = require('lodash/core');
 ```
 
-### Cherry-picking Methods
+### 按需引入方法
 
-For front-end projects, the most effective optimization is to import only the methods you need. This allows bundlers like webpack or Rollup to perform tree-shaking and exclude unused code from the final bundle.
+对于前端项目，最有效的优化是只导入您需要的方法。这使得像 webpack 或 Rollup 这样的打包工具能够执行摇树优化（tree-shaking），从而从最终的包中排除未使用的代码。
 
 ```javascript
-// Cherry-pick methods for smaller bundles.
+// 按需引入方法以减小包大小。
 var at = require('lodash/at');
 var curryN = require('lodash/fp/curryN');
 ```
 
-### ES Modules
+### ES 模块
 
-For projects using ES modules, the `lodash-es` package is recommended. It provides native ES module exports, which allows for more efficient tree-shaking with modern build tools. To further automate this process, you can use [babel-plugin-lodash](https://www.npmjs.com/package/babel-plugin-lodash) and [lodash-webpack-plugin](https://www.npmjs.com/package/lodash-webpack-plugin).
+对于使用 ES 模块的项目，推荐使用 `lodash-es` 包。它提供原生的 ES 模块导出，这使得现代构建工具可以进行更高效的摇树优化。为了进一步自动化此过程，您可以使用 [babel-plugin-lodash](https://www.npmjs.com/package/babel-plugin-lodash) 和 [lodash-webpack-plugin](https://www.npmjs.com/package/lodash-webpack-plugin)。
 
-### Functional Programming (FP) Build
+### 函数式编程 (FP) 构建版
 
-Lodash also provides a build for functional programming. This version features immutable, auto-curried, iteratee-first, and data-last methods.
+Lodash 还提供了一个用于函数式编程的构建版本。该版本具有不可变、自动柯里化、函数优先、数据置后的方法。
 
 ```javascript
-// Load the FP build.
+// 加载 FP 构建版。
 var fp = require('lodash/fp');
 ```
-For a deeper dive into this paradigm, see the [Functional Programming Guide](./fp-guide.md).
+要深入了解这种范式，请参阅[函数式编程指南](./fp-guide.md)。
 
-## How to Choose
+## 如何选择
 
-Use this chart to determine the best build for your needs:
+使用此图表来确定最适合您需求的构建版本：
 
 ```d2
 direction: down
 
-start: "Start: Choose Lodash Build"
+start: "开始：选择 Lodash 构建版本"
 
-env_check: "What is your environment?"
+env_check: "您的环境是什么？"
 
 start -> env_check
 
-subgraph "Browser" {
+subgraph "浏览器" {
   direction: down
-  bundle_sensitive: "Is bundle size critical?"
-  use_core: "Use Core Build (lodash.core.js) or Cherry-pick methods."
-  use_full: "Use Full Build (lodash.js)."
+  bundle_sensitive: "包大小是否至关重要？"
+  use_core: "使用核心版构建 (lodash.core.js) 或按需引入方法。"
+  use_full: "使用完整版构建 (lodash.js)。"
 
-  bundle_sensitive -> use_core: "Yes"
-  bundle_sensitive -> use_full: "No"
+  bundle_sensitive -> use_core: "是"
+  bundle_sensitive -> use_full: "否"
 }
 
 subgraph "Node.js" {
   direction: down
-  use_full_node: "Use the full 'lodash' package."
+  use_full_node: "使用完整的 'lodash' 包。"
 }
 
-subgraph "Modern Bundler (webpack, Vite)" {
+subgraph "现代打包工具 (webpack, Vite)" {
   direction: down
-  use_es: "Use 'lodash-es' or Cherry-pick methods for optimal tree-shaking."
+  use_es: "使用 'lodash-es' 或按需引入方法以实现最佳的摇树优化。"
 }
 
-env_check -> bundle_sensitive: "Browser"
+env_check -> bundle_sensitive: "浏览器"
 env_check -> use_full_node: "Node.js"
-env_check -> use_es: "Modern Bundler"
+env_check -> use_es: "现代打包工具"
 
-fp_check: "Do you prefer a functional programming style?"
+fp_check: "您是否偏好函数式编程风格？"
 
 use_core --> fp_check
 use_full --> fp_check
 use_full_node --> fp_check
 use_es --> fp_check
 
-end: "Selection Complete"
+end: "选择完成"
 
-use_fp: "Use the 'lodash/fp' variant."
+use_fp: "使用 'lodash/fp' 变体。"
 
-fp_check -> use_fp: "Yes"
-fp_check -> end: "No"
+fp_check -> use_fp: "是"
+fp_check -> end: "否"
 use_fp -> end
 ```
 
-## Custom Builds
+## 自定义构建
 
-For full control, you can create a custom build using `lodash-cli` to include only the specific methods your project requires. The build process can be initiated through npm scripts defined in `package.json`.
+为了完全控制，您可以使用 `lodash-cli` 创建一个自定义构建，仅包含您项目所需的特定方法。构建过程可以通过 `package.json` 中定义的 npm 脚本来启动。
 
-**Generate Standard Builds**
+**生成标准构建**
 
-This command will generate the main and FP distribution files in the `./dist/` directory.
+此命令将在 `./dist/` 目录下生成主发行版和 FP 发行版文件。
 ```shell
 $ npm run build
 ```
 
-**Use lodash-cli Directly**
+**直接使用 lodash-cli**
 
-Alternatively, you can use the `lodash-cli` to generate specific builds.
+或者，您也可以使用 `lodash-cli` 来生成特定的构建版本。
 
 ```shell
-# Create a full build
+# 创建一个完整版构建
 $ lodash -o ./dist/lodash.js
 
-# Create the core build
+# 创建一个核心版构建
 $ lodash core -o ./dist/lodash.core.js
 ```
 
-By understanding these build differences, you can make an informed choice that balances functionality with performance. To further optimize your code, consider reading our guide on [Performance](./guides-performance.md).
+通过了解这些构建版本的差异，您可以做出明智的选择，以平衡功能与性能。要进一步优化您的代码，请考虑阅读我们的[性能指南](./guides-performance.md)。
