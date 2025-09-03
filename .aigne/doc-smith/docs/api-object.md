@@ -1,29 +1,27 @@
 # Object
 
-Lodash provides numerous functions for manipulating and processing JavaScript objects. These utilities help you merge, transform, select, inspect, and set object properties, forming a core part of data processing workflows. These functions focus on handling both own and inherited properties of objects, offering more powerful and flexible capabilities than native JavaScript.
-
-For more information on iterating over objects and arrays, see the functions in the [Collection](./api-collection.md) section.
+This section provides a detailed reference for Lodash functions used for manipulating and working with objects. These utilities cover a wide range of operations, including creating, assigning, merging, picking, and transforming object properties. For functions that iterate over objects, you may also find the [Collection](./api-collection.md) methods useful.
 
 ---
 
 ## assign
 
-Assigns own enumerable string-keyed properties of one or more source objects to a destination object. Source objects are applied from left to right. Subsequent sources overwrite property assignments of previous sources.
+Assigns own enumerable string keyed properties of source objects to the destination object. Source objects are applied from left to right. Subsequent sources overwrite property assignments of previous sources.
 
 **Note:** This method mutates `object`.
 
-**Parameters**
+### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | `object` | `Object` | The destination object. |
-| `[sources]` | `...Object` | One or more source objects. |
+| `...[sources]` | `Object` | The source objects. |
 
-**Returns**
+### Returns
 
-- `(Object)`: Returns the mutated `object`.
+- `(Object)`: Returns `object`.
 
-**Example**
+### Example
 
 ```javascript
 function Foo() {
@@ -45,22 +43,25 @@ _.assign({ 'a': 0 }, new Foo, new Bar);
 
 ## assignIn
 
-This method is like `_.assign`, except that it iterates over own and inherited source properties. Aliased as `_.extend`.
+This method is like `_.assign` except that it iterates over own and inherited source properties.
 
 **Note:** This method mutates `object`.
 
-**Parameters**
+### Alias
+- `extend`
+
+### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | `object` | `Object` | The destination object. |
-| `[sources]` | `...Object` | One or more source objects. |
+| `...[sources]` | `Object` | The source objects. |
 
-**Returns**
+### Returns
 
 - `(Object)`: Returns `object`.
 
-**Example**
+### Example
 
 ```javascript
 function Foo() {
@@ -82,23 +83,26 @@ _.assignIn({ 'a': 0 }, new Foo, new Bar);
 
 ## assignInWith
 
-This method is like `_.assignIn`, except that it accepts a `customizer` which is invoked to produce the assigned values. If `customizer` returns `undefined`, assignment is handled by the method instead. The `customizer` is invoked with five arguments: (objValue, srcValue, key, object, source).
+This method is like `_.assignIn` except that it accepts `customizer` which is invoked to produce the assigned values. If `customizer` returns `undefined`, assignment is handled by the method instead. The `customizer` is invoked with five arguments: (objValue, srcValue, key, object, source).
 
 **Note:** This method mutates `object`.
 
-**Parameters**
+### Alias
+- `extendWith`
+
+### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | `object` | `Object` | The destination object. |
-| `sources` | `...Object` | One or more source objects. |
+| `...sources` | `Object` | The source objects. |
 | `[customizer]` | `Function` | The function to customize assigned values. |
 
-**Returns**
+### Returns
 
 - `(Object)`: Returns `object`.
 
-**Example**
+### Example
 
 ```javascript
 function customizer(objValue, srcValue) {
@@ -115,23 +119,23 @@ defaults({ 'a': 1 }, { 'b': 2 }, { 'a': 3 });
 
 ## assignWith
 
-This method is like `_.assign`, except that it accepts a `customizer` which is invoked to produce the assigned values. If `customizer` returns `undefined`, assignment is handled by the method instead. The `customizer` is invoked with five arguments: (objValue, srcValue, key, object, source).
+This method is like `_.assign` except that it accepts `customizer` which is invoked to produce the assigned values. If `customizer` returns `undefined`, assignment is handled by the method instead. The `customizer` is invoked with five arguments: (objValue, srcValue, key, object, source).
 
 **Note:** This method mutates `object`.
 
-**Parameters**
+### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | `object` | `Object` | The destination object. |
-| `sources` | `...Object` | One or more source objects. |
+| `...sources` | `Object` | The source objects. |
 | `[customizer]` | `Function` | The function to customize assigned values. |
 
-**Returns**
+### Returns
 
 - `(Object)`: Returns `object`.
 
-**Example**
+### Example
 
 ```javascript
 function customizer(objValue, srcValue) {
@@ -150,18 +154,18 @@ defaults({ 'a': 1 }, { 'b': 2 }, { 'a': 3 });
 
 Creates an array of values corresponding to `paths` of `object`.
 
-**Parameters**
+### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | `object` | `Object` | The object to iterate over. |
-| `[paths]` | `...(string|string[])` | The property paths to pick. |
+| `...[paths]` | `(string\|string[])` | The property paths to pick. |
 
-**Returns**
+### Returns
 
 - `(Array)`: Returns the picked values.
 
-**Example**
+### Example
 
 ```javascript
 var object = { 'a': [{ 'b': { 'c': 3 } }, 4] };
@@ -174,20 +178,20 @@ _.at(object, ['a[0].b.c', 'a[1]']);
 
 ## create
 
-Creates an object that inherits from the `prototype` object. If a `properties` object is provided, its own enumerable string-keyed properties are assigned to the created object.
+Creates an object that inherits from the `prototype` object. If a `properties` object is given, its own enumerable string keyed properties are assigned to the created object.
 
-**Parameters**
+### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | `prototype` | `Object` | The object to inherit from. |
-| `[properties]` | `Object` | The properties to assign to the new object. |
+| `[properties]` | `Object` | The properties to assign to the object. |
 
-**Returns**
+### Returns
 
 - `(Object)`: Returns the new object.
 
-**Example**
+### Example
 
 ```javascript
 function Shape() {
@@ -215,22 +219,22 @@ circle instanceof Shape;
 
 ## defaults
 
-Assigns own enumerable string-keyed properties of source objects to the destination object for all destination properties that are `undefined`. Source objects are applied from left to right. Once a property is set, additional values of the same property are ignored.
+Assigns own and inherited enumerable string keyed properties of source objects to the destination object for all destination properties that resolve to `undefined`. Source objects are applied from left to right. Once a property is set, additional values of the same property are ignored.
 
 **Note:** This method mutates `object`.
 
-**Parameters**
+### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | `object` | `Object` | The destination object. |
-| `[sources]` | `...Object` | One or more source objects. |
+| `...[sources]` | `Object` | The source objects. |
 
-**Returns**
+### Returns
 
 - `(Object)`: Returns `object`.
 
-**Example**
+### Example
 
 ```javascript
 _.defaults({ 'a': 1 }, { 'b': 2 }, { 'a': 3 });
@@ -245,18 +249,18 @@ This method is like `_.defaults` except that it recursively assigns default prop
 
 **Note:** This method mutates `object`.
 
-**Parameters**
+### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | `object` | `Object` | The destination object. |
-| `[sources]` | `...Object` | One or more source objects. |
+| `...[sources]` | `Object` | The source objects. |
 
-**Returns**
+### Returns
 
 - `(Object)`: Returns `object`.
 
-**Example**
+### Example
 
 ```javascript
 _.defaultsDeep({ 'a': { 'b': 2 } }, { 'a': { 'b': 1, 'c': 3 } });
@@ -269,18 +273,18 @@ _.defaultsDeep({ 'a': { 'b': 2 } }, { 'a': { 'b': 1, 'c': 3 } });
 
 This method is like `_.find` except that it returns the key of the first element `predicate` returns truthy for instead of the element itself.
 
-**Parameters**
+### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | `object` | `Object` | The object to inspect. |
-| `[predicate]` | `Function` | The function invoked per iteration. |
+| `[predicate]` | `Function` | The function invoked per iteration. Defaults to `_.identity`. |
 
-**Returns**
+### Returns
 
 - `(string|undefined)`: Returns the key of the matched element, else `undefined`.
 
-**Example**
+### Example
 
 ```javascript
 var users = {
@@ -291,26 +295,38 @@ var users = {
 
 _.findKey(users, function(o) { return o.age < 40; });
 // => 'barney' (iteration order is not guaranteed)
+
+// The `_.matches` iteratee shorthand.
+_.findKey(users, { 'age': 1, 'active': true });
+// => 'pebbles'
+
+// The `_.matchesProperty` iteratee shorthand.
+_.findKey(users, ['active', false]);
+// => 'fred'
+
+// The `_.property` iteratee shorthand.
+_.findKey(users, 'active');
+// => 'barney'
 ```
 
 ---
 
 ## findLastKey
 
-This method is like `_.findKey` except that it iterates over elements of a collection from right to left.
+This method is like `_.findKey` except that it iterates over elements of a collection in the opposite order.
 
-**Parameters**
+### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | `object` | `Object` | The object to inspect. |
-| `[predicate]` | `Function` | The function invoked per iteration. |
+| `[predicate]` | `Function` | The function invoked per iteration. Defaults to `_.identity`. |
 
-**Returns**
+### Returns
 
 - `(string|undefined)`: Returns the key of the matched element, else `undefined`.
 
-**Example**
+### Example
 
 ```javascript
 var users = {
@@ -320,27 +336,39 @@ var users = {
 };
 
 _.findLastKey(users, function(o) { return o.age < 40; });
-// => 'pebbles' (assuming `_.findKey` returns 'barney')
+// => returns 'pebbles' assuming `_.findKey` returns 'barney'
+
+// The `_.matches` iteratee shorthand.
+_.findLastKey(users, { 'age': 36, 'active': true });
+// => 'barney'
+
+// The `_.matchesProperty` iteratee shorthand.
+_.findLastKey(users, ['active', false]);
+// => 'fred'
+
+// The `_.property` iteratee shorthand.
+_.findLastKey(users, 'active');
+// => 'pebbles'
 ```
 
 ---
 
 ## forIn
 
-Iterates over own and inherited enumerable string-keyed properties of an object and invokes `iteratee` for each property. The `iteratee` is invoked with three arguments: (value, key, object). Iteratee functions may exit iteration early by explicitly returning `false`.
+Iterates over own and inherited enumerable string keyed properties of an object and invokes `iteratee` for each property. The iteratee is invoked with three arguments: (value, key, object). Iteratee functions may exit iteration early by explicitly returning `false`.
 
-**Parameters**
+### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | `object` | `Object` | The object to iterate over. |
-| `[iteratee]` | `Function` | The function invoked per iteration. |
+| `[iteratee]` | `Function` | The function invoked per iteration. Defaults to `_.identity`. |
 
-**Returns**
+### Returns
 
 - `(Object)`: Returns `object`.
 
-**Example**
+### Example
 
 ```javascript
 function Foo() {
@@ -362,18 +390,18 @@ _.forIn(new Foo, function(value, key) {
 
 This method is like `_.forIn` except that it iterates over properties of `object` in the opposite order.
 
-**Parameters**
+### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | `object` | `Object` | The object to iterate over. |
-| `[iteratee]` | `Function` | The function invoked per iteration. |
+| `[iteratee]` | `Function` | The function invoked per iteration. Defaults to `_.identity`. |
 
-**Returns**
+### Returns
 
 - `(Object)`: Returns `object`.
 
-**Example**
+### Example
 
 ```javascript
 function Foo() {
@@ -386,27 +414,27 @@ Foo.prototype.c = 3;
 _.forInRight(new Foo, function(value, key) {
   console.log(key);
 });
-// => Assuming `_.forIn` logs 'a', 'b', 'c', this logs 'c', 'b', 'a'.
+// => Logs 'c', 'b', then 'a' assuming `_.forIn` logs 'a', 'b', then 'c'.
 ```
 
 ---
 
 ## forOwn
 
-Iterates over own enumerable string-keyed properties of an object and invokes `iteratee` for each property. The `iteratee` is invoked with three arguments: (value, key, object). Iteratee functions may exit iteration early by explicitly returning `false`.
+Iterates over own enumerable string keyed properties of an object and invokes `iteratee` for each property. The iteratee is invoked with three arguments: (value, key, object). Iteratee functions may exit iteration early by explicitly returning `false`.
 
-**Parameters**
+### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | `object` | `Object` | The object to iterate over. |
-| `[iteratee]` | `Function` | The function invoked per iteration. |
+| `[iteratee]` | `Function` | The function invoked per iteration. Defaults to `_.identity`. |
 
-**Returns**
+### Returns
 
 - `(Object)`: Returns `object`.
 
-**Example**
+### Example
 
 ```javascript
 function Foo() {
@@ -428,18 +456,18 @@ _.forOwn(new Foo, function(value, key) {
 
 This method is like `_.forOwn` except that it iterates over properties of `object` in the opposite order.
 
-**Parameters**
+### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | `object` | `Object` | The object to iterate over. |
-| `[iteratee]` | `Function` | The function invoked per iteration. |
+| `[iteratee]` | `Function` | The function invoked per iteration. Defaults to `_.identity`. |
 
-**Returns**
+### Returns
 
 - `(Object)`: Returns `object`.
 
-**Example**
+### Example
 
 ```javascript
 function Foo() {
@@ -452,7 +480,7 @@ Foo.prototype.c = 3;
 _.forOwnRight(new Foo, function(value, key) {
   console.log(key);
 });
-// => Assuming `_.forOwn` logs 'a', 'b', this logs 'b', 'a'.
+// => Logs 'b' then 'a' assuming `_.forOwn` logs 'a' then 'b'.
 ```
 
 ---
@@ -461,17 +489,17 @@ _.forOwnRight(new Foo, function(value, key) {
 
 Creates an array of function property names from own enumerable properties of `object`.
 
-**Parameters**
+### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | `object` | `Object` | The object to inspect. |
 
-**Returns**
+### Returns
 
-- `(Array)`: Returns the array of function names.
+- `(Array)`: Returns the function names.
 
-**Example**
+### Example
 
 ```javascript
 function Foo() {
@@ -491,17 +519,17 @@ _.functions(new Foo);
 
 Creates an array of function property names from own and inherited enumerable properties of `object`.
 
-**Parameters**
+### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | `object` | `Object` | The object to inspect. |
 
-**Returns**
+### Returns
 
-- `(Array)`: Returns the array of function names.
+- `(Array)`: Returns the function names.
 
-**Example**
+### Example
 
 ```javascript
 function Foo() {
@@ -521,19 +549,19 @@ _.functionsIn(new Foo);
 
 Gets the value at `path` of `object`. If the resolved value is `undefined`, the `defaultValue` is returned in its place.
 
-**Parameters**
+### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | `object` | `Object` | The object to query. |
-| `path` | `Array` or `string` | The path of the property to retrieve. |
+| `path` | `Array\|string` | The path of the property to get. |
 | `[defaultValue]` | `*` | The value returned for `undefined` resolved values. |
 
-**Returns**
+### Returns
 
 - `(*)`: Returns the resolved value.
 
-**Example**
+### Example
 
 ```javascript
 var object = { 'a': [{ 'b': { 'c': 3 } }] };
@@ -554,18 +582,18 @@ _.get(object, 'a.b.c', 'default');
 
 Checks if `path` is a direct property of `object`.
 
-**Parameters**
+### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | `object` | `Object` | The object to query. |
-| `path` | `Array` or `string` | The path to check. |
+| `path` | `Array\|string` | The path to check. |
 
-**Returns**
+### Returns
 
 - `(boolean)`: Returns `true` if `path` exists, else `false`.
 
-**Example**
+### Example
 
 ```javascript
 var object = { 'a': { 'b': 2 } };
@@ -590,18 +618,18 @@ _.has(other, 'a');
 
 Checks if `path` is a direct or inherited property of `object`.
 
-**Parameters**
+### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | `object` | `Object` | The object to query. |
-| `path` | `Array` or `string` | The path to check. |
+| `path` | `Array\|string` | The path to check. |
 
-**Returns**
+### Returns
 
 - `(boolean)`: Returns `true` if `path` exists, else `false`.
 
-**Example**
+### Example
 
 ```javascript
 var object = _.create({ 'a': _.create({ 'b': 2 }) });
@@ -625,17 +653,17 @@ _.hasIn(object, 'b');
 
 Creates an object composed of the inverted keys and values of `object`. If `object` contains duplicate values, subsequent values overwrite property assignments of previous values.
 
-**Parameters**
+### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | `object` | `Object` | The object to invert. |
 
-**Returns**
+### Returns
 
 - `(Object)`: Returns the new inverted object.
 
-**Example**
+### Example
 
 ```javascript
 var object = { 'a': 1, 'b': 2, 'c': 1 };
@@ -648,20 +676,20 @@ _.invert(object);
 
 ## invertBy
 
-This method is like `_.invert` except that the inverted object is generated from the results of running each element of `object` thru `iteratee`. The corresponding value of each inverted key is an array of keys responsible for generating the inverted value. The `iteratee` is invoked with one argument: (value).
+This method is like `_.invert` except that the inverted object is generated from the results of running each element of `object` thru `iteratee`. The corresponding inverted value of each inverted key is an array of keys responsible for generating the inverted value. The iteratee is invoked with one argument: (value).
 
-**Parameters**
+### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | `object` | `Object` | The object to invert. |
-| `[iteratee]` | `Function` | The function invoked per iteration. |
+| `[iteratee]` | `Function` | The iteratee invoked per element. Defaults to `_.identity`. |
 
-**Returns**
+### Returns
 
 - `(Object)`: Returns the new inverted object.
 
-**Example**
+### Example
 
 ```javascript
 var object = { 'a': 1, 'b': 2, 'c': 1 };
@@ -681,19 +709,19 @@ _.invertBy(object, function(value) {
 
 Invokes the method at `path` of `object`.
 
-**Parameters**
+### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | `object` | `Object` | The object to query. |
-| `path` | `Array` or `string` | The path of the method to invoke. |
-| `[args]` | `...*` | The arguments to invoke the method with. |
+| `path` | `Array\|string` | The path of the method to invoke. |
+| `...[args]` | `*` | The arguments to invoke the method with. |
 
-**Returns**
+### Returns
 
 - `(*)`: Returns the result of the invoked method.
 
-**Example**
+### Example
 
 ```javascript
 var object = { 'a': [{ 'b': { 'c': [1, 2, 3, 4] } }] };
@@ -710,17 +738,17 @@ Creates an array of the own enumerable property names of `object`.
 
 **Note:** Non-object values are coerced to objects.
 
-**Parameters**
+### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | `object` | `Object` | The object to query. |
 
-**Returns**
+### Returns
 
 - `(Array)`: Returns the array of property names.
 
-**Example**
+### Example
 
 ```javascript
 function Foo() {
@@ -745,17 +773,17 @@ Creates an array of the own and inherited enumerable property names of `object`.
 
 **Note:** Non-object values are coerced to objects.
 
-**Parameters**
+### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | `object` | `Object` | The object to query. |
 
-**Returns**
+### Returns
 
 - `(Array)`: Returns the array of property names.
 
-**Example**
+### Example
 
 ```javascript
 function Foo() {
@@ -773,20 +801,20 @@ _.keysIn(new Foo);
 
 ## mapKeys
 
-The opposite of `_.mapValues`; this method creates an object with the same values as `object` and keys generated by running each own enumerable string-keyed property of `object` thru `iteratee`. The `iteratee` is invoked with three arguments: (value, key, object).
+The opposite of `_.mapValues`; this method creates an object with the same values as `object` and keys generated by running each own enumerable string keyed property of `object` thru `iteratee`. The iteratee is invoked with three arguments: (value, key, object).
 
-**Parameters**
+### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | `object` | `Object` | The object to iterate over. |
-| `[iteratee]` | `Function` | The function invoked per iteration. |
+| `[iteratee]` | `Function` | The function invoked per iteration. Defaults to `_.identity`. |
 
-**Returns**
+### Returns
 
 - `(Object)`: Returns the new mapped object.
 
-**Example**
+### Example
 
 ```javascript
 _.mapKeys({ 'a': 1, 'b': 2 }, function(value, key) {
@@ -799,20 +827,20 @@ _.mapKeys({ 'a': 1, 'b': 2 }, function(value, key) {
 
 ## mapValues
 
-Creates an object with the same keys as `object` and values generated by running each own enumerable string-keyed property of `object` thru `iteratee`. The `iteratee` is invoked with three arguments: (value, key, object).
+Creates an object with the same keys as `object` and values generated by running each own enumerable string keyed property of `object` thru `iteratee`. The iteratee is invoked with three arguments: (value, key, object).
 
-**Parameters**
+### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | `object` | `Object` | The object to iterate over. |
-| `[iteratee]` | `Function` | The function invoked per iteration. |
+| `[iteratee]` | `Function` | The function invoked per iteration. Defaults to `_.identity`. |
 
-**Returns**
+### Returns
 
 - `(Object)`: Returns the new mapped object.
 
-**Example**
+### Example
 
 ```javascript
 var users = {
@@ -822,28 +850,32 @@ var users = {
 
 _.mapValues(users, function(o) { return o.age; });
 // => { 'fred': 40, 'pebbles': 1 } (iteration order is not guaranteed)
+
+// The `_.property` iteratee shorthand.
+_.mapValues(users, 'age');
+// => { 'fred': 40, 'pebbles': 1 } (iteration order is not guaranteed)
 ```
 
 ---
 
 ## merge
 
-Recursively merges own and inherited enumerable properties of source objects into the destination object. Source properties that are `undefined` are skipped. Arrays and plain objects are merged recursively. Other objects and value types are overridden by assignment. Source objects are applied from left to right.
+This method is like `_.assign` except that it recursively merges own and inherited enumerable string keyed properties of source objects into the destination object. Source properties that resolve to `undefined` are skipped if a destination value exists. Array and plain object properties are merged recursively. Other objects and value types are overridden by assignment. Source objects are applied from left to right. Subsequent sources overwrite property assignments of previous sources.
 
 **Note:** This method mutates `object`.
 
-**Parameters**
+### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | `object` | `Object` | The destination object. |
-| `[sources]` | `...Object` | One or more source objects. |
+| `...[sources]` | `Object` | The source objects. |
 
-**Returns**
+### Returns
 
 - `(Object)`: Returns `object`.
 
-**Example**
+### Example
 
 ```javascript
 var object = {
@@ -862,23 +894,23 @@ _.merge(object, other);
 
 ## mergeWith
 
-This method is like `_.merge` except that it accepts a `customizer` which is invoked to produce the merged values. If `customizer` returns `undefined`, merging is handled by the method instead. The `customizer` is invoked with six arguments: (objValue, srcValue, key, object, source, stack).
+This method is like `_.merge` except that it accepts `customizer` which is invoked to produce the merged values of the destination and source properties. If `customizer` returns `undefined`, merging is handled by the method instead. The `customizer` is invoked with six arguments: (objValue, srcValue, key, object, source, stack).
 
 **Note:** This method mutates `object`.
 
-**Parameters**
+### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | `object` | `Object` | The destination object. |
-| `sources` | `...Object` | One or more source objects. |
+| `...sources` | `Object` | The source objects. |
 | `customizer` | `Function` | The function to customize assigned values. |
 
-**Returns**
+### Returns
 
 - `(Object)`: Returns `object`.
 
-**Example**
+### Example
 
 ```javascript
 function customizer(objValue, srcValue) {
@@ -898,20 +930,20 @@ _.mergeWith(object, other, customizer);
 
 ## omit
 
-The opposite of `_.pick`; this method creates an object omitting the properties at `paths`.
+The opposite of `_.pick`; this method creates an object composed of the own and inherited enumerable property paths of `object` that are not omitted.
 
-**Parameters**
+### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | `object` | `Object` | The source object. |
-| `[paths]` | `...(string|string[])` | The property paths to omit. |
+| `...[paths]` | `(string\|string[])` | The property paths to omit. |
 
-**Returns**
+### Returns
 
 - `(Object)`: Returns the new object.
 
-**Example**
+### Example
 
 ```javascript
 var object = { 'a': 1, 'b': '2', 'c': 3 };
@@ -924,20 +956,20 @@ _.omit(object, ['a', 'c']);
 
 ## omitBy
 
-The opposite of `_.pickBy`; this method creates an object composed of the own and inherited enumerable properties of `object` that `predicate` does not return truthy for. The `predicate` is invoked with two arguments: (value, key).
+The opposite of `_.pickBy`; this method creates an object composed of the own and inherited enumerable string keyed properties of `object` that `predicate` doesn't return truthy for. The predicate is invoked with two arguments: (value, key).
 
-**Parameters**
+### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | `object` | `Object` | The source object. |
-| `[predicate]` | `Function` | The function invoked per iteration. |
+| `[predicate]` | `Function` | The function invoked per property. Defaults to `_.identity`. |
 
-**Returns**
+### Returns
 
 - `(Object)`: Returns the new object.
 
-**Example**
+### Example
 
 ```javascript
 var object = { 'a': 1, 'b': '2', 'c': 3 };
@@ -952,18 +984,18 @@ _.omitBy(object, _.isNumber);
 
 Creates an object composed of the picked `object` properties.
 
-**Parameters**
+### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | `object` | `Object` | The source object. |
-| `[paths]` | `...(string|string[])` | The property paths to pick. |
+| `...[paths]` | `(string\|string[])` | The property paths to pick. |
 
-**Returns**
+### Returns
 
 - `(Object)`: Returns the new object.
 
-**Example**
+### Example
 
 ```javascript
 var object = { 'a': 1, 'b': '2', 'c': 3 };
@@ -976,20 +1008,20 @@ _.pick(object, ['a', 'c']);
 
 ## pickBy
 
-Creates an object composed of the `object` properties `predicate` returns truthy for. The `predicate` is invoked with two arguments: (value, key).
+Creates an object composed of the `object` properties `predicate` returns truthy for. The predicate is invoked with two arguments: (value, key).
 
-**Parameters**
+### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | `object` | `Object` | The source object. |
-| `[predicate]` | `Function` | The function invoked per iteration. |
+| `[predicate]` | `Function` | The function invoked per property. Defaults to `_.identity`. |
 
-**Returns**
+### Returns
 
 - `(Object)`: Returns the new object.
 
-**Example**
+### Example
 
 ```javascript
 var object = { 'a': 1, 'b': '2', 'c': 3 };
@@ -1002,21 +1034,21 @@ _.pickBy(object, _.isNumber);
 
 ## result
 
-This method is like `_.get` except that if the resolved value is a function it's invoked and its result is returned.
+This method is like `_.get` except that if the resolved value is a function it's invoked with the `this` binding of its parent object and its result is returned.
 
-**Parameters**
+### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | `object` | `Object` | The object to query. |
-| `path` | `Array` or `string` | The path of the property to resolve. |
+| `path` | `Array\|string` | The path of the property to resolve. |
 | `[defaultValue]` | `*` | The value returned for `undefined` resolved values. |
 
-**Returns**
+### Returns
 
 - `(*)`: Returns the resolved value.
 
-**Example**
+### Example
 
 ```javascript
 var object = { 'a': [{ 'b': { 'c1': 3, 'c2': _.constant(4) } }] };
@@ -1029,6 +1061,9 @@ _.result(object, 'a[0].b.c2');
 
 _.result(object, 'a[0].b.c3', 'default');
 // => 'default'
+
+_.result(object, 'a[0].b.c3', _.constant('default'));
+// => 'default'
 ```
 
 ---
@@ -1039,52 +1074,54 @@ Sets the value at `path` of `object`. If a portion of `path` doesn't exist, it's
 
 **Note:** This method mutates `object`.
 
-**Parameters**
+### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | `object` | `Object` | The object to modify. |
-| `path` | `Array` or `string` | The path of the property to set. |
+| `path` | `Array\|string` | The path of the property to set. |
 | `value` | `*` | The value to set. |
 
-**Returns**
+### Returns
 
 - `(Object)`: Returns `object`.
 
-**Example**
+### Example
 
 ```javascript
 var object = { 'a': [{ 'b': { 'c': 3 } }] };
 
 _.set(object, 'a[0].b.c', 4);
-// object.a[0].b.c is 4
+console.log(object.a[0].b.c);
+// => 4
 
 _.set(object, ['x', '0', 'y', 'z'], 5);
-// object.x[0].y.z is 5
+console.log(object.x[0].y.z);
+// => 5
 ```
 
 ---
 
 ## setWith
 
-This method is like `_.set` except that it accepts a `customizer` which is invoked to produce the objects for portions of `path`. If `customizer` returns `undefined`, path creation is handled by the method instead. The `customizer` is invoked with three arguments: (nsValue, key, nsObject).
+This method is like `_.set` except that it accepts `customizer` which is invoked to produce the objects of `path`. If `customizer` returns `undefined` path creation is handled by the method instead. The `customizer` is invoked with three arguments: (nsValue, key, nsObject).
 
 **Note:** This method mutates `object`.
 
-**Parameters**
+### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | `object` | `Object` | The object to modify. |
-| `path` | `Array` or `string` | The path of the property to set. |
+| `path` | `Array\|string` | The path of the property to set. |
 | `value` | `*` | The value to set. |
 | `[customizer]` | `Function` | The function to customize assigned values. |
 
-**Returns**
+### Returns
 
 - `(Object)`: Returns `object`.
 
-**Example**
+### Example
 
 ```javascript
 var object = {};
@@ -1097,19 +1134,22 @@ _.setWith(object, '[0][1]', 'a', Object);
 
 ## toPairs
 
-Creates an array of own enumerable string-keyed-value pairs for `object`. If `object` is a map or set, its entries are returned.
+Creates an array of own enumerable string keyed-value pairs for `object` which can be consumed by `_.fromPairs`. If `object` is a map or set, its entries are returned.
 
-**Parameters**
+### Alias
+- `entries`
+
+### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | `object` | `Object` | The object to query. |
 
-**Returns**
+### Returns
 
 - `(Array)`: Returns the key-value pairs.
 
-**Example**
+### Example
 
 ```javascript
 function Foo() {
@@ -1127,19 +1167,22 @@ _.toPairs(new Foo);
 
 ## toPairsIn
 
-Creates an array of own and inherited enumerable string-keyed-value pairs for `object`. If `object` is a map or set, its entries are returned.
+Creates an array of own and inherited enumerable string keyed-value pairs for `object` which can be consumed by `_.fromPairs`. If `object` is a map or set, its entries are returned.
 
-**Parameters**
+### Alias
+- `entriesIn`
+
+### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | `object` | `Object` | The object to query. |
 
-**Returns**
+### Returns
 
 - `(Array)`: Returns the key-value pairs.
 
-**Example**
+### Example
 
 ```javascript
 function Foo() {
@@ -1157,21 +1200,21 @@ _.toPairsIn(new Foo);
 
 ## transform
 
-An alternative to `_.reduce`; this method transforms `object` to a new `accumulator` object, the result of running each of its own enumerable string-keyed properties thru `iteratee`, with each invocation potentially mutating the `accumulator` object. If `accumulator` is not provided, a new object is created. The `iteratee` is invoked with four arguments: (accumulator, value, key, object). Iteratee functions may exit iteration early by explicitly returning `false`.
+An alternative to `_.reduce`; this method transforms `object` to a new `accumulator` object which is the result of running each of its own enumerable string keyed properties thru `iteratee`, with each invocation potentially mutating the `accumulator` object. If `accumulator` is not provided, a new object with the same `[[Prototype]]` will be used. The iteratee is invoked with four arguments: (accumulator, value, key, object). Iteratee functions may exit iteration early by explicitly returning `false`.
 
-**Parameters**
+### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | `object` | `Object` | The object to iterate over. |
-| `[iteratee]` | `Function` | The function invoked per iteration. |
+| `[iteratee]` | `Function` | The function invoked per iteration. Defaults to `_.identity`. |
 | `[accumulator]` | `*` | The custom accumulator value. |
 
-**Returns**
+### Returns
 
 - `(*)`: Returns the accumulated value.
 
-**Example**
+### Example
 
 ```javascript
 _.transform([2, 3, 4], function(result, n) {
@@ -1179,6 +1222,11 @@ _.transform([2, 3, 4], function(result, n) {
   return n % 2 == 0;
 }, []);
 // => [4, 9]
+
+_.transform({ 'a': 1, 'b': 2, 'c': 1 }, function(result, value, key) {
+  (result[value] || (result[value] = [])).push(key);
+}, {});
+// => { '1': ['a', 'c'], '2': ['b'] }
 ```
 
 ---
@@ -1189,78 +1237,90 @@ Removes the property at `path` of `object`.
 
 **Note:** This method mutates `object`.
 
-**Parameters**
+### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | `object` | `Object` | The object to modify. |
-| `path` | `Array` or `string` | The path of the property to unset. |
+| `path` | `Array\|string` | The path of the property to unset. |
 
-**Returns**
+### Returns
 
 - `(boolean)`: Returns `true` if the property is deleted, else `false`.
 
-**Example**
+### Example
 
 ```javascript
 var object = { 'a': [{ 'b': { 'c': 7 } }] };
 _.unset(object, 'a[0].b.c');
 // => true
 
-// object is { 'a': [{ 'b': {} }] };
+console.log(object);
+// => { 'a': [{ 'b': {} }] };
+
+_.unset(object, ['a', '0', 'b', 'c']);
+// => true
+
+console.log(object);
+// => { 'a': [{ 'b': {} }] };
 ```
 
 ---
 
 ## update
 
-This method is like `_.set` except that it accepts `updater` to generate the value to set. The `updater` is invoked with one argument: (value).
+This method is like `_.set` except that it accepts `updater` to produce the value to set. Use `_.updateWith` to customize `path` creation. The `updater` is invoked with one argument: (value).
 
 **Note:** This method mutates `object`.
 
-**Parameters**
+### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | `object` | `Object` | The object to modify. |
-| `path` | `Array` or `string` | The path of the property to set. |
-| `updater` | `Function` | The function to generate the updated value. |
+| `path` | `Array\|string` | The path of the property to set. |
+| `updater` | `Function` | The function to produce the updated value. |
 
-**Returns**
+### Returns
 
 - `(Object)`: Returns `object`.
 
-**Example**
+### Example
 
 ```javascript
 var object = { 'a': [{ 'b': { 'c': 3 } }] };
 
 _.update(object, 'a[0].b.c', function(n) { return n * n; });
-// object.a[0].b.c is 9
+console.log(object.a[0].b.c);
+// => 9
+
+_.update(object, 'x[0].y.z', function(n) { return n ? n + 1 : 0; });
+console.log(object.x[0].y.z);
+// => 0
 ```
 
 ---
 
 ## updateWith
 
-This method is like `_.update` except that it accepts a `customizer` which is invoked to produce the objects for portions of `path`. If `customizer` returns `undefined`, path creation is handled by the method instead. The `customizer` is invoked with three arguments: (nsValue, key, nsObject).
+This method is like `_.update` except that it accepts `customizer` which is invoked to produce the objects of `path`. If `customizer` returns `undefined` path creation is handled by the method instead. The `customizer` is invoked with three arguments: (nsValue, key, nsObject).
 
 **Note:** This method mutates `object`.
 
-**Parameters**
+### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | `object` | `Object` | The object to modify. |
-| `path` | `Array` or `string` | The path of the property to set. |
-| `updater` | `Function` | The function to generate the updated value. |
+| `path` | `Array\|string` | The path of the property to set. |
+| `updater` | `Function` | The function to produce the updated value. |
 | `[customizer]` | `Function` | The function to customize assigned values. |
 
-**Returns**
+### Returns
 
 - `(Object)`: Returns `object`.
 
-**Example**
+### Example
 
 ```javascript
 var object = {};
@@ -1273,19 +1333,21 @@ _.updateWith(object, '[0][1]', _.constant('a'), Object);
 
 ## values
 
-Creates an array of the own enumerable property values of `object`.
+Creates an array of the own enumerable string keyed property values of `object`.
 
-**Parameters**
+**Note:** Non-object values are coerced to objects.
+
+### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | `object` | `Object` | The object to query. |
 
-**Returns**
+### Returns
 
 - `(Array)`: Returns the array of property values.
 
-**Example**
+### Example
 
 ```javascript
 function Foo() {
@@ -1306,19 +1368,21 @@ _.values('hi');
 
 ## valuesIn
 
-Creates an array of the own and inherited enumerable property values of `object`.
+Creates an array of the own and inherited enumerable string keyed property values of `object`.
 
-**Parameters**
+**Note:** Non-object values are coerced to objects.
+
+### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | `object` | `Object` | The object to query. |
 
-**Returns**
+### Returns
 
 - `(Array)`: Returns the array of property values.
 
-**Example**
+### Example
 
 ```javascript
 function Foo() {
@@ -1334,4 +1398,4 @@ _.valuesIn(new Foo);
 
 ---
 
-This section covered the core functions in Lodash for object manipulation. Mastering these tools can greatly simplify data processing and state management. Next, you can explore the [Seq](./api-seq.md) section to learn how to combine these operations using chaining.
+This concludes the reference for Object functions. For utilities related to method chaining and sequence manipulation, proceed to the [Seq](./api-seq.md) documentation.

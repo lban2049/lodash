@@ -1,29 +1,28 @@
 # Collection
 
-Collection functions are suitable for iterable data structures, such as arrays, objects, and strings. These functions provide a consistent way to iterate, filter, map, and group elements, simplifying operations on complex data structures. They handle data in a declarative and efficient manner, regardless of the underlying data type.
+Collection functions are designed to iterate over collections like arrays, objects, and strings. They provide powerful and concise methods for common data manipulation tasks such as filtering, mapping, grouping, and reducing.
 
-For operations specifically targeting arrays or objects, please refer to the documentation in the [Array](./api-array.md) and [Object](./api-object.md) sections, respectively.
+For functions that are specific to a single data type, you might also want to consult the [Array](./api-array.md) or [Object](./api-object.md) documentation.
 
-## Function List
+---
 
-### countBy
+### `_.countBy(collection, [iteratee=_.identity])`
 
-Creates an object composed of keys generated from the results of running each element of `collection` thru `iteratee`. The corresponding value of each key is the number of times the key was returned by `iteratee`.
+Creates an object composed of keys generated from the results of running each element of `collection` through `iteratee`. The corresponding value of each key is the number of times the key was returned by `iteratee`.
 
-- **Version**: 0.5.0
+**Since**
+0.5.0
 
 **Parameters**
 
 | Name | Type | Description |
-| --- | --- | --- |
+|---|---|---|
 | `collection` | `Array`\|`Object` | The collection to iterate over. |
-| `iteratee` | `Function` | The function invoked per iteration to transform keys. |
+| `[iteratee=_.identity]` | `Function` | The function invoked per iteration to generate the key. |
 
 **Returns**
 
-| Type | Description |
-| --- | --- |
-| `Object` | Returns the composed aggregate object. |
+`(Object)`: Returns the composed aggregate object.
 
 **Example**
 
@@ -31,29 +30,30 @@ Creates an object composed of keys generated from the results of running each el
 _.countBy([6.1, 4.2, 6.3], Math.floor);
 // => { '4': 1, '6': 2 }
 
-// Using the _.property shorthand
+// The `_.property` iteratee shorthand.
 _.countBy(['one', 'two', 'three'], 'length');
 // => { '3': 2, '5': 1 }
 ```
 
-### every
+---
 
-Checks if the `predicate` function returns a truthy value for all elements of the `collection`. Iteration stops once `predicate` returns a falsy value.
+### `_.every(collection, [predicate=_.identity])`
 
-- **Version**: 0.1.0
+Checks if `predicate` returns a truthy value for **all** elements of `collection`. Iteration stops as soon as `predicate` returns a falsey value. Note: This method returns `true` for empty collections, as everything is true of elements of empty collections.
+
+**Since**
+0.1.0
 
 **Parameters**
 
 | Name | Type | Description |
-| --- | --- | --- |
+|---|---|---|
 | `collection` | `Array`\|`Object` | The collection to iterate over. |
-| `predicate` | `Function` | The function invoked per iteration. |
+| `[predicate=_.identity]` | `Function` | The function invoked per iteration. |
 
 **Returns**
 
-| Type | Description |
-| --- | --- |
-| `boolean` | Returns `true` if all elements pass the truth test, else `false`. |
+`(boolean)`: Returns `true` if all elements pass the predicate check, else `false`.
 
 **Example**
 
@@ -66,34 +66,38 @@ var users = [
   { 'user': 'fred',   'age': 40, 'active': false }
 ];
 
-// Using the _.matches shorthand
+// The `_.matches` iteratee shorthand.
 _.every(users, { 'user': 'barney', 'active': false });
 // => false
 
-// Using the _.matchesProperty shorthand
+// The `_.matchesProperty` iteratee shorthand.
 _.every(users, ['active', false]);
 // => true
+
+// The `_.property` iteratee shorthand.
+_.every(users, 'active');
+// => false
 ```
 
-### filter
+---
 
-Iterates over elements of `collection`, returning a new array of all elements for which the `predicate` function returns a truthy value.
+### `_.filter(collection, [predicate=_.identity])`
 
-- **Version**: 0.1.0
-- **Related**: `reject`
+Iterates over elements of `collection`, returning an array of all elements `predicate` returns truthy for. The predicate is invoked with three arguments: `(value, index|key, collection)`.
+
+**Since**
+0.1.0
 
 **Parameters**
 
 | Name | Type | Description |
-| --- | --- | --- |
+|---|---|---|
 | `collection` | `Array`\|`Object` | The collection to iterate over. |
-| `predicate` | `Function` | The function invoked per iteration. |
+| `[predicate=_.identity]` | `Function` | The function invoked per iteration. |
 
 **Returns**
 
-| Type | Description |
-| --- | --- |
-| `Array` | Returns the new array of filtered elements. |
+`(Array)`: Returns the new filtered array.
 
 **Example**
 
@@ -106,30 +110,31 @@ var users = [
 _.filter(users, function(o) { return !o.active; });
 // => objects for ['fred']
 
-// Using the _.matches shorthand
+// The `_.matches` iteratee shorthand.
 _.filter(users, { 'age': 36, 'active': true });
 // => objects for ['barney']
 ```
 
-### find
+---
 
-Iterates over elements of `collection`, returning the first element for which the `predicate` function returns a truthy value. The `predicate` is invoked with three arguments: (value, index|key, collection).
+### `_.find(collection, [predicate=_.identity], [fromIndex=0])`
 
-- **Version**: 0.1.0
+Iterates over elements of `collection`, returning the first element `predicate` returns truthy for. The predicate is invoked with three arguments: `(value, index|key, collection)`.
+
+**Since**
+0.1.0
 
 **Parameters**
 
 | Name | Type | Description |
-| --- | --- | --- |
+|---|---|---|
 | `collection` | `Array`\|`Object` | The collection to inspect. |
-| `predicate` | `Function` | The function invoked per iteration. |
-| `fromIndex` | `number` | The index to search from, defaults to `0`. |
+| `[predicate=_.identity]` | `Function` | The function invoked per iteration. |
+| `[fromIndex=0]` | `number` | The index to search from. |
 
 **Returns**
 
-| Type | Description |
-| --- | --- |
-| `*` | Returns the matched element, else `undefined`. |
+`(*)`: Returns the matched element, else `undefined`.
 
 **Example**
 
@@ -143,30 +148,31 @@ var users = [
 _.find(users, function(o) { return o.age < 40; });
 // => object for 'barney'
 
-// Using the _.matches shorthand
-_.find(users, { 'age': 1, 'active': true });
-// => object for 'pebbles'
+// The `_.matchesProperty` iteratee shorthand.
+_.find(users, ['active', false]);
+// => object for 'fred'
 ```
 
-### findLast
+---
+
+### `_.findLast(collection, [predicate=_.identity], [fromIndex=collection.length-1])`
 
 This method is like `_.find` except that it iterates over elements of `collection` from right to left.
 
-- **Version**: 2.0.0
+**Since**
+2.0.0
 
 **Parameters**
 
 | Name | Type | Description |
-| --- | --- | --- |
+|---|---|---|
 | `collection` | `Array`\|`Object` | The collection to inspect. |
-| `predicate` | `Function` | The function invoked per iteration. |
-| `fromIndex` | `number` | The index to search from, defaults to `collection.length - 1`. |
+| `[predicate=_.identity]` | `Function` | The function invoked per iteration. |
+| `[fromIndex=collection.length-1]` | `number` | The index to search from. |
 
 **Returns**
 
-| Type | Description |
-| --- | --- |
-| `*` | Returns the matched element, else `undefined`. |
+`(*)`: Returns the matched element, else `undefined`.
 
 **Example**
 
@@ -177,24 +183,25 @@ _.findLast([1, 2, 3, 4], function(n) {
 // => 3
 ```
 
-### flatMap
+---
 
-Creates a new flattened array by running each element in `collection` through the `iteratee` function and flattening the mapped results by one level.
+### `_.flatMap(collection, [iteratee=_.identity])`
 
-- **Version**: 4.0.0
+Creates a flattened array of values by running each element in `collection` through `iteratee` and flattening the mapped results. The iteratee is invoked with three arguments: `(value, index|key, collection)`.
+
+**Since**
+4.0.0
 
 **Parameters**
 
 | Name | Type | Description |
-| --- | --- | --- |
+|---|---|---|
 | `collection` | `Array`\|`Object` | The collection to iterate over. |
-| `iteratee` | `Function` | The function invoked per iteration. |
+| `[iteratee=_.identity]` | `Function` | The function invoked per iteration. |
 
 **Returns**
 
-| Type | Description |
-| --- | --- |
-| `Array` | Returns the new flattened array. |
+`(Array)`: Returns the new flattened array.
 
 **Example**
 
@@ -207,24 +214,25 @@ _.flatMap([1, 2], duplicate);
 // => [1, 1, 2, 2]
 ```
 
-### flatMapDeep
+---
+
+### `_.flatMapDeep(collection, [iteratee=_.identity])`
 
 This method is like `_.flatMap` except that it recursively flattens the mapped results.
 
-- **Version**: 4.7.0
+**Since**
+4.7.0
 
 **Parameters**
 
 | Name | Type | Description |
-| --- | --- | --- |
+|---|---|---|
 | `collection` | `Array`\|`Object` | The collection to iterate over. |
-| `iteratee` | `Function` | The function invoked per iteration. |
+| `[iteratee=_.identity]` | `Function` | The function invoked per iteration. |
 
 **Returns**
 
-| Type | Description |
-| --- | --- |
-| `Array` | Returns the new flattened array. |
+`(Array)`: Returns the new flattened array.
 
 **Example**
 
@@ -237,25 +245,26 @@ _.flatMapDeep([1, 2], duplicate);
 // => [1, 1, 2, 2]
 ```
 
-### flatMapDepth
+---
 
-This method is like `_.flatMap` except that it recursively flattens the mapped results up to a specified `depth`.
+### `_.flatMapDepth(collection, [iteratee=_.identity], [depth=1])`
 
-- **Version**: 4.7.0
+This method is like `_.flatMap` except that it recursively flattens the mapped results up to `depth` times.
+
+**Since**
+4.7.0
 
 **Parameters**
 
 | Name | Type | Description |
-| --- | --- | --- |
+|---|---|---|
 | `collection` | `Array`\|`Object` | The collection to iterate over. |
-| `iteratee` | `Function` | The function invoked per iteration. |
-| `depth` | `number` | The maximum recursion depth for flattening, defaults to `1`. |
+| `[iteratee=_.identity]` | `Function` | The function invoked per iteration. |
+| `[depth=1]` | `number` | The maximum recursion depth. |
 
 **Returns**
 
-| Type | Description |
-| --- | --- |
-| `Array` | Returns the new flattened array. |
+`(Array)`: Returns the new flattened array.
 
 **Example**
 
@@ -268,26 +277,25 @@ _.flatMapDepth([1, 2], duplicate, 2);
 // => [[1, 1], [2, 2]]
 ```
 
-### forEach
+---
 
-Invokes the `iteratee` function for each element in `collection`. The `iteratee` function can exit iteration early by explicitly returning `false`.
+### `_.forEach(collection, [iteratee=_.identity])`
 
-- **Version**: 0.1.0
-- **Alias**: `each`
-- **Related**: `forEachRight`
+Iterates over elements of `collection` and invokes `iteratee` for each element. The iteratee is invoked with three arguments: `(value, index|key, collection)`. Iteratee functions may exit iteration early by explicitly returning `false`.
+
+**Since**
+0.1.0
 
 **Parameters**
 
 | Name | Type | Description |
-| --- | --- | --- |
+|---|---|---|
 | `collection` | `Array`\|`Object` | The collection to iterate over. |
-| `iteratee` | `Function` | The function invoked per iteration. |
+| `[iteratee=_.identity]` | `Function` | The function invoked per iteration. |
 
 **Returns**
 
-| Type | Description |
-| --- | --- |
-| `Array`\|`Object` | Returns `collection`. |
+`(Array|Object)`: Returns `collection`.
 
 **Example**
 
@@ -303,26 +311,25 @@ _.forEach({ 'a': 1, 'b': 2 }, function(value, key) {
 // => Logs 'a' then 'b' (iteration order is not guaranteed).
 ```
 
-### forEachRight
+---
+
+### `_.forEachRight(collection, [iteratee=_.identity])`
 
 This method is like `_.forEach` except that it iterates over elements of `collection` from right to left.
 
-- **Version**: 2.0.0
-- **Alias**: `eachRight`
-- **Related**: `forEach`
+**Since**
+2.0.0
 
 **Parameters**
 
 | Name | Type | Description |
-| --- | --- | --- |
+|---|---|---|
 | `collection` | `Array`\|`Object` | The collection to iterate over. |
-| `iteratee` | `Function` | The function invoked per iteration. |
+| `[iteratee=_.identity]` | `Function` | The function invoked per iteration. |
 
 **Returns**
 
-| Type | Description |
-| --- | --- |
-| `Array`\|`Object` | Returns `collection`. |
+`(Array|Object)`: Returns `collection`.
 
 **Example**
 
@@ -333,24 +340,25 @@ _.forEachRight([1, 2], function(value) {
 // => Logs `2` then `1`.
 ```
 
-### groupBy
+---
 
-Creates an object with keys generated by running each element of `collection` through the `iteratee` function. The value for each key is an array of elements that produced that key.
+### `_.groupBy(collection, [iteratee=_.identity])`
 
-- **Version**: 0.1.0
+Creates an object composed of keys generated from the results of running each element of `collection` through `iteratee`. The corresponding value of each key is an array of elements responsible for generating the key.
+
+**Since**
+0.1.0
 
 **Parameters**
 
 | Name | Type | Description |
-| --- | --- | --- |
+|---|---|---|
 | `collection` | `Array`\|`Object` | The collection to iterate over. |
-| `iteratee` | `Function` | The function to transform keys. |
+| `[iteratee=_.identity]` | `Function` | The iteratee to transform keys. |
 
 **Returns**
 
-| Type | Description |
-| --- | --- |
-| `Object` | Returns the composed aggregate object. |
+`(Object)`: Returns the composed aggregate object.
 
 **Example**
 
@@ -358,30 +366,31 @@ Creates an object with keys generated by running each element of `collection` th
 _.groupBy([6.1, 4.2, 6.3], Math.floor);
 // => { '4': [4.2], '6': [6.1, 6.3] }
 
-// Using the _.property shorthand
+// The `_.property` iteratee shorthand.
 _.groupBy(['one', 'two', 'three'], 'length');
 // => { '3': ['one', 'two'], '5': ['three'] }
 ```
 
-### includes
+---
 
-Checks if `value` is in `collection`. If `collection` is a string, it checks if `value` is a substring; otherwise, it uses `SameValueZero` for equality comparisons. If `fromIndex` is specified, it starts searching from that index.
+### `_.includes(collection, value, [fromIndex=0])`
 
-- **Version**: 0.1.0
+Checks if `value` is in `collection`. If `collection` is a string, it's checked for a substring of `value`. Otherwise, `SameValueZero` is used for equality comparisons. If `fromIndex` is negative, it's used as the offset from the end of `collection`.
+
+**Since**
+0.1.0
 
 **Parameters**
 
 | Name | Type | Description |
-| --- | --- | --- |
+|---|---|---|
 | `collection` | `Array`\|`Object`\|`string` | The collection to inspect. |
 | `value` | `*` | The value to search for. |
-| `fromIndex` | `number` | The index to search from, defaults to `0`. |
+| `[fromIndex=0]` | `number` | The index to search from. |
 
 **Returns**
 
-| Type | Description |
-| --- | --- |
-| `boolean` | Returns `true` if `value` is found, else `false`. |
+`(boolean)`: Returns `true` if `value` is found, else `false`.
 
 **Example**
 
@@ -399,25 +408,26 @@ _.includes('abcd', 'bc');
 // => true
 ```
 
-### invokeMap
+---
 
-Invokes the method at `path` on each element in `collection`, returning an array of the results of each invocation. Any additional arguments are passed to each invoked method.
+### `_.invokeMap(collection, path, [args])`
 
-- **Version**: 4.0.0
+Invokes the method at `path` of each element in `collection`, returning an array of the results. Any additional arguments are provided to each invoked method. If `path` is a function, it's invoked for each element in `collection` with `this` bound to the element.
+
+**Since**
+4.0.0
 
 **Parameters**
 
 | Name | Type | Description |
-| --- | --- | --- |
+|---|---|---|
 | `collection` | `Array`\|`Object` | The collection to iterate over. |
-| `path` | `Array`\|`Function`\|`string` | The path of the method to invoke or the function to invoke per iteration. |
-| `...args` | `*` | The arguments to pass to each method. |
+| `path` | `Array`\|`Function`\|`string` | The path of the method to invoke or the function invoked per iteration. |
+| `[args]` | `...*` | The arguments to invoke each method with. |
 
 **Returns**
 
-| Type | Description |
-| --- | --- |
-| `Array` | Returns the array of results. |
+`(Array)`: Returns the array of results.
 
 **Example**
 
@@ -429,24 +439,25 @@ _.invokeMap([123, 456], String.prototype.split, '');
 // => [['1', '2', '3'], ['4', '5', '6']]
 ```
 
-### keyBy
+---
 
-Creates an object with keys generated by running each element of `collection` through the `iteratee` function. The value for each key is the last element that produced that key.
+### `_.keyBy(collection, [iteratee=_.identity])`
 
-- **Version**: 4.0.0
+Creates an object composed of keys generated from the results of running each element of `collection` through `iteratee`. The corresponding value of each key is the last element responsible for generating the key.
+
+**Since**
+4.0.0
 
 **Parameters**
 
 | Name | Type | Description |
-| --- | --- | --- |
+|---|---|---|
 | `collection` | `Array`\|`Object` | The collection to iterate over. |
-| `iteratee` | `Function` | The function to transform keys. |
+| `[iteratee=_.identity]` | `Function` | The iteratee to transform keys. |
 
 **Returns**
 
-| Type | Description |
-| --- | --- |
-| `Object` | Returns the composed aggregate object. |
+`(Object)`: Returns the composed aggregate object.
 
 **Example**
 
@@ -465,24 +476,25 @@ _.keyBy(array, 'dir');
 // => { 'left': { 'dir': 'left', 'code': 97 }, 'right': { 'dir': 'right', 'code': 100 } }
 ```
 
-### map
+---
 
-Creates a new array of values by running each element in `collection` through the `iteratee` function.
+### `_.map(collection, [iteratee=_.identity])`
 
-- **Version**: 0.1.0
+Creates an array of values by running each element in `collection` through `iteratee`. The iteratee is invoked with three arguments: `(value, index|key, collection)`.
+
+**Since**
+0.1.0
 
 **Parameters**
 
 | Name | Type | Description |
-| --- | --- | --- |
+|---|---|---|
 | `collection` | `Array`\|`Object` | The collection to iterate over. |
-| `iteratee` | `Function` | The function invoked per iteration. |
+| `[iteratee=_.identity]` | `Function` | The function invoked per iteration. |
 
 **Returns**
 
-| Type | Description |
-| --- | --- |
-| `Array` | Returns the new mapped array. |
+`(Array)`: Returns the new mapped array.
 
 **Example**
 
@@ -502,30 +514,31 @@ var users = [
   { 'user': 'fred' }
 ];
 
-// Using the _.property shorthand
+// The `_.property` iteratee shorthand.
 _.map(users, 'user');
 // => ['barney', 'fred']
 ```
 
-### orderBy
+---
 
-This method is like `_.sortBy`, except that it allows specifying the sort orders for each iteratee. If `orders` are not specified, all values are sorted in ascending order. Otherwise, specify `desc` for descending or `asc` for ascending order for the corresponding values.
+### `_.orderBy(collection, [iteratees=[_.identity]], [orders])`
 
-- **Version**: 4.0.0
+This method is like `_.sortBy` except that it allows specifying the sort orders of the iteratees. If `orders` is unspecified, all values are sorted in ascending order. Otherwise, specify an order of `'desc'` for descending or `'asc'` for ascending sort order for each iteratee.
+
+**Since**
+4.0.0
 
 **Parameters**
 
 | Name | Type | Description |
-| --- | --- | --- |
+|---|---|---|
 | `collection` | `Array`\|`Object` | The collection to iterate over. |
-| `iteratees` | `Array[]`\|`Function[]`\|`Object[]`\|`string[]` | The iteratees to sort by, defaults to `[_.identity]`. |
-| `orders` | `string[]` | The sort orders for `iteratees`. |
+| `[iteratees=[_.identity]]` | `(Array[]\|Function[]\|Object[]\|string[])` | The iteratees to sort by. |
+| `[orders]` | `string[]` | The sort orders of `iteratees`. |
 
 **Returns**
 
-| Type | Description |
-| --- | --- |
-| `Array` | Returns the new sorted array. |
+`(Array)`: Returns the new sorted array.
 
 **Example**
 
@@ -537,29 +550,30 @@ var users = [
   { 'user': 'barney', 'age': 36 }
 ];
 
-// Sort by 'user' in ascending order and 'age' in descending order
+// Sort by `user` in ascending order and by `age` in descending order.
 _.orderBy(users, ['user', 'age'], ['asc', 'desc']);
 // => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 40]]
 ```
 
-### partition
+---
 
-Creates an array of elements split into two groups. The first group contains elements for which the `predicate` returns a truthy value, and the second group contains elements for which the `predicate` returns a falsy value.
+### `_.partition(collection, [predicate=_.identity])`
 
-- **Version**: 3.0.0
+Creates an array of elements split into two groups. The first group contains elements `predicate` returns truthy for, the second group contains elements `predicate` returns falsey for.
+
+**Since**
+3.0.0
 
 **Parameters**
 
 | Name | Type | Description |
-| --- | --- | --- |
+|---|---|---|
 | `collection` | `Array`\|`Object` | The collection to iterate over. |
-| `predicate` | `Function` | The function invoked per iteration. |
+| `[predicate=_.identity]` | `Function` | The function invoked per iteration. |
 
 **Returns**
 
-| Type | Description |
-| --- | --- |
-| `Array` | Returns the array of grouped elements. |
+`(Array)`: Returns the array of grouped elements.
 
 **Example**
 
@@ -572,28 +586,32 @@ var users = [
 
 _.partition(users, function(o) { return o.active; });
 // => objects for [['fred'], ['barney', 'pebbles']]
+
+// The `_.property` iteratee shorthand.
+_.partition(users, 'active');
+// => objects for [['fred'], ['barney', 'pebbles']]
 ```
 
-### reduce
+---
 
-Reduces `collection` to a single value by running each element through an `iteratee` function. The `iteratee` is invoked with four arguments: (accumulator, value, index|key, collection).
+### `_.reduce(collection, [iteratee=_.identity], [accumulator])`
 
-- **Version**: 0.1.0
-- **Related**: `reduceRight`
+Reduces `collection` to a value which is the accumulated result of running each element in `collection` through `iteratee`. Each successive invocation is supplied the return value of the previous. If `accumulator` is not given, the first element of `collection` is used as the initial value. The iteratee is invoked with four arguments: `(accumulator, value, index|key, collection)`.
+
+**Since**
+0.1.0
 
 **Parameters**
 
 | Name | Type | Description |
-| --- | --- | --- |
+|---|---|---|
 | `collection` | `Array`\|`Object` | The collection to iterate over. |
-| `iteratee` | `Function` | The function invoked per iteration. |
-| `accumulator` | `*` | The initial value. |
+| `[iteratee=_.identity]` | `Function` | The function invoked per iteration. |
+| `[accumulator]` | `*` | The initial value. |
 
 **Returns**
 
-| Type | Description |
-| --- | --- |
-| `*` | Returns the accumulated value. |
+`(*)`: Returns the accumulated value.
 
 **Example**
 
@@ -610,26 +628,26 @@ _.reduce({ 'a': 1, 'b': 2, 'c': 1 }, function(result, value, key) {
 // => { '1': ['a', 'c'], '2': ['b'] } (iteration order is not guaranteed)
 ```
 
-### reduceRight
+---
+
+### `_.reduceRight(collection, [iteratee=_.identity], [accumulator])`
 
 This method is like `_.reduce` except that it iterates over elements of `collection` from right to left.
 
-- **Version**: 0.1.0
-- **Related**: `reduce`
+**Since**
+0.1.0
 
 **Parameters**
 
 | Name | Type | Description |
-| --- | --- | --- |
+|---|---|---|
 | `collection` | `Array`\|`Object` | The collection to iterate over. |
-| `iteratee` | `Function` | The function invoked per iteration. |
-| `accumulator` | `*` | The initial value. |
+| `[iteratee=_.identity]` | `Function` | The function invoked per iteration. |
+| `[accumulator]` | `*` | The initial value. |
 
 **Returns**
 
-| Type | Description |
-| --- | --- |
-| `*` | Returns the accumulated value. |
+`(*)`: Returns the accumulated value.
 
 **Example**
 
@@ -642,25 +660,25 @@ _.reduceRight(array, function(flattened, other) {
 // => [4, 5, 2, 3, 0, 1]
 ```
 
-### reject
+---
 
-The opposite of `_.filter`; this method returns the elements of `collection` that the `predicate` function does not return a truthy value for.
+### `_.reject(collection, [predicate=_.identity])`
 
-- **Version**: 0.1.0
-- **Related**: `filter`
+The opposite of `_.filter`; this method returns the elements of `collection` that `predicate` does **not** return truthy for.
+
+**Since**
+0.1.0
 
 **Parameters**
 
 | Name | Type | Description |
-| --- | --- | --- |
+|---|---|---|
 | `collection` | `Array`\|`Object` | The collection to iterate over. |
-| `predicate` | `Function` | The function invoked per iteration. |
+| `[predicate=_.identity]` | `Function` | The function invoked per iteration. |
 
 **Returns**
 
-| Type | Description |
-| --- | --- |
-| `Array` | Returns the new filtered array. |
+`(Array)`: Returns the new filtered array.
 
 **Example**
 
@@ -672,25 +690,30 @@ var users = [
 
 _.reject(users, function(o) { return !o.active; });
 // => objects for ['fred']
+
+// The `_.property` iteratee shorthand.
+_.reject(users, 'active');
+// => objects for ['barney']
 ```
 
-### sample
+---
+
+### `_.sample(collection)`
 
 Gets a random element from `collection`.
 
-- **Version**: 2.0.0
+**Since**
+2.0.0
 
 **Parameters**
 
 | Name | Type | Description |
-| --- | --- | --- |
-| `collection` | `Array`\|`Object` | The collection to sample from. |
+|---|---|---|
+| `collection` | `Array`\|`Object` | The collection to sample. |
 
 **Returns**
 
-| Type | Description |
-| --- | --- |
-| `*` | Returns the random element. |
+`(*)`: Returns the random element.
 
 **Example**
 
@@ -699,24 +722,25 @@ _.sample([1, 2, 3, 4]);
 // => 2
 ```
 
-### sampleSize
+---
 
-Gets `n` random, unique elements from `collection`.
+### `_.sampleSize(collection, [n=1])`
 
-- **Version**: 4.0.0
+Gets `n` random elements at unique keys from `collection` up to the size of `collection`.
+
+**Since**
+4.0.0
 
 **Parameters**
 
 | Name | Type | Description |
-| --- | --- | --- |
-| `collection` | `Array`\|`Object` | The collection to sample from. |
-| `n` | `number` | The number of elements to sample, defaults to `1`. |
+|---|---|---|
+| `collection` | `Array`\|`Object` | The collection to sample. |
+| `[n=1]` | `number` | The number of elements to sample. |
 
 **Returns**
 
-| Type | Description |
-| --- | --- |
-| `Array` | Returns an array of random elements. |
+`(Array)`: Returns the random elements.
 
 **Example**
 
@@ -728,23 +752,24 @@ _.sampleSize([1, 2, 3], 4);
 // => [2, 3, 1]
 ```
 
-### shuffle
+---
 
-Creates an array of shuffled values, using a version of the Fisher-Yates shuffle algorithm.
+### `_.shuffle(collection)`
 
-- **Version**: 0.1.0
+Creates an array of shuffled values, using a version of the [Fisher-Yates shuffle](https://en.wikipedia.org/wiki/Fisher-Yates_shuffle).
+
+**Since**
+0.1.0
 
 **Parameters**
 
 | Name | Type | Description |
-| --- | --- | --- |
+|---|---|---|
 | `collection` | `Array`\|`Object` | The collection to shuffle. |
 
 **Returns**
 
-| Type | Description |
-| --- | --- |
-| `Array` | Returns the new shuffled array. |
+`(Array)`: Returns the new shuffled array.
 
 **Example**
 
@@ -753,23 +778,24 @@ _.shuffle([1, 2, 3, 4]);
 // => [4, 1, 3, 2]
 ```
 
-### size
+---
 
-Gets the size of `collection`. For array-like values, it returns their length; for objects, it returns the number of their own enumerable string-keyed properties.
+### `_.size(collection)`
 
-- **Version**: 0.1.0
+Gets the size of `collection` by returning its length for array-like values or the number of own enumerable string keyed properties for objects.
+
+**Since**
+0.1.0
 
 **Parameters**
 
 | Name | Type | Description |
-| --- | --- | --- |
+|---|---|---|
 | `collection` | `Array`\|`Object`\|`string` | The collection to inspect. |
 
 **Returns**
 
-| Type | Description |
-| --- | --- |
-| `number` | Returns the collection size. |
+`(number)`: Returns the collection size.
 
 **Example**
 
@@ -784,24 +810,25 @@ _.size('pebbles');
 // => 7
 ```
 
-### some
+---
 
-Checks if any element in `collection` passes the truth test of the `predicate` function. Iteration stops as soon as `predicate` returns a truthy value.
+### `_.some(collection, [predicate=_.identity])`
 
-- **Version**: 0.1.0
+Checks if `predicate` returns truthy for **any** element of `collection`. Iteration is stopped once `predicate` returns truthy.
+
+**Since**
+0.1.0
 
 **Parameters**
 
 | Name | Type | Description |
-| --- | --- | --- |
+|---|---|---|
 | `collection` | `Array`\|`Object` | The collection to iterate over. |
-| `predicate` | `Function` | The function invoked per iteration. |
+| `[predicate=_.identity]` | `Function` | The function invoked per iteration. |
 
 **Returns**
 
-| Type | Description |
-| --- | --- |
-| `boolean` | Returns `true` if any element passes the truth test, else `false`. |
+`(boolean)`: Returns `true` if any element passes the predicate check, else `false`.
 
 **Example**
 
@@ -814,29 +841,30 @@ var users = [
   { 'user': 'fred',   'active': false }
 ];
 
-// Using the _.matches shorthand
-_.some(users, { 'user': 'barney', 'active': false });
-// => false
+// The `_.matchesProperty` iteratee shorthand.
+_.some(users, ['active', false]);
+// => true
 ```
 
-### sortBy
+---
 
-Creates an array of elements, sorted in ascending order by the results of running each element in the `collection` through each `iteratee` function. This method performs a stable sort.
+### `_.sortBy(collection, [iteratees=[_.identity]])`
 
-- **Version**: 0.1.0
+Creates an array of elements, sorted in ascending order by the results of running each element in a collection through each iteratee. This method performs a stable sort, meaning it preserves the original sort order of equal elements.
+
+**Since**
+0.1.0
 
 **Parameters**
 
 | Name | Type | Description |
-| --- | --- | --- |
+|---|---|---|
 | `collection` | `Array`\|`Object` | The collection to iterate over. |
-| `...iteratees` | `Function`\|`Function[]` | The iteratees to sort by. |
+| `[iteratees=[_.identity]]` | `...(Function|Function[])` | The iteratees to sort by. |
 
 **Returns**
 
-| Type | Description |
-| --- | --- |
-| `Array` | Returns the new sorted array. |
+`(Array)`: Returns the new sorted array.
 
 **Example**
 
@@ -854,7 +882,3 @@ _.sortBy(users, [function(o) { return o.user; }]);
 _.sortBy(users, ['user', 'age']);
 // => objects for [['barney', 34], ['barney', 36], ['fred', 30], ['fred', 48]]
 ```
-
----
-
-Now that you are familiar with functions for handling collections, you can proceed to explore the [Date](./api-date.md) section to learn how to work with date objects.

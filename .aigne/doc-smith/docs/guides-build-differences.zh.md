@@ -1,144 +1,88 @@
-# 构建版本的差异
+# 构建版本差异
 
-Lodash 提供多种构建版本和模块格式，以适应不同的开发环境和性能需求。选择合适的构建版本可以显著优化应用程序的包大小和加载时间。本指南将解释不同构建版本之间的差异，并帮助您选择最适合您项目的版本。
+Lodash 提供了多种构建版本和模块格式，以适应不同的环境和使用场景。选择合适的构建版本是优化应用程序包大小和性能的关键。本指南将详细介绍可用的选项，帮助你选择最适合自己需求的版本。
 
-## 核心版与完整版构建
+如需交互式构建工具，请参阅官方的 [Custom Builds](https://lodash.com/custom-builds) 页面。
 
-Lodash 提供两种主要的预编译构建版本：轻量级的**核心版**构建和功能全面的**完整版**构建。
+## 主要构建版本
 
-| 特性 | 完整版构建 | 核心版构建 |
+Lodash 提供两种主要的构建版本：一个全面的 **Full build** 和一个轻量级的 **Core build**。两者都以 UMD 模块形式提供，使其适合在浏览器中直接使用或与模块加载器一起使用。
+
+| 构建版本 | Gzipped 大小（约） | 描述 |
 |---|---|---|
-| **描述** | 包含所有 Lodash 函数，提供广泛的实用功能。 | 一个轻量级版本，包含最常用函数的一个子集，适用于包大小至关重要的环境。 |
-| **Gzipped 大小** | ~24 kB | ~4 kB |
-| **Node.js 导入** | `require('lodash')` | `require('lodash/core')` |
-| **使用场景** | 适用于 Node.js 应用程序或对包大小没有主要考量的项目。 | 推荐用于前端应用程序、移动 Web 或任何优先考虑初始加载性能的场景。 |
+| **Full Build** | ~24 kB | 包含所有 Lodash 方法。适用于 Node.js 中的通用场景，或在需要大量工具函数时使用。 |
+| **Core Build** | ~4 kB | Lodash 的一个较小子集，包含核心的工具函数。最适合对包大小有严格要求的环境。 |
 
-您可以直接下载这些构建版本或使用 CDN：
+### CDN 和下载链接
 
-- **核心版构建**: [lodash.core.js](https://raw.githubusercontent.com/lodash/lodash/4.17.21/dist/lodash.core.js)
-- **完整版构建**: [lodash.js](https://raw.githubusercontent.com/lodash/lodash/4.17.21/dist/lodash.js)
-- **CDN 选项**: [jsdelivr](https://www.jsdelivr.com/projects/lodash)
+你可以通过 CDN 直接下载或链接到这些构建版本：
+
+<x-cards data-columns="2">
+  <x-card data-title="Full Build" data-icon="lucide:box" data-href="https://raw.githubusercontent.com/lodash/lodash/4.17.21/dist/lodash.js" data-cta="下载">
+    包含所有函数的完整 Lodash 库。
+  </x-card>
+  <x-card data-title="Core Build" data-icon="lucide:box-select" data-href="https://raw.githubusercontent.com/lodash/lodash/4.17.21/dist/lodash.core.js" data-cta="下载">
+    一个包含核心工具子集的轻量级构建版本。
+  </x-card>
+</x-cards>
+
+如需更多 CDN 选项，请访问 [jsDelivr 项目页面](https://www.jsdelivr.com/projects/lodash)。
 
 ## 模块格式与优化
 
-为了与现代 JavaScript 工具链集成，Lodash 支持多种模块格式，这些格式可以实现诸如摇树优化（tree-shaking）等优化。
+除了主要的构建版本，Lodash 还支持多种模块格式，以便与现代开发工作流和打包工具集成。
 
-### UMD (通用模块定义)
+### 按方法打包 (Cherry-Picking)
 
-标准的 `lodash` 包使用 UMD 格式，使其与各种环境兼容。
-
-**在浏览器中：**
-```html
-<script src="lodash.js"></script>
-```
-
-**在 Node.js 中：**
-```javascript
-// 加载完整版构建。
-var _ = require('lodash');
-
-// 加载核心版构建。
-var _ = require('lodash/core');
-```
-
-### 按需引入方法
-
-对于前端项目，最有效的优化是只导入您需要的方法。这使得像 webpack 或 Rollup 这样的打包工具能够执行摇树优化（tree-shaking），从而从最终的包中排除未使用的代码。
+为了最大程度地优化包大小，你可以导入单个方法。这种方法可以确保最终的包中只包含你用到的代码。在使用 Webpack、Rollup 或 Parcel 等打包工具时，这种方式非常有效。
 
 ```javascript
-// 按需引入方法以减小包大小。
+// 仅从主库中加载 'at' 方法。
 var at = require('lodash/at');
+
+// 仅从 FP 构建版本中加载 'curryN' 方法。
 var curryN = require('lodash/fp/curryN');
+
+// 你也可以加载整个类别。
+var array = require('lodash/array');
 ```
 
 ### ES 模块
 
-对于使用 ES 模块的项目，推荐使用 `lodash-es` 包。它提供原生的 ES 模块导出，这使得现代构建工具可以进行更高效的摇树优化。为了进一步自动化此过程，您可以使用 [babel-plugin-lodash](https://www.npmjs.com/package/babel-plugin-lodash) 和 [lodash-webpack-plugin](https://www.npmjs.com/package/lodash-webpack-plugin)。
+对于使用 ES 模块语法 (`import`/`export`) 的项目，推荐使用 `lodash-es` 包。它支持 tree-shaking，打包工具会自动移除未使用的代码。
 
-### 函数式编程 (FP) 构建版
+为进一步优化此过程，你可以使用以下插件：
+- [babel-plugin-lodash](https://www.npmjs.com/package/babel-plugin-lodash)
+- [lodash-webpack-plugin](https://www.npmjs.com/package/lodash-webpack-plugin)
 
-Lodash 还提供了一个用于函数式编程的构建版本。该版本具有不可变、自动柯里化、函数优先、数据置后的方法。
+### 函数式编程 (FP) 构建版本
+
+Lodash 为函数式编程风格提供了一个专门的构建版本。`lodash/fp` 模块提供的方法具有以下特点：
+
+- **不可变**：不修改输入数据。
+- **自动柯里化**：函数可以一次传入一个参数。
+- **迭代函数优先**：要应用的函数在数据之前。
+- **数据置后**：数据集合是最后一个参数。
 
 ```javascript
-// 加载 FP 构建版。
+// 加载 FP 构建版本以使用不可变、自动柯里化的方法。
 var fp = require('lodash/fp');
 ```
-要深入了解这种范式，请参阅[函数式编程指南](./fp-guide.md)。
 
-## 如何选择
+## 创建自定义构建版本
 
-使用此图表来确定最适合您需求的构建版本：
+你可以使用 `lodash-cli` 生成自己的自定义构建版本。这使你能够将所需的方法打包到单个文件中。
 
-```d2
-direction: down
+首先，如果尚未安装，请安装 CLI 工具。然后，使用项目 `package.json` 文件中提供的构建脚本，或直接运行 `lodash-cli` 命令。
 
-start: "开始：选择 Lodash 构建版本"
-
-env_check: "您的环境是什么？"
-
-start -> env_check
-
-subgraph "浏览器" {
-  direction: down
-  bundle_sensitive: "包大小是否至关重要？"
-  use_core: "使用核心版构建 (lodash.core.js) 或按需引入方法。"
-  use_full: "使用完整版构建 (lodash.js)。"
-
-  bundle_sensitive -> use_core: "是"
-  bundle_sensitive -> use_full: "否"
-}
-
-subgraph "Node.js" {
-  direction: down
-  use_full_node: "使用完整的 'lodash' 包。"
-}
-
-subgraph "现代打包工具 (webpack, Vite)" {
-  direction: down
-  use_es: "使用 'lodash-es' 或按需引入方法以实现最佳的摇树优化。"
-}
-
-env_check -> bundle_sensitive: "浏览器"
-env_check -> use_full_node: "Node.js"
-env_check -> use_es: "现代打包工具"
-
-fp_check: "您是否偏好函数式编程风格？"
-
-use_core --> fp_check
-use_full --> fp_check
-use_full_node --> fp_check
-use_es --> fp_check
-
-end: "选择完成"
-
-use_fp: "使用 'lodash/fp' 变体。"
-
-fp_check -> use_fp: "是"
-fp_check -> end: "否"
-use_fp -> end
-```
-
-## 自定义构建
-
-为了完全控制，您可以使用 `lodash-cli` 创建一个自定义构建，仅包含您项目所需的特定方法。构建过程可以通过 `package.json` 中定义的 npm 脚本来启动。
-
-**生成标准构建**
-
-此命令将在 `./dist/` 目录下生成主发行版和 FP 发行版文件。
-```shell
-$ npm run build
-```
-
-**直接使用 lodash-cli**
-
-或者，您也可以使用 `lodash-cli` 来生成特定的构建版本。
+以下是用于生成标准分发文件的命令：
 
 ```shell
-# 创建一个完整版构建
+# 生成完整构建版本
 $ lodash -o ./dist/lodash.js
 
-# 创建一个核心版构建
+# 生成核心构建版本
 $ lodash core -o ./dist/lodash.core.js
 ```
 
-通过了解这些构建版本的差异，您可以做出明智的选择，以平衡功能与性能。要进一步优化您的代码，请考虑阅读我们的[性能指南](./guides-performance.md)。
+通过利用这些不同的构建版本和模块格式，你可以根据项目的特定性能和大小限制来定制 Lodash。

@@ -1,118 +1,125 @@
 # Getting Started
 
-This guide provides concise instructions for installing and using Lodash in various environments to help you get started quickly. Lodash is a powerful JavaScript utility library that simplifies programming by providing helper functions for tasks involving arrays, numbers, objects, strings, and more.
+Lodash makes JavaScript easier by taking the hassle out of working with arrays, numbers, objects, and strings. Get up and running in minutes with these instructions.
 
-## In Browsers
+## Installation
 
-To use Lodash directly in a browser, you can include it via a CDN. We offer several builds to suit different needs.
+You can add Lodash to your project using a script tag in the browser or by installing it from a package manager like npm.
 
-Add the following to your HTML file:
+### In the Browser
+
+To get started in a browser, include the Lodash script on your page. You can host the file yourself or use a CDN.
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
 ```
 
-### Builds
+This will make the Lodash library available under the global `_` variable.
 
-You can choose different builds based on your project's requirements. The core build is smaller and includes the most commonly used utility functions.
-
-| Build | Size (gzipped) | Description |
-|---|---|---|
-| [Core build](https://raw.githubusercontent.com/lodash/lodash/4.17.21/dist/lodash.core.js) | ~4 kB | Includes the core, most commonly used Lodash functions. |
-| [Full build](https://raw.githubusercontent.com/lodash/lodash/4.17.21/dist/lodash.js) | ~24 kB | Includes all Lodash functions. |
+<x-cards>
+  <x-card data-title="Full Build" data-icon="lucide:box" data-href="https://raw.githubusercontent.com/lodash/lodash/4.17.21/dist/lodash.js">
+    Includes all Lodash methods for comprehensive functionality (~24 kB gzipped).
+  </x-card>
+  <x-card data-title="Core Build" data-icon="lucide:box-select" data-href="https://raw.githubusercontent.com/lodash/lodash/4.17.21/dist/lodash.core.js">
+    A lighter version with essential methods for smaller projects (~4 kB gzipped).
+  </x-card>
+</x-cards>
 
 For more CDN options, visit [jsDelivr](https://www.jsdelivr.com/projects/lodash).
 
-### Quick Example
+### Using npm
 
-After including the script, the `_` variable is exposed as the Lodash global. You can use it to call all Lodash functions.
+For Node.js applications or projects using a build tool like Webpack or Rollup, install Lodash via npm:
+
+```shell
+$ npm i --save lodash
+```
+
+## Basic Usage
+
+Once installed, you can start using Lodash functions immediately.
+
+### In Node.js
+
+Require the full library and call a method:
+
+```javascript
+// Load the full build.
+var _ = require('lodash');
+
+var users = [
+  { 'user': 'barney',  'active': false },
+  { 'user': 'fred',    'active': false },
+  { 'user': 'pebbles', 'active': true }
+];
+
+// Find the first active user
+var activeUser = _.find(users, function(o) { return o.active; });
+
+console.log(activeUser);
+// => { 'user': 'pebbles', 'active': true }
+```
+
+### In the Browser
+
+With the script tag included, the `_` variable is available globally:
 
 ```html
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Lodash Example</title>
-  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
-</head>
-<body>
-  <script>
-    const users = [
-      { 'user': 'barney',  'active': false },
-      { 'user': 'fred',    'active': false },
-      { 'user': 'pebbles', 'active': true }
-    ];
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+<script>
+  var users = [
+    { 'user': 'barney',  'active': false },
+    { 'user': 'fred',    'active': false },
+    { 'user': 'pebbles', 'active': true }
+  ];
 
-    // Use _.filter to find users where 'active' is true
-    const activeUsers = _.filter(users, { 'active': true });
-    console.log(activeUsers);
-    // => [{ 'user': 'pebbles', 'active': true }]
+  var activeUser = _.find(users, { 'active': true });
 
-    // Use _.chunk to split the array into chunks of a specified size
-    const chunks = _.chunk(['a', 'b', 'c', 'd'], 2);
-    console.log(chunks);
-    // => [['a', 'b'], ['c', 'd']]
-  </script>
-</body>
-</html>
+  console.log(activeUser);
+  // => { 'user': 'pebbles', 'active': true }
+</script>
 ```
 
-## Node.js & Bundlers (Webpack/Rollup)
+## Modular Loading for Smaller Bundles
 
-For Node.js projects or front-end projects using bundlers, it's recommended to install Lodash using npm or another package manager.
+To optimize your application's bundle size, you can import individual methods instead of the entire library. This is especially useful for front-end projects where file size is critical.
 
-### Installation
+### Cherry-pick Methods
 
-Install Lodash using npm:
-```shell
-npm i --save lodash
-```
-
-### Usage
-
-After installation, you can import the full library, specific builds, or individual functions as needed.
-
-**1. Import the full build**
-
-Load the full Lodash library.
-```javascript
-const _ = require('lodash');
-
-const result = _.chunk(['a', 'b', 'c', 'd'], 2);
-console.log(result);
-// => [['a', 'b'], ['c', 'd']]
-```
-
-**2. Import the core build**
-
-If you only need core functionality, you can import the smaller core build.
-```javascript
-const _ = require('lodash/core');
-```
-
-**3. Cherry-picking methods**
-
-To optimize your final bundle size, it's highly recommended to cherry-pick the methods you need. This ensures only the code you use is included.
+You can require methods one by one:
 
 ```javascript
-const at = require('lodash/at');
-const curryN = require('lodash/fp/curryN');
+// Load only the 'at' method.
+var at = require('lodash/at');
 
-const object = { 'a': [{ 'b': { 'c': 3 } }, 4] };
+var object = { 'a': [{ 'b': { 'c': 3 } }, 4] };
 
-const result = at(object, ['a[0].b.c', 'a[1]']);
-console.log(result);
+at(object, ['a[0].b.c', 'a[1]']);
 // => [3, 4]
 ```
 
-### Other Module Formats
+### Functional Programming (FP) Build
 
-Lodash also offers several module formats to suit different development needs:
+For a functional programming style with immutable, auto-curried, iteratee-first, and data-last methods, use the FP build.
 
-- **`lodash-es`**: An ES module build for easy Tree Shaking.
-- **`babel-plugin-lodash`** & **`lodash-webpack-plugin`**: Used with Babel and Webpack to automatically transform Lodash calls into cherry-picked imports, greatly optimizing bundle size.
-- **`lodash/fp`**: A functional programming version that provides immutable, auto-curried, iteratee-first, data-last methods.
-- **`lodash-amd`**: For use with AMD module loaders.
+```javascript
+// Load the FP build.
+var fp = require('lodash/fp');
 
-## Next Steps
+var users = [
+  { 'user': 'barney',  'age': 36, 'active': true },
+  { 'user': 'fred',    'age': 40, 'active': false }
+];
 
-Now that you know how to include and use Lodash in your projects, we recommend you browse the [API Reference](./api.md) to explore all the powerful functions it offers.
+// The FP style is data-last.
+var getActiveUsers = fp.filter({ 'active': true });
+
+getActiveUsers(users);
+// => [{ 'user': 'barney', 'age': 36, 'active': true }]
+```
+
+For a complete guide on this paradigm, see the [Functional Programming Guide](./fp-guide.md).
+
+---
+
+Now that you have Lodash installed and understand the basics, you can explore the complete list of functions in our [API Reference](./api.md).

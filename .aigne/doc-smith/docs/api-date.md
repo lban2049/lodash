@@ -1,53 +1,33 @@
 # Date
 
-This section details the functions in Lodash used for handling dates and timestamps. These utility functions can help you easily get the current time.
+Lodash provides utility functions for working with JavaScript's `Date` objects. These helpers simplify common date-related tasks, such as retrieving the current timestamp.
 
-Lodash's date functions focus on providing core functionality. For a broader range of utilities, please refer to the [Util](./api-util.md) and [Lang](./api-lang.md) sections.
+For functions that help manage the timing of function execution, such as `_.defer` and `_.delay`, please see the [Function documentation](./api-function.md).
 
 ---
 
-## `_.now()`
+## now()
 
-Gets the number of milliseconds that have elapsed since the Unix epoch (1 January 1970 00:00:00 UTC) as a timestamp. This method is a wrapper for `Date.now()` and provides consistency across environments.
+Gets the timestamp of the number of milliseconds that have elapsed since the Unix epoch (1 January 1970 00:00:00 UTC).
 
-### Arguments
+### Parameters
 
-This function does not accept any arguments.
+This method does not accept any parameters.
 
 ### Returns
 
-`(number)`: Returns the current timestamp (in milliseconds).
+| Type | Description |
+|---|---|
+| `number` | Returns the current timestamp as a number. |
 
 ### Example
-
-You can use `_.now()` to simply measure the execution time of a code block.
-
-```javascript
-const start = _.now();
-
-// Perform some time-consuming operations...
-for (let i = 0; i < 1000000; i++) {
-  // Simulate work
-}
-
-const end = _.now();
-const duration = end - start;
-
-console.log(`Operation took: ${duration} milliseconds`);
-// => "Operation took: 5 milliseconds" (the specific value will vary depending on the execution environment)
-```
-
-Another example is combining it with `_.defer` to check the time difference of a deferred call:
 
 ```javascript
 _.defer(function(stamp) {
   console.log(_.now() - stamp);
 }, _.now());
-// => Logs the number of milliseconds the deferred call was delayed after about 1ms.
+
+// => Logs the number of milliseconds it took for the deferred invocation.
 ```
 
-`_.now` is a simple and efficient method for getting a high-precision timestamp, often used for performance measurement and timing.
-
----
-
-After exploring the date functions, you can continue to the [Function](./api-function.md) section to learn more helper functions for functional programming.
+The example above demonstrates how to measure the time elapsed for a deferred operation. It captures an initial timestamp with `_.now()`, then calculates the difference after the deferred function executes.

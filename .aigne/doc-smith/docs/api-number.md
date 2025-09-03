@@ -1,8 +1,8 @@
 # Number
 
-Lodash provides a set of utility Number functions for working with and manipulating numbers. These functions can help you clamp numbers within a specific range, check if a number is within a given range, or generate random numbers.
+This section provides a detailed reference for Lodash functions that operate on or return numbers. These utilities help with constraining values within a range, checking if a number falls within a specific range, and generating random numbers.
 
-For more complex mathematical calculations, refer to the [Math](./api-math.md) section of the documentation.
+For mathematical operations, see the [Math](./api-math.md) section.
 
 ---
 
@@ -10,7 +10,7 @@ For more complex mathematical calculations, refer to the [Math](./api-math.md) s
 
 Clamps `number` within the inclusive `lower` and `upper` bounds.
 
-#### Parameters
+### Parameters
 
 | Name | Type | Description |
 |---|---|---|
@@ -18,11 +18,11 @@ Clamps `number` within the inclusive `lower` and `upper` bounds.
 | `[lower]` | `number` | The lower bound. |
 | `upper` | `number` | The upper bound. |
 
-#### Returns
+### Returns
 
 `(number)`: Returns the clamped number.
 
-#### Example
+### Example
 
 ```javascript
 _.clamp(-10, -5, 5);
@@ -36,9 +36,9 @@ _.clamp(10, -5, 5);
 
 ## inRange
 
-Checks if `n` is between `start` and up to, but not including, `end`. If `end` is not specified, it's set to `start` with `start` then set to 0. If `start` is greater than `end` the params are swapped to support negative ranges.
+Checks if `n` is between `start` and up to, but not including, `end`. If `end` is not specified, it's set to `start` with `start` then set to `0`. If `start` is greater than `end` the params are swapped to support negative ranges.
 
-#### Parameters
+### Parameters
 
 | Name | Type | Description |
 |---|---|---|
@@ -46,11 +46,11 @@ Checks if `n` is between `start` and up to, but not including, `end`. If `end` i
 | `[start=0]` | `number` | The start of the range. |
 | `end` | `number` | The end of the range. |
 
-#### Returns
+### Returns
 
 `(boolean)`: Returns `true` if `number` is in the range, else `false`.
 
-#### Example
+### Example
 
 ```javascript
 _.inRange(3, 2, 4);
@@ -79,23 +79,23 @@ _.inRange(-3, -2, -6);
 
 ## random
 
-Produces a random number between `lower` and `upper` (inclusive). If only one argument is provided, a number between 0 and that number is returned. If `floating` is `true`, or either `lower` or `upper` are floats, a floating-point number is returned.
+Produces a random number between the inclusive `lower` and `upper` bounds. If only one argument is provided a number between `0` and the given number is returned. If `floating` is `true`, or either `lower` or `upper` are floats, a floating-point number is returned instead of an integer.
 
-**Note:** JavaScript follows the IEEE-754 standard for floating-point values, which can lead to some unexpected results.
+**Note:** JavaScript follows the IEEE-754 standard for resolving floating-point values which can produce unexpected results.
 
-#### Parameters
+### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | `[lower=0]` | `number` | The lower bound. |
 | `[upper=1]` | `number` | The upper bound. |
-| `[floating]` | `boolean` | Specifies whether to return a floating-point number. |
+| `[floating]` | `boolean` | Specify returning a floating-point number. |
 
-#### Returns
+### Returns
 
 `(number)`: Returns the random number.
 
-#### Example
+### Example
 
 ```javascript
 _.random(0, 5);
@@ -113,4 +113,4 @@ _.random(1.2, 5.2);
 
 ---
 
-This section introduced the core utility functions in Lodash for handling numbers. These functions provide convenient methods for common number operations in daily development. Next, you can continue to explore the [Object](./api-object.md) related functions to learn how to efficiently manipulate and handle objects.
+This section covered the number utility functions in Lodash. For more advanced numerical operations, you may want to explore the [Math](./api-math.md) functions next.

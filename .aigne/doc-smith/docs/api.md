@@ -1,47 +1,41 @@
 # API Reference
 
-Welcome to the Lodash API Reference. This section provides comprehensive, searchable reference documentation for all Lodash methods. For quick lookup, all methods are categorized by the data type they operate on. Each category includes detailed function signatures, parameter descriptions, return values, and ready-to-use code examples.
-
-If you are interested in Lodash's functional programming paradigm, please consult our [Functional Programming Guide](./fp-guide.md).
-
-## API Category Overview
-
-Lodash's API is divided into several core categories to help you quickly locate the functionality you need. The following list of cards displays all API categories and their descriptions; click to navigate to the corresponding detailed documentation page.
+Welcome to the complete reference for all Lodash methods. The API is organized into categories based on the data type the functions operate on, making it easy to find the utility you need. Use the search bar for quick lookups or browse the categories below to explore the full range of functionality.
 
 <x-cards data-columns="3">
-  <x-card data-title="Array" data-href="/api/array" data-icon="lucide:list-ordered">
+  <x-card data-title="Array" data-icon="lucide:braces" data-href="/api/array">
     A detailed reference for all Lodash functions that operate on or return arrays.
   </x-card>
-  <x-card data-title="Collection" data-href="/api/collection" data-icon="lucide:ungroup">
-    A detailed reference for all Lodash functions that iterate over collections such as arrays and objects.
+  <x-card data-title="Collection" data-icon="lucide:list" data-href="/api/collection">
+    A detailed reference for all Lodash functions that iterate over collections like arrays and objects.
   </x-card>
-  <x-card data-title="Date" data-href="/api/date" data-icon="lucide:calendar-days">
+  <x-card data-title="Date" data-icon="lucide:calendar" data-href="/api/date">
     A detailed reference for all Lodash functions for working with Date objects.
   </x-card>
-  <x-card data-title="Function" data-href="/api/function" data-icon="lucide:function-square">
+  <x-card data-title="Function" data-icon="lucide:function-square" data-href="/api/function">
     A detailed reference for all Lodash functions that operate on or return functions, such as debouncing and currying.
   </x-card>
-  <x-card data-title="Lang" data-href="/api/lang" data-icon="lucide:languages">
+  <x-card data-title="Lang" data-icon="lucide:languages" data-href="/api/lang">
     A detailed reference for all Lodash language utility functions, including type checking and cloning.
   </x-card>
-  <x-card data-title="Math" data-href="/api/math" data-icon="lucide:plus-minus">
-    A detailed reference for all Lodash math utility functions.
+  <x-card data-title="Math" data-icon="lucide:plus-minus" data-href="/api/math">
+    A detailed reference for all Lodash mathematical utility functions.
   </x-card>
-  <x-card data-title="Number" data-href="/api/number" data-icon="lucide:binary">
+  <x-card data-title="Number" data-icon="lucide:hash" data-href="/api/number">
     A detailed reference for all Lodash functions that operate on or return numbers.
   </x-card>
-  <x-card data-title="Object" data-href="/api/object" data-icon="lucide:braces">
-    A detailed reference for all Lodash functions for operating on and manipulating objects.
+  <x-card data-title="Object" data-icon="lucide:package" data-href="/api/object">
+    A detailed reference for all Lodash functions for manipulating and working with objects.
   </x-card>
-  <x-card data-title="Seq" data-href="/api/seq" data-icon="lucide:workflow">
-    A detailed reference for all Lodash functions related to chainable method calls.
+  <x-card data-title="Seq" data-icon="lucide:link" data-href="/api/seq">
+    A detailed reference for all Lodash functions related to sequential method chaining.
   </x-card>
-  <x-card data-title="String" data-href="/api/string" data-icon="lucide:quote">
-    A detailed reference for all Lodash functions for string manipulation and checking.
+  <x-card data-title="String" data-icon="lucide:type" data-href="/api/string">
+    A detailed reference for all Lodash functions for string manipulation and inspection.
   </x-card>
-  <x-card data-title="Util" data-href="/api/util" data-icon="lucide:wrench">
-    A detailed reference for other Lodash utility functions.
+  <x-card data-title="Util" data-icon="lucide:wrench" data-href="/api/util">
+    A detailed reference for miscellaneous Lodash utility functions.
   </x-card>
 </x-cards>
 
-Through these categories, you can systematically browse and learn the rich functionality provided by Lodash. Choose a category you're interested in to start exploring, or consult our [Guides](./guides.md) to learn about advanced topics such as performance optimization.
+After exploring the API, you may find the [Functional Programming Guide](./fp-guide.md) helpful for understanding advanced patterns, or review the [Guides](./guides.md) for performance tips and build customizations.

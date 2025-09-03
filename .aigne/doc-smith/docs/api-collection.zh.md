@@ -1,29 +1,28 @@
-# Collection
+# 集合
 
-集合（Collection）函数适用于可迭代的数据结构，例如数组、对象和字符串。这些函数提供了一致的方法来遍历、筛选、映射和分组元素，简化了对复杂数据结构的操作。无论底层数据类型如何，它们都能以声明式和高效的方式处理数据。
+集合函数用于遍历数组、对象和字符串等集合。它们为过滤、映射、分组和归约等常见的数据操作任务提供了强大而简洁的方法。
 
-对于专门针对数组或对象的操作，请分别参阅 [Array](./api-array.md) 和 [Object](./api-object.md) 部分的文档。
+对于特定于单一数据类型的函数，你可能还需要查阅 [Array](./api-array.md) 或 [Object](./api-object.md) 文档。
 
-## 函数列表
+---
 
-### countBy
+### `_.countBy(collection, [iteratee=_.identity])`
 
-创建一个对象，其键是通过对 `collection` 中的每个元素运行 `iteratee` 函数生成的结果，其值是 `iteratee` 返回相应键的次数。
+创建一个对象，其键由 `collection` 的每个元素经过 `iteratee` 处理后生成。每个键对应的值是 `iteratee` 返回该键的次数。
 
-- **版本**: 0.5.0
+**起始版本**
+0.5.0
 
 **参数**
 
-| 名称 | 类型 | 描述 |
-| --- | --- | --- |
-| `collection` | `Array`\|`Object` | 要迭代的集合。 |
-| `iteratee` | `Function` | 用于转换键的函数，每次迭代时调用。 |
+| Name | Type | Description |
+|---|---|---|
+| `collection` | `Array`\|`Object` | 要遍历的集合。 |
+| `[iteratee=_.identity]` | `Function` | 每次迭代时调用以生成键的函数。 |
 
-**返回**
+**返回值**
 
-| 类型 | 描述 |
-| --- | --- |
-| `Object` | 返回聚合后的对象。 |
+`(Object)`: 返回组合的聚合对象。
 
 **示例**
 
@@ -31,29 +30,30 @@
 _.countBy([6.1, 4.2, 6.3], Math.floor);
 // => { '4': 1, '6': 2 }
 
-// 使用 _.property 速记法
+// The `_.property` iteratee shorthand.
 _.countBy(['one', 'two', 'three'], 'length');
 // => { '3': 2, '5': 1 }
 ```
 
-### every
+---
 
-检查 `collection` 中的所有元素是否都通过 `predicate` 函数的真值测试。一旦 `predicate` 返回假值，迭代就会停止。
+### `_.every(collection, [predicate=_.identity])`
 
-- **版本**: 0.1.0
+检查 `predicate` 是否对 `collection` 的**所有**元素都返回真值。一旦 `predicate` 返回假值，迭代就会停止。注意：此方法对空集合返回 `true`，因为对于空集合中的元素，任何判断都为真。
+
+**起始版本**
+0.1.0
 
 **参数**
 
-| 名称 | 类型 | 描述 |
-| --- | --- | --- |
-| `collection` | `Array`\|`Object` | 要迭代的集合。 |
-| `predicate` | `Function` | 每次迭代时调用的函数。 |
+| Name | Type | Description |
+|---|---|---|
+| `collection` | `Array`\|`Object` | 要遍历的集合。 |
+| `[predicate=_.identity]` | `Function` | 每次迭代时调用的函数。 |
 
-**返回**
+**返回值**
 
-| 类型 | 描述 |
-| --- | --- |
-| `boolean` | 如果所有元素都通过了真值测试，则返回 `true`，否则返回 `false`。 |
+`(boolean)`: 如果所有元素都通过断言检查，则返回 `true`，否则返回 `false`。
 
 **示例**
 
@@ -66,34 +66,38 @@ var users = [
   { 'user': 'fred',   'age': 40, 'active': false }
 ];
 
-// 使用 _.matches 速记法
+// The `_.matches` iteratee shorthand.
 _.every(users, { 'user': 'barney', 'active': false });
 // => false
 
-// 使用 _.matchesProperty 速记法
+// The `_.matchesProperty` iteratee shorthand.
 _.every(users, ['active', false]);
 // => true
+
+// The `_.property` iteratee shorthand.
+_.every(users, 'active');
+// => false
 ```
 
-### filter
+---
 
-遍历 `collection` 的元素，返回一个包含所有 `predicate` 函数返回真值的元素的新数组。
+### `_.filter(collection, [predicate=_.identity])`
 
-- **版本**: 0.1.0
-- **相关**: `reject`
+遍历 `collection` 的元素，返回一个包含所有 `predicate` 返回真值的元素的新数组。断言函数调用时会传入三个参数：`(value, index|key, collection)`。
+
+**起始版本**
+0.1.0
 
 **参数**
 
-| 名称 | 类型 | 描述 |
-| --- | --- | --- |
-| `collection` | `Array`\|`Object` | 要迭代的集合。 |
-| `predicate` | `Function` | 每次迭代时调用的函数。 |
+| Name | Type | Description |
+|---|---|---|
+| `collection` | `Array`\|`Object` | 要遍历的集合。 |
+| `[predicate=_.identity]` | `Function` | 每次迭代时调用的函数。 |
 
-**返回**
+**返回值**
 
-| 类型 | 描述 |
-| --- | --- |
-| `Array` | 返回包含通过筛选的元素的新数组。 |
+`(Array)`: 返回新的已过滤数组。
 
 **示例**
 
@@ -106,30 +110,31 @@ var users = [
 _.filter(users, function(o) { return !o.active; });
 // => objects for ['fred']
 
-// 使用 _.matches 速记法
+// The `_.matches` iteratee shorthand.
 _.filter(users, { 'age': 36, 'active': true });
 // => objects for ['barney']
 ```
 
-### find
+---
 
-遍历 `collection` 的元素，返回第一个 `predicate` 函数返回真值的元素。`predicate` 被调用时会传入三个参数：(value, index|key, collection)。
+### `_.find(collection, [predicate=_.identity], [fromIndex=0])`
 
-- **版本**: 0.1.0
+遍历 `collection` 的元素，返回第一个 `predicate` 返回真值的元素。断言函数调用时会传入三个参数：`(value, index|key, collection)`。
+
+**起始版本**
+0.1.0
 
 **参数**
 
-| 名称 | 类型 | 描述 |
-| --- | --- | --- |
+| Name | Type | Description |
+|---|---|---|
 | `collection` | `Array`\|`Object` | 要检查的集合。 |
-| `predicate` | `Function` | 每次迭代时调用的函数。 |
-| `fromIndex` | `number` | 开始搜索的索引，默认为 `0`。 |
+| `[predicate=_.identity]` | `Function` | 每次迭代时调用的函数。 |
+| `[fromIndex=0]` | `number` | 开始搜索的索引。 |
 
-**返回**
+**返回值**
 
-| 类型 | 描述 |
-| --- | --- |
-| `*` | 返回匹配的元素，如果未找到则返回 `undefined`。 |
+`(*)`: 返回匹配的元素，否则返回 `undefined`。
 
 **示例**
 
@@ -143,30 +148,31 @@ var users = [
 _.find(users, function(o) { return o.age < 40; });
 // => object for 'barney'
 
-// 使用 _.matches 速记法
-_.find(users, { 'age': 1, 'active': true });
-// => object for 'pebbles'
+// The `_.matchesProperty` iteratee shorthand.
+_.find(users, ['active', false]);
+// => object for 'fred'
 ```
 
-### findLast
+---
 
-此方法类似于 `_.find`，但它是从右到左遍历 `collection` 的元素。
+### `_.findLast(collection, [predicate=_.identity], [fromIndex=collection.length-1])`
 
-- **版本**: 2.0.0
+此方法类似于 `_.find`，只是它从右到左遍历 `collection` 的元素。
+
+**起始版本**
+2.0.0
 
 **参数**
 
-| 名称 | 类型 | 描述 |
-| --- | --- | --- |
+| Name | Type | Description |
+|---|---|---|
 | `collection` | `Array`\|`Object` | 要检查的集合。 |
-| `predicate` | `Function` | 每次迭代时调用的函数。 |
-| `fromIndex` | `number` | 开始搜索的索引，默认为 `collection.length - 1`。 |
+| `[predicate=_.identity]` | `Function` | 每次迭代时调用的函数。 |
+| `[fromIndex=collection.length-1]` | `number` | 开始搜索的索引。 |
 
-**返回**
+**返回值**
 
-| 类型 | 描述 |
-| --- | --- |
-| `*` | 返回匹配的元素，如果未找到则返回 `undefined`。 |
+`(*)`: 返回匹配的元素，否则返回 `undefined`。
 
 **示例**
 
@@ -177,24 +183,25 @@ _.findLast([1, 2, 3, 4], function(n) {
 // => 3
 ```
 
-### flatMap
+---
 
-通过对 `collection` 中的每个元素运行 `iteratee` 函数，并将映射结果展平一级，来创建一个新的扁平化数组。
+### `_.flatMap(collection, [iteratee=_.identity])`
 
-- **版本**: 4.0.0
+通过对 `collection` 中的每个元素运行 `iteratee` 并将映射结果展平，创建一个展平的值数组。迭代函数调用时会传入三个参数：`(value, index|key, collection)`。
+
+**起始版本**
+4.0.0
 
 **参数**
 
-| 名称 | 类型 | 描述 |
-| --- | --- | --- |
-| `collection` | `Array`\|`Object` | 要迭代的集合。 |
-| `iteratee` | `Function` | 每次迭代时调用的函数。 |
+| Name | Type | Description |
+|---|---|---|
+| `collection` | `Array`\|`Object` | 要遍历的集合。 |
+| `[iteratee=_.identity]` | `Function` | 每次迭代时调用的函数。 |
 
-**返回**
+**返回值**
 
-| 类型 | 描述 |
-| --- | --- |
-| `Array` | 返回新的扁平化数组。 |
+`(Array)`: 返回新的已展平数组。
 
 **示例**
 
@@ -207,24 +214,25 @@ _.flatMap([1, 2], duplicate);
 // => [1, 1, 2, 2]
 ```
 
-### flatMapDeep
+---
 
-此方法类似于 `_.flatMap`，不同之处在于它会递归地展平映射结果。
+### `_.flatMapDeep(collection, [iteratee=_.identity])`
 
-- **版本**: 4.7.0
+此方法类似于 `_.flatMap`，只是它会递归地展平映射结果。
+
+**起始版本**
+4.7.0
 
 **参数**
 
-| 名称 | 类型 | 描述 |
-| --- | --- | --- |
-| `collection` | `Array`\|`Object` | 要迭代的集合。 |
-| `iteratee` | `Function` | 每次迭代时调用的函数。 |
+| Name | Type | Description |
+|---|---|---|
+| `collection` | `Array`\|`Object` | 要遍历的集合。 |
+| `[iteratee=_.identity]` | `Function` | 每次迭代时调用的函数。 |
 
-**返回**
+**返回值**
 
-| 类型 | 描述 |
-| --- | --- |
-| `Array` | 返回新的扁平化数组。 |
+`(Array)`: 返回新的已展平数组。
 
 **示例**
 
@@ -237,25 +245,26 @@ _.flatMapDeep([1, 2], duplicate);
 // => [1, 1, 2, 2]
 ```
 
-### flatMapDepth
+---
 
-此方法类似于 `_.flatMap`，不同之处在于它会根据指定的 `depth` 递归地展平映射结果。
+### `_.flatMapDepth(collection, [iteratee=_.identity], [depth=1])`
 
-- **版本**: 4.7.0
+此方法类似于 `_.flatMap`，只是它会递归地将映射结果展平最多 `depth` 次。
+
+**起始版本**
+4.7.0
 
 **参数**
 
-| 名称 | 类型 | 描述 |
-| --- | --- | --- |
-| `collection` | `Array`\|`Object` | 要迭代的集合。 |
-| `iteratee` | `Function` | 每次迭代时调用的函数。 |
-| `depth` | `number` | 递归展平的最大深度，默认为 `1`。 |
+| Name | Type | Description |
+|---|---|---|
+| `collection` | `Array`\|`Object` | 要遍历的集合。 |
+| `[iteratee=_.identity]` | `Function` | 每次迭代时调用的函数。 |
+| `[depth=1]` | `number` | 最大递归深度。 |
 
-**返回**
+**返回值**
 
-| 类型 | 描述 |
-| --- | --- |
-| `Array` | 返回新的扁平化数组。 |
+`(Array)`: 返回新的已展平数组。
 
 **示例**
 
@@ -268,26 +277,25 @@ _.flatMapDepth([1, 2], duplicate, 2);
 // => [[1, 1], [2, 2]]
 ```
 
-### forEach
+---
 
-为 `collection` 中的每个元素调用 `iteratee` 函数。`iteratee` 函数可以通过显式返回 `false` 来提前退出迭代。
+### `_.forEach(collection, [iteratee=_.identity])`
 
-- **版本**: 0.1.0
-- **别名**: `each`
-- **相关**: `forEachRight`
+遍历 `collection` 的元素，并为每个元素调用 `iteratee`。迭代函数调用时会传入三个参数：`(value, index|key, collection)`。迭代函数可以通过显式返回 `false` 来提前退出迭代。
+
+**起始版本**
+0.1.0
 
 **参数**
 
-| 名称 | 类型 | 描述 |
-| --- | --- | --- |
-| `collection` | `Array`\|`Object` | 要迭代的集合。 |
-| `iteratee` | `Function` | 每次迭代时调用的函数。 |
+| Name | Type | Description |
+|---|---|---|
+| `collection` | `Array`\|`Object` | 要遍历的集合。 |
+| `[iteratee=_.identity]` | `Function` | 每次迭代时调用的函数。 |
 
-**返回**
+**返回值**
 
-| 类型 | 描述 |
-| --- | --- |
-| `Array`\|`Object` | 返回 `collection`。 |
+`(Array|Object)`: 返回 `collection`。
 
 **示例**
 
@@ -303,26 +311,25 @@ _.forEach({ 'a': 1, 'b': 2 }, function(value, key) {
 // => Logs 'a' then 'b' (iteration order is not guaranteed).
 ```
 
-### forEachRight
+---
 
-此方法类似于 `_.forEach`，但它是从右到左遍历 `collection` 的元素。
+### `_.forEachRight(collection, [iteratee=_.identity])`
 
-- **版本**: 2.0.0
-- **别名**: `eachRight`
-- **相关**: `forEach`
+此方法类似于 `_.forEach`，只是它从右到左遍历 `collection` 的元素。
+
+**起始版本**
+2.0.0
 
 **参数**
 
-| 名称 | 类型 | 描述 |
-| --- | --- | --- |
-| `collection` | `Array`\|`Object` | 要迭代的集合。 |
-| `iteratee` | `Function` | 每次迭代时调用的函数。 |
+| Name | Type | Description |
+|---|---|---|
+| `collection` | `Array`\|`Object` | 要遍历的集合。 |
+| `[iteratee=_.identity]` | `Function` | 每次迭代时调用的函数。 |
 
-**返回**
+**返回值**
 
-| 类型 | 描述 |
-| --- | --- |
-| `Array`\|`Object` | 返回 `collection`。 |
+`(Array|Object)`: 返回 `collection`。
 
 **示例**
 
@@ -333,24 +340,25 @@ _.forEachRight([1, 2], function(value) {
 // => Logs `2` then `1`.
 ```
 
-### groupBy
+---
 
-创建一个对象，其键是通过对 `collection` 中的每个元素运行 `iteratee` 函数生成的结果。每个键对应的值是一个数组，包含所有生成该键的元素。
+### `_.groupBy(collection, [iteratee=_.identity])`
 
-- **版本**: 0.1.0
+创建一个对象，其键由 `collection` 的每个元素经过 `iteratee` 处理后生成。每个键对应的值是一个数组，其中包含生成该键的元素。
+
+**起始版本**
+0.1.0
 
 **参数**
 
-| 名称 | 类型 | 描述 |
-| --- | --- | --- |
-| `collection` | `Array`\|`Object` | 要迭代的集合。 |
-| `iteratee` | `Function` | 用于转换键的函数。 |
+| Name | Type | Description |
+|---|---|---|
+| `collection` | `Array`\|`Object` | 要遍历的集合。 |
+| `[iteratee=_.identity]` | `Function` | 用于转换键的迭代函数。 |
 
-**返回**
+**返回值**
 
-| 类型 | 描述 |
-| --- | --- |
-| `Object` | 返回聚合后的对象。 |
+`(Object)`: 返回组合的聚合对象。
 
 **示例**
 
@@ -358,30 +366,31 @@ _.forEachRight([1, 2], function(value) {
 _.groupBy([6.1, 4.2, 6.3], Math.floor);
 // => { '4': [4.2], '6': [6.1, 6.3] }
 
-// 使用 _.property 速记法
+// The `_.property` iteratee shorthand.
 _.groupBy(['one', 'two', 'three'], 'length');
 // => { '3': ['one', 'two'], '5': ['three'] }
 ```
 
-### includes
+---
 
-检查 `value` 是否在 `collection` 中。如果 `collection` 是字符串，则检查 `value` 是否为其子字符串；否则，使用 `SameValueZero` 进行相等性比较。如果指定了 `fromIndex`，则从该索引开始搜索。
+### `_.includes(collection, value, [fromIndex=0])`
 
-- **版本**: 0.1.0
+检查 `value` 是否在 `collection` 中。如果 `collection` 是一个字符串，则检查它是否包含子字符串 `value`。否则，使用 `SameValueZero` 进行等值比较。如果 `fromIndex` 为负数，则将其用作 `collection` 末尾的偏移量。
+
+**起始版本**
+0.1.0
 
 **参数**
 
-| 名称 | 类型 | 描述 |
-| --- | --- | --- |
+| Name | Type | Description |
+|---|---|---|
 | `collection` | `Array`\|`Object`\|`string` | 要检查的集合。 |
 | `value` | `*` | 要搜索的值。 |
-| `fromIndex` | `number` | 开始搜索的索引，默认为 `0`。 |
+| `[fromIndex=0]` | `number` | 开始搜索的索引。 |
 
-**返回**
+**返回值**
 
-| 类型 | 描述 |
-| --- | --- |
-| `boolean` | 如果找到 `value`，则返回 `true`，否则返回 `false`。 |
+`(boolean)`: 如果找到 `value`，则返回 `true`，否则返回 `false`。
 
 **示例**
 
@@ -399,25 +408,26 @@ _.includes('abcd', 'bc');
 // => true
 ```
 
-### invokeMap
+---
 
-对 `collection` 中的每个元素调用 `path` 指定的方法，并返回每次调用结果组成的数组。任何附加参数都会传递给每次调用的方法。
+### `_.invokeMap(collection, path, [args])`
 
-- **版本**: 4.0.0
+调用 `collection` 中每个元素的 `path` 路径上的方法，返回一个包含结果的数组。任何附加参数都将提供给每个被调用的方法。如果 `path` 是一个函数，它将为 `collection` 中的每个元素调用，并将 `this` 绑定到该元素。
+
+**起始版本**
+4.0.0
 
 **参数**
 
-| 名称 | 类型 | 描述 |
-| --- | --- | --- |
-| `collection` | `Array`\|`Object` | 要迭代的集合。 |
-| `path` | `Array`\|`Function`\|`string` | 要调用的方法路径或每次迭代调用的函数。 |
-| `...args` | `*` | 传递给每个方法的参数。 |
+| Name | Type | Description |
+|---|---|---|
+| `collection` | `Array`\|`Object` | 要遍历的集合。 |
+| `path` | `Array`\|`Function`\|`string` | 要调用的方法的路径或每次迭代时调用的函数。 |
+| `[args]` | `...*` | 调用每个方法时传入的参数。 |
 
-**返回**
+**返回值**
 
-| 类型 | 描述 |
-| --- | --- |
-| `Array` | 返回结果数组。 |
+`(Array)`: 返回结果数组。
 
 **示例**
 
@@ -429,24 +439,25 @@ _.invokeMap([123, 456], String.prototype.split, '');
 // => [['1', '2', '3'], ['4', '5', '6']]
 ```
 
-### keyBy
+---
 
-创建一个对象，其键是通过对 `collection` 中的每个元素运行 `iteratee` 函数生成的结果。每个键对应的值是最后一次生成该键的元素。
+### `_.keyBy(collection, [iteratee=_.identity])`
 
-- **版本**: 4.0.0
+创建一个对象，其键由 `collection` 的每个元素经过 `iteratee` 处理后生成。每个键对应的值是最后一个生成该键的元素。
+
+**起始版本**
+4.0.0
 
 **参数**
 
-| 名称 | 类型 | 描述 |
-| --- | --- | --- |
-| `collection` | `Array`\|`Object` | 要迭代的集合。 |
-| `iteratee` | `Function` | 用于转换键的函数。 |
+| Name | Type | Description |
+|---|---|---|
+| `collection` | `Array`\|`Object` | 要遍历的集合。 |
+| `[iteratee=_.identity]` | `Function` | 用于转换键的迭代函数。 |
 
-**返回**
+**返回值**
 
-| 类型 | 描述 |
-| --- | --- |
-| `Object` | 返回聚合后的对象。 |
+`(Object)`: 返回组合的聚合对象。
 
 **示例**
 
@@ -465,24 +476,25 @@ _.keyBy(array, 'dir');
 // => { 'left': { 'dir': 'left', 'code': 97 }, 'right': { 'dir': 'right', 'code': 100 } }
 ```
 
-### map
+---
 
-通过对 `collection` 中的每个元素运行 `iteratee` 函数，创建一个包含结果的新数组。
+### `_.map(collection, [iteratee=_.identity])`
 
-- **版本**: 0.1.0
+通过对 `collection` 中的每个元素运行 `iteratee` 来创建一个值数组。迭代函数调用时会传入三个参数：`(value, index|key, collection)`。
+
+**起始版本**
+0.1.0
 
 **参数**
 
-| 名称 | 类型 | 描述 |
-| --- | --- | --- |
-| `collection` | `Array`\|`Object` | 要迭代的集合。 |
-| `iteratee` | `Function` | 每次迭代时调用的函数。 |
+| Name | Type | Description |
+|---|---|---|
+| `collection` | `Array`\|`Object` | 要遍历的集合。 |
+| `[iteratee=_.identity]` | `Function` | 每次迭代时调用的函数。 |
 
-**返回**
+**返回值**
 
-| 类型 | 描述 |
-| --- | --- |
-| `Array` | 返回新的映射后的数组。 |
+`(Array)`: 返回新的已映射数组。
 
 **示例**
 
@@ -502,30 +514,31 @@ var users = [
   { 'user': 'fred' }
 ];
 
-// 使用 _.property 速记法
+// The `_.property` iteratee shorthand.
 _.map(users, 'user');
 // => ['barney', 'fred']
 ```
 
-### orderBy
+---
 
-此方法类似于 `_.sortBy`，但允许为每个迭代器指定排序顺序。如果未指定 `orders`，则所有值都按升序排序。否则，为相应的值指定 `desc` 表示降序，`asc` 表示升序。
+### `_.orderBy(collection, [iteratees=[_.identity]], [orders])`
 
-- **版本**: 4.0.0
+此方法类似于 `_.sortBy`，但它允许指定迭代函数的排序顺序。如果未指定 `orders`，则所有值都按升序排序。否则，为每个迭代函数指定 `'desc'`（降序）或 `'asc'`（升序）的排序顺序。
+
+**起始版本**
+4.0.0
 
 **参数**
 
-| 名称 | 类型 | 描述 |
-| --- | --- | --- |
-| `collection` | `Array`\|`Object` | 要迭代的集合。 |
-| `iteratees` | `Array[]`\|`Function[]`\|`Object[]`\|`string[]` | 用于排序的迭代器，默认为 `[_.identity]`。 |
-| `orders` | `string[]` | `iteratees` 的排序顺序。 |
+| Name | Type | Description |
+|---|---|---|
+| `collection` | `Array`\|`Object` | 要遍历的集合。 |
+| `[iteratees=[_.identity]]` | `(Array[]\|Function[]\|Object[]\|string[])` | 用于排序的迭代函数。 |
+| `[orders]` | `string[]` | `iteratees` 的排序顺序。 |
 
-**返回**
+**返回值**
 
-| 类型 | 描述 |
-| --- | --- |
-| `Array` | 返回新的排序后的数组。 |
+`(Array)`: 返回新的已排序数组。
 
 **示例**
 
@@ -537,29 +550,30 @@ var users = [
   { 'user': 'barney', 'age': 36 }
 ];
 
-// 按 'user' 升序，'age' 降序排序
+// Sort by `user` in ascending order and by `age` in descending order.
 _.orderBy(users, ['user', 'age'], ['asc', 'desc']);
 // => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 40]]
 ```
 
-### partition
+---
 
-创建一个元素数组，分为两组。第一组包含 `predicate` 返回真值的元素，第二组包含 `predicate` 返回假值的元素。
+### `_.partition(collection, [predicate=_.identity])`
 
-- **版本**: 3.0.0
+创建一个元素数组，这些元素被分成两组。第一组包含 `predicate` 返回真值的元素，第二组包含 `predicate` 返回假值的元素。
+
+**起始版本**
+3.0.0
 
 **参数**
 
-| 名称 | 类型 | 描述 |
-| --- | --- | --- |
-| `collection` | `Array`\|`Object` | 要迭代的集合。 |
-| `predicate` | `Function` | 每次迭代时调用的函数。 |
+| Name | Type | Description |
+|---|---|---|
+| `collection` | `Array`\|`Object` | 要遍历的集合。 |
+| `[predicate=_.identity]` | `Function` | 每次迭代时调用的函数。 |
 
-**返回**
+**返回值**
 
-| 类型 | 描述 |
-| --- | --- |
-| `Array` | 返回分组后的元素数组。 |
+`(Array)`: 返回分组后的元素数组。
 
 **示例**
 
@@ -572,28 +586,32 @@ var users = [
 
 _.partition(users, function(o) { return o.active; });
 // => objects for [['fred'], ['barney', 'pebbles']]
+
+// The `_.property` iteratee shorthand.
+_.partition(users, 'active');
+// => objects for [['fred'], ['barney', 'pebbles']]
 ```
 
-### reduce
+---
 
-将 `collection` 归约为一个值，该值是运行 `collection` 中每个元素通过 `iteratee` 函数的累积结果。`iteratee` 会传入四个参数：(accumulator, value, index|key, collection)。
+### `_.reduce(collection, [iteratee=_.identity], [accumulator])`
 
-- **版本**: 0.1.0
-- **相关**: `reduceRight`
+将 `collection` 归约为一个值，该值是通过对 `collection` 中的每个元素运行 `iteratee` 的累积结果。每次连续调用都会提供上一次的返回值。如果未提供 `accumulator`，则使用 `collection` 的第一个元素作为初始值。迭代函数调用时会传入四个参数：`(accumulator, value, index|key, collection)`。
+
+**起始版本**
+0.1.0
 
 **参数**
 
-| 名称 | 类型 | 描述 |
-| --- | --- | --- |
-| `collection` | `Array`\|`Object` | 要迭代的集合。 |
-| `iteratee` | `Function` | 每次迭代时调用的函数。 |
-| `accumulator` | `*` | 初始值。 |
+| Name | Type | Description |
+|---|---|---|
+| `collection` | `Array`\|`Object` | 要遍历的集合。 |
+| `[iteratee=_.identity]` | `Function` | 每次迭代时调用的函数。 |
+| `[accumulator]` | `*` | 初始值。 |
 
-**返回**
+**返回值**
 
-| 类型 | 描述 |
-| --- | --- |
-| `*` | 返回累积后的值。 |
+`(*)`: 返回累积的值。
 
 **示例**
 
@@ -610,26 +628,26 @@ _.reduce({ 'a': 1, 'b': 2, 'c': 1 }, function(result, value, key) {
 // => { '1': ['a', 'c'], '2': ['b'] } (iteration order is not guaranteed)
 ```
 
-### reduceRight
+---
 
-此方法类似于 `_.reduce`，但它是从右到左遍历 `collection` 的元素。
+### `_.reduceRight(collection, [iteratee=_.identity], [accumulator])`
 
-- **版本**: 0.1.0
-- **相关**: `reduce`
+此方法类似于 `_.reduce`，只是它从右到左遍历 `collection` 的元素。
+
+**起始版本**
+0.1.0
 
 **参数**
 
-| 名称 | 类型 | 描述 |
-| --- | --- | --- |
-| `collection` | `Array`\|`Object` | 要迭代的集合。 |
-| `iteratee` | `Function` | 每次迭代时调用的函数。 |
-| `accumulator` | `*` | 初始值。 |
+| Name | Type | Description |
+|---|---|---|
+| `collection` | `Array`\|`Object` | 要遍历的集合。 |
+| `[iteratee=_.identity]` | `Function` | 每次迭代时调用的函数。 |
+| `[accumulator]` | `*` | 初始值。 |
 
-**返回**
+**返回值**
 
-| 类型 | 描述 |
-| --- | --- |
-| `*` | 返回累积后的值。 |
+`(*)`: 返回累积的值。
 
 **示例**
 
@@ -642,25 +660,25 @@ _.reduceRight(array, function(flattened, other) {
 // => [4, 5, 2, 3, 0, 1]
 ```
 
-### reject
+---
 
-`_.filter` 的反向方法；此方法返回 `predicate` 函数不返回真值的 `collection` 元素。
+### `_.reject(collection, [predicate=_.identity])`
 
-- **版本**: 0.1.0
-- **相关**: `filter`
+`_.filter` 的反向方法；此方法返回 `predicate` **不**返回真值的 `collection` 元素。
+
+**起始版本**
+0.1.0
 
 **参数**
 
-| 名称 | 类型 | 描述 |
-| --- | --- | --- |
-| `collection` | `Array`\|`Object` | 要迭代的集合。 |
-| `predicate` | `Function` | 每次迭代时调用的函数。 |
+| Name | Type | Description |
+|---|---|---|
+| `collection` | `Array`\|`Object` | 要遍历的集合。 |
+| `[predicate=_.identity]` | `Function` | 每次迭代时调用的函数。 |
 
-**返回**
+**返回值**
 
-| 类型 | 描述 |
-| --- | --- |
-| `Array` | 返回新的筛选后的数组。 |
+`(Array)`: 返回新的已过滤数组。
 
 **示例**
 
@@ -672,25 +690,30 @@ var users = [
 
 _.reject(users, function(o) { return !o.active; });
 // => objects for ['fred']
+
+// The `_.property` iteratee shorthand.
+_.reject(users, 'active');
+// => objects for ['barney']
 ```
 
-### sample
+---
+
+### `_.sample(collection)`
 
 从 `collection` 中获取一个随机元素。
 
-- **版本**: 2.0.0
+**起始版本**
+2.0.0
 
 **参数**
 
-| 名称 | 类型 | 描述 |
-| --- | --- | --- |
-| `collection` | `Array`\|`Object` | 要采样的集合。 |
+| Name | Type | Description |
+|---|---|---|
+| `collection` | `Array`\|`Object` | 要从中采样的集合。 |
 
-**返回**
+**返回值**
 
-| 类型 | 描述 |
-| --- | --- |
-| `*` | 返回随机元素。 |
+`(*)`: 返回随机元素。
 
 **示例**
 
@@ -699,24 +722,25 @@ _.sample([1, 2, 3, 4]);
 // => 2
 ```
 
-### sampleSize
+---
 
-从 `collection` 中获取 `n` 个随机的唯一元素。
+### `_.sampleSize(collection, [n=1])`
 
-- **版本**: 4.0.0
+从 `collection` 中获取 `n` 个具有唯一键的随机元素，最多为 `collection` 的大小。
+
+**起始版本**
+4.0.0
 
 **参数**
 
-| 名称 | 类型 | 描述 |
-| --- | --- | --- |
-| `collection` | `Array`\|`Object` | 要采样的集合。 |
-| `n` | `number` | 要采样的元素数量，默认为 `1`。 |
+| Name | Type | Description |
+|---|---|---|
+| `collection` | `Array`\|`Object` | 要从中采样的集合。 |
+| `[n=1]` | `number` | 要采样的元素数量。 |
 
-**返回**
+**返回值**
 
-| 类型 | 描述 |
-| --- | --- |
-| `Array` | 返回随机元素组成的数组。 |
+`(Array)`: 返回随机元素。
 
 **示例**
 
@@ -728,23 +752,24 @@ _.sampleSize([1, 2, 3], 4);
 // => [2, 3, 1]
 ```
 
-### shuffle
+---
 
-创建一个使用 Fisher-Yates shuffle 算法打乱值的数组。
+### `_.shuffle(collection)`
 
-- **版本**: 0.1.0
+使用 [Fisher-Yates shuffle](https://en.wikipedia.org/wiki/Fisher-Yates_shuffle) 的一个版本创建一个包含已打乱值的数组。
+
+**起始版本**
+0.1.0
 
 **参数**
 
-| 名称 | 类型 | 描述 |
-| --- | --- | --- |
+| Name | Type | Description |
+|---|---|---|
 | `collection` | `Array`\|`Object` | 要打乱的集合。 |
 
-**返回**
+**返回值**
 
-| 类型 | 描述 |
-| --- | --- |
-| `Array` | 返回新的打乱后的数组。 |
+`(Array)`: 返回新的已打乱数组。
 
 **示例**
 
@@ -753,23 +778,24 @@ _.shuffle([1, 2, 3, 4]);
 // => [4, 1, 3, 2]
 ```
 
-### size
+---
 
-获取 `collection` 的大小。对于类数组值，返回其长度；对于对象，返回其自身可枚举的字符串键属性的数量。
+### `_.size(collection)`
 
-- **版本**: 0.1.0
+获取 `collection` 的大小，对于类数组值，返回其长度；对于对象，返回其自身可枚举的字符串键属性的数量。
+
+**起始版本**
+0.1.0
 
 **参数**
 
-| 名称 | 类型 | 描述 |
-| --- | --- | --- |
+| Name | Type | Description |
+|---|---|---|
 | `collection` | `Array`\|`Object`\|`string` | 要检查的集合。 |
 
-**返回**
+**返回值**
 
-| 类型 | 描述 |
-| --- | --- |
-| `number` | 返回集合的大小。 |
+`(number)`: 返回集合大小。
 
 **示例**
 
@@ -784,24 +810,25 @@ _.size('pebbles');
 // => 7
 ```
 
-### some
+---
 
-检查 `collection` 中是否有任何元素通过 `predicate` 函数的真值测试。一旦 `predicate` 返回真值，迭代就会停止。
+### `_.some(collection, [predicate=_.identity])`
 
-- **版本**: 0.1.0
+检查 `predicate` 是否对 `collection` 的**任何**元素返回真值。一旦 `predicate` 返回真值，迭代就会停止。
+
+**起始版本**
+0.1.0
 
 **参数**
 
-| 名称 | 类型 | 描述 |
-| --- | --- | --- |
-| `collection` | `Array`\|`Object` | 要迭代的集合。 |
-| `predicate` | `Function` | 每次迭代时调用的函数。 |
+| Name | Type | Description |
+|---|---|---|
+| `collection` | `Array`\|`Object` | 要遍历的集合。 |
+| `[predicate=_.identity]` | `Function` | 每次迭代时调用的函数。 |
 
-**返回**
+**返回值**
 
-| 类型 | 描述 |
-| --- | --- |
-| `boolean` | 如果有任何元素通过了真值测试，则返回 `true`，否则返回 `false`。 |
+`(boolean)`: 如果有任何元素通过断言检查，则返回 `true`，否则返回 `false`。
 
 **示例**
 
@@ -814,29 +841,30 @@ var users = [
   { 'user': 'fred',   'active': false }
 ];
 
-// 使用 _.matches 速记法
-_.some(users, { 'user': 'barney', 'active': false });
-// => false
+// The `_.matchesProperty` iteratee shorthand.
+_.some(users, ['active', false]);
+// => true
 ```
 
-### sortBy
+---
 
-创建一个元素数组，按升序排序，排序依据是对 `collection` 中的每个元素运行每个 `iteratee` 函数的结果。此方法执行稳定排序。
+### `_.sortBy(collection, [iteratees=[_.identity]])`
 
-- **版本**: 0.1.0
+创建一个元素数组，该数组根据对集合中的每个元素运行每个迭代函数的结果进行升序排序。此方法执行稳定排序，这意味着它会保留相等元素的原始排序顺序。
+
+**起始版本**
+0.1.0
 
 **参数**
 
-| 名称 | 类型 | 描述 |
-| --- | --- | --- |
-| `collection` | `Array`\|`Object` | 要迭代的集合。 |
-| `...iteratees` | `Function`\|`Function[]` | 用于排序的迭代器。 |
+| Name | Type | Description |
+|---|---|---|
+| `collection` | `Array`\|`Object` | 要遍历的集合。 |
+| `[iteratees=[_.identity]]` | `...(Function|Function[])` | 用于排序的迭代函数。 |
 
-**返回**
+**返回值**
 
-| 类型 | 描述 |
-| --- | --- |
-| `Array` | 返回新的排序后的数组。 |
+`(Array)`: 返回新的已排序数组。
 
 **示例**
 
@@ -854,7 +882,3 @@ _.sortBy(users, [function(o) { return o.user; }]);
 _.sortBy(users, ['user', 'age']);
 // => objects for [['barney', 34], ['barney', 36], ['fred', 30], ['fred', 48]]
 ```
-
----
-
-现在您已经熟悉了处理集合的函数，可以继续探索 [Date](./api-date.md) 部分，学习如何处理日期对象。

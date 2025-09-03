@@ -1,107 +1,101 @@
 # 性能
 
-Lodash 的核心设计理念之一就是提供卓越的性能。为了兑现这一承诺，我们建立了一套全面的性能测试套件，持续将 Lodash 与 Underscore.js 等其他流行库进行基准比较。本指南将分享这些测试得出的见解，并指导您如何利用 Lodash 的内部优化来编写高性能代码。
+性能是 Lodash 的核心设计原则。该库针对常见用例进行了高度优化，但实际性能会因数据结构、环境和特定使用模式而异。为保证透明度并提供分析工具，Lodash 内置了一套全面的基准测试套件。
 
-## 性能测试框架
+本指南将说明如何运行性能基准测试并解读其结果，帮助您做出明智的决策，并有效利用该库的内部优化。
 
-Lodash 使用 [Benchmark.js](https://benchmarkjs.com/) 库来确保测试结果的统计显著性和可靠性。测试流程旨在模拟真实世界的使用场景，涵盖了从简单的数组迭代到复杂的对象深比较等各种操作。这保证了我们的优化是针对实际应用而非微不足道的基准测试。
+## Lodash 基准测试套件
 
-以下是性能测试的基本流程：
+该性能测试套件位于源代码的 `perf` 目录中，使用 [Benchmark.js](http://benchmarkjs.com/) 执行一系列测试。它会在众多函数上，将指定 Lodash 构建版本的性能与其他实用工具库（如 Underscore.js）进行比较。
+
+该套件的主要特性包括：
+
+- **全面覆盖**：基准测试涵盖了广泛的函数，包括数组和对象迭代、函数组合、克隆以及深度相等性检查。
+- **并行比较**：在相同环境下直接将 Lodash 与另一库进行比较，以生成可靠的相对性能数据。
+- **可配置的构建版本**：基于浏览器的运行器允许您选择不同的库构建版本（例如，生产环境的压缩版与开发版）进行测试。
+
+## 运行基准测试
+
+您可以按照以下步骤直接在浏览器中运行性能测试套件：
+
+1.  **克隆仓库**：首先，从 GitHub 克隆 Lodash 源代码。
+    ```bash
+    git clone https://github.com/lodash/lodash.git
+    ```
+
+2.  **导航至目录**：进入性能测试目录。
+    ```bash
+    cd lodash/perf
+    ```
+
+3.  **打开 HTML 运行器**：在您的网页浏览器中打开 `index.html` 文件。测试套件将自动开始。
+
+4.  **查看结果**：打开浏览器的开发者控制台，查看已完成的基准测试结果。页面顶部的用户界面允许您选择不同的 Lodash 构建版本以及与之进行比较的库。
+
+## 基准测试流程概述
+
+下图展示了基于浏览器的性能测试套件的工作流程。
 
 ```d2
 direction: down
 
-"Setup": {
-  "Load Libraries": "Lodash, Underscore.js, Benchmark.js"
-  "Prepare Data": "Arrays, Objects, Strings, etc."
+"index.html": {
+  label: "浏览器加载 index.html"
+  shape: document
 }
 
-"Execution": {
-  shape: sequence_diagram
-
-  "Benchmark.js": {}
-
-  "Benchmark.js" -> "Lodash Test": "Run Suite"
-  "Lodash Test" -> "Benchmark.js": "Ops/sec (Hz)"
-
-  "Benchmark.js" -> "Competitor Test": "Run Suite"
-  "Competitor Test" -> "Benchmark.js": "Ops/sec (Hz)"
+"perf-ui.js": {
+  label: "perf-ui.js"
+  shape: rectangle
 }
 
-"Analysis": {
-  "Compare Results": "Calculate percentage difference for each suite"
-  "Aggregate Score": "Calculate geometric mean for overall score"
-  "Generate Report": "Log detailed results to the console"
+"perf.js": {
+  label: "perf.js 测试运行器"
+  shape: package
 }
 
-"Setup" -> "Execution": "Start Tests"
-"Execution" -> "Analysis": "Process Results"
+"Benchmark.js": {
+  label: "Benchmark.js 引擎"
+  shape: hexagon
+}
+
+"console": {
+  label: "开发者控制台输出"
+  shape: rectangle
+}
+
+"index.html" -> "perf-ui.js": "加载"
+"index.html" -> "perf.js": "加载"
+"perf.js" -> "Benchmark.js": "配置并运行测试套件"
+"Benchmark.js" -> "perf.js": "执行测试并触发事件处理程序"
+"perf.js" -> "console": "记录格式化结果"
 ```
 
-每个测试套件都会比较 Lodash 和另一个库（通常是 Underscore.js）在相同任务上的表现，并报告哪个更快以及快了多少。最终，所有测试的结果会被汇总，通过几何平均数计算出一个总体的性能优劣势。
+## 解读结果
 
-## 运行您自己的基准测试
+对于每个测试套件，运行器会以每秒操作数 (Hz) 的形式记录两个库的性能。数值越高表示性能越好。最后，它会指出在该特定测试中性能更快的库。
 
-我们鼓励您在自己的环境中运行性能测试，以验证 Lodash 在您的特定用例中的表现。您可以轻松地在浏览器中运行我们的性能测试套件：
+单个函数测试的典型输出如下所示：
 
-1.  克隆 Lodash 的代码仓库：`git clone https://github.com/lodash/lodash.git`
-2.  在您的浏览器中直接打开 `lodash/perf/index.html` 文件。
-3.  页面的右上角提供了下拉菜单，允许您选择不同的 Lodash 和 Underscore.js 构建版本进行比较。
-4.  测试将自动开始运行，结果会实时输出到浏览器的开发者工具控制台中。
-
-## 关键基准测试场景
-
-性能测试覆盖了 Lodash 的绝大部分功能。下表列出了一些有代表性的测试场景，这些场景凸显了 Lodash 的性能优势和内部优化机制。
-
-| 类别 | 测试函数/方法 | 测试场景描述 |
-|---|---|---|
-| 链式调用 | `_(...).map(...).filter(...).take(...).value()` | 测试链式调用中的惰性求值性能，通过融合多个操作来避免生成中间数组，从而提升效率。 |
-| 对象操作 | `_.assign` | 分别测试合并单个和多个源对象的性能，这是对象扩展和合并的常见操作。 |
-| 函数 | `_.bind` | 覆盖多种绑定场景，包括多次绑定、偏函数应用等，确保函数调用的开销最小化。 |
-| 数组 | `_.difference`, `_.intersection`, `_.union` | 针对不同大小的数组进行集合运算的基准测试，这些操作在数据处理中非常常见。 |
-| 集合迭代 | `_.each`, `_.filter`, `_.map` | 测量在数组和对象上进行迭代的性能，并测试使用属性名简写等内部优化路径。 |
-| 深比较 | `_.isEqual` | 对比不同类型的原始值、对象、嵌套数组和对象数组，确保在复杂数据结构下依然保持高效和准确。 |
-| 工具 | `_.clone`, `_.flattenDeep` | 测试常用工具函数的性能，如对象的浅克隆和深度扁平化数组。 |
-
-## 性能优化技巧
-
-基于我们的基准测试和库的设计，这里有一些技巧可以帮助您编写性能更高的代码：
-
-### 1. 利用惰性求值 (Lazy Evaluation)
-
-当您将多个方法链接在一起时，Lodash 会使用惰性求值来延迟执行，直到显式或隐式地调用 `value()`。这种机制通过将多个操作合并为一次迭代来最小化迭代次数，从而显著提升性能，尤其是在处理大型数据集时。
-
-```javascript
-// 这个链式调用只会对数据进行一次遍历，而不是三次
-const result = _(largeArray)
-  .map(square)
-  .filter(even)
-  .take(100)
-  .value();
+```text
+`_.filter` 迭代数组：
+lodash x 4,371,037 ops/sec ±1.24% (89 次运行采样)
+underscore x 2,143,876 ops/sec ±1.51% (87 次运行采样)
+lodash 快 103.88%。
 ```
 
-更多关于链式调用的信息，请参阅 [Seq API](./api-seq.md) 部分。
+所有测试套件运行完毕后，会打印一份最终摘要。该摘要使用所有测试结果的几何平均值，对两个库进行均衡的整体比较。
 
-### 2. 使用属性简写
-
-在许多集合函数中（如 `_.filter`, `_.map`, `_.find`, `_.sortBy`），您可以使用属性名字符串、属性路径数组或对象作为迭代器。这些简写方式不仅使代码更简洁，而且通常会调用内部的优化路径，比提供自定义回调函数更快。
-
-```javascript
-// 性能更佳的方式
-lodash.filter(objects, { 'active': true, 'role': 'admin' });
-
-lodash.map(objects, 'user.name');
-
-// 相比于
-lodash.filter(objects, o => o.active && o.role === 'admin');
-
-lodash.map(objects, o => o.user.name);
+```text
+lodash 比 underscore 快 74.31% (1.74x)。
 ```
 
-### 3. 选择合适的构建版本
+## 编写高性能代码
 
-Lodash 提供了多种构建版本。对于性能敏感且关注加载时间的应用程序，请考虑创建一个仅包含您所需方法的自定义构建。一个更小的库意味着更快的解析和初始化时间。有关详细信息，请参阅我们的 [构建版本差异指南](./guides-build-differences.md)。
+基准测试套件本身是理解如何使用 Lodash 编写高性能代码的绝佳资源。通过研究 `perf/perf.js` 文件，您可以看到各种函数在不同条件下的测试方式。
+
+对于性能要求严苛的应用程序，可以考虑使用基准测试套件来测试您的特定用例。您可以修改现有测试或添加新测试，以衡量不同 Lodash 函数在处理您的数据时的性能，从而帮助您识别并消除瓶颈。
 
 ---
 
-性能是 Lodash 的一个持续关注点。通过理解其内部优化并应用上述技巧，您可以确保您的应用程序充分利用 Lodash 提供的速度和效率。如果您对特定用例的性能有疑问，运行基准测试是找到答案的最佳方式。
+通过理解和利用 Lodash 性能测试套件，您可以验证性能声明并优化自己的代码。如需了解另一项关键优化策略，请参阅我们的 [构建版本差异](./guides-build-differences.md) 指南，学习如何为您的项目创建更小的自定义构建版本。

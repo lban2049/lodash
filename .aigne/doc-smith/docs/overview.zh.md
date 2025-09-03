@@ -1,98 +1,79 @@
 # 概述
 
-Lodash 是一个现代 JavaScript 工具库，提供模块化、高性能及可定制的构建。它通过简化对数组、数字、对象、字符串等常见数据结构的操作，让 JavaScript 编程变得更加轻松。Lodash 遵循 MIT 许可证，当前版本为 v4.17.21。
+Lodash 是一个现代 JavaScript 实用工具库，提供了模块化、高性能以及附加功能。它通过简化处理数组、数字、对象和字符串的复杂操作，来简化常见的编程任务。本文档涵盖 Lodash v4.17.21，该版本在 MIT 许可下发布，并支持现代环境，包括 Node.js v4.0.0 及更高版本。
 
-### 核心理念与特性
+## 为何选择 Lodash？
 
-Lodash 的设计哲学围绕模块化、一致性和性能。它提供了大量经过优化的辅助函数，旨在解决 JavaScript 开发中的常见问题。
+Lodash 的模块化方法非常适合：
 
-<x-cards data-columns="3">
-  <x-card data-title="集合迭代" data-icon="lucide:list-tree">
-    提供统一的 API，轻松遍历数组、对象和字符串，处理各种数据集合。
-  </x-card>
-  <x-card data-title="值操作与测试" data-icon="lucide:clipboard-check">
-    包含丰富的工具，用于处理和验证各种数据类型，确保代码的健壮性。
-  </x-card>
-  <x-card data-title="复合函数创建" data-icon="lucide:function-square">
-    支持函数式编程范式，便于创建柯里化、组合和延迟执行等复合函数。
-  </x-card>
-</x-cards>
+*   **迭代**数组、对象和字符串
+*   **操作**和测试值
+*   **创建**复合函数
 
-### 模块化架构
+它提供了一套全面的工具集，帮助你编写更简洁、更易于维护的代码。
 
-Lodash 采用模块化架构，允许开发者根据需求按需加载功能，从而显著优化最终应用程序的体积。这种结构也催生了多种不同的构建版本和使用方式。
+## 核心特性
+
+Lodash 在设计时充分考虑了专业开发者的需求，提供了几个关键的架构优势。
 
 ```d2
 direction: down
 
-"Lodash 核心": {
-  "核心工具 (例如: identity, constant)": {
-    shape: package
+"Lodash 库": {
+  shape: package
+  grid-columns: 1
+
+  "核心理念": {
+    shape: rectangle
+    "简洁性": "让 JavaScript 更简单"
+    "一致性": "可靠的实用函数"
   }
-}
 
-"功能模块": {
-  grid-columns: 3
-  "数组 (e.g., chunk, drop)": {}
-  "集合 (e.g., map, filter)": {}
-  "对象 (e.g., get, set)": {}
-  "字符串 (e.g., camelCase, trim)": {}
-  "函数 (e.g., debounce, curry)": {}
-  "其他 (数学, 语言等)": {}
-}
+  "核心模块": {
+    shape: rectangle
+    grid-columns: 2
+    "标准构建": "功能齐全的 UMD 模块"
+    "核心构建": "满足基本需求的轻量级子集"
+    "FP 模块": "函数式编程变体"
+    "单方法包": "最大化模块性"
+  }
 
-"构建目标与格式": {
-  grid-columns: 3
-  "完整构建 (lodash)": {}
-  "函数式构建 (lodash/fp)": {}
-  "ES 模块 (lodash-es)": {}
-  "单方法包 (lodash.map)": {}
-  "插件 (babel-plugin-lodash)": {}
-  "CDN": {}
+  "核心模块" -> "核心理念": "遵循"
 }
-
-"Lodash 核心" -> "功能模块"
-"功能模块" -> "构建目标与格式"
 ```
 
-### 可用模块格式
+### 模块化与自定义构建
 
-Lodash 提供了多种构建版本和模块格式，以适应不同的项目需求和打包工具。更多详细信息请参考 [构建差异指南](./guides-build-differences.md)。
+Lodash 提供多种构建版本和模块格式，使你能够将项目的打包体积保持在最小。你可以挑选单个方法，使用 ES 模块（`lodash-es`），或利用 `babel-plugin-lodash` 和 `lodash-webpack-plugin` 等插件进行优化构建。
 
-| 格式/构建版本 | NPM 包 | 描述 |
-|---|---|---|
-| 标准构建 | `lodash` | 提供 UMD 格式的完整功能集，适用于 Node.js 和浏览器环境。 |
-| Per-method 包 | `lodash.map`, `lodash.get`, ... | 将每个方法发布为独立的包，实现极致的按需加载，非常适合对打包体积有严格要求的场景。 |
-| ES Modules | `lodash-es` | 提供 ES 模块版本，便于与 Webpack、Rollup 等现代打包工具配合进行 Tree Shaking。 |
-| 函数式编程 (FP) | `lodash/fp` | 提供不可变、自动柯里化、函数优先、数据置后的函数式编程版本。 |
-| AMD 构建 | `lodash-amd` | 专门为使用 AMD 规范（如 RequireJS）的项目提供的构建版本。 |
-| 插件 | `babel-plugin-lodash`, `lodash-webpack-plugin` | 通过 Babel 或 Webpack 插件自动优化模块引入，简化开发过程。 |
+更多详情，请参阅 [构建差异](./guides-build-differences.md) 指南。
 
-### 如何使用本文档
+### 函数式编程变体
 
-为了帮助你快速找到所需信息，本文档按主题进行了组织：
+对于偏好函数式编程风格的开发者，Lodash 提供了一个专门的 `lodash/fp` 模块。它提供了不可变、自动柯里化、迭代函数优先和数据置后的方法，使组合函数和构建函数式管道变得更加容易。
+
+要了解更多信息，请阅读 [FP 指南](./fp-guide.md)。
+
+## 文档导航
+
+本站结构清晰，旨在帮助你高效地找到所需信息。以下是主要部分的指南：
 
 <x-cards data-columns="2">
-  <x-card data-title="入门指南" data-icon="lucide:rocket" data-href="/getting-started">
-    提供在不同环境中快速安装和使用 Lodash 的说明。
+  <x-card data-title="入门指南" data-href="/getting-started" data-icon="lucide:play-circle">
+    为在项目中安装和使用 Lodash 提供了简洁、可直接复制粘贴的说明。
   </x-card>
-  <x-card data-title="API 参考" data-icon="lucide:book-open" data-href="/api">
-    按数据类型组织的完整方法列表，包含详细的参数说明和示例。
+  <x-card data-title="API 参考" data-href="/api" data-icon="lucide:book-open">
+    按数据类型组织的、全面的、可搜索的 Lodash 方法参考。
   </x-card>
-  <x-card data-title="函数式编程指南" data-icon="lucide:function-square" data-href="/fp-guide">
-    深入了解 Lodash 的函数式编程特性，包括不可变性、自动柯里化等。
+  <x-card data-title="指南" data-href="/guides" data-icon="lucide:compass">
+    针对高级用例的技术指南，包括性能优化和自定义构建。
   </x-card>
-  <x-card data-title="高级指南" data-icon="lucide:compass" data-href="/guides">
-    包含性能优化、自定义构建等高级主题。
-  </x-card>
-  <x-card data-title="安全策略" data-icon="lucide:shield" data-href="/security">
-    了解项目的安全更新策略和漏洞报告流程。
-  </x-card>
-  <x-card data-title="社区与贡献" data-icon="lucide:github" data-href="/contributing">
-    加入社区讨论或为项目贡献代码。
+  <x-card data-title="贡献与社区" data-href="/contributing" data-icon="lucide:users">
+    关于如何贡献和与 Lodash 社区建立联系的信息。
   </x-card>
 </x-cards>
 
-### 下一步
 
-现在你已经对 Lodash 有了初步的了解。我们建议你从 [入门指南](./getting-started.md) 开始，快速在你的项目中集成 Lodash。
+## 社区与支持
+
+通过我们的社区渠道加入讨论，并与其他 Lodash 用户建立联系。有关如何参与、报告问题或为项目做出贡献的信息，请访问 [贡献与社区](./contributing.md) 部分。

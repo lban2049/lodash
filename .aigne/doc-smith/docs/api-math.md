@@ -1,25 +1,25 @@
 # Math
 
-The math function library provides a suite of utility tools for performing basic mathematical operations. These functions cover everything from simple addition, subtraction, multiplication, and division to more complex aggregate calculations, such as sum, average, maximum, and minimum.
+Lodash provides a suite of basic mathematical utility functions for common operations like addition, subtraction, rounding, and calculating aggregate values such as min, max, and mean from collections. These functions handle type coercion gracefully and are designed for performance and reliability.
 
-For specific functions for handling numbers (e.g., range checking), see the [Number API reference](./api-number.md).
+For more number-related utilities, see the [Number](./api-number.md) API reference.
 
 ---
 
-## `_.add`
+## add
 
-Computes the sum of two numbers.
+Adds two numbers.
 
 **Parameters**
 
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `augend` | `number` | The first number in an addition. |
-| `addend` | `number` | The second number in an addition. |
+| Parameter | Type     | Description                      |
+| :-------- | :------- | :------------------------------- |
+| `augend`  | `number` | The first number in an addition. |
+| `addend`  | `number` | The second number in an addition. |
 
 **Returns**
 
-- `(number)`: Returns the sum of the two numbers.
+- `(number)`: Returns the total.
 
 **Example**
 
@@ -30,16 +30,16 @@ _.add(6, 4);
 
 ---
 
-## `_.ceil`
+## ceil
 
-Rounds `number` up to the specified precision.
+Computes `number` rounded up to `precision`.
 
 **Parameters**
 
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `number` | `number` | The number to round up. |
-| `[precision=0]` | `number` | The precision to round to. |
+| Parameter      | Type     | Description                        |
+| :------------- | :------- | :--------------------------------- |
+| `number`       | `number` | The number to round up.            |
+| `[precision=0]`| `number` | The precision to round up to.      |
 
 **Returns**
 
@@ -60,20 +60,20 @@ _.ceil(6040, -2);
 
 ---
 
-## `_.divide`
+## divide
 
-Computes the quotient of two numbers.
+Divide two numbers.
 
 **Parameters**
 
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `dividend` | `number` | The number to be divided. |
-| `divisor` | `number` | The number to divide by. |
+| Parameter  | Type     | Description                      |
+| :--------- | :------- | :------------------------------- |
+| `dividend` | `number` | The first number in a division.  |
+| `divisor`  | `number` | The second number in a division. |
 
 **Returns**
 
-- `(number)`: Returns the quotient of the two numbers.
+- `(number)`: Returns the quotient.
 
 **Example**
 
@@ -84,16 +84,16 @@ _.divide(6, 4);
 
 ---
 
-## `_.floor`
+## floor
 
-Rounds `number` down to the specified precision.
+Computes `number` rounded down to `precision`.
 
 **Parameters**
 
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `number` | `number` | The number to round down. |
-| `[precision=0]` | `number` | The precision to round to. |
+| Parameter      | Type     | Description                         |
+| :------------- | :------- | :---------------------------------- |
+| `number`       | `number` | The number to round down.           |
+| `[precision=0]`| `number` | The precision to round down to.     |
 
 **Returns**
 
@@ -114,15 +114,15 @@ _.floor(4060, -2);
 
 ---
 
-## `_.max`
+## max
 
-Computes the maximum value of `array`. If `array` is empty or falsy, `undefined` is returned.
+Computes the maximum value of `array`. If `array` is empty or falsey, `undefined` is returned.
 
 **Parameters**
 
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `array` | `Array` | The array to iterate over. |
+| Parameter | Type    | Description                   |
+| :-------- | :------ | :---------------------------- |
+| `array`   | `Array` | The array to iterate over.    |
 
 **Returns**
 
@@ -140,16 +140,16 @@ _.max([]);
 
 ---
 
-## `_.maxBy`
+## maxBy
 
-This method is like `_.max` except that it accepts an `iteratee` which is invoked for each element in `array` to generate the criterion to rank by.
+This method is like `_.max` except that it accepts `iteratee` which is invoked for each element in `array` to generate the criterion by which the value is ranked. The iteratee is invoked with one argument: (value).
 
 **Parameters**
 
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `array` | `Array` | The array to iterate over. |
-| `[iteratee=_.identity]` | `Function` | The iteratee invoked per element. |
+| Parameter               | Type       | Description                        |
+| :---------------------- | :--------- | :--------------------------------- |
+| `array`                 | `Array`    | The array to iterate over.         |
+| `[iteratee=_.identity]` | `Function` | The iteratee invoked per element.    |
 
 **Returns**
 
@@ -163,26 +163,26 @@ var objects = [{ 'n': 1 }, { 'n': 2 }];
 _.maxBy(objects, function(o) { return o.n; });
 // => { 'n': 2 }
 
-// The _.property iteratee shorthand.
+// The `_.property` iteratee shorthand.
 _.maxBy(objects, 'n');
 // => { 'n': 2 }
 ```
 
 ---
 
-## `_.mean`
+## mean
 
 Computes the mean of the values in `array`.
 
 **Parameters**
 
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `array` | `Array` | The array to iterate over. |
+| Parameter | Type    | Description                |
+| :-------- | :------ | :------------------------- |
+| `array`   | `Array` | The array to iterate over. |
 
 **Returns**
 
-- `(number)`: Returns the mean value.
+- `(number)`: Returns the mean.
 
 **Example**
 
@@ -193,20 +193,20 @@ _.mean([4, 2, 8, 6]);
 
 ---
 
-## `_.meanBy`
+## meanBy
 
-This method is like `_.mean` except that it accepts an `iteratee` which is invoked for each element in `array` to generate the value to be averaged.
+This method is like `_.mean` except that it accepts `iteratee` which is invoked for each element in `array` to generate the value to be averaged. The iteratee is invoked with one argument: (value).
 
 **Parameters**
 
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `array` | `Array` | The array to iterate over. |
+| Parameter               | Type       | Description                     |
+| :---------------------- | :--------- | :------------------------------ |
+| `array`                 | `Array`    | The array to iterate over.      |
 | `[iteratee=_.identity]` | `Function` | The iteratee invoked per element. |
 
 **Returns**
 
-- `(number)`: Returns the mean value.
+- `(number)`: Returns the mean.
 
 **Example**
 
@@ -216,22 +216,22 @@ var objects = [{ 'n': 4 }, { 'n': 2 }, { 'n': 8 }, { 'n': 6 }];
 _.meanBy(objects, function(o) { return o.n; });
 // => 5
 
-// The _.property iteratee shorthand.
+// The `_.property` iteratee shorthand.
 _.meanBy(objects, 'n');
 // => 5
 ```
 
 ---
 
-## `_.min`
+## min
 
-Computes the minimum value of `array`. If `array` is empty or falsy, `undefined` is returned.
+Computes the minimum value of `array`. If `array` is empty or falsey, `undefined` is returned.
 
 **Parameters**
 
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `array` | `Array` | The array to iterate over. |
+| Parameter | Type    | Description                   |
+| :-------- | :------ | :---------------------------- |
+| `array`   | `Array` | The array to iterate over.    |
 
 **Returns**
 
@@ -249,16 +249,16 @@ _.min([]);
 
 ---
 
-## `_.minBy`
+## minBy
 
-This method is like `_.min` except that it accepts an `iteratee` which is invoked for each element in `array` to generate the criterion to rank by.
+This method is like `_.min` except that it accepts `iteratee` which is invoked for each element in `array` to generate the criterion by which the value is ranked. The iteratee is invoked with one argument: (value).
 
 **Parameters**
 
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `array` | `Array` | The array to iterate over. |
-| `[iteratee=_.identity]` | `Function` | The iteratee invoked per element. |
+| Parameter               | Type       | Description                        |
+| :---------------------- | :--------- | :--------------------------------- |
+| `array`                 | `Array`    | The array to iterate over.         |
+| `[iteratee=_.identity]` | `Function` | The iteratee invoked per element.    |
 
 **Returns**
 
@@ -272,27 +272,27 @@ var objects = [{ 'n': 1 }, { 'n': 2 }];
 _.minBy(objects, function(o) { return o.n; });
 // => { 'n': 1 }
 
-// The _.property iteratee shorthand.
+// The `_.property` iteratee shorthand.
 _.minBy(objects, 'n');
 // => { 'n': 1 }
 ```
 
 ---
 
-## `_.multiply`
+## multiply
 
-Computes the product of two numbers.
+Multiply two numbers.
 
 **Parameters**
 
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `multiplier` | `number` | The first number in a multiplication. |
-| `multiplicand` | `number` | The second number in a multiplication. |
+| Parameter      | Type     | Description                             |
+| :------------- | :------- | :-------------------------------------- |
+| `multiplier`   | `number` | The first number in a multiplication.   |
+| `multiplicand` | `number` | The second number in a multiplication.  |
 
 **Returns**
 
-- `(number)`: Returns the product of the two numbers.
+- `(number)`: Returns the product.
 
 **Example**
 
@@ -303,16 +303,16 @@ _.multiply(6, 4);
 
 ---
 
-## `_.round`
+## round
 
-Rounds `number` to the specified precision.
+Computes `number` rounded to `precision`.
 
 **Parameters**
 
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `number` | `number` | The number to round. |
-| `[precision=0]` | `number` | The precision to round to. |
+| Parameter      | Type     | Description                    |
+| :------------- | :------- | :----------------------------- |
+| `number`       | `number` | The number to round.           |
+| `[precision=0]`| `number` | The precision to round to.     |
 
 **Returns**
 
@@ -333,20 +333,20 @@ _.round(4060, -2);
 
 ---
 
-## `_.subtract`
+## subtract
 
-Computes the difference of two numbers.
+Subtract two numbers.
 
 **Parameters**
 
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `minuend` | `number` | The number to subtract from. |
-| `subtrahend` | `number` | The number to subtract. |
+| Parameter    | Type     | Description                          |
+| :----------- | :------- | :----------------------------------- |
+| `minuend`    | `number` | The first number in a subtraction.   |
+| `subtrahend` | `number` | The second number in a subtraction.  |
 
 **Returns**
 
-- `(number)`: Returns the difference of the two numbers.
+- `(number)`: Returns the difference.
 
 **Example**
 
@@ -357,15 +357,15 @@ _.subtract(6, 4);
 
 ---
 
-## `_.sum`
+## sum
 
 Computes the sum of the values in `array`.
 
 **Parameters**
 
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `array` | `Array` | The array to iterate over. |
+| Parameter | Type    | Description                |
+| :-------- | :------ | :------------------------- |
+| `array`   | `Array` | The array to iterate over. |
 
 **Returns**
 
@@ -380,15 +380,15 @@ _.sum([4, 2, 8, 6]);
 
 ---
 
-## `_.sumBy`
+## sumBy
 
-This method is like `_.sum` except that it accepts an `iteratee` which is invoked for each element in `array` to generate the value to be summed.
+This method is like `_.sum` except that it accepts `iteratee` which is invoked for each element in `array` to generate the value to be summed. The iteratee is invoked with one argument: (value).
 
 **Parameters**
 
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `array` | `Array` | The array to iterate over. |
+| Parameter               | Type       | Description                     |
+| :---------------------- | :--------- | :------------------------------ |
+| `array`                 | `Array`    | The array to iterate over.      |
 | `[iteratee=_.identity]` | `Function` | The iteratee invoked per element. |
 
 **Returns**
@@ -403,11 +403,9 @@ var objects = [{ 'n': 4 }, { 'n': 2 }, { 'n': 8 }, { 'n': 6 }];
 _.sumBy(objects, function(o) { return o.n; });
 // => 20
 
-// The _.property iteratee shorthand.
+// The `_.property` iteratee shorthand.
 _.sumBy(objects, 'n');
 // => 20
 ```
 
----
-
-Now that you are familiar with the math functions, you can continue exploring the [Number API reference](./api-number.md) for more number manipulation tools.
+This section covered Lodash's core mathematical functions. For more numeric operations, continue to the [Number](./api-number.md) API reference.
