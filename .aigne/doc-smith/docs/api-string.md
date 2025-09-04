@@ -1,26 +1,28 @@
 # String
 
-Lodash provides a comprehensive suite of functions for string manipulation and inspection. These utilities simplify common tasks such as changing case, trimming whitespace, padding, and escaping characters, making string handling in JavaScript more consistent and powerful.
+This section provides a detailed reference for all Lodash functions designed for string manipulation and inspection. These utilities help with common tasks like changing case, trimming, padding, and creating templates.
 
-For other utility functions, you may want to check out the [Util](./api-util.md) section.
+For other utility functions, you might find the [Util](./api-util.md) and [Lang](./api-lang.md) sections helpful.
 
 ---
 
-## `camelCase`
+### camelCase
 
 Converts a string to [camel case](https://en.wikipedia.org/wiki/CamelCase).
 
-### Parameters
+**Since**: 3.0.0
+
+**Parameters**
 
 | Name | Type | Description |
 |---|---|---|
 | `string` | `string` | The string to convert. Defaults to `''`. |
 
-### Returns
+**Returns**
 
-(`string`): Returns the camel-cased string.
+- `(string)`: The camel-cased string.
 
-### Example
+**Example**
 
 ```javascript
 _.camelCase('Foo Bar');
@@ -35,21 +37,23 @@ _.camelCase('__FOO_BAR__');
 
 ---
 
-## `capitalize`
+### capitalize
 
 Converts the first character of a string to upper case and the remaining to lower case.
 
-### Parameters
+**Since**: 3.0.0
+
+**Parameters**
 
 | Name | Type | Description |
 |---|---|---|
 | `string` | `string` | The string to capitalize. Defaults to `''`. |
 
-### Returns
+**Returns**
 
-(`string`): Returns the capitalized string.
+- `(string)`: The capitalized string.
 
-### Example
+**Example**
 
 ```javascript
 _.capitalize('FRED');
@@ -58,21 +62,23 @@ _.capitalize('FRED');
 
 ---
 
-## `deburr`
+### deburr
 
 Deburrs a string by converting [Latin-1 Supplement](https://en.wikipedia.org/wiki/Latin-1_Supplement_(Unicode_block)#Character_table) and [Latin Extended-A](https://en.wikipedia.org/wiki/Latin_Extended-A) letters to basic Latin letters and removing [combining diacritical marks](https://en.wikipedia.org/wiki/Combining_Diacritical_Marks).
 
-### Parameters
+**Since**: 3.0.0
+
+**Parameters**
 
 | Name | Type | Description |
 |---|---|---|
 | `string` | `string` | The string to deburr. Defaults to `''`. |
 
-### Returns
+**Returns**
 
-(`string`): Returns the deburred string.
+- `(string)`: The deburred string.
 
-### Example
+**Example**
 
 ```javascript
 _.deburr('déjà vu');
@@ -81,11 +87,13 @@ _.deburr('déjà vu');
 
 ---
 
-## `endsWith`
+### endsWith
 
 Checks if a string ends with the given target string.
 
-### Parameters
+**Since**: 3.0.0
+
+**Parameters**
 
 | Name | Type | Description |
 |---|---|---|
@@ -93,11 +101,11 @@ Checks if a string ends with the given target string.
 | `target` | `string` | The string to search for. |
 | `position` | `number` | The position to search up to. Defaults to `string.length`. |
 
-### Returns
+**Returns**
 
-(`boolean`): Returns `true` if `string` ends with `target`, else `false`.
+- `(boolean)`: Returns `true` if `string` ends with `target`, else `false`.
 
-### Example
+**Example**
 
 ```javascript
 _.endsWith('abc', 'c');
@@ -112,21 +120,23 @@ _.endsWith('abc', 'b', 2);
 
 ---
 
-## `escape`
+### escape
 
 Converts the characters `&`, `<`, `>`, `"`, and `'` in a string to their corresponding HTML entities.
 
-### Parameters
+**Since**: 0.1.0
+
+**Parameters**
 
 | Name | Type | Description |
 |---|---|---|
 | `string` | `string` | The string to escape. Defaults to `''`. |
 
-### Returns
+**Returns**
 
-(`string`): Returns the escaped string.
+- `(string)`: The escaped string.
 
-### Example
+**Example**
 
 ```javascript
 _.escape('fred, barney, & pebbles');
@@ -135,21 +145,23 @@ _.escape('fred, barney, & pebbles');
 
 ---
 
-## `escapeRegExp`
+### escapeRegExp
 
-Escapes the `RegExp` special characters `^`, `$`, `\`, `.`, `*`, `+`, `?`, `(`, `)`, `[`, `]`, `{`, `}`, and `|` in a string.
+Escapes the RegExp special characters `^`, `$`, `\`, `.`, `*`, `+`, `?`, `(`, `)`, `[`, `]`, `{`, `}`, and `|` in a string.
 
-### Parameters
+**Since**: 3.0.0
+
+**Parameters**
 
 | Name | Type | Description |
 |---|---|---|
 | `string` | `string` | The string to escape. Defaults to `''`. |
 
-### Returns
+**Returns**
 
-(`string`): Returns the escaped string.
+- `(string)`: The escaped string.
 
-### Example
+**Example**
 
 ```javascript
 _.escapeRegExp('[lodash](https://lodash.com/)');
@@ -158,21 +170,23 @@ _.escapeRegExp('[lodash](https://lodash.com/)');
 
 ---
 
-## `kebabCase`
+### kebabCase
 
 Converts a string to [kebab case](https://en.wikipedia.org/wiki/Letter_case#Special_case_styles).
 
-### Parameters
+**Since**: 3.0.0
+
+**Parameters**
 
 | Name | Type | Description |
 |---|---|---|
 | `string` | `string` | The string to convert. Defaults to `''`. |
 
-### Returns
+**Returns**
 
-(`string`): Returns the kebab-cased string.
+- `(string)`: The kebab-cased string.
 
-### Example
+**Example**
 
 ```javascript
 _.kebabCase('Foo Bar');
@@ -187,21 +201,23 @@ _.kebabCase('__FOO_BAR__');
 
 ---
 
-## `lowerCase`
+### lowerCase
 
 Converts a string, as space-separated words, to lower case.
 
-### Parameters
+**Since**: 4.0.0
+
+**Parameters**
 
 | Name | Type | Description |
 |---|---|---|
 | `string` | `string` | The string to convert. Defaults to `''`. |
 
-### Returns
+**Returns**
 
-(`string`): Returns the lower-cased string.
+- `(string)`: The lower-cased string.
 
-### Example
+**Example**
 
 ```javascript
 _.lowerCase('--Foo-Bar--');
@@ -209,25 +225,30 @@ _.lowerCase('--Foo-Bar--');
 
 _.lowerCase('fooBar');
 // => 'foo bar'
+
+_.lowerCase('__FOO_BAR__');
+// => 'foo bar'
 ```
 
 ---
 
-## `lowerFirst`
+### lowerFirst
 
 Converts the first character of a string to lower case.
 
-### Parameters
+**Since**: 4.0.0
+
+**Parameters**
 
 | Name | Type | Description |
 |---|---|---|
 | `string` | `string` | The string to convert. Defaults to `''`. |
 
-### Returns
+**Returns**
 
-(`string`): Returns the converted string.
+- `(string)`: The converted string.
 
-### Example
+**Example**
 
 ```javascript
 _.lowerFirst('Fred');
@@ -239,11 +260,13 @@ _.lowerFirst('FRED');
 
 ---
 
-## `pad`
+### pad
 
 Pads a string on the left and right sides if it's shorter than `length`. Padding characters are truncated if they can't be evenly divided by `length`.
 
-### Parameters
+**Since**: 3.0.0
+
+**Parameters**
 
 | Name | Type | Description |
 |---|---|---|
@@ -251,11 +274,11 @@ Pads a string on the left and right sides if it's shorter than `length`. Padding
 | `length` | `number` | The padding length. Defaults to `0`. |
 | `chars` | `string` | The string used as padding. Defaults to `' '`. |
 
-### Returns
+**Returns**
 
-(`string`): Returns the padded string.
+- `(string)`: The padded string.
 
-### Example
+**Example**
 
 ```javascript
 _.pad('abc', 8);
@@ -263,15 +286,20 @@ _.pad('abc', 8);
 
 _.pad('abc', 8, '_-');
 // => '_-abc_-_'
+
+_.pad('abc', 3);
+// => 'abc'
 ```
 
 ---
 
-## `padEnd`
+### padEnd
 
 Pads a string on the right side if it's shorter than `length`. Padding characters are truncated if they exceed `length`.
 
-### Parameters
+**Since**: 4.0.0
+
+**Parameters**
 
 | Name | Type | Description |
 |---|---|---|
@@ -279,11 +307,11 @@ Pads a string on the right side if it's shorter than `length`. Padding character
 | `length` | `number` | The padding length. Defaults to `0`. |
 | `chars` | `string` | The string used as padding. Defaults to `' '`. |
 
-### Returns
+**Returns**
 
-(`string`): Returns the padded string.
+- `(string)`: The padded string.
 
-### Example
+**Example**
 
 ```javascript
 _.padEnd('abc', 6);
@@ -291,15 +319,20 @@ _.padEnd('abc', 6);
 
 _.padEnd('abc', 6, '_-');
 // => 'abc_-_'
+
+_.padEnd('abc', 3);
+// => 'abc'
 ```
 
 ---
 
-## `padStart`
+### padStart
 
 Pads a string on the left side if it's shorter than `length`. Padding characters are truncated if they exceed `length`.
 
-### Parameters
+**Since**: 4.0.0
+
+**Parameters**
 
 | Name | Type | Description |
 |---|---|---|
@@ -307,11 +340,11 @@ Pads a string on the left side if it's shorter than `length`. Padding characters
 | `length` | `number` | The padding length. Defaults to `0`. |
 | `chars` | `string` | The string used as padding. Defaults to `' '`. |
 
-### Returns
+**Returns**
 
-(`string`): Returns the padded string.
+- `(string)`: The padded string.
 
-### Example
+**Example**
 
 ```javascript
 _.padStart('abc', 6);
@@ -319,26 +352,31 @@ _.padStart('abc', 6);
 
 _.padStart('abc', 6, '_-');
 // => '_-_abc'
+
+_.padStart('abc', 3);
+// => 'abc'
 ```
 
 ---
 
-## `parseInt`
+### parseInt
 
-Converts a string to an integer of the specified radix. If `radix` is `undefined` or `0`, a `radix` of `10` is used unless the value is a hexadecimal, in which case a `radix` of `16` is used.
+Converts a string to an integer of the specified radix. If `radix` is `undefined` or `0`, a `radix` of `10` is used unless `value` is a hexadecimal, in which case a `radix` of `16` is used.
 
-### Parameters
+**Since**: 1.1.0
+
+**Parameters**
 
 | Name | Type | Description |
 |---|---|---|
 | `string` | `string` | The string to convert. |
-| `radix` | `number` | The radix to interpret the value by. Defaults to `10`. |
+| `radix` | `number` | The radix to interpret `value` by. Defaults to `10`. |
 
-### Returns
+**Returns**
 
-(`number`): Returns the converted integer.
+- `(number)`: The converted integer.
 
-### Example
+**Example**
 
 ```javascript
 _.parseInt('08');
@@ -350,22 +388,24 @@ _.map(['6', '08', '10'], _.parseInt);
 
 ---
 
-## `repeat`
+### repeat
 
 Repeats the given string `n` times.
 
-### Parameters
+**Since**: 3.0.0
+
+**Parameters**
 
 | Name | Type | Description |
 |---|---|---|
 | `string` | `string` | The string to repeat. Defaults to `''`. |
 | `n` | `number` | The number of times to repeat the string. Defaults to `1`. |
 
-### Returns
+**Returns**
 
-(`string`): Returns the repeated string.
+- `(string)`: The repeated string.
 
-### Example
+**Example**
 
 ```javascript
 _.repeat('*', 3);
@@ -373,15 +413,20 @@ _.repeat('*', 3);
 
 _.repeat('abc', 2);
 // => 'abcabc'
+
+_.repeat('abc', 0);
+// => ''
 ```
 
 ---
 
-## `replace`
+### replace
 
-Replaces matches for `pattern` in a string with `replacement`. This method is based on [`String#replace`](https://mdn.io/String/replace).
+Replaces matches for `pattern` in `string` with `replacement`. This method is based on [`String#replace`](https://mdn.io/String/replace).
 
-### Parameters
+**Since**: 4.0.0
+
+**Parameters**
 
 | Name | Type | Description |
 |---|---|---|
@@ -389,11 +434,11 @@ Replaces matches for `pattern` in a string with `replacement`. This method is ba
 | `pattern` | `RegExp` \| `string` | The pattern to replace. |
 | `replacement` | `Function` \| `string` | The match replacement. |
 
-### Returns
+**Returns**
 
-(`string`): Returns the modified string.
+- `(string)`: The modified string.
 
-### Example
+**Example**
 
 ```javascript
 _.replace('Hi Fred', 'Fred', 'Barney');
@@ -402,21 +447,23 @@ _.replace('Hi Fred', 'Fred', 'Barney');
 
 ---
 
-## `snakeCase`
+### snakeCase
 
 Converts a string to [snake case](https://en.wikipedia.org/wiki/Snake_case).
 
-### Parameters
+**Since**: 3.0.0
+
+**Parameters**
 
 | Name | Type | Description |
 |---|---|---|
 | `string` | `string` | The string to convert. Defaults to `''`. |
 
-### Returns
+**Returns**
 
-(`string`): Returns the snake-cased string.
+- `(string)`: The snake-cased string.
 
-### Example
+**Example**
 
 ```javascript
 _.snakeCase('Foo Bar');
@@ -424,15 +471,20 @@ _.snakeCase('Foo Bar');
 
 _.snakeCase('fooBar');
 // => 'foo_bar'
+
+_.snakeCase('--FOO-BAR--');
+// => 'foo_bar'
 ```
 
 ---
 
-## `split`
+### split
 
-Splits a string by `separator`. This method is based on [`String#split`](https://mdn.io/String/split).
+Splits `string` by `separator`. This method is based on [`String#split`](https://mdn.io/String/split).
 
-### Parameters
+**Since**: 4.0.0
+
+**Parameters**
 
 | Name | Type | Description |
 |---|---|---|
@@ -440,11 +492,11 @@ Splits a string by `separator`. This method is based on [`String#split`](https:/
 | `separator` | `RegExp` \| `string` | The separator pattern to split by. |
 | `limit` | `number` | The length to truncate results to. |
 
-### Returns
+**Returns**
 
-(`Array`): Returns the string segments.
+- `(Array)`: The string segments.
 
-### Example
+**Example**
 
 ```javascript
 _.split('a-b-c', '-', 2);
@@ -453,21 +505,23 @@ _.split('a-b-c', '-', 2);
 
 ---
 
-## `startCase`
+### startCase
 
 Converts a string to [start case](https://en.wikipedia.org/wiki/Letter_case#Stylistic_or_specialised_usage).
 
-### Parameters
+**Since**: 3.1.0
+
+**Parameters**
 
 | Name | Type | Description |
 |---|---|---|
 | `string` | `string` | The string to convert. Defaults to `''`. |
 
-### Returns
+**Returns**
 
-(`string`): Returns the start-cased string.
+- `(string)`: The start-cased string.
 
-### Example
+**Example**
 
 ```javascript
 _.startCase('--foo-bar--');
@@ -475,15 +529,20 @@ _.startCase('--foo-bar--');
 
 _.startCase('fooBar');
 // => 'Foo Bar'
+
+_.startCase('__FOO_BAR__');
+// => 'FOO BAR'
 ```
 
 ---
 
-## `startsWith`
+### startsWith
 
 Checks if a string starts with the given target string.
 
-### Parameters
+**Since**: 3.0.0
+
+**Parameters**
 
 | Name | Type | Description |
 |---|---|---|
@@ -491,15 +550,18 @@ Checks if a string starts with the given target string.
 | `target` | `string` | The string to search for. |
 | `position` | `number` | The position to search from. Defaults to `0`. |
 
-### Returns
+**Returns**
 
-(`boolean`): Returns `true` if `string` starts with `target`, else `false`.
+- `(boolean)`: Returns `true` if `string` starts with `target`, else `false`.
 
-### Example
+**Example**
 
 ```javascript
 _.startsWith('abc', 'a');
 // => true
+
+_.startsWith('abc', 'b');
+// => false
 
 _.startsWith('abc', 'b', 1);
 // => true
@@ -507,22 +569,35 @@ _.startsWith('abc', 'b', 1);
 
 ---
 
-## `template`
+### template
 
-Creates a compiled template function that can interpolate data properties.
+Creates a compiled template function that can interpolate data properties in "interpolate" delimiters, HTML-escape values in "escape" delimiters, and execute JavaScript in "evaluate" delimiters. Data properties may be accessed as free variables in the template.
 
-### Parameters
+**Since**: 0.1.0
+
+**Parameters**
 
 | Name | Type | Description |
 |---|---|---|
 | `string` | `string` | The template string. Defaults to `''`. |
 | `options` | `Object` | The options object. |
 
-### Returns
+**Options**
 
-(`Function`): Returns the compiled template function.
+| Name | Type | Description |
+|---|---|---|
+| `escape` | `RegExp` | The HTML "escape" delimiter. |
+| `evaluate` | `RegExp` | The "evaluate" delimiter. |
+| `imports` | `Object` | An object to import into the template as free variables. |
+| `interpolate` | `RegExp` | The "interpolate" delimiter. |
+| `sourceURL` | `string` | The sourceURL of the compiled template. |
+| `variable` | `string` | The data object variable name. |
 
-### Example
+**Returns**
+
+- `(Function)`: The compiled template function.
+
+**Example**
 
 ```javascript
 // Use the "interpolate" delimiter to create a compiled template.
@@ -534,72 +609,89 @@ compiled({ 'user': 'fred' });
 var compiled = _.template('<b><%- value %></b>');
 compiled({ 'value': '<script>' });
 // => '<b>&lt;script&gt;</b>'
+
+// Use the "evaluate" delimiter to execute JavaScript and generate HTML.
+var compiled = _.template('<% _.forEach(users, function(user) { %><li><%- user %></li><% }); %>');
+compiled({ 'users': ['fred', 'barney'] });
+// => '<li>fred</li><li>barney</li>'
 ```
 
 ---
 
-## `toLower`
+### toLower
 
 Converts a string, as a whole, to lower case, similar to `String#toLowerCase`.
 
-### Parameters
+**Since**: 4.0.0
+
+**Parameters**
 
 | Name | Type | Description |
 |---|---|---|
 | `string` | `string` | The string to convert. Defaults to `''`. |
 
-### Returns
+**Returns**
 
-(`string`): Returns the lower-cased string.
+- `(string)`: The lower-cased string.
 
-### Example
+**Example**
 
 ```javascript
 _.toLower('--Foo-Bar--');
 // => '--foo-bar--'
+
+_.toLower('fooBar');
+// => 'foobar'
 ```
 
 ---
 
-## `toUpper`
+### toUpper
 
 Converts a string, as a whole, to upper case, similar to `String#toUpperCase`.
 
-### Parameters
+**Since**: 4.0.0
+
+**Parameters**
 
 | Name | Type | Description |
 |---|---|---|
 | `string` | `string` | The string to convert. Defaults to `''`. |
 
-### Returns
+**Returns**
 
-(`string`): Returns the upper-cased string.
+- `(string)`: The upper-cased string.
 
-### Example
+**Example**
 
 ```javascript
-_.toUpper('__foo_bar__');
-// => '__FOO_BAR__'
+_.toUpper('--foo-bar--');
+// => '--FOO-BAR--'
+
+_.toUpper('fooBar');
+// => 'FOOBAR'
 ```
 
 ---
 
-## `trim`
+### trim
 
 Removes leading and trailing whitespace or specified characters from a string.
 
-### Parameters
+**Since**: 3.0.0
+
+**Parameters**
 
 | Name | Type | Description |
 |---|---|---|
 | `string` | `string` | The string to trim. Defaults to `''`. |
 | `chars` | `string` | The characters to trim. Defaults to whitespace. |
 
-### Returns
+**Returns**
 
-(`string`): Returns the trimmed string.
+- `(string)`: The trimmed string.
 
-### Example
+**Example**
 
 ```javascript
 _.trim('  abc  ');
@@ -611,22 +703,24 @@ _.trim('-_-abc-_-', '_-');
 
 ---
 
-## `trimEnd`
+### trimEnd
 
 Removes trailing whitespace or specified characters from a string.
 
-### Parameters
+**Since**: 4.0.0
+
+**Parameters**
 
 | Name | Type | Description |
 |---|---|---|
 | `string` | `string` | The string to trim. Defaults to `''`. |
 | `chars` | `string` | The characters to trim. Defaults to whitespace. |
 
-### Returns
+**Returns**
 
-(`string`): Returns the trimmed string.
+- `(string)`: The trimmed string.
 
-### Example
+**Example**
 
 ```javascript
 _.trimEnd('  abc  ');
@@ -638,22 +732,24 @@ _.trimEnd('-_-abc-_-', '_-');
 
 ---
 
-## `trimStart`
+### trimStart
 
 Removes leading whitespace or specified characters from a string.
 
-### Parameters
+**Since**: 4.0.0
+
+**Parameters**
 
 | Name | Type | Description |
 |---|---|---|
 | `string` | `string` | The string to trim. Defaults to `''`. |
 | `chars` | `string` | The characters to trim. Defaults to whitespace. |
 
-### Returns
+**Returns**
 
-(`string`): Returns the trimmed string.
+- `(string)`: The trimmed string.
 
-### Example
+**Example**
 
 ```javascript
 _.trimStart('  abc  ');
@@ -665,24 +761,37 @@ _.trimStart('-_-abc-_-', '_-');
 
 ---
 
-## `truncate`
+### truncate
 
-Truncates a string if it's longer than the given maximum string length. The last characters of the truncated string are replaced with an omission string.
+Truncates a string if it's longer than the given maximum string length. The last characters of the truncated string are replaced with an omission string which defaults to "...".
 
-### Parameters
+**Since**: 4.0.0
+
+**Parameters**
 
 | Name | Type | Description |
 |---|---|---|
 | `string` | `string` | The string to truncate. Defaults to `''`. |
-| `options` | `Object` | An object with truncation options: `length` (number, default 30), `omission` (string, default '...'), `separator` (RegExp or string). |
+| `options` | `Object` | The options object. |
 
-### Returns
+**Options**
 
-(`string`): Returns the truncated string.
+| Name | Type | Description |
+|---|---|---|
+| `length` | `number` | The maximum string length. Defaults to `30`. |
+| `omission` | `string` | The string to indicate text is omitted. Defaults to `'...'`. |
+| `separator` | `RegExp` \| `string` | The separator pattern to truncate to. |
 
-### Example
+**Returns**
+
+- `(string)`: The truncated string.
+
+**Example**
 
 ```javascript
+_.truncate('hi-diddly-ho there, neighborino');
+// => 'hi-diddly-ho there, neighbo...'
+
 _.truncate('hi-diddly-ho there, neighborino', {
   'length': 24,
   'separator': ' '
@@ -692,21 +801,23 @@ _.truncate('hi-diddly-ho there, neighborino', {
 
 ---
 
-## `unescape`
+### unescape
 
 The inverse of `_.escape`; this method converts the HTML entities `&amp;`, `&lt;`, `&gt;`, `&quot;`, and `&#39;` in a string to their corresponding characters.
 
-### Parameters
+**Since**: 0.6.0
+
+**Parameters**
 
 | Name | Type | Description |
 |---|---|---|
 | `string` | `string` | The string to unescape. Defaults to `''`. |
 
-### Returns
+**Returns**
 
-(`string`): Returns the unescaped string.
+- `(string)`: The unescaped string.
 
-### Example
+**Example**
 
 ```javascript
 _.unescape('fred, barney, &amp; pebbles');
@@ -715,68 +826,80 @@ _.unescape('fred, barney, &amp; pebbles');
 
 ---
 
-## `upperCase`
+### upperCase
 
 Converts a string, as space-separated words, to upper case.
 
-### Parameters
+**Since**: 4.0.0
+
+**Parameters**
 
 | Name | Type | Description |
 |---|---|---|
 | `string` | `string` | The string to convert. Defaults to `''`. |
 
-### Returns
+**Returns**
 
-(`string`): Returns the upper-cased string.
+- `(string)`: The upper-cased string.
 
-### Example
+**Example**
 
 ```javascript
 _.upperCase('--foo-bar');
+// => 'FOO BAR'
+
+_.upperCase('fooBar');
 // => 'FOO BAR'
 ```
 
 ---
 
-## `upperFirst`
+### upperFirst
 
 Converts the first character of a string to upper case.
 
-### Parameters
+**Since**: 4.0.0
+
+**Parameters**
 
 | Name | Type | Description |
 |---|---|---|
 | `string` | `string` | The string to convert. Defaults to `''`. |
 
-### Returns
+**Returns**
 
-(`string`): Returns the converted string.
+- `(string)`: The converted string.
 
-### Example
+**Example**
 
 ```javascript
 _.upperFirst('fred');
 // => 'Fred'
+
+_.upperFirst('FRED');
+// => 'FRED'
 ```
 
 ---
 
-## `words`
+### words
 
 Splits a string into an array of its words.
 
-### Parameters
+**Since**: 3.0.0
+
+**Parameters**
 
 | Name | Type | Description |
 |---|---|---|
 | `string` | `string` | The string to inspect. Defaults to `''`. |
-| `pattern`| `RegExp` \| `string` | The pattern to match words. |
+| `pattern` | `RegExp` \| `string` | The pattern to match words. |
 
-### Returns
+**Returns**
 
-(`Array`): Returns the words of the string.
+- `(Array)`: The words of the string.
 
-### Example
+**Example**
 
 ```javascript
 _.words('fred, barney, & pebbles');
@@ -785,7 +908,3 @@ _.words('fred, barney, & pebbles');
 _.words('fred, barney, & pebbles', /[^, ]+/g);
 // => ['fred', 'barney', '&', 'pebbles']
 ```
-
----
-
-This concludes the String API reference. For other utility functions, please see the [Util](./api-util.md) section.

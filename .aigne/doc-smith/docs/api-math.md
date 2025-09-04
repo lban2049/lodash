@@ -1,8 +1,8 @@
 # Math
 
-Lodash provides a suite of basic mathematical utility functions for common operations like addition, subtraction, rounding, and calculating aggregate values such as min, max, and mean from collections. These functions handle type coercion gracefully and are designed for performance and reliability.
+Lodash provides a suite of fundamental mathematical utility functions for performing common arithmetic and aggregation operations. These functions are designed to be straightforward and handle basic calculations like addition, subtraction, division, and finding statistical values such as mean, min, and max.
 
-For more number-related utilities, see the [Number](./api-number.md) API reference.
+For utilities related to number clamping or ranges, please refer to the [Number API Reference](./api-number.md).
 
 ---
 
@@ -12,10 +12,10 @@ Adds two numbers.
 
 **Parameters**
 
-| Parameter | Type     | Description                      |
-| :-------- | :------- | :------------------------------- |
-| `augend`  | `number` | The first number in an addition. |
-| `addend`  | `number` | The second number in an addition. |
+| Name | Type | Description |
+|---|---|---|
+| `augend` | `number` | The first number in an addition. |
+| `addend` | `number` | The second number in an addition. |
 
 **Returns**
 
@@ -36,10 +36,10 @@ Computes `number` rounded up to `precision`.
 
 **Parameters**
 
-| Parameter      | Type     | Description                        |
-| :------------- | :------- | :--------------------------------- |
-| `number`       | `number` | The number to round up.            |
-| `[precision=0]`| `number` | The precision to round up to.      |
+| Name | Type | Description |
+|---|---|---|
+| `number` | `number` | The number to round up. |
+| `precision` | `number` | (Optional) The precision to round up to. Defaults to `0`. |
 
 **Returns**
 
@@ -62,14 +62,14 @@ _.ceil(6040, -2);
 
 ## divide
 
-Divide two numbers.
+Divides two numbers.
 
 **Parameters**
 
-| Parameter  | Type     | Description                      |
-| :--------- | :------- | :------------------------------- |
-| `dividend` | `number` | The first number in a division.  |
-| `divisor`  | `number` | The second number in a division. |
+| Name | Type | Description |
+|---|---|---|
+| `dividend` | `number` | The first number in a division. |
+| `divisor` | `number` | The second number in a division. |
 
 **Returns**
 
@@ -90,10 +90,10 @@ Computes `number` rounded down to `precision`.
 
 **Parameters**
 
-| Parameter      | Type     | Description                         |
-| :------------- | :------- | :---------------------------------- |
-| `number`       | `number` | The number to round down.           |
-| `[precision=0]`| `number` | The precision to round down to.     |
+| Name | Type | Description |
+|---|---|---|
+| `number` | `number` | The number to round down. |
+| `precision` | `number` | (Optional) The precision to round down to. Defaults to `0`. |
 
 **Returns**
 
@@ -120,9 +120,9 @@ Computes the maximum value of `array`. If `array` is empty or falsey, `undefined
 
 **Parameters**
 
-| Parameter | Type    | Description                   |
-| :-------- | :------ | :---------------------------- |
-| `array`   | `Array` | The array to iterate over.    |
+| Name | Type | Description |
+|---|---|---|
+| `array` | `Array` | The array to iterate over. |
 
 **Returns**
 
@@ -146,10 +146,10 @@ This method is like `_.max` except that it accepts `iteratee` which is invoked f
 
 **Parameters**
 
-| Parameter               | Type       | Description                        |
-| :---------------------- | :--------- | :--------------------------------- |
-| `array`                 | `Array`    | The array to iterate over.         |
-| `[iteratee=_.identity]` | `Function` | The iteratee invoked per element.    |
+| Name | Type | Description |
+|---|---|---|
+| `array` | `Array` | The array to iterate over. |
+| `iteratee` | `Function` | (Optional) The iteratee invoked per element. Defaults to `_.identity`. |
 
 **Returns**
 
@@ -176,9 +176,9 @@ Computes the mean of the values in `array`.
 
 **Parameters**
 
-| Parameter | Type    | Description                |
-| :-------- | :------ | :------------------------- |
-| `array`   | `Array` | The array to iterate over. |
+| Name | Type | Description |
+|---|---|---|
+| `array` | `Array` | The array to iterate over. |
 
 **Returns**
 
@@ -199,10 +199,10 @@ This method is like `_.mean` except that it accepts `iteratee` which is invoked 
 
 **Parameters**
 
-| Parameter               | Type       | Description                     |
-| :---------------------- | :--------- | :------------------------------ |
-| `array`                 | `Array`    | The array to iterate over.      |
-| `[iteratee=_.identity]` | `Function` | The iteratee invoked per element. |
+| Name | Type | Description |
+|---|---|---|
+| `array` | `Array` | The array to iterate over. |
+| `iteratee` | `Function` | (Optional) The iteratee invoked per element. Defaults to `_.identity`. |
 
 **Returns**
 
@@ -229,9 +229,9 @@ Computes the minimum value of `array`. If `array` is empty or falsey, `undefined
 
 **Parameters**
 
-| Parameter | Type    | Description                   |
-| :-------- | :------ | :---------------------------- |
-| `array`   | `Array` | The array to iterate over.    |
+| Name | Type | Description |
+|---|---|---|
+| `array` | `Array` | The array to iterate over. |
 
 **Returns**
 
@@ -255,10 +255,10 @@ This method is like `_.min` except that it accepts `iteratee` which is invoked f
 
 **Parameters**
 
-| Parameter               | Type       | Description                        |
-| :---------------------- | :--------- | :--------------------------------- |
-| `array`                 | `Array`    | The array to iterate over.         |
-| `[iteratee=_.identity]` | `Function` | The iteratee invoked per element.    |
+| Name | Type | Description |
+|---|---|---|
+| `array` | `Array` | The array to iterate over. |
+| `iteratee` | `Function` | (Optional) The iteratee invoked per element. Defaults to `_.identity`. |
 
 **Returns**
 
@@ -281,14 +281,14 @@ _.minBy(objects, 'n');
 
 ## multiply
 
-Multiply two numbers.
+Multiplies two numbers.
 
 **Parameters**
 
-| Parameter      | Type     | Description                             |
-| :------------- | :------- | :-------------------------------------- |
-| `multiplier`   | `number` | The first number in a multiplication.   |
-| `multiplicand` | `number` | The second number in a multiplication.  |
+| Name | Type | Description |
+|---|---|---|
+| `multiplier` | `number` | The first number in a multiplication. |
+| `multiplicand` | `number` | The second number in a multiplication. |
 
 **Returns**
 
@@ -309,10 +309,10 @@ Computes `number` rounded to `precision`.
 
 **Parameters**
 
-| Parameter      | Type     | Description                    |
-| :------------- | :------- | :----------------------------- |
-| `number`       | `number` | The number to round.           |
-| `[precision=0]`| `number` | The precision to round to.     |
+| Name | Type | Description |
+|---|---|---|
+| `number` | `number` | The number to round. |
+| `precision` | `number` | (Optional) The precision to round to. Defaults to `0`. |
 
 **Returns**
 
@@ -335,14 +335,14 @@ _.round(4060, -2);
 
 ## subtract
 
-Subtract two numbers.
+Subtracts two numbers.
 
 **Parameters**
 
-| Parameter    | Type     | Description                          |
-| :----------- | :------- | :----------------------------------- |
-| `minuend`    | `number` | The first number in a subtraction.   |
-| `subtrahend` | `number` | The second number in a subtraction.  |
+| Name | Type | Description |
+|---|---|---|
+| `minuend` | `number` | The first number in a subtraction. |
+| `subtrahend` | `number` | The second number in a subtraction. |
 
 **Returns**
 
@@ -363,9 +363,9 @@ Computes the sum of the values in `array`.
 
 **Parameters**
 
-| Parameter | Type    | Description                |
-| :-------- | :------ | :------------------------- |
-| `array`   | `Array` | The array to iterate over. |
+| Name | Type | Description |
+|---|---|---|
+| `array` | `Array` | The array to iterate over. |
 
 **Returns**
 
@@ -386,10 +386,10 @@ This method is like `_.sum` except that it accepts `iteratee` which is invoked f
 
 **Parameters**
 
-| Parameter               | Type       | Description                     |
-| :---------------------- | :--------- | :------------------------------ |
-| `array`                 | `Array`    | The array to iterate over.      |
-| `[iteratee=_.identity]` | `Function` | The iteratee invoked per element. |
+| Name | Type | Description |
+|---|---|---|
+| `array` | `Array` | The array to iterate over. |
+| `iteratee` | `Function` | (Optional) The iteratee invoked per element. Defaults to `_.identity`. |
 
 **Returns**
 
@@ -408,4 +408,4 @@ _.sumBy(objects, 'n');
 // => 20
 ```
 
-This section covered Lodash's core mathematical functions. For more numeric operations, continue to the [Number](./api-number.md) API reference.
+This guide has detailed the mathematical utility functions available in Lodash. For more numerical utilities, proceed to the [Number API Reference](./api-number.md).

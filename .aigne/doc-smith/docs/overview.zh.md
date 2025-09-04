@@ -1,79 +1,102 @@
 # 概述
 
-Lodash 是一个现代 JavaScript 实用工具库，提供了模块化、高性能以及附加功能。它通过简化处理数组、数字、对象和字符串的复杂操作，来简化常见的编程任务。本文档涵盖 Lodash v4.17.21，该版本在 MIT 许可下发布，并支持现代环境，包括 Node.js v4.0.0 及更高版本。
+欢迎查阅 Lodash v4.17.21 的官方文档。Lodash 是一个现代化的 JavaScript 实用工具库，提供了模块化、高性能以及其他附加功能。它简化了处理数组、数字、对象和字符串的繁琐工作，使 JavaScript 的使用变得更加轻松。
 
-## 为何选择 Lodash？
+Lodash 的模块化方法非常适用于：
+*   迭代数组、对象和字符串
+*   操作和测试值
+*   创建复合函数
 
-Lodash 的模块化方法非常适合：
+本篇文档旨在帮助您快速高效地找到所需信息，无论您是新用户还是经验丰富的开发者。
 
-*   **迭代**数组、对象和字符串
-*   **操作**和测试值
-*   **创建**复合函数
+## 核心概念
 
-它提供了一套全面的工具集，帮助你编写更简洁、更易于维护的代码。
-
-## 核心特性
-
-Lodash 在设计时充分考虑了专业开发者的需求，提供了几个关键的架构优势。
+Lodash 基于几项关键原则构建，这些原则使其成为任何 JavaScript 项目的强大工具。
 
 ```d2
 direction: down
 
-"Lodash 库": {
+Your-Application: {
+  shape: rectangle
+  label: "你的应用程序"
+}
+
+Lodash-Ecosystem: {
   shape: package
+  label: "Lodash 生态系统"
   grid-columns: 1
 
-  "核心理念": {
-    shape: rectangle
-    "简洁性": "让 JavaScript 更简单"
-    "一致性": "可靠的实用函数"
-  }
-
-  "核心模块": {
-    shape: rectangle
+  Lodash-Library: {
+    label: "Lodash 库 (v4.17.21)"
     grid-columns: 2
-    "标准构建": "功能齐全的 UMD 模块"
-    "核心构建": "满足基本需求的轻量级子集"
-    "FP 模块": "函数式编程变体"
-    "单方法包": "最大化模块性"
+
+    Core-Modules: {
+      label: "标准模块"
+      grid-columns: 3
+      Array: {}
+      Object: {}
+      String: {}
+      Function: {}
+      Util: {}
+      "...": {}
+    }
+
+    FP-Variant: {
+      label: "FP 变体 (lodash/fp)"
+      "不可变、自动柯里化、\n迭代优先、数据置后"
+    }
   }
 
-  "核心模块" -> "核心理念": "遵循"
+  Build-Tools: {
+    label: "构建与优化工具"
+    grid-columns: 3
+    lodash-cli: {}
+    babel-plugin-lodash: {}
+    lodash-webpack-plugin: {}
+  }
 }
+
+Your-Application -> Lodash-Ecosystem.Lodash-Library: "导入和使用"
+Lodash-Ecosystem.Build-Tools -> Lodash-Ecosystem.Lodash-Library: "生成自定义构建"
+
 ```
 
-### 模块化与自定义构建
-
-Lodash 提供多种构建版本和模块格式，使你能够将项目的打包体积保持在最小。你可以挑选单个方法，使用 ES 模块（`lodash-es`），或利用 `babel-plugin-lodash` 和 `lodash-webpack-plugin` 等插件进行优化构建。
-
-更多详情，请参阅 [构建差异](./guides-build-differences.md) 指南。
-
-### 函数式编程变体
-
-对于偏好函数式编程风格的开发者，Lodash 提供了一个专门的 `lodash/fp` 模块。它提供了不可变、自动柯里化、迭代函数优先和数据置后的方法，使组合函数和构建函数式管道变得更加容易。
-
-要了解更多信息，请阅读 [FP 指南](./fp-guide.md)。
-
-## 文档导航
-
-本站结构清晰，旨在帮助你高效地找到所需信息。以下是主要部分的指南：
-
 <x-cards data-columns="2">
-  <x-card data-title="入门指南" data-href="/getting-started" data-icon="lucide:play-circle">
-    为在项目中安装和使用 Lodash 提供了简洁、可直接复制粘贴的说明。
+  <x-card data-title="模块化与性能" data-icon="lucide:boxes">
+    Lodash 提供多种构建版本。您可以加载完整库、核心构建版本，甚至可以只挑选单个方法，以保持项目包的最小体积。这种模块化的方法确保您只包含所需的代码。
   </x-card>
-  <x-card data-title="API 参考" data-href="/api" data-icon="lucide:book-open">
-    按数据类型组织的、全面的、可搜索的 Lodash 方法参考。
-  </x-card>
-  <x-card data-title="指南" data-href="/guides" data-icon="lucide:compass">
-    针对高级用例的技术指南，包括性能优化和自定义构建。
-  </x-card>
-  <x-card data-title="贡献与社区" data-href="/contributing" data-icon="lucide:users">
-    关于如何贡献和与 Lodash 社区建立联系的信息。
+  <x-card data-title="函数式编程" data-icon="lucide:function-square">
+    对于偏好函数式编程风格的开发者，`lodash/fp` 模块提供了 Lodash 方法的不可变、自动柯里化、迭代优先、数据置后的版本。
   </x-card>
 </x-cards>
 
+## 如何使用本文档
 
-## 社区与支持
+本文档分为几个关键部分，以帮助您充分利用 Lodash。无论您是在寻找安装说明、详细的 API 规范还是高级指南，都可以在这里找到。
 
-通过我们的社区渠道加入讨论，并与其他 Lodash 用户建立联系。有关如何参与、报告问题或为项目做出贡献的信息，请访问 [贡献与社区](./contributing.md) 部分。
+<x-cards data-columns="2">
+  <x-card data-title="入门指南" data-icon="lucide:rocket" data-href="/getting-started">
+    初次接触 Lodash？从这里开始。查找可快速复制粘贴的说明，了解如何在项目中安装和使用 Lodash。
+  </x-card>
+  <x-card data-title="API 参考" data-icon="lucide:book-open" data-href="/api">
+    每个 Lodash 方法的完整参考，按数据类型组织。如果您清楚自己要查找的内容，这是最快找到它的方法。
+  </x-card>
+  <x-card data-title="函数式编程指南" data-icon="lucide:workflow" data-href="/fp-guide">
+    深入了解 Lodash 的函数式编程能力，包括自动柯里化和不变性等概念。
+  </x-card>
+  <x-card data-title="指南" data-icon="lucide:compass" data-href="/guides">
+    探索高级主题，例如创建自定义构建、性能基准测试以及理解不同模块格式之间的差异。
+  </x-card>
+</x-cards>
+
+## 社区与贡献
+
+Lodash 是一个由专注的社区维护的开源项目。我们欢迎各种贡献和讨论。
+
+*   **聊天：** 在 [Gitter](https://gitter.im/lodash/lodash) 上加入对话。
+*   **贡献：** 阅读我们的[贡献指南](https://github.com/lodash/lodash/blob/master/.github/CONTRIBUTING.md)以开始。
+*   **关注：** 在 [Twitter](https://twitter.com/bestiejs) 上关注我们以获取最新信息。
+
+## 下一步
+
+准备好深入了解了吗？请前往我们的[入门指南](./getting-started.md)，快速完成安装并进行首次函数调用。

@@ -1,88 +1,89 @@
 # Build Differences
 
-Lodash provides several builds and module formats tailored for different environments and use cases. Selecting the appropriate build is key to optimizing your application's bundle size and performance. This guide details the available options and helps you choose the one that best fits your needs.
+Lodash provides a variety of builds and module formats to accommodate different project requirements, environments, and bundle size constraints. Understanding these differences allows you to select the most efficient build for your needs.
 
-For an interactive build tool, see the official [Custom Builds](https://lodash.com/custom-builds) page.
+## Available Builds
 
-## Main Builds
+Lodash offers two primary pre-compiled builds: a full build with all methods and a lightweight core build.
 
-Lodash offers two primary builds: a comprehensive **Full build** and a lightweight **Core build**. Both are available as UMD modules, making them suitable for direct use in browsers or with module loaders.
-
-| Build | Gzipped Size (approx.) | Description |
+| Build | Gzipped Size (Approx.) | Description |
 |---|---|---|
-| **Full Build** | ~24 kB | Contains all Lodash methods. Ideal for general-purpose use in Node.js or when a wide range of utilities is needed. |
-| **Core Build** | ~4 kB | A smaller subset of Lodash, including essential utility functions. Best for environments where bundle size is critical. |
+| **Full Build** | ~24 kB | Includes the complete Lodash library. Ideal for environments where bundle size is not the primary concern, such as Node.js backends. |
+| **Core Build** | ~4 kB | A lightweight subset of Lodash's most essential functions, suitable for projects where minimizing the JavaScript payload is critical. |
 
-### CDN and Download Links
+Both builds are available for download directly or through various CDNs.
 
-You can directly download or link to these builds via a CDN:
+*   [Download Core build](https://raw.githubusercontent.com/lodash/lodash/4.17.21/dist/lodash.core.js)
+*   [Download Full build](https://raw.githubusercontent.com/lodash/lodash/4.17.21/dist/lodash.js)
+*   [View CDN copies](https://www.jsdelivr.com/projects/lodash)
 
-<x-cards data-columns="2">
-  <x-card data-title="Full Build" data-icon="lucide:box" data-href="https://raw.githubusercontent.com/lodash/lodash/4.17.21/dist/lodash.js" data-cta="Download">
-    The complete Lodash library with all functions included.
-  </x-card>
-  <x-card data-title="Core Build" data-icon="lucide:box-select" data-href="https://raw.githubusercontent.com/lodash/lodash/4.17.21/dist/lodash.core.js" data-cta="Download">
-    A lightweight build with a subset of core utilities.
-  </x-card>
-</x-cards>
+## Module Formats & Usage
 
-For more CDN options, visit the [jsDelivr project page](https://www.jsdelivr.com/projects/lodash).
+Lodash can be integrated into your project in several ways, depending on your module system and optimization strategy.
 
-## Module Formats and Optimization
+### UMD (Universal Module Definition)
 
-Beyond the main builds, Lodash supports various module formats to integrate with modern development workflows and bundlers.
+For direct use in browsers, you can include the UMD build via a `<script>` tag. This is a simple way to get started without a build process.
 
-### Per-Method Packages (Cherry-Picking)
-
-For maximum bundle size optimization, you can import individual methods. This approach ensures that only the code you use is included in your final bundle. This is highly effective when using bundlers like Webpack, Rollup, or Parcel.
-
-```javascript
-// Load only the 'at' method from the main library.
-var at = require('lodash/at');
-
-// Load only the 'curryN' method from the FP build.
-var curryN = require('lodash/fp/curryN');
-
-// You can also load entire categories.
-var array = require('lodash/array');
+```html
+<script src="lodash.js"></script>
 ```
 
-### ES Modules
+### CommonJS (Node.js)
 
-For projects using ES module syntax (`import`/`export`), the `lodash-es` package is the recommended choice. It allows for tree-shaking, where unused code is automatically eliminated by your bundler.
+In Node.js environments, you can require Lodash using the standard CommonJS syntax.
 
-To further optimize this process, you can use plugins like:
-- [babel-plugin-lodash](https://www.npmjs.com/package/babel-plugin-lodash)
-- [lodash-webpack-plugin](https://www.npmjs.com/package/lodash-webpack-plugin)
+```javascript
+// Load the full build.
+var _ = require('lodash');
+
+// Load the core build.
+var _ = require('lodash/core');
+```
 
 ### Functional Programming (FP) Build
 
-Lodash provides a dedicated build for functional programming styles. The `lodash/fp` module offers methods with these characteristics:
-
-- **Immutable**: Does not mutate input data.
-- **Auto-curried**: Functions can be called with one argument at a time.
-- **Iteratee-first**: The function to be applied comes before the data.
-- **Data-last**: The data collection is the last argument.
+For developers using a functional programming style, Lodash provides a dedicated FP build. These methods are immutable, auto-curried, and have iteratee-first, data-last signatures.
 
 ```javascript
-// Load the FP build for immutable, auto-curried methods.
+// Load the FP build
 var fp = require('lodash/fp');
 ```
 
+### Per-Method Packages (Cherry-Picking)
+
+To achieve the smallest possible bundle size, you can import individual methods. This approach is highly effective when used with bundlers like Webpack, Rollup, or Browserify, as it ensures only the code you use is included in the final output.
+
+```javascript
+// Cherry-pick a standard method
+var at = require('lodash/at');
+
+// Cherry-pick an FP method
+var curryN = require('lodash/fp/curryN');
+```
+
+### ES Modules & Build Tools
+
+For modern JavaScript projects, several packages facilitate tree-shaking and automated optimization:
+
+*   **`lodash-es`**: An ES module version of Lodash, ideal for use with bundlers that support tree-shaking.
+*   **`babel-plugin-lodash`**: A Babel plugin that automatically transforms your code to use per-method imports, simplifying the cherry-picking process.
+*   **`lodash-webpack-plugin`**: A Webpack plugin that further optimizes Lodash builds by replacing method implementations with smaller, more specific versions.
+
 ## Creating Custom Builds
 
-You can generate your own custom builds using `lodash-cli`. This allows you to package only the methods you need into a single file.
+You can generate custom builds tailored to your specific needs using `lodash-cli`. This allows you to create a build containing only the methods you require.
 
-First, install the CLI tool if you haven't already. Then, use the build scripts available in the project's `package.json` or run `lodash-cli` commands directly.
-
-Here are the commands used to generate the standard distribution files:
+The following commands demonstrate how to generate the standard full and core builds:
 
 ```shell
-# Generate the full build
+# Generate the full build from source
 $ lodash -o ./dist/lodash.js
 
 # Generate the core build
 $ lodash core -o ./dist/lodash.core.js
 ```
 
-By leveraging these different builds and module formats, you can tailor Lodash to the specific performance and size constraints of your project.
+--- 
+
+By choosing the appropriate build and module format, you can optimize your project's performance and bundle size. For more in-depth optimization techniques, refer to the [Performance](./guides-performance.md) guide.

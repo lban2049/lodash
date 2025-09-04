@@ -1,8 +1,8 @@
 # Functional Programming Guide
 
-The `lodash/fp` module provides a more functional approach to programming by offering an immutable, auto-curried, iteratee-first, data-last version of Lodash methods. This guide explains the core concepts and how to leverage them.
+The `lodash/fp` module provides an immutable, auto-curried, iteratee-first, data-last version of Lodash methods. This guide explains the core principles of the FP-style variant and how it differs from the standard Lodash build.
 
-To get started, simply import from `lodash/fp`:
+To get started, simply import the `fp` module:
 
 ```js
 // Load the FP build for immutable auto-curried iteratee-first data-last methods.
@@ -11,136 +11,129 @@ var fp = require('lodash/fp');
 
 ## Core Principles
 
-The functional programming variant of Lodash is built on four main principles that enable a different, more declarative style of coding, particularly for data manipulation.
+The FP module is built on several key functional programming principles that facilitate creating modular, reusable, and side-effect-free code.
 
 ### 1. Immutability
 
-Standard Lodash methods sometimes mutate the input array or object (e.g., `_.pull`, `_.assign`). In the FP version, these methods are wrapped to operate immutably. Instead of modifying the original data structure, they always return a new, updated one.
+Unlike many standard Lodash methods, functions in the `lodash/fp` module are immutable. They do not modify the input data. Instead, they return a new, modified instance. This applies to methods that would typically mutate arrays or objects.
 
-For example, methods that mutate arrays like `fill`, `pull`, `pullAll`, and `reverse` will return a new array. Similarly, object methods like `assign`, `defaults`, and `merge` will return a new object.
+For example, methods like `assign`, `pull`, and `set` are wrapped to first clone the input data before performing the operation, ensuring the original data structure remains unchanged.
 
-```js
-const data = { 'a': 1, 'b': 2 };
+Below are examples of standard Lodash methods that are wrapped for immutability in the FP module:
 
-// Standard Lodash (mutates 'data')
-// _.assign(data, { 'c': 3 });
-// console.log(data); // => { 'a': 1, 'b': 2, 'c': 3 }
+| Category | Methods Made Immutable |
+| --- | --- |
+| **Array** | `fill`, `pull`, `pullAll`, `pullAllBy`, `pullAllWith`, `pullAt`, `remove`, `reverse` |
+| **Object** | `assign`, `assignAll`, `assignIn`, `defaults`, `defaultsDeep`, `merge`, `mergeAll` |
+| **Setters** | `set`, `setWith`, `unset`, `update`, `updateWith` |
 
-// Lodash FP (returns a new object)
-const result = fp.assign({ 'c': 3 }, data);
-console.log(result); // => { 'a': 1, 'b': 2, 'c': 3 }
-console.log(data);   // => { 'a': 1, 'b': 2 } (original is unchanged)
-```
+### 2. Auto-Currying
 
-### 2. Data-Last Method Signatures
-
-Most Lodash methods have a `(data, ...args)` signature. The FP variant rearranges these arguments to be data-last: `(...args, data)`. This is a critical change that facilitates function composition and currying.
-
-| Standard Lodash | Lodash FP |
-|---|---|
-| `_.map(collection, iteratee)` | `fp.map(iteratee, collection)` |
-| `_.filter(collection, predicate)` | `fp.filter(predicate, collection)` |
-| `_.get(object, path, defaultValue)` | `fp.get(path, object)` or `fp.getOr(defaultValue, path, object)` |
-
-This convention allows you to create specialized functions by pre-filling the arguments, leaving the data to be supplied later.
-
-### 3. Auto-Currying
-
-All methods in `lodash/fp` are automatically curried. This means you can call a function with fewer arguments than it expects, and it will return a new function that waits for the remaining arguments. This works seamlessly with the data-last approach.
+All methods in the FP module with an arity greater than 1 are auto-curried. This allows you to create new functions by partially applying arguments. This feature is central to building up complex operations from simpler functions.
 
 ```js
-const users = [{ 'name': 'Alice', 'active': true }, { 'name': 'Bob', 'active': false }];
+const fp = require('lodash/fp');
 
-// Create a specialized function by providing the iteratee argument first.
+// Create a specialized function by providing the iteratee.
 const getNames = fp.map(fp.get('name'));
 
-// Now, apply this function to your data.
-const names = getNames(users);
+const users = [{ name: 'Alice' }, { name: 'Bob' }];
+
+// Apply the data to the specialized function.
+getNames(users);
 // => ['Alice', 'Bob']
 ```
 
-You can also use a placeholder, `fp.__`, to supply arguments out of order.
+You can also use the placeholder `fp.placeholder` (aliased as `__`) to defer providing an argument.
 
 ```js
-// Create a function that divides any number by 2
-const divideBy2 = fp.divide(fp.__, 2);
+const g = fp.get(__, { 'a': 1 });
 
-divideBy2(10); // => 5
+g('a');
+// => 1
 ```
 
-### 4. Capped Iteratee Arguments
+### 3. Data-Last and Argument Reordering
 
-By default, iteratee functions passed to methods like `map` and `filter` receive only one argument: `(value)`. This prevents common errors where, for example, `parseInt` receives the `index` argument and produces unexpected results.
+To facilitate currying and function composition, all methods are data-last. This means the data structure being operated on (like an array or object) is provided as the final argument. This is achieved by reordering the original Lodash method arguments.
 
-## Function Composition
+Common reordering patterns include:
+- **2-argument functions**: `(a, b)` becomes `(b, a)`.
+- **3-argument functions**: `(a, b, c)` becomes `(c, a, b)`.
 
-The primary benefit of these principles is powerful and readable function composition. You can build complex data transformations by chaining simple functions together using `fp.flow` (left-to-right) or `fp.flowRight` (right-to-left).
+This makes it easy to create pipelines of operations using composition functions like `fp.flow`.
+
+**Standard Lodash (Data-First)**
+```js
+const _ = require('lodash');
+_.map(['a', 'b', 'c'], _.toUpper);
+// => ['A', 'B', 'C']
+```
+
+**Lodash FP (Data-Last)**
+```js
+const fp = require('lodash/fp');
+fp.map(fp.toUpper)(['a', 'b', 'c']);
+// => ['A', 'B', 'C']
+```
+
+### 4. Iteratee-First
+
+Iteratee functions (callbacks) are always the first argument. This consistent signature, combined with data-last, is what makes composing functions straightforward.
 
 ```js
-const users = [
-  { 'name': 'ALICE', 'age': 30 },
-  { 'name': 'bob', 'age': 25 },
-  { 'name': 'CHARLIE', 'age': 35 }
-];
+const fp = require('lodash/fp');
 
-const processUsers = fp.flow(
-  fp.filter(user => user.age > 28),
-  fp.map(fp.get('name')),
-  fp.map(fp.lowerCase),
-  fp.map(fp.capitalize)
+const getFirstAndDouble = fp.flow(
+  fp.map(x => x * 2),
+  fp.first
 );
 
-const result = processUsers(users);
-// => ['Alice', 'Charlie']
+getFirstAndDouble([1, 2, 3]);
+// => 2
 ```
 
-## Aliases & Remapping
+## Aliases for Interoperability
 
-To provide a more consistent FP experience and align with conventions from other libraries like Ramda, `lodash/fp` includes several aliases and remapped methods.
+To provide a familiar experience for developers coming from other functional libraries like Ramda, `lodash/fp` includes several common aliases.
 
-| Lodash FP Alias | Real Lodash Method |
-|---|---|
-| `pipe` | `flow` |
-| `compose` | `flowRight` |
-| `prop` | `get` |
-| `propEq` | `matchesProperty` |
-| `assoc` | `set` |
-| `dissoc` | `unset` |
-| `any` | `some` |
-| `all` | `every` |
-| `__` | `placeholder` |
-| `equals` | `isEqual` |
-| `T` | `stubTrue` |
-| `F` | `stubFalse` |
+| Alias | Lodash FP Method | Description |
+| --- | --- | --- |
+| `__` | `placeholder` | The curry placeholder for partial application. |
+| `pipe` | `flow` | Left-to-right function composition. |
+| `compose` | `flowRight` | Right-to-left function composition. |
+| `prop` | `get` | Retrieves a property value from an object. |
+| `path` | `get` | Retrieves a nested property value from an object. |
+| `equals` | `isEqual` | Performs a deep equality comparison. |
+| `always` | `constant` | Creates a function that returns a constant value. |
+| `T` | `stubTrue` | A function that always returns `true`. |
+| `F` | `stubFalse` | A function that always returns `false`. |
+| `any` | `some` | Checks if any element in a collection passes a test. |
+| `all` | `every` | Checks if all elements in a collection pass a test. |
 
 ## Custom Conversion
 
-You can create your own FP-style functions or convert an entire library using `fp.convert`. This is an advanced feature that gives you control over the conversion process.
+The FP module is generated using a `convert` function that can be used to create custom Lodash variants with specific behaviors. This is an advanced feature that allows fine-grained control over the generated functions.
+
+Each FP method has a `.convert()` method attached, which accepts an options object.
 
 ```js
-const myLib = {
-  add: (a, b) => a + b
-};
+const fp = require('lodash/fp');
 
-const fpLib = fp.convert(myLib, {
-  'curry': true,
-  'rearg': true
+// Create a mutable, data-first, but still curried version of `set`
+const mutableCurriedSet = fp.set.convert({
+  'immutable': false,
+  'rearg': false
 });
-
-const add5 = fpLib.add(5);
-add5(10); // => 15
 ```
 
-The `convert` function accepts an options object to control its behavior:
-
-| Option | Default | Description |
-|---|---|---|
-| `cap` | `true` | Specifies capping iteratee arguments. |
-| `curry` | `true` | Specifies currying. |
-| `fixed` | `true` | Specifies fixed arity. |
-| `immutable` | `true` | Specifies immutable operations. |
-| `rearg` | `true` | Specifies rearranging arguments to be data-last. |
+Available conversion options include:
+- `cap` (boolean): Specify capping iteratee arguments. Defaults to `true`.
+- `curry` (boolean): Specify currying. Defaults to `true`.
+- `fixed` (boolean): Specify fixed arity. Defaults to `true`.
+- `immutable` (boolean): Specify immutable operations. Defaults to `true`.
+- `rearg` (boolean): Specify rearranging arguments. Defaults to `true`.
 
 ---
 
-By embracing these functional principles, `lodash/fp` enables a declarative, powerful, and highly reusable way to manipulate data. For a complete list of functions, please see the [API Reference](./api.md).
+For a complete list of available functions and their signatures, please see the [API Reference](./api.md).

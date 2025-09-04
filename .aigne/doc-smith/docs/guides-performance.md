@@ -1,101 +1,117 @@
 # Performance
 
-Performance is a core design principle of Lodash. The library is highly optimized for common use cases, but real-world performance can vary based on data structures, environment, and specific usage patterns. To provide transparency and a tool for analysis, Lodash includes a comprehensive benchmark suite.
+Lodash is engineered for high performance, with its functions carefully optimized for speed across various JavaScript environments. To validate and showcase these optimizations, the library includes a comprehensive benchmark suite that measures the performance of its functions against other popular utility libraries, such as Underscore.js.
 
-This guide explains how to run the performance benchmarks and interpret their results, enabling you to make informed decisions and leverage the library's internal optimizations effectively.
+This guide provides an overview of the performance testing setup and explains how you can run the benchmarks and interpret the results.
 
-## The Lodash Benchmark Suite
+## The Benchmark Suite
 
-The performance suite, located in the `perf` directory of the source code, uses [Benchmark.js](http://benchmarkjs.com/) to execute a series of tests. It compares the performance of the specified Lodash build against other utility libraries, such as Underscore.js, across a wide array of functions.
+The performance suite is built using [Benchmark.js](https://benchmarkjs.com/), a robust library for creating accurate and reliable performance tests. It comprises numerous test cases, each targeting a specific Lodash function under different scenarios, such as iterating over arrays versus objects or handling various data sizes.
 
-Key features of the suite include:
+The suite is designed to run in multiple JavaScript environments, including modern browsers and server-side runtimes like Node.js, ensuring that performance is consistent across platforms.
 
-- **Comprehensive Coverage**: Benchmarks cover a wide range of functions, including array and object iteration, function composition, cloning, and deep equality checks.
-- **Side-by-Side Comparison**: Directly compares Lodash against another library in the same environment to produce reliable relative performance data.
-- **Configurable Builds**: The browser-based runner allows you to select different library builds (e.g., production minified vs. development) to test.
+### How Benchmarking Works
 
-## Running the Benchmarks
-
-You can run the performance suite directly in your browser by following these steps:
-
-1.  **Clone the Repository**: First, clone the Lodash source code from GitHub.
-    ```bash
-    git clone https://github.com/lodash/lodash.git
-    ```
-
-2.  **Navigate to the Directory**: Change into the performance test directory.
-    ```bash
-    cd lodash/perf
-    ```
-
-3.  **Open the HTML Runner**: Open the `index.html` file in your web browser. The suite will start automatically.
-
-4.  **View the Results**: Open your browser's developer console to see the benchmark results as they are completed. The UI at the top of the page allows you to select different builds of Lodash and the library it's being compared against.
-
-## Benchmark Process Overview
-
-The diagram below illustrates the workflow of the browser-based performance test suite.
+The following diagram illustrates the workflow of the performance testing process. A runner script executes a series of test suites defined in `perf.js`. These suites use `Benchmark.js` to compare the performance of Lodash against a specified alternative library (e.g., Underscore), ultimately generating a detailed performance report.
 
 ```d2
 direction: down
 
-"index.html": {
-  label: "Browser loads index.html"
-  shape: document
-}
-
-"perf-ui.js": {
-  label: "perf-ui.js"
-  shape: rectangle
-}
-
-"perf.js": {
-  label: "perf.js Test Runner"
+"Benchmark-Runner": {
   shape: package
+  label: "Benchmark Runner"
+  grid-columns: 2
+
+  "Browser-Test": {
+    label: "Browser\n(perf/index.html)"
+    shape: rectangle
+  }
+
+  "CLI-Test": {
+    label: "Node.js\n(perf/perf.js)"
+    shape: rectangle
+  }
 }
 
-"Benchmark.js": {
-  label: "Benchmark.js Engine"
+"Benchmark-js": {
+  label: "Benchmark.js"
   shape: hexagon
 }
 
-"console": {
-  label: "Developer Console Output"
-  shape: rectangle
+"Libraries-to-Compare": {
+  shape: package
+  label: "Libraries to Compare"
+  grid-columns: 2
+
+  "Lodash": { 
+    shape: document
+  }
+  "Underscore": {
+    shape: document
+  }
 }
 
-"index.html" -> "perf-ui.js": "Loads"
-"index.html" -> "perf.js": "Loads"
-"perf.js" -> "Benchmark.js": "Configures and runs suites"
-"Benchmark.js" -> "perf.js": "Executes tests and triggers event handlers"
-"perf.js" -> "console": "Logs formatted results"
+"Results": {
+  label: "Performance Report\n(ops/sec, % faster)"
+  shape: document
+}
+
+"Benchmark-Runner" -> "Benchmark-js": "Uses"
+"Benchmark-js" -> "Libraries-to-Compare": "Tests"
+"Benchmark-js" -> "Results": "Outputs"
+```
+
+## Running the Benchmarks
+
+You can run the performance suite yourself to see the results on your own machine.
+
+### In the Browser
+
+To run the benchmarks in a browser, open the `perf/index.html` file from a local server. This page provides a user interface where you can select different builds of Lodash and the library you wish to compare it against. The results are logged to the Firebug Lite console embedded on the page.
+
+### From the Command Line
+
+To run the tests in a Node.js environment, execute the `perf/perf.js` script from your terminal. The script will load Lodash and the comparison library, run all benchmark suites, and print the results directly to the console.
+
+```bash
+node perf/perf.js
 ```
 
 ## Interpreting the Results
 
-For each test suite, the runner logs the performance of both libraries in operations per second (Hz). A higher number indicates better performance. It concludes by identifying the faster library for that specific test.
+The output for each test shows the number of **operations per second (ops/sec)**, where a higher number indicates better performance. The script also reports the percentage difference, making it easy to see which function is faster.
 
-A typical output for a single function test looks like this:
+After all individual suites complete, a final summary is displayed. This summary uses the **geometric mean** of all test scores to provide a reliable overall comparison, concluding which library is faster on average and by what percentage.
 
-```text
-`_.filter` iterating an array:
-lodash x 4,371,037 ops/sec ±1.24% (89 runs sampled)
-underscore x 2,143,876 ops/sec ±1.51% (87 runs sampled)
-lodash is 103.88% faster.
-```
-
-After all suites have run, a final summary is printed. This summary uses the geometric mean of all test results to provide a balanced overall comparison of the two libraries.
+An example of the output for a single suite might look like this:
 
 ```text
-lodash is 74.31% (1.74x) faster than underscore.
+`_.assign`:
+lodash x 45,932,749 ops/sec ±0.79% (96 runs sampled)
+underscore x 38,198,391 ops/sec ±0.83% (98 runs sampled)
+lodash is 20% faster.
 ```
 
-## Writing Performant Code
+The final report provides a high-level summary:
 
-The benchmark suite itself is an excellent resource for understanding how to write high-performance code with Lodash. By examining the `perf/perf.js` file, you can see how various functions are tested under different conditions.
+```text
+lodash is 42% (1.42x) faster than underscore.
+```
 
-For performance-critical applications, consider using the benchmark suite to test your specific use cases. You can modify the existing tests or add new ones to measure how different Lodash functions perform with your data, helping you identify and eliminate bottlenecks.
+## Key Areas of Optimization
+
+The benchmark suite covers a wide range of Lodash's functionality. The following table highlights some of the key areas that are rigorously tested for performance.
+
+| Category | Example Functions Benchmarked |
+|---|---|
+| **Chaining** | `_(...).map(...).filter(...).value()` |
+| **Object Manipulation** | `assign`, `clone`, `isEqual`, `defaults`, `omit`, `pick` |
+| **Collection Iteration** | `each`, `map`, `filter`, `reduce`, `every`, `some`, `find` |
+| **Function Utilities** | `bind`, `bindAll`, `partial`, `flowRight`, `wrap` |
+| **Array Operations** | `difference`, `intersection`, `union`, `uniq`, `flatten`, `zip` |
+| **Type Checking** | `isArguments`, `isDate`, `isFunction`, `isObject`, etc. |
+| **Utilities** | `template`, `times`, `shuffle`, `sortBy` |
 
 ---
 
-By understanding and utilizing the Lodash performance suite, you can validate performance claims and optimize your own code. For another key optimization strategy, see our guide on [Build Differences](./guides-build-differences.md) to learn how to create smaller, custom builds for your projects.
+Lodash's commitment to performance is demonstrated by its comprehensive and transparent benchmarking process. For further performance gains in production, especially regarding bundle size, consider creating a custom build tailored to your specific needs. You can find more information in our [Build Differences](./guides-build-differences.md) guide.

@@ -1,8 +1,8 @@
 # 数学
 
-Lodash 提供了一系列基础的数学工具函数，可用于加法、减法、四舍五入等常见运算，以及从集合中计算最小值、最大值和平均值等聚合值。这些函数能够妥善处理类型转换，并兼具性能和可靠性。
+Lodash 提供了一套基础的数学工具函数，用于执行常见的算术和聚合运算。这些函数设计得简单明了，可以处理加法、减法、除法等基本计算，以及求取平均值、最小值和最大值等统计值。
 
-有关更多数字相关的工具函数，请参阅 [Number](./api-number.md) API 参考。
+有关数字取值范围或区间的工具，请参阅 [Number API 参考](./api-number.md)。
 
 ---
 
@@ -12,10 +12,10 @@ Lodash 提供了一系列基础的数学工具函数，可用于加法、减法�
 
 **参数**
 
-| Parameter | Type     | Description                      |
-| :-------- | :------- | :------------------------------- |
-| `augend`  | `number` | 加法运算中的第一个数。 |
-| `addend`  | `number` | 加法运算中的第二个数。 |
+| Name | Type | Description |
+|---|---|---|
+| `augend` | `number` | 加法运算中的第一个数。 |
+| `addend` | `number` | 加法运算中的第二个数。 |
 
 **返回值**
 
@@ -32,14 +32,14 @@ _.add(6, 4);
 
 ## ceil
 
-计算 `number` 向上舍入到 `precision` 的结果。
+计算 `number` 向上舍入到 `precision` 的值。
 
 **参数**
 
-| Parameter      | Type     | Description                        |
-| :------------- | :------- | :--------------------------------- |
-| `number`       | `number` | 要向上舍入的数字。            |
-| `[precision=0]`| `number` | 向上舍入的精度。      |
+| Name | Type | Description |
+|---|---|---|
+| `number` | `number` | 要向上舍入的数字。 |
+| `precision` | `number` | （可选）向上舍入的精度。默认为 `0`。 |
 
 **返回值**
 
@@ -66,10 +66,10 @@ _.ceil(6040, -2);
 
 **参数**
 
-| Parameter  | Type     | Description                      |
-| :--------- | :------- | :------------------------------- |
-| `dividend` | `number` | 除法运算中的第一个数。  |
-| `divisor`  | `number` | 除法运算中的第二个数。 |
+| Name | Type | Description |
+|---|---|---|
+| `dividend` | `number` | 除法运算中的第一个数。 |
+| `divisor` | `number` | 除法运算中的第二个数。 |
 
 **返回值**
 
@@ -86,14 +86,14 @@ _.divide(6, 4);
 
 ## floor
 
-计算 `number` 向下舍入到 `precision` 的结果。
+计算 `number` 向下舍入到 `precision` 的值。
 
 **参数**
 
-| Parameter      | Type     | Description                         |
-| :------------- | :------- | :---------------------------------- |
-| `number`       | `number` | 要向下舍入的数字。           |
-| `[precision=0]`| `number` | 向下舍入的精度。     |
+| Name | Type | Description |
+|---|---|---|
+| `number` | `number` | 要向下舍入的数字。 |
+| `precision` | `number` | （可选）向下舍入的精度。默认为 `0`。 |
 
 **返回值**
 
@@ -116,13 +116,13 @@ _.floor(4060, -2);
 
 ## max
 
-计算 `array` 中的最大值。如果 `array` 为空或假值，则返回 `undefined`。
+计算 `array` 的最大值。如果 `array` 为空或假值，则返回 `undefined`。
 
 **参数**
 
-| Parameter | Type    | Description                   |
-| :-------- | :------ | :---------------------------- |
-| `array`   | `Array` | 要迭代的数组。    |
+| Name | Type | Description |
+|---|---|---|
+| `array` | `Array` | 要迭代的数组。 |
 
 **返回值**
 
@@ -142,14 +142,14 @@ _.max([]);
 
 ## maxBy
 
-此方法类似于 `_.max`，但它接受一个 `iteratee` 函数。该函数会为 `array` 中的每个元素调用，以生成用于排序的标准。`iteratee` 调用时会传入一个参数：(value)。
+此方法类似于 `_.max`，但它接受一个 `iteratee`，该函数会为 `array` 中的每个元素调用，以生成用于排序的标准。iteratee 调用时会传入一个参数：(value)。
 
 **参数**
 
-| Parameter               | Type       | Description                        |
-| :---------------------- | :--------- | :--------------------------------- |
-| `array`                 | `Array`    | 要迭代的数组。         |
-| `[iteratee=_.identity]` | `Function` | 对每个元素调用的 `iteratee` 函数。    |
+| Name | Type | Description |
+|---|---|---|
+| `array` | `Array` | 要迭代的数组。 |
+| `iteratee` | `Function` | （可选）每个元素调用的 iteratee。默认为 `_.identity`。 |
 
 **返回值**
 
@@ -172,13 +172,13 @@ _.maxBy(objects, 'n');
 
 ## mean
 
-计算 `array` 中所有值的平均值。
+计算 `array` 中值的平均值。
 
 **参数**
 
-| Parameter | Type    | Description                |
-| :-------- | :------ | :------------------------- |
-| `array`   | `Array` | 要迭代的数组。 |
+| Name | Type | Description |
+|---|---|---|
+| `array` | `Array` | 要迭代的数组。 |
 
 **返回值**
 
@@ -195,14 +195,14 @@ _.mean([4, 2, 8, 6]);
 
 ## meanBy
 
-此方法类似于 `_.mean`，但它接受一个 `iteratee` 函数。该函数会为 `array` 中的每个元素调用，以生成用于计算平均值的值。`iteratee` 调用时会传入一个参数：(value)。
+此方法类似于 `_.mean`，但它接受一个 `iteratee`，该函数会为 `array` 中的每个元素调用，以生成用于计算平均值的值。iteratee 调用时会传入一个参数：(value)。
 
 **参数**
 
-| Parameter               | Type       | Description                     |
-| :---------------------- | :--------- | :------------------------------ |
-| `array`                 | `Array`    | 要迭代的数组。      |
-| `[iteratee=_.identity]` | `Function` | 对每个元素调用的 `iteratee` 函数。 |
+| Name | Type | Description |
+|---|---|---|
+| `array` | `Array` | 要迭代的数组。 |
+| `iteratee` | `Function` | （可选）每个元素调用的 iteratee。默认为 `_.identity`。 |
 
 **返回值**
 
@@ -225,13 +225,13 @@ _.meanBy(objects, 'n');
 
 ## min
 
-计算 `array` 中的最小值。如果 `array` 为空或假值，则返回 `undefined`。
+计算 `array` 的最小值。如果 `array` 为空或假值，则返回 `undefined`。
 
 **参数**
 
-| Parameter | Type    | Description                   |
-| :-------- | :------ | :---------------------------- |
-| `array`   | `Array` | 要迭代的数组。    |
+| Name | Type | Description |
+|---|---|---|
+| `array` | `Array` | 要迭代的数组。 |
 
 **返回值**
 
@@ -251,14 +251,14 @@ _.min([]);
 
 ## minBy
 
-此方法类似于 `_.min`，但它接受一个 `iteratee` 函数。该函数会为 `array` 中的每个元素调用，以生成用于排序的标准。`iteratee` 调用时会传入一个参数：(value)。
+此方法类似于 `_.min`，但它接受一个 `iteratee`，该函数会为 `array` 中的每个元素调用，以生成用于排序的标准。iteratee 调用时会传入一个参数：(value)。
 
 **参数**
 
-| Parameter               | Type       | Description                        |
-| :---------------------- | :--------- | :--------------------------------- |
-| `array`                 | `Array`    | 要迭代的数组。         |
-| `[iteratee=_.identity]` | `Function` | 对每个元素调用的 `iteratee` 函数。    |
+| Name | Type | Description |
+|---|---|---|
+| `array` | `Array` | 要迭代的数组。 |
+| `iteratee` | `Function` | （可选）每个元素调用的 iteratee。默认为 `_.identity`。 |
 
 **返回值**
 
@@ -285,10 +285,10 @@ _.minBy(objects, 'n');
 
 **参数**
 
-| Parameter      | Type     | Description                             |
-| :------------- | :------- | :-------------------------------------- |
-| `multiplier`   | `number` | 乘法运算中的第一个数。   |
-| `multiplicand` | `number` | 乘法运算中的第二个数。  |
+| Name | Type | Description |
+|---|---|---|
+| `multiplier` | `number` | 乘法运算中的第一个数。 |
+| `multiplicand` | `number` | 乘法运算中的第二个数。 |
 
 **返回值**
 
@@ -305,14 +305,14 @@ _.multiply(6, 4);
 
 ## round
 
-计算 `number` 四舍五入到 `precision` 的结果。
+计算 `number` 四舍五入到 `precision` 的值。
 
 **参数**
 
-| Parameter      | Type     | Description                    |
-| :------------- | :------- | :----------------------------- |
-| `number`       | `number` | 要进行四舍五入的数字。           |
-| `[precision=0]`| `number` | 四舍五入的精度。     |
+| Name | Type | Description |
+|---|---|---|
+| `number` | `number` | 要四舍五入的数字。 |
+| `precision` | `number` | （可选）四舍五入的精度。默认为 `0`。 |
 
 **返回值**
 
@@ -339,14 +339,14 @@ _.round(4060, -2);
 
 **参数**
 
-| Parameter    | Type     | Description                          |
-| :----------- | :------- | :----------------------------------- |
-| `minuend`    | `number` | 减法运算中的第一个数。   |
-| `subtrahend` | `number` | 减法运算中的第二个数。  |
+| Name | Type | Description |
+|---|---|---|
+| `minuend` | `number` | 减法运算中的第一个数。 |
+| `subtrahend` | `number` | 减法运算中的第二个数。 |
 
 **返回值**
 
-- `(number)`: 返回差值。
+- `(number)`: 返回差。
 
 **示例**
 
@@ -359,13 +359,13 @@ _.subtract(6, 4);
 
 ## sum
 
-计算 `array` 中所有值的总和。
+计算 `array` 中值的总和。
 
 **参数**
 
-| Parameter | Type    | Description                |
-| :-------- | :------ | :------------------------- |
-| `array`   | `Array` | 要迭代的数组。 |
+| Name | Type | Description |
+|---|---|---|
+| `array` | `Array` | 要迭代的数组。 |
 
 **返回值**
 
@@ -382,14 +382,14 @@ _.sum([4, 2, 8, 6]);
 
 ## sumBy
 
-此方法类似于 `_.sum`，但它接受一个 `iteratee` 函数。该函数会为 `array` 中的每个元素调用，以生成用于求和的值。`iteratee` 调用时会传入一个参数：(value)。
+此方法类似于 `_.sum`，但它接受一个 `iteratee`，该函数会为 `array` 中的每个元素调用，以生成用于求和的值。iteratee 调用时会传入一个参数：(value)。
 
 **参数**
 
-| Parameter               | Type       | Description                     |
-| :---------------------- | :--------- | :------------------------------ |
-| `array`                 | `Array`    | 要迭代的数组。      |
-| `[iteratee=_.identity]` | `Function` | 对每个元素调用的 `iteratee` 函数。 |
+| Name | Type | Description |
+|---|---|---|
+| `array` | `Array` | 要迭代的数组。 |
+| `iteratee` | `Function` | （可选）每个元素调用的 iteratee。默认为 `_.identity`。 |
 
 **返回值**
 
@@ -408,4 +408,4 @@ _.sumBy(objects, 'n');
 // => 20
 ```
 
-本节介绍了 Lodash 的核心数学函数。如需了解更多数值运算，请继续阅读 [Number](./api-number.md) API 参考。
+本指南详细介绍了 Lodash 中可用的数学工具函数。如需更多数值工具，请继续阅读 [Number API 参考](./api-number.md)。
