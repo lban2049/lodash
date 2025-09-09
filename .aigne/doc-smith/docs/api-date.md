@@ -1,25 +1,26 @@
 # Date
 
-This section provides a reference for Lodash functions that work with Date objects. These utilities help in managing time-related data within your applications. For other miscellaneous utilities, you may also find the [Util](./api-util.md) section helpful.
+Lodash provides a utility function for working with dates, primarily for obtaining the current timestamp. This function is useful for performance measurements, logging, or any scenario requiring a high-resolution timestamp.
 
 ---
 
-## now()
+## now
 
 Gets the timestamp of the number of milliseconds that have elapsed since the Unix epoch (1 January 1970 00:00:00 UTC).
 
-### Details
+This method is a high-resolution alternative to `Date.now()`.
 
-| Detail      | Description                                  |
-| :---------- | :------------------------------------------- |
-| **Since**   | 2.4.0                                        |
-| **Returns** | `(number)`: Returns the current timestamp.   |
+### Parameters
+
+This function does not accept any parameters.
+
+### Returns
+
+(`number`): Returns the current timestamp.
 
 ### Example
 
-This example uses `_.defer` to show how `_.now()` can be used to measure an interval.
-
-```javascript
+```javascript icon=logos:javascript
 _.defer(function(stamp) {
   console.log(_.now() - stamp);
 }, _.now());
@@ -28,4 +29,4 @@ _.defer(function(stamp) {
 
 ---
 
-This covers the core date utility in Lodash. For functions that manipulate other data types, please refer back to the main [API Reference](./api.md).
+This section covers Lodash's date utility. For more complex function scheduling related to time, explore the methods in the [Function](./api-function.md) category, such as `_.defer` and `_.delay`.

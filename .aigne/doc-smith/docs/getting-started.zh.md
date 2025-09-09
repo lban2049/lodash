@@ -1,79 +1,104 @@
 # 入门指南
 
-欢迎使用 Lodash！本指南将帮助你在项目中快速上手并运行该库。Lodash 解决了处理数组、数字、对象和字符串时的繁琐问题，让 JavaScript 编程变得更加简单。
+本指南提供了简洁、即拷即用的说明，帮助你在项目中快速上手并运行 Lodash。无论你是在 Web 浏览器还是 Node.js 环境中工作，只需几个简单的步骤，即可开始使用 Lodash 强大的实用工具函数。
 
-如需查看所有可用函数的完整列表，请参阅 [API 参考](./api.md)。
+## 在浏览器中使用
 
-## 安装
+在浏览器中使用 Lodash 最简单的方法是通过 `<script>` 标签引入。你可以直接下载副本，也可以使用内容分发网络 (CDN) 来提供文件。
 
-Lodash 以 [UMD](https://github.com/umdjs/umd) 模块的形式提供，可在多种环境中使用。你可以通过在浏览器中使用 script 标签，或通过 npm 等包管理器进行安装，将其添加到你的项目中。
-
-### 在浏览器中使用
-
-要在浏览器中直接使用 Lodash，可以通过 `<script>` 标签引入。你可以从官网下载完整构建版本，或链接到 CDN 副本。
-
-```html
+```html title="index.html"
 <script src="lodash.js"></script>
 ```
 
-你可以在 [jsdelivr](https://www.jsdelivr.com/projects/lodash) 上找到多种 CDN 选项。
+为方便起见，你可以使用像 jsDelivr 这样的流行 CDN 来引入 Lodash，无需自行托管文件：
 
-### 使用 npm
-
-对于 Node.js 应用或使用 webpack、Rollup 等打包工具的项目，推荐通过 npm 安装 Lodash。
-
-```shell
-$ npm i --save lodash
+```html title="index.html"
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
 ```
 
-## 基本用法
+引入后，Lodash 库将通过全局变量 `_` 提供。
 
-安装后，你可以在你的 Node.js 文件中 require Lodash，或在你的现代 JavaScript 项目中 import 它。
+```javascript Example Usage icon=logos:javascript
+const array = [1, 2, 3, 4];
+const chunkedArray = _.chunk(array, 2);
 
-### 在 Node.js 中
-
-以下是在 Node.js 环境中加载 Lodash 的常见方法：
-
-```javascript
-// 加载完整构建版本。
-var _ = require('lodash');
-
-// 加载核心构建版本（函数的较小子集）。
-var _ = require('lodash/core');
-
-// 加载 FP 构建版本，用于函数式编程，其方法具有不可变、自动柯里化的特点。
-var fp = require('lodash/fp');
+console.log(chunkedArray);
+// => [[1, 2], [3, 4]]
 ```
 
-### 按需选择方法
+<x-card data-title="查找 CDN 副本" data-icon="lucide:package-check" data-href="https://www.jsdelivr.com/projects/lodash" data-cta="查看 CDN">
+  探索 jsDelivr CDN 上提供的不同版本和构建的 Lodash。
+</x-card>
 
-为了保持较小的打包体积，你可以单独导入各个方法。这对于前端项目尤其有用。
+## 在 Node.js 和 npm 中使用
 
-```javascript
-// 按需选择一个特定方法。
-var at = require('lodash/at');
+对于服务器端应用程序或使用模块打包工具（如 Webpack、Rollup 或 Browserify）的项目，你可以使用 npm 将 Lodash 作为依赖项进行安装。
 
-// 从 FP 构建版本中按需选择一个方法。
-var curryN = require('lodash/fp/curryN');
+### 安装
+
+在项目终端中运行以下命令：
+
+```shell Installation Command icon=logos:npm
+npm i --save lodash
 ```
 
-### 你的第一个函数调用
+### 基本用法
 
-让我们尝试一个简单的示例。我们将使用 `_.chunk` 方法，该方法可以将一个数组按指定大小分割成多个组。
+安装后，你可以在 Node.js 文件中引入完整的库。
 
-```javascript
+```javascript icon=logos:nodejs
+// 加载完整版本。
 const _ = require('lodash');
 
-const data = ['a', 'b', 'c', 'd', 'e'];
+const users = [
+  { 'user': 'barney',  'active': false },
+  { 'user': 'fred',    'active': false },
+  { 'user': 'pebbles', 'active': true }
+];
 
-const chunks = _.chunk(data, 2);
+const activeUser = _.find(users, { 'active': true });
 
-console.log(chunks);
-// => [['a', 'b'], ['c', 'd'], ['e']]
+console.log(activeUser);
+// => { user: 'pebbles', active: true }
 ```
 
-这展示了 Lodash 如何通过清晰简洁的代码来简化常见的数据操作任务。
+### 模块化导入
+
+Lodash 是高度模块化的，允许你只加载所需的部分，从而保持应用程序的构建包体积小巧。这对于性能优化非常重要，尤其是在前端应用中。
+
+以下是几种加载模块的方法：
+
+**核心版本**
+
+加载一个较小的核心版本，其中包含最基本的功能。
+
+```javascript Core Build
+const _ = require('lodash/core');
+```
+
+**函数式编程 (FP) 版本**
+
+适用于函数式编程风格，其方法具有不可变、自动柯里化和数据后置的特点。
+
+```javascript FP Build
+const fp = require('lodash/fp');
+```
+
+**按需引入方法**
+
+为最大限度地优化构建包体积，你可以单独导入各个方法。这是现代 Web 开发中推荐的方法。
+
+```javascript Cherry-picking
+const at = require('lodash/at');
+const curryN = require('lodash/fp/curryN');
+
+const object = { 'a': [{ 'b': { 'c': 3 } }, 4] };
+const values = at(object, ['a[0].b.c', 'a[1]']);
+
+console.log(values);
+// => [3, 4]
+```
 
 ## 后续步骤
 
-既然你已经安装了 Lodash，就可以开始探索其强大的功能了。请深入阅读 [API 参考](./api.md)，发现所有可用的函数。
+现在你已经安装了 Lodash，可以开始探索其强大的功能。请深入阅读完整的 [API 参考文档](./api.md)，查看所有可用方法的列表，找到满足你需求的完美工具函数。

@@ -1,27 +1,29 @@
 # Math
 
-Lodash provides a suite of fundamental mathematical utility functions for performing common arithmetic and aggregation operations. These functions are designed to be straightforward and handle basic calculations like addition, subtraction, division, and finding statistical values such as mean, min, and max.
+This section provides a detailed reference for Lodash's mathematical utility functions. These functions perform basic arithmetic operations, calculate aggregates like sum and mean, and provide rounding utilities.
 
-For utilities related to number clamping or ranges, please refer to the [Number API Reference](./api-number.md).
+For functions that operate on or return numbers in other contexts, see the [Number](./api-number.md) documentation.
 
 ---
 
-## add
+## _.add
 
 Adds two numbers.
 
-**Parameters**
+**Since:** 3.4.0
 
-| Name | Type | Description |
-|---|---|---|
-| `augend` | `number` | The first number in an addition. |
-| `addend` | `number` | The second number in an addition. |
+### Parameters
 
-**Returns**
+| Name     | Type     | Description                        |
+|----------|----------|------------------------------------|
+| `augend` | `number` | The first number in an addition.   |
+| `addend` | `number` | The second number in an addition.  |
+
+### Returns
 
 - `(number)`: Returns the total.
 
-**Example**
+### Example
 
 ```javascript
 _.add(6, 4);
@@ -30,22 +32,24 @@ _.add(6, 4);
 
 ---
 
-## ceil
+## _.ceil
 
 Computes `number` rounded up to `precision`.
 
-**Parameters**
+**Since:** 3.10.0
 
-| Name | Type | Description |
-|---|---|---|
-| `number` | `number` | The number to round up. |
-| `precision` | `number` | (Optional) The precision to round up to. Defaults to `0`. |
+### Parameters
 
-**Returns**
+| Name        | Type     | Description                   |
+|-------------|----------|-------------------------------|
+| `number`    | `number` | The number to round up.       |
+| `[precision=0]` | `number` | The precision to round up to. |
+
+### Returns
 
 - `(number)`: Returns the rounded up number.
 
-**Example**
+### Example
 
 ```javascript
 _.ceil(4.006);
@@ -60,22 +64,24 @@ _.ceil(6040, -2);
 
 ---
 
-## divide
+## _.divide
 
 Divides two numbers.
 
-**Parameters**
+**Since:** 4.7.0
 
-| Name | Type | Description |
-|---|---|---|
-| `dividend` | `number` | The first number in a division. |
-| `divisor` | `number` | The second number in a division. |
+### Parameters
 
-**Returns**
+| Name       | Type     | Description                      |
+|------------|----------|----------------------------------|
+| `dividend` | `number` | The first number in a division.  |
+| `divisor`  | `number` | The second number in a division. |
+
+### Returns
 
 - `(number)`: Returns the quotient.
 
-**Example**
+### Example
 
 ```javascript
 _.divide(6, 4);
@@ -84,22 +90,24 @@ _.divide(6, 4);
 
 ---
 
-## floor
+## _.floor
 
 Computes `number` rounded down to `precision`.
 
-**Parameters**
+**Since:** 3.10.0
 
-| Name | Type | Description |
-|---|---|---|
-| `number` | `number` | The number to round down. |
-| `precision` | `number` | (Optional) The precision to round down to. Defaults to `0`. |
+### Parameters
 
-**Returns**
+| Name        | Type     | Description                     |
+|-------------|----------|---------------------------------|
+| `number`    | `number` | The number to round down.       |
+| `[precision=0]` | `number` | The precision to round down to. |
+
+### Returns
 
 - `(number)`: Returns the rounded down number.
 
-**Example**
+### Example
 
 ```javascript
 _.floor(4.006);
@@ -114,21 +122,23 @@ _.floor(4060, -2);
 
 ---
 
-## max
+## _.max
 
 Computes the maximum value of `array`. If `array` is empty or falsey, `undefined` is returned.
 
-**Parameters**
+**Since:** 0.1.0
 
-| Name | Type | Description |
-|---|---|---|
-| `array` | `Array` | The array to iterate over. |
+### Parameters
 
-**Returns**
+| Name    | Type    | Description                 |
+|---------|---------|-----------------------------|
+| `array` | `Array` | The array to iterate over.  |
+
+### Returns
 
 - `(*)`: Returns the maximum value.
 
-**Example**
+### Example
 
 ```javascript
 _.max([4, 2, 8, 6]);
@@ -140,22 +150,24 @@ _.max([]);
 
 ---
 
-## maxBy
+## _.maxBy
 
 This method is like `_.max` except that it accepts `iteratee` which is invoked for each element in `array` to generate the criterion by which the value is ranked. The iteratee is invoked with one argument: (value).
 
-**Parameters**
+**Since:** 4.0.0
 
-| Name | Type | Description |
-|---|---|---|
-| `array` | `Array` | The array to iterate over. |
-| `iteratee` | `Function` | (Optional) The iteratee invoked per element. Defaults to `_.identity`. |
+### Parameters
 
-**Returns**
+| Name       | Type     | Description                       |
+|------------|----------|-----------------------------------|
+| `array`    | `Array`  | The array to iterate over.        |
+| `[iteratee=_.identity]` | `Function` | The iteratee invoked per element. |
+
+### Returns
 
 - `(*)`: Returns the maximum value.
 
-**Example**
+### Example
 
 ```javascript
 var objects = [{ 'n': 1 }, { 'n': 2 }];
@@ -170,21 +182,23 @@ _.maxBy(objects, 'n');
 
 ---
 
-## mean
+## _.mean
 
 Computes the mean of the values in `array`.
 
-**Parameters**
+**Since:** 4.0.0
 
-| Name | Type | Description |
-|---|---|---|
-| `array` | `Array` | The array to iterate over. |
+### Parameters
 
-**Returns**
+| Name    | Type    | Description                 |
+|---------|---------|-----------------------------|
+| `array` | `Array` | The array to iterate over.  |
+
+### Returns
 
 - `(number)`: Returns the mean.
 
-**Example**
+### Example
 
 ```javascript
 _.mean([4, 2, 8, 6]);
@@ -193,22 +207,24 @@ _.mean([4, 2, 8, 6]);
 
 ---
 
-## meanBy
+## _.meanBy
 
 This method is like `_.mean` except that it accepts `iteratee` which is invoked for each element in `array` to generate the value to be averaged. The iteratee is invoked with one argument: (value).
 
-**Parameters**
+**Since:** 4.7.0
 
-| Name | Type | Description |
-|---|---|---|
-| `array` | `Array` | The array to iterate over. |
-| `iteratee` | `Function` | (Optional) The iteratee invoked per element. Defaults to `_.identity`. |
+### Parameters
 
-**Returns**
+| Name       | Type     | Description                       |
+|------------|----------|-----------------------------------|
+| `array`    | `Array`  | The array to iterate over.        |
+| `[iteratee=_.identity]` | `Function` | The iteratee invoked per element. |
+
+### Returns
 
 - `(number)`: Returns the mean.
 
-**Example**
+### Example
 
 ```javascript
 var objects = [{ 'n': 4 }, { 'n': 2 }, { 'n': 8 }, { 'n': 6 }];
@@ -223,21 +239,23 @@ _.meanBy(objects, 'n');
 
 ---
 
-## min
+## _.min
 
 Computes the minimum value of `array`. If `array` is empty or falsey, `undefined` is returned.
 
-**Parameters**
+**Since:** 0.1.0
 
-| Name | Type | Description |
-|---|---|---|
-| `array` | `Array` | The array to iterate over. |
+### Parameters
 
-**Returns**
+| Name    | Type    | Description                 |
+|---------|---------|-----------------------------|
+| `array` | `Array` | The array to iterate over.  |
+
+### Returns
 
 - `(*)`: Returns the minimum value.
 
-**Example**
+### Example
 
 ```javascript
 _.min([4, 2, 8, 6]);
@@ -249,22 +267,24 @@ _.min([]);
 
 ---
 
-## minBy
+## _.minBy
 
 This method is like `_.min` except that it accepts `iteratee` which is invoked for each element in `array` to generate the criterion by which the value is ranked. The iteratee is invoked with one argument: (value).
 
-**Parameters**
+**Since:** 4.0.0
 
-| Name | Type | Description |
-|---|---|---|
-| `array` | `Array` | The array to iterate over. |
-| `iteratee` | `Function` | (Optional) The iteratee invoked per element. Defaults to `_.identity`. |
+### Parameters
 
-**Returns**
+| Name       | Type     | Description                       |
+|------------|----------|-----------------------------------|
+| `array`    | `Array`  | The array to iterate over.        |
+| `[iteratee=_.identity]` | `Function` | The iteratee invoked per element. |
+
+### Returns
 
 - `(*)`: Returns the minimum value.
 
-**Example**
+### Example
 
 ```javascript
 var objects = [{ 'n': 1 }, { 'n': 2 }];
@@ -279,22 +299,24 @@ _.minBy(objects, 'n');
 
 ---
 
-## multiply
+## _.multiply
 
 Multiplies two numbers.
 
-**Parameters**
+**Since:** 4.7.0
 
-| Name | Type | Description |
-|---|---|---|
-| `multiplier` | `number` | The first number in a multiplication. |
-| `multiplicand` | `number` | The second number in a multiplication. |
+### Parameters
 
-**Returns**
+| Name         | Type     | Description                             |
+|--------------|----------|-----------------------------------------|
+| `multiplier` | `number` | The first number in a multiplication.   |
+| `multiplicand` | `number` | The second number in a multiplication.  |
+
+### Returns
 
 - `(number)`: Returns the product.
 
-**Example**
+### Example
 
 ```javascript
 _.multiply(6, 4);
@@ -303,22 +325,24 @@ _.multiply(6, 4);
 
 ---
 
-## round
+## _.round
 
 Computes `number` rounded to `precision`.
 
-**Parameters**
+**Since:** 3.10.0
 
-| Name | Type | Description |
-|---|---|---|
-| `number` | `number` | The number to round. |
-| `precision` | `number` | (Optional) The precision to round to. Defaults to `0`. |
+### Parameters
 
-**Returns**
+| Name        | Type     | Description                |
+|-------------|----------|----------------------------|
+| `number`    | `number` | The number to round.       |
+| `[precision=0]` | `number` | The precision to round to. |
+
+### Returns
 
 - `(number)`: Returns the rounded number.
 
-**Example**
+### Example
 
 ```javascript
 _.round(4.006);
@@ -333,22 +357,24 @@ _.round(4060, -2);
 
 ---
 
-## subtract
+## _.subtract
 
 Subtracts two numbers.
 
-**Parameters**
+**Since:** 4.0.0
 
-| Name | Type | Description |
-|---|---|---|
-| `minuend` | `number` | The first number in a subtraction. |
+### Parameters
+
+| Name         | Type     | Description                         |
+|--------------|----------|-------------------------------------|
+| `minuend`    | `number` | The first number in a subtraction.  |
 | `subtrahend` | `number` | The second number in a subtraction. |
 
-**Returns**
+### Returns
 
 - `(number)`: Returns the difference.
 
-**Example**
+### Example
 
 ```javascript
 _.subtract(6, 4);
@@ -357,21 +383,23 @@ _.subtract(6, 4);
 
 ---
 
-## sum
+## _.sum
 
 Computes the sum of the values in `array`.
 
-**Parameters**
+**Since:** 3.4.0
 
-| Name | Type | Description |
-|---|---|---|
-| `array` | `Array` | The array to iterate over. |
+### Parameters
 
-**Returns**
+| Name    | Type    | Description                 |
+|---------|---------|-----------------------------|
+| `array` | `Array` | The array to iterate over.  |
+
+### Returns
 
 - `(number)`: Returns the sum.
 
-**Example**
+### Example
 
 ```javascript
 _.sum([4, 2, 8, 6]);
@@ -380,22 +408,24 @@ _.sum([4, 2, 8, 6]);
 
 ---
 
-## sumBy
+## _.sumBy
 
 This method is like `_.sum` except that it accepts `iteratee` which is invoked for each element in `array` to generate the value to be summed. The iteratee is invoked with one argument: (value).
 
-**Parameters**
+**Since:** 4.0.0
 
-| Name | Type | Description |
-|---|---|---|
-| `array` | `Array` | The array to iterate over. |
-| `iteratee` | `Function` | (Optional) The iteratee invoked per element. Defaults to `_.identity`. |
+### Parameters
 
-**Returns**
+| Name       | Type     | Description                       |
+|------------|----------|-----------------------------------|
+| `array`    | `Array`  | The array to iterate over.        |
+| `[iteratee=_.identity]` | `Function` | The iteratee invoked per element. |
+
+### Returns
 
 - `(number)`: Returns the sum.
 
-**Example**
+### Example
 
 ```javascript
 var objects = [{ 'n': 4 }, { 'n': 2 }, { 'n': 8 }, { 'n': 6 }];
@@ -407,5 +437,3 @@ _.sumBy(objects, function(o) { return o.n; });
 _.sumBy(objects, 'n');
 // => 20
 ```
-
-This guide has detailed the mathematical utility functions available in Lodash. For more numerical utilities, proceed to the [Number API Reference](./api-number.md).

@@ -1,89 +1,68 @@
 # 构建差异
 
-Lodash 提供了多种构建版本和模块格式，以适应不同的项目要求、环境和包大小限制。了解这些差异有助于您根据需求选择最高效的构建版本。
+Lodash 提供了多种构建版本和模块格式，以适应不同的环境和项目需求。选择合适的构建版本是优化应用程序性能和包大小的关键。本指南将解释可用的选项以及如何创建自定义构建。
 
-## 可用的构建版本
+## 官方构建版本
 
-Lodash 提供两种主要的预编译构建版本：包含所有方法的完整版和轻量级的核心版。
+Lodash 提供两种主要的预编译构建版本：全面的 **完整构建** 和轻量级的 **核心构建**。这些构建版本非常适合在浏览器或偏好使用单个文件的环境中进行快速设置。
 
-| 构建版本 | Gzipped 大小（约） | 描述 |
-|---|---|---|
-| **完整版** | ~24 kB | 包含完整的 Lodash 库。适用于不以包大小为主要考虑因素的环境，例如 Node.js 后端。 |
-| **核心版** | ~4 kB | Lodash 最核心函数的轻量级子集，适用于需要最大限度减小 JavaScript 负载的项目。 |
+| 构建版本 | Gzipped 大小 | 描述 |
+| :--- | :--- | :--- |
+| [完整构建](https://raw.githubusercontent.com/lodash/lodash/4.17.21/dist/lodash.js) | ~24 kB | 包含 Lodash 方法的全集。最适合服务器端应用程序或包大小不是关键限制的场景。 |
+| [核心构建](https://raw.githubusercontent.com/lodash/lodash/4.17.21/dist/lodash.core.js) | ~4 kB | 一个最小化的构建版本，包含一部分流行的核心 Lodash 工具。非常适合对每个千字节都很在意的项目。 |
 
-这两种构建版本都可直接下载或通过各种 CDN 获取。
+如需更多 CDN 选项，可以访问 [jsDelivr](https://www.jsdelivr.com/projects/lodash)。
 
-*   [下载核心版](https://raw.githubusercontent.com/lodash/lodash/4.17.21/dist/lodash.core.js)
-*   [下载完整版](https://raw.githubusercontent.com/lodash/lodash/4.17.21/dist/lodash.js)
-*   [查看 CDN 副本](https://www.jsdelivr.com/projects/lodash)
+## 模块格式
 
-## 模块格式与用法
+针对现代开发工作流，Lodash 提供了多种模块格式，这些格式提供了更大的灵活性和优化机会。
 
-根据您的模块系统和优化策略，可以通过多种方式将 Lodash 集成到项目中。
+<x-cards data-columns="2">
+  <x-card data-title="UMD (lodash)" data-icon="mdi:npm">
+    npm 上的标准包。它使用 UMD 格式，使其能够通过 `<script>` 标签与浏览器兼容，并能通过 `require('lodash')` 在 Node.js 中使用。
+  </x-card>
+  <x-card data-title="ES Modules (lodash-es)" data-icon="logos:esmodules">
+    提供 ES 模块，允许 Webpack 或 Rollup 等现代打包工具执行 tree-shaking，从而只包含你使用的代码。
+  </x-card>
+  <x-card data-title="Functional (lodash/fp)" data-icon="material-symbols:function">
+    一种函数式编程变体，其方法具有不可变、自动柯里化、迭代优先和数据置后的特点。详情请参阅 [FP 指南](./fp-guide.md)。
+  </x-card>
+  <x-card data-title="Per-Method Packages" data-icon="ph:package-duotone">
+    每个 Lodash 方法都作为独立的包发布（例如，`lodash.at`）。这为实现最小包大小提供了最细粒度的控制。
+  </x-card>
+</x-cards>
 
-### UMD (通用模块定义)
+## 优化包大小
 
-要在浏览器中直接使用，您可以通过 `<script>` 标签引入 UMD 构建版本。这是一种无需构建过程即可快速上手的方法。
+除了选择合适的构建版本，你还可以使用多种技术进一步减小包大小。
 
-```html
-<script src="lodash.js"></script>
-```
+### 按需引入方法
 
-### CommonJS (Node.js)
+你可以只导入你需要的方法，而不是导入整个库。这是帮助打包工具消除未使用代码的最直接方法。
 
-在 Node.js 环境中，您可以使用标准的 CommonJS 语法来引入 Lodash。
-
-```javascript
-// 加载完整版。
-var _ = require('lodash');
-
-// 加载核心版。
-var _ = require('lodash/core');
-```
-
-### 函数式编程 (FP) 构建版本
-
-对于使用函数式编程风格的开发者，Lodash 提供了专用的 FP 构建版本。这些方法是不可变的、自动柯里化的，并且采用 iteratee-first、data-last 的签名。
-
-```javascript
-// 加载 FP 构建版本
-var fp = require('lodash/fp');
-```
-
-### 单方法包 (Cherry-Picking)
-
-要实现尽可能小的包大小，您可以导入单个方法。当与 Webpack、Rollup 或 Browserify 等打包工具结合使用时，这种方法非常有效，因为它能确保最终输出中只包含您实际使用的代码。
-
-```javascript
-// 按需挑选一个标准方法
+```javascript Cherry-picking in Node.js icon=logos:nodejs-icon
+// 只加载 'at' 方法
 var at = require('lodash/at');
 
-// 按需挑选一个 FP 方法
+// 只从 FP 构建中加载 'curryN' 方法
 var curryN = require('lodash/fp/curryN');
 ```
 
-### ES 模块与构建工具
+### 使用构建工具和插件
 
-对于现代 JavaScript 项目，有几个包可以帮助实现 tree-shaking 和自动化优化：
+对于较大的项目，手动按需引入可能很繁琐。生态系统提供了能够自动化此过程的插件。
 
-*   **`lodash-es`**：Lodash 的 ES 模块版本，非常适合与支持 tree-shaking 的打包工具一起使用。
-*   **`babel-plugin-lodash`**：一个 Babel 插件，可自动将您的代码转换为使用单方法导入，从而简化 cherry-picking 过程。
-*   **`lodash-webpack-plugin`**：一个 Webpack 插件，通过将方法实现替换为更小、更具体的版本来进一步优化 Lodash 构建。
+- **[babel-plugin-lodash](https://www.npmjs.com/package/babel-plugin-lodash)**：一个 Babel 插件，可将你的 Lodash 导入转换为按需引入的方式，因此你可以编写 `import { at } from 'lodash'` 并获得优化后的结果。
+- **[lodash-webpack-plugin](https://www.npmjs.com/package/lodash-webpack-plugin)**：一个 Webpack 插件，与 `babel-plugin-lodash` 配合使用，通过将方法调用替换为更具体或更小的替代方案来进一步优化构建。
 
-## 创建自定义构建
+### 生成自定义构建
 
-您可以使用 `lodash-cli` 生成满足特定需求的自定义构建。这使您可以创建一个仅包含所需方法的构建。
+你可以使用 `lodash-cli` 直接从源代码生成你自己的自定义构建。这使你可以完全控制所包含的模块。
 
-以下命令演示了如何生成标准的完整版和核心版构建：
-
-```shell
-# 从源码生成完整版构建
+```shell Generating Builds with lodash-cli icon=mdi:console
+# 生成标准完整构建
 $ lodash -o ./dist/lodash.js
 
-# 生成核心版构建
+# 生成核心构建
 $ lodash core -o ./dist/lodash.core.js
 ```
-
---- 
-
-通过选择合适的构建版本和模块格式，您可以优化项目的性能和包大小。有关更深入的优化技术，请参阅 [性能](./guides-performance.md) 指南。

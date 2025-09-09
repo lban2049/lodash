@@ -1,31 +1,28 @@
-# 数字
+# Number
 
-本节提供了对操作或返回数字的 Lodash 函数的详细参考。这些实用工具可帮助处理常见的数值任务，例如将值限制在某个范围内、检查数字是否在特定边界内以及生成随机数。
+Lodash 提供了一组实用函数，用于对数字执行常见操作，例如将值限制在某个范围内或生成随机数。这些函数旨在方便和提高数值操作的可读性。
 
-有关数学运算，请参阅 [Math](./api-math.md) 部分。
+对于更高级的数学运算，您可能还想探索 [Math](./api-math.md) 类别。
 
 ---
 
-## clamp
+## _.clamp
 
-将 `number` 限制在包含 `lower` 和 `upper` 的边界内。
+将 `number` 限制在包含 `lower` 和 `upper` 的范围内。
 
-**语法**
-`_.clamp(number, [lower], upper)`
+### 参数
 
-**参数**
+| 名称 | 类型 | 描述 |
+| :------ | :------- | :----------------------- |
+| `number`| `number` | 要限制的数字。 |
+| `lower` | `number` | 下限。 |
+| `upper` | `number` | 上限。 |
 
-| 参数 | 类型 | 描述 |
-| --- | --- | --- |
-| `number` | `number` | 要限制的数字。 |
-| `[lower]` | `number` | 下边界。 |
-| `upper` | `number` | 上边界。 |
+### 返回值
 
-**返回值**
+- `(number)`: 返回被限制的数字。
 
-(`number`): 返回被限制的数字。
-
-**示例**
+### 示例
 
 ```javascript
 _.clamp(-10, -5, 5);
@@ -37,26 +34,23 @@ _.clamp(10, -5, 5);
 
 ---
 
-## inRange
+## _.inRange
 
-检查 `n` 是否在 `start` 与 `end` 之间，但不包括 `end`。如果未指定 `end`，则将其设置为 `start`，并将 `start` 设置为 `0`。如果 `start` 大于 `end`，则交换参数以支持负数范围。
+检查 `n` 是否在 `start` 和 `end`（不包含 `end`）之间。如果未指定 `end`，则将其设置为 `start`，然后将 `start` 设置为 `0`。如果 `start` 大于 `end`，则会交换这两个参数，以支持负数范围。
 
-**语法**
-`_.inRange(number, [start=0], end)`
+### 参数
 
-**参数**
-
-| 参数 | 类型 | 描述 |
-| --- | --- | --- |
+| 名称 | 类型 | 描述 |
+| :------- | :------- | :----------------------------- |
 | `number` | `number` | 要检查的数字。 |
-| `[start=0]` | `number` | 范围的起始值。 |
+| `start` | `number` | 范围的起始值。（默认值：0） |
 | `end` | `number` | 范围的结束值。 |
 
-**返回值**
+### 返回值
 
-(`boolean`): 如果 `number` 在范围内，则返回 `true`，否则返回 `false`。
+- `(boolean)`: 如果 `number` 在范围内，则返回 `true`，否则返回 `false`。
 
-**示例**
+### 示例
 
 ```javascript
 _.inRange(3, 2, 4);
@@ -83,43 +77,40 @@ _.inRange(-3, -2, -6);
 
 ---
 
-## random
+## _.random
 
 生成一个介于 `lower` 和 `upper`（包含边界）之间的随机数。如果只提供一个参数，则返回一个介于 `0` 和给定数字之间的数。如果 `floating` 为 `true`，或者 `lower` 或 `upper` 是浮点数，则返回一个浮点数而不是整数。
 
 **注意：** JavaScript 遵循 IEEE-754 标准来解析浮点值，这可能会产生意外结果。
 
-**语法**
-`_.random([lower=0], [upper=1], [floating])`
+### 参数
 
-**参数**
+| 名称 | 类型 | 描述 |
+| :-------- | :-------- | :---------------------------------------------- |
+| `lower` | `number` | 下限。（默认值：0） |
+| `upper` | `number` | 上限。（默认值：1） |
+| `floating`| `boolean` | 指定返回一个浮点数。 |
 
-| 参数 | 类型 | 描述 |
-| --- | --- | --- |
-| `[lower=0]` | `number` | 下边界。 |
-| `[upper=1]` | `number` | 上边界。 |
-| `[floating]` | `boolean` | 指定返回一个浮点数。 |
+### 返回值
 
-**返回值**
+- `(number)`: 返回随机数。
 
-(`number`): 返回随机数。
-
-**示例**
+### 示例
 
 ```javascript
 _.random(0, 5);
-// => an integer between 0 and 5
+// => 介于 0 和 5 之间的整数
 
 _.random(5);
-// => also an integer between 0 and 5
+// => 同样是介于 0 和 5 之间的整数
 
 _.random(5, true);
-// => a floating-point number between 0 and 5
+// => 介于 0 和 5 之间的浮点数
 
 _.random(1.2, 5.2);
-// => a floating-point number between 1.2 and 5.2
+// => 介于 1.2 和 5.2 之间的浮点数
 ```
 
 ---
 
-在回顾了这些数字实用工具后，您可能想在 [Object](./api-object.md) 部分中探索用于对象操作的函数。
+本节介绍了 Lodash 中的数字实用函数。如需进行数学计算，请继续阅读 [Math](./api-math.md) 部分。

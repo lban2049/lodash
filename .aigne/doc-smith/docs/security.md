@@ -1,10 +1,10 @@
 # Security
 
-We consider the security of Lodash a top priority. This document details the project's security policy, which versions receive security updates, and how to responsibly report a vulnerability.
+The Lodash team considers the security of the project a top priority. This document details our security policy, which versions receive security updates, and the procedure for responsibly reporting any vulnerabilities you may discover.
 
 ## Supported Versions
 
-The following table describes which versions of this project are currently supported with security updates:
+The following table describes which versions of Lodash are currently supported with security updates:
 
 | Version | Supported          |
 | ------- | ------------------ |
@@ -15,12 +15,12 @@ The following table describes which versions of this project are currently suppo
 
 ## Responsible Disclosure Policy
 
-A responsible disclosure policy helps protect users of the project from publicly disclosed security vulnerabilities without a fix. It employs a process where vulnerabilities are first triaged privately and only publicly disclosed after a reasonable time period that allows for patching the vulnerability and providing an upgrade path for users.
+A responsible disclosure policy helps protect users from publicly disclosed security vulnerabilities that lack a fix. It employs a process where vulnerabilities are first triaged privately and only disclosed publicly after a reasonable time period that allows for patching the vulnerability and providing an upgrade path for users.
 
 We kindly ask you to refrain from malicious acts that put our users, the project, or any of the project’s team members at risk.
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability, please report the security issue directly to the Lodash maintainers through the [Security tab](https://github.com/lodash/lodash/security) of the Lodash repository.
+If you discover a security vulnerability, please report the issue directly to the Lodash maintainers through the [Security tab](https://github.com/lodash/lodash/security) of the Lodash repository.
 
-Your efforts to responsibly disclose your findings are sincerely appreciated.
+Your efforts to responsibly disclose your findings are sincerely appreciated and are a valuable contribution to the security of the community.

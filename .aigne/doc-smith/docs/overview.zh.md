@@ -1,102 +1,69 @@
 # 概述
 
-欢迎查阅 Lodash v4.17.21 的官方文档。Lodash 是一个现代化的 JavaScript 实用工具库，提供了模块化、高性能以及其他附加功能。它简化了处理数组、数字、对象和字符串的繁琐工作，使 JavaScript 的使用变得更加轻松。
+欢迎阅读 Lodash v4.17.21 的官方文档。Lodash 是一个现代 JavaScript 实用工具库，提供了模块化、高性能以及其他附加功能。它消除了处理数组、数字、对象和字符串的麻烦，让 JavaScript 的使用变得更加轻松。
 
-Lodash 的模块化方法非常适用于：
-*   迭代数组、对象和字符串
-*   操作和测试值
-*   创建复合函数
+Lodash 基于 [MIT 许可证](https://raw.githubusercontent.com/lodash/lodash/4.17.21/LICENSE) 发布，专为现代高性能环境而设计。
 
-本篇文档旨在帮助您快速高效地找到所需信息，无论您是新用户还是经验丰富的开发者。
+## 为什么使用 Lodash？
 
-## 核心概念
+Lodash 的模块化方法为常见的编程任务提供了一种一致、高性能且可定制的解决方案。其核心优势在于：
 
-Lodash 基于几项关键原则构建，这些原则使其成为任何 JavaScript 项目的强大工具。
+*   **遍历集合**：通过强大而简洁的辅助函数，简化对数组、对象和字符串的复杂遍历操作。
+*   **操控数据**：简化值的操控和测试，涵盖从简单的数据转换到复杂的对象操控。
+*   **创建函数**：利用用于创建复合函数、柯里化函数和防抖函数的实用工具，构建功能强大且可复用的逻辑。
 
-```d2
-direction: down
+## 探索文档
 
-Your-Application: {
-  shape: rectangle
-  label: "你的应用程序"
-}
-
-Lodash-Ecosystem: {
-  shape: package
-  label: "Lodash 生态系统"
-  grid-columns: 1
-
-  Lodash-Library: {
-    label: "Lodash 库 (v4.17.21)"
-    grid-columns: 2
-
-    Core-Modules: {
-      label: "标准模块"
-      grid-columns: 3
-      Array: {}
-      Object: {}
-      String: {}
-      Function: {}
-      Util: {}
-      "...": {}
-    }
-
-    FP-Variant: {
-      label: "FP 变体 (lodash/fp)"
-      "不可变、自动柯里化、\n迭代优先、数据置后"
-    }
-  }
-
-  Build-Tools: {
-    label: "构建与优化工具"
-    grid-columns: 3
-    lodash-cli: {}
-    babel-plugin-lodash: {}
-    lodash-webpack-plugin: {}
-  }
-}
-
-Your-Application -> Lodash-Ecosystem.Lodash-Library: "导入和使用"
-Lodash-Ecosystem.Build-Tools -> Lodash-Ecosystem.Lodash-Library: "生成自定义构建"
-
-```
+本文档旨在帮助您快速找到所需内容。以下是主要部分：
 
 <x-cards data-columns="2">
-  <x-card data-title="模块化与性能" data-icon="lucide:boxes">
-    Lodash 提供多种构建版本。您可以加载完整库、核心构建版本，甚至可以只挑选单个方法，以保持项目包的最小体积。这种模块化的方法确保您只包含所需的代码。
-  </x-card>
-  <x-card data-title="函数式编程" data-icon="lucide:function-square">
-    对于偏好函数式编程风格的开发者，`lodash/fp` 模块提供了 Lodash 方法的不可变、自动柯里化、迭代优先、数据置后的版本。
-  </x-card>
-</x-cards>
-
-## 如何使用本文档
-
-本文档分为几个关键部分，以帮助您充分利用 Lodash。无论您是在寻找安装说明、详细的 API 规范还是高级指南，都可以在这里找到。
-
-<x-cards data-columns="2">
-  <x-card data-title="入门指南" data-icon="lucide:rocket" data-href="/getting-started">
-    初次接触 Lodash？从这里开始。查找可快速复制粘贴的说明，了解如何在项目中安装和使用 Lodash。
-  </x-card>
   <x-card data-title="API 参考" data-icon="lucide:book-open" data-href="/api">
-    每个 Lodash 方法的完整参考，按数据类型组织。如果您清楚自己要查找的内容，这是最快找到它的方法。
+    一份全面、可搜索的 Lodash 所有方法参考，按数据类型组织以便快速查找。
   </x-card>
-  <x-card data-title="函数式编程指南" data-icon="lucide:workflow" data-href="/fp-guide">
-    深入了解 Lodash 的函数式编程能力，包括自动柯里化和不变性等概念。
+  <x-card data-title="函数式编程指南" data-icon="lucide:function-square" data-href="/fp-guide">
+    了解 Lodash 的 FP 变体，它通过自动柯里化、迭代函数优先、数据置后的方法来提倡不变性。
   </x-card>
   <x-card data-title="指南" data-icon="lucide:compass" data-href="/guides">
-    探索高级主题，例如创建自定义构建、性能基准测试以及理解不同模块格式之间的差异。
+    探索适用于高级用例的技术指南，包括性能优化和使用不同的库构建版本。
+  </x-card>
+  <x-card data-title="贡献与社区" data-icon="lucide:users" data-href="/contributing">
+    了解如何为项目做出贡献，并通过我们的讨论渠道与社区建立联系。
   </x-card>
 </x-cards>
 
-## 社区与贡献
+## 快速入门
 
-Lodash 是一个由专注的社区维护的开源项目。我们欢迎各种贡献和讨论。
+在几分钟内即可上手使用 Lodash。有关浏览器、Node.js 和打包工具的详细说明，请参阅 [快速入门](./getting-started.md) 指南。
 
-*   **聊天：** 在 [Gitter](https://gitter.im/lodash/lodash) 上加入对话。
-*   **贡献：** 阅读我们的[贡献指南](https://github.com/lodash/lodash/blob/master/.github/CONTRIBUTING.md)以开始。
-*   **关注：** 在 [Twitter](https://twitter.com/bestiejs) 上关注我们以获取最新信息。
+### 安装
 
-## 下一步
+要将 Lodash 添加到您的项目中，请通过 npm 安装它：
 
-准备好深入了解了吗？请前往我们的[入门指南](./getting-started.md)，快速完成安装并进行首次函数调用。
+```shell npm install
+$ npm i --save lodash
+```
+
+### 基本用法
+
+安装后，您可以在代码中导入和使用 Lodash 方法：
+
+```javascript Usage Example icon=logos:javascript
+// 加载完整构建版本。
+var _ = require('lodash');
+
+var users = [
+  { 'user': 'barney',  'active': false },
+  { 'user': 'fred',    'active': false },
+  { 'user': 'pebbles', 'active': true }
+];
+
+// 查找第一个活动用户
+var activeUser = _.find(users, function(o) { return o.active; });
+
+console.log(activeUser);
+// => { 'user': 'pebbles', 'active': true }
+```
+
+---
+
+准备好开始了吗？请前往 [快速入门](./getting-started.md) 部分，将 Lodash 集成到您的项目中。

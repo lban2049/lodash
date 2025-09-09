@@ -1,29 +1,23 @@
 # Array
 
-This section provides a detailed reference for all Lodash functions that operate on or return arrays. These functions are essential for creating, splitting, combining, modifying, and filtering array data. Most of these methods return a new array and do not mutate the input array unless explicitly noted (e.g., `_.pull`).
+Lodash provides a rich set of functions for manipulating arrays. These utilities help with common tasks like splitting, filtering, transforming, and querying array data. Many of these functions return new arrays, adhering to functional programming principles, while others mutate arrays in place for performance, which will be noted in their descriptions. For functions that iterate over arrays and other iterable types, see the [Collection](./api-collection.md) section.
 
-For functions that iterate over arrays and other types of collections (like objects), please refer to the [Collection](./api-collection.md) documentation.
-
----
-
-## chunk
+### `_.chunk(array, [size=1])`
 
 Creates an array of elements split into groups the length of `size`. If `array` can't be split evenly, the final chunk will be the remaining elements.
 
-_(Since 3.0.0)_
+**Parameters**
 
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
+| Name | Type | Description |
+|---|---|---|
 | `array` | `Array` | The array to process. |
 | `[size=1]` | `number` | The length of each chunk. |
 
-### Returns
+**Returns**
 
-(`Array`): Returns the new array of chunks.
+- `(Array)`: Returns the new array of chunks.
 
-### Example
+**Example**
 
 ```javascript
 _.chunk(['a', 'b', 'c', 'd'], 2);
@@ -33,51 +27,43 @@ _.chunk(['a', 'b', 'c', 'd'], 3);
 // => [['a', 'b', 'c'], ['d']]
 ```
 
----
-
-## compact
+### `_.compact(array)`
 
 Creates an array with all falsey values removed. The values `false`, `null`, `0`, `""`, `undefined`, and `NaN` are falsey.
 
-_(Since 0.1.0)_
+**Parameters**
 
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
+| Name | Type | Description |
+|---|---|---|
 | `array` | `Array` | The array to compact. |
 
-### Returns
+**Returns**
 
-(`Array`): Returns the new array of filtered values.
+- `(Array)`: Returns the new array of filtered values.
 
-### Example
+**Example**
 
 ```javascript
 _.compact([0, 1, false, 2, '', 3]);
 // => [1, 2, 3]
 ```
 
----
-
-## concat
+### `_.concat(array, ...[values])`
 
 Creates a new array concatenating `array` with any additional arrays and/or values.
 
-_(Since 4.0.0)_
+**Parameters**
 
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
+| Name | Type | Description |
+|---|---|---|
 | `array` | `Array` | The array to concatenate. |
-| `[...values]` | `*` | The values to concatenate. |
+| `...[values]` | `*` | The values to concatenate. |
 
-### Returns
+**Returns**
 
-(`Array`): Returns the new concatenated array.
+- `(Array)`: Returns the new concatenated array.
 
-### Example
+**Example**
 
 ```javascript
 var array = [1];
@@ -90,57 +76,49 @@ console.log(array);
 // => [1]
 ```
 
----
-
-## difference
+### `_.difference(array, ...[values])`
 
 Creates an array of `array` values not included in the other given arrays using [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero) for equality comparisons. The order and references of result values are determined by the first array.
 
 **Note:** Unlike `_.pullAll`, this method returns a new array.
 
-_(Since 0.1.0)_
+**Parameters**
 
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
+| Name | Type | Description |
+|---|---|---|
 | `array` | `Array` | The array to inspect. |
-| `[...values]` | `Array` | The values to exclude. |
+| `...[values]` | `Array` | The values to exclude. |
 
-### Returns
+**Returns**
 
-(`Array`): Returns the new array of filtered values.
+- `(Array)`: Returns the new array of filtered values.
 
-### Example
+**Example**
 
 ```javascript
 _.difference([2, 1], [2, 3]);
 // => [1]
 ```
 
----
-
-## differenceBy
+### `_.differenceBy(array, ...[values], [iteratee=_.identity])`
 
 This method is like `_.difference` except that it accepts `iteratee` which is invoked for each element of `array` and `values` to generate the criterion by which they're compared. The order and references of result values are determined by the first array. The iteratee is invoked with one argument: (value).
 
 **Note:** Unlike `_.pullAllBy`, this method returns a new array.
 
-_(Since 4.0.0)_
+**Parameters**
 
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
+| Name | Type | Description |
+|---|---|---|
 | `array` | `Array` | The array to inspect. |
-| `[...values]` | `Array` | The values to exclude. |
+| `...[values]` | `Array` | The values to exclude. |
 | `[iteratee=_.identity]` | `Function` | The iteratee invoked per element. |
 
-### Returns
+**Returns**
 
-(`Array`): Returns the new array of filtered values.
+- `(Array)`: Returns the new array of filtered values.
 
-### Example
+**Example**
 
 ```javascript
 _.differenceBy([2.1, 1.2], [2.3, 3.4], Math.floor);
@@ -151,29 +129,25 @@ _.differenceBy([{ 'x': 2 }, { 'x': 1 }], [{ 'x': 1 }], 'x');
 // => [{ 'x': 2 }]
 ```
 
----
-
-## differenceWith
+### `_.differenceWith(array, ...[values], [comparator])`
 
 This method is like `_.difference` except that it accepts `comparator` which is invoked to compare elements of `array` to `values`. The order and references of result values are determined by the first array. The comparator is invoked with two arguments: (arrVal, othVal).
 
 **Note:** Unlike `_.pullAllWith`, this method returns a new array.
 
-_(Since 4.0.0)_
+**Parameters**
 
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
+| Name | Type | Description |
+|---|---|---|
 | `array` | `Array` | The array to inspect. |
-| `[...values]` | `Array` | The values to exclude. |
+| `...[values]` | `Array` | The values to exclude. |
 | `[comparator]` | `Function` | The comparator invoked per element. |
 
-### Returns
+**Returns**
 
-(`Array`): Returns the new array of filtered values.
+- `(Array)`: Returns the new array of filtered values.
 
-### Example
+**Example**
 
 ```javascript
 var objects = [{ 'x': 1, 'y': 2 }, { 'x': 2, 'y': 1 }];
@@ -182,26 +156,22 @@ _.differenceWith(objects, [{ 'x': 1, 'y': 2 }], _.isEqual);
 // => [{ 'x': 2, 'y': 1 }]
 ```
 
----
-
-## drop
+### `_.drop(array, [n=1])`
 
 Creates a slice of `array` with `n` elements dropped from the beginning.
 
-_(Since 0.5.0)_
+**Parameters**
 
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
+| Name | Type | Description |
+|---|---|---|
 | `array` | `Array` | The array to query. |
 | `[n=1]` | `number` | The number of elements to drop. |
 
-### Returns
+**Returns**
 
-(`Array`): Returns the slice of `array`.
+- `(Array)`: Returns the slice of `array`.
 
-### Example
+**Example**
 
 ```javascript
 _.drop([1, 2, 3]);
@@ -217,26 +187,22 @@ _.drop([1, 2, 3], 0);
 // => [1, 2, 3]
 ```
 
----
-
-## dropRight
+### `_.dropRight(array, [n=1])`
 
 Creates a slice of `array` with `n` elements dropped from the end.
 
-_(Since 3.0.0)_
+**Parameters**
 
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
+| Name | Type | Description |
+|---|---|---|
 | `array` | `Array` | The array to query. |
 | `[n=1]` | `number` | The number of elements to drop. |
 
-### Returns
+**Returns**
 
-(`Array`): Returns the slice of `array`.
+- `(Array)`: Returns the slice of `array`.
 
-### Example
+**Example**
 
 ```javascript
 _.dropRight([1, 2, 3]);
@@ -252,94 +218,26 @@ _.dropRight([1, 2, 3], 0);
 // => [1, 2, 3]
 ```
 
----
-
-## dropRightWhile
-
-Creates a slice of `array` excluding elements dropped from the end. Elements are dropped until `predicate` returns falsey. The predicate is invoked with three arguments: (value, index, array).
-
-_(Since 3.0.0)_
-
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `array` | `Array` | The array to query. |
-| `[predicate=_.identity]` | `Function` | The function invoked per iteration. |
-
-### Returns
-
-(`Array`): Returns the slice of `array`.
-
-### Example
-
-```javascript
-var users = [
-  { 'user': 'barney',  'active': true },
-  { 'user': 'fred',    'active': false },
-  { 'user': 'pebbles', 'active': false }
-];
-
-_.dropRightWhile(users, function(o) { return !o.active; });
-// => objects for ['barney']
-```
-
----
-
-## dropWhile
-
-Creates a slice of `array` excluding elements dropped from the beginning. Elements are dropped until `predicate` returns falsey. The predicate is invoked with three arguments: (value, index, array).
-
-_(Since 3.0.0)_
-
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `array` | `Array` | The array to query. |
-| `[predicate=_.identity]` | `Function` | The function invoked per iteration. |
-
-### Returns
-
-(`Array`): Returns the slice of `array`.
-
-### Example
-
-```javascript
-var users = [
-  { 'user': 'barney',  'active': false },
-  { 'user': 'fred',    'active': false },
-  { 'user': 'pebbles', 'active': true }
-];
-
-_.dropWhile(users, function(o) { return !o.active; });
-// => objects for ['pebbles']
-```
-
----
-
-## fill
+### `_.fill(array, value, [start=0], [end=array.length])`
 
 Fills elements of `array` with `value` from `start` up to, but not including, `end`.
 
 **Note:** This method mutates `array`.
 
-_(Since 3.2.0)_
+**Parameters**
 
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
+| Name | Type | Description |
+|---|---|---|
 | `array` | `Array` | The array to fill. |
 | `value` | `*` | The value to fill `array` with. |
 | `[start=0]` | `number` | The start position. |
 | `[end=array.length]` | `number` | The end position. |
 
-### Returns
+**Returns**
 
-(`Array`): Returns `array`.
+- `(Array)`: Returns `array`.
 
-### Example
+**Example**
 
 ```javascript
 var array = [1, 2, 3];
@@ -355,142 +253,64 @@ _.fill([4, 6, 8, 10], '*', 1, 3);
 // => [4, '*', '*', 10]
 ```
 
----
-
-## findIndex
-
-This method is like `_.find` except that it returns the index of the first element `predicate` returns truthy for instead of the element itself.
-
-_(Since 1.1.0)_
-
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `array` | `Array` | The array to inspect. |
-| `[predicate=_.identity]` | `Function` | The function invoked per iteration. |
-| `[fromIndex=0]` | `number` | The index to search from. |
-
-### Returns
-
-(`number`): Returns the index of the found element, else `-1`.
-
-### Example
-
-```javascript
-var users = [
-  { 'user': 'barney',  'active': false },
-  { 'user': 'fred',    'active': false },
-  { 'user': 'pebbles', 'active': true }
-];
-
-_.findIndex(users, function(o) { return o.user == 'barney'; });
-// => 0
-```
-
----
-
-## findLastIndex
-
-This method is like `_.findIndex` except that it iterates over elements of `collection` from right to left.
-
-_(Since 2.0.0)_
-
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `array` | `Array` | The array to inspect. |
-| `[predicate=_.identity]` | `Function` | The function invoked per iteration. |
-| `[fromIndex=array.length-1]` | `number` | The index to search from. |
-
-### Returns
-
-(`number`): Returns the index of the found element, else `-1`.
-
-### Example
-
-```javascript
-var users = [
-  { 'user': 'barney',  'active': true },
-  { 'user': 'fred',    'active': false },
-  { 'user': 'pebbles', 'active': false }
-];
-
-_.findLastIndex(users, function(o) { return o.user == 'pebbles'; });
-// => 2
-```
-
----
-
-## flatten
+### `_.flatten(array)`
 
 Flattens `array` a single level deep.
 
-_(Since 0.1.0)_
+**Parameters**
 
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
+| Name | Type | Description |
+|---|---|---|
 | `array` | `Array` | The array to flatten. |
 
-### Returns
+**Returns**
 
-(`Array`): Returns the new flattened array.
+- `(Array)`: Returns the new flattened array.
 
-### Example
+**Example**
 
 ```javascript
 _.flatten([1, [2, [3, [4]], 5]]);
 // => [1, 2, [3, [4]], 5]
 ```
 
----
-
-## flattenDeep
+### `_.flattenDeep(array)`
 
 Recursively flattens `array`.
 
-_(Since 3.0.0)_
+**Parameters**
 
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
+| Name | Type | Description |
+|---|---|---|
 | `array` | `Array` | The array to flatten. |
 
-### Returns
+**Returns**
 
-(`Array`): Returns the new flattened array.
+- `(Array)`: Returns the new flattened array.
 
-### Example
+**Example**
 
 ```javascript
 _.flattenDeep([1, [2, [3, [4]], 5]]);
 // => [1, 2, 3, 4, 5]
 ```
 
----
-
-## flattenDepth
+### `_.flattenDepth(array, [depth=1])`
 
 Recursively flatten `array` up to `depth` times.
 
-_(Since 4.4.0)_
+**Parameters**
 
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
+| Name | Type | Description |
+|---|---|---|
 | `array` | `Array` | The array to flatten. |
 | `[depth=1]` | `number` | The maximum recursion depth. |
 
-### Returns
+**Returns**
 
-(`Array`): Returns the new flattened array.
+- `(Array)`: Returns the new flattened array.
 
-### Example
+**Example**
 
 ```javascript
 var array = [1, [2, [3, [4]], 5]];
@@ -502,52 +322,42 @@ _.flattenDepth(array, 2);
 // => [1, 2, 3, [4], 5]
 ```
 
----
-
-## fromPairs
+### `_.fromPairs(pairs)`
 
 The inverse of `_.toPairs`; this method returns an object composed from key-value `pairs`.
 
-_(Since 4.0.0)_
+**Parameters**
 
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
+| Name | Type | Description |
+|---|---|---|
 | `pairs` | `Array` | The key-value pairs. |
 
-### Returns
+**Returns**
 
-(`Object`): Returns the new object.
+- `(Object)`: Returns the new object.
 
-### Example
+**Example**
 
 ```javascript
 _.fromPairs([['a', 1], ['b', 2]]);
 // => { 'a': 1, 'b': 2 }
 ```
 
----
+### `_.head(array)`
 
-## head
+Gets the first element of `array`. Alias: `_.first`.
 
-Gets the first element of `array`.
+**Parameters**
 
-_(Since 0.1.0)_
-
-_Alias: `first`_
-
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
+| Name | Type | Description |
+|---|---|---|
 | `array` | `Array` | The array to query. |
 
-### Returns
+**Returns**
 
-(`*`): Returns the first element of `array`.
+- `(*)`: Returns the first element of `array`.
 
-### Example
+**Example**
 
 ```javascript
 _.head([1, 2, 3]);
@@ -557,27 +367,23 @@ _.head([]);
 // => undefined
 ```
 
----
-
-## indexOf
+### `_.indexOf(array, value, [fromIndex=0])`
 
 Gets the index at which the first occurrence of `value` is found in `array` using [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero) for equality comparisons. If `fromIndex` is negative, it's used as the offset from the end of `array`.
 
-_(Since 0.1.0)_
+**Parameters**
 
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
+| Name | Type | Description |
+|---|---|---|
 | `array` | `Array` | The array to inspect. |
 | `value` | `*` | The value to search for. |
 | `[fromIndex=0]` | `number` | The index to search from. |
 
-### Returns
+**Returns**
 
-(`number`): Returns the index of the matched value, else `-1`.
+- `(number)`: Returns the index of the matched value, else `-1`.
 
-### Example
+**Example**
 
 ```javascript
 _.indexOf([1, 2, 1, 2], 2);
@@ -588,187 +394,108 @@ _.indexOf([1, 2, 1, 2], 2, 2);
 // => 3
 ```
 
----
-
-## initial
+### `_.initial(array)`
 
 Gets all but the last element of `array`.
 
-_(Since 0.1.0)_
+**Parameters**
 
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
+| Name | Type | Description |
+|---|---|---|
 | `array` | `Array` | The array to query. |
 
-### Returns
+**Returns**
 
-(`Array`): Returns the slice of `array`.
+- `(Array)`: Returns the slice of `array`.
 
-### Example
+**Example**
 
 ```javascript
 _.initial([1, 2, 3]);
 // => [1, 2]
 ```
 
----
-
-## intersection
+### `_.intersection(...[arrays])`
 
 Creates an array of unique values that are included in all given arrays using [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero) for equality comparisons. The order and references of result values are determined by the first array.
 
-_(Since 0.1.0)_
+**Parameters**
 
-### Parameters
+| Name | Type | Description |
+|---|---|---|
+| `...[arrays]` | `Array` | The arrays to inspect. |
 
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `[...arrays]` | `Array` | The arrays to inspect. |
+**Returns**
 
-### Returns
+- `(Array)`: Returns the new array of intersecting values.
 
-(`Array`): Returns the new array of intersecting values.
-
-### Example
+**Example**
 
 ```javascript
 _.intersection([2, 1], [2, 3]);
 // => [2]
 ```
 
----
-
-## intersectionBy
-
-This method is like `_.intersection` except that it accepts `iteratee` which is invoked for each element of each `arrays` to generate the criterion by which they're compared. The order and references of result values are determined by the first array. The iteratee is invoked with one argument: (value).
-
-_(Since 4.0.0)_
-
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `[...arrays]` | `Array` | The arrays to inspect. |
-| `[iteratee=_.identity]` | `Function` | The iteratee invoked per element. |
-
-### Returns
-
-(`Array`): Returns the new array of intersecting values.
-
-### Example
-
-```javascript
-_.intersectionBy([2.1, 1.2], [2.3, 3.4], Math.floor);
-// => [2.1]
-
-// The `_.property` iteratee shorthand.
-_.intersectionBy([{ 'x': 1 }], [{ 'x': 2 }, { 'x': 1 }], 'x');
-// => [{ 'x': 1 }]
-```
-
----
-
-## intersectionWith
-
-This method is like `_.intersection` except that it accepts `comparator` which is invoked to compare elements of `arrays`. The order and references of result values are determined by the first array. The comparator is invoked with two arguments: (arrVal, othVal).
-
-_(Since 4.0.0)_
-
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `[...arrays]` | `Array` | The arrays to inspect. |
-| `[comparator]` | `Function` | The comparator invoked per element. |
-
-### Returns
-
-(`Array`): Returns the new array of intersecting values.
-
-### Example
-
-```javascript
-var objects = [{ 'x': 1, 'y': 2 }, { 'x': 2, 'y': 1 }];
-var others = [{ 'x': 1, 'y': 1 }, { 'x': 1, 'y': 2 }];
-
-_.intersectionWith(objects, others, _.isEqual);
-// => [{ 'x': 1, 'y': 2 }]
-```
-
----
-
-## join
+### `_.join(array, [separator=','])`
 
 Converts all elements in `array` into a string separated by `separator`.
 
-_(Since 4.0.0)_
+**Parameters**
 
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
+| Name | Type | Description |
+|---|---|---|
 | `array` | `Array` | The array to convert. |
 | `[separator=',']` | `string` | The element separator. |
 
-### Returns
+**Returns**
 
-(`string`): Returns the joined string.
+- `(string)`: Returns the joined string.
 
-### Example
+**Example**
 
 ```javascript
 _.join(['a', 'b', 'c'], '~');
 // => 'a~b~c'
 ```
 
----
-
-## last
+### `_.last(array)`
 
 Gets the last element of `array`.
 
-_(Since 0.1.0)_
+**Parameters**
 
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
+| Name | Type | Description |
+|---|---|---|
 | `array` | `Array` | The array to query. |
 
-### Returns
+**Returns**
 
-(`*`): Returns the last element of `array`.
+- `(*)`: Returns the last element of `array`.
 
-### Example
+**Example**
 
 ```javascript
 _.last([1, 2, 3]);
 // => 3
 ```
 
----
-
-## lastIndexOf
+### `_.lastIndexOf(array, value, [fromIndex=array.length-1])`
 
 This method is like `_.indexOf` except that it iterates over elements of `array` from right to left.
 
-_(Since 0.1.0)_
+**Parameters**
 
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
+| Name | Type | Description |
+|---|---|---|
 | `array` | `Array` | The array to inspect. |
 | `value` | `*` | The value to search for. |
 | `[fromIndex=array.length-1]` | `number` | The index to search from. |
 
-### Returns
+**Returns**
 
-(`number`): Returns the index of the matched value, else `-1`.
+- `(number)`: Returns the index of the matched value, else `-1`.
 
-### Example
+**Example**
 
 ```javascript
 _.lastIndexOf([1, 2, 1, 2], 2);
@@ -779,59 +506,24 @@ _.lastIndexOf([1, 2, 1, 2], 2, 2);
 // => 1
 ```
 
----
-
-## nth
-
-Gets the element at index `n` of `array`. If `n` is negative, the nth element from the end is returned.
-
-_(Since 4.11.0)_
-
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `array` | `Array` | The array to query. |
-| `[n=0]` | `number` | The index of the element to return. |
-
-### Returns
-
-(`*`): Returns the nth element of `array`.
-
-### Example
-
-```javascript
-var array = ['a', 'b', 'c', 'd'];
-
-_.nth(array, 1);
-// => 'b'
-
-_.nth(array, -2);
-// => 'c';
-```
-
----
-
-## pull
+### `_.pull(array, ...[values])`
 
 Removes all given values from `array` using [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero) for equality comparisons.
 
-**Note:** Unlike `_.without`, this method mutates `array`. Use `_.remove` to remove elements from an array by predicate.
+**Note:** This method mutates `array`.
 
-_(Since 2.0.0)_
+**Parameters**
 
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
+| Name | Type | Description |
+|---|---|---|
 | `array` | `Array` | The array to modify. |
-| `[...values]` | `*` | The values to remove. |
+| `...[values]` | `*` | The values to remove. |
 
-### Returns
+**Returns**
 
-(`Array`): Returns `array`.
+- `(Array)`: Returns `array`.
 
-### Example
+**Example**
 
 ```javascript
 var array = ['a', 'b', 'c', 'a', 'b', 'c'];
@@ -841,192 +533,23 @@ console.log(array);
 // => ['b', 'b']
 ```
 
----
-
-## pullAll
-
-This method is like `_.pull` except that it accepts an array of values to remove.
-
-**Note:** Unlike `_.difference`, this method mutates `array`.
-
-_(Since 4.0.0)_
-
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `array` | `Array` | The array to modify. |
-| `values` | `Array` | The values to remove. |
-
-### Returns
-
-(`Array`): Returns `array`.
-
-### Example
-
-```javascript
-var array = ['a', 'b', 'c', 'a', 'b', 'c'];
-
-_.pullAll(array, ['a', 'c']);
-console.log(array);
-// => ['b', 'b']
-```
-
----
-
-## pullAllBy
-
-This method is like `_.pullAll` except that it accepts `iteratee` which is invoked for each element of `array` and `values` to generate the criterion by which they're compared. The iteratee is invoked with one argument: (value).
-
-**Note:** Unlike `_.differenceBy`, this method mutates `array`.
-
-_(Since 4.0.0)_
-
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `array` | `Array` | The array to modify. |
-| `values` | `Array` | The values to remove. |
-| `[iteratee=_.identity]` | `Function` | The iteratee invoked per element. |
-
-### Returns
-
-(`Array`): Returns `array`.
-
-### Example
-
-```javascript
-var array = [{ 'x': 1 }, { 'x': 2 }, { 'x': 3 }, { 'x': 1 }];
-
-_.pullAllBy(array, [{ 'x': 1 }, { 'x': 3 }], 'x');
-console.log(array);
-// => [{ 'x': 2 }]
-```
-
----
-
-## pullAllWith
-
-This method is like `_.pullAll` except that it accepts `comparator` which is invoked to compare elements of `array` to `values`. The comparator is invoked with two arguments: (arrVal, othVal).
-
-**Note:** Unlike `_.differenceWith`, this method mutates `array`.
-
-_(Since 4.6.0)_
-
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `array` | `Array` | The array to modify. |
-| `values` | `Array` | The values to remove. |
-| `[comparator]` | `Function` | The comparator invoked per element. |
-
-### Returns
-
-(`Array`): Returns `array`.
-
-### Example
-
-```javascript
-var array = [{ 'x': 1, 'y': 2 }, { 'x': 3, 'y': 4 }, { 'x': 5, 'y': 6 }];
-
-_.pullAllWith(array, [{ 'x': 3, 'y': 4 }], _.isEqual);
-console.log(array);
-// => [{ 'x': 1, 'y': 2 }, { 'x': 5, 'y': 6 }]
-```
-
----
-
-## pullAt
-
-Removes elements from `array` corresponding to `indexes` and returns an array of removed elements.
-
-**Note:** Unlike `_.at`, this method mutates `array`.
-
-_(Since 3.0.0)_
-
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `array` | `Array` | The array to modify. |
-| `[...indexes]` | `(number|number[])` | The indexes of elements to remove. |
-
-### Returns
-
-(`Array`): Returns the new array of removed elements.
-
-### Example
-
-```javascript
-var array = ['a', 'b', 'c', 'd'];
-var pulled = _.pullAt(array, [1, 3]);
-
-console.log(array);
-// => ['a', 'c']
-
-console.log(pulled);
-// => ['b', 'd']
-```
-
----
-
-## remove
-
-Removes all elements from `array` that `predicate` returns truthy for and returns an array of the removed elements. The predicate is invoked with three arguments: (value, index, array).
-
-**Note:** Unlike `_.filter`, this method mutates `array`. Use `_.pull` to pull elements from an array by value.
-
-_(Since 2.0.0)_
-
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `array` | `Array` | The array to modify. |
-| `[predicate=_.identity]` | `Function` | The function invoked per iteration. |
-
-### Returns
-
-(`Array`): Returns the new array of removed elements.
-
-### Example
-
-```javascript
-var array = [1, 2, 3, 4];
-var evens = _.remove(array, function(n) {
-  return n % 2 == 0;
-});
-
-console.log(array);
-// => [1, 3]
-
-console.log(evens);
-// => [2, 4]
-```
-
----
-
-## reverse
+### `_.reverse(array)`
 
 Reverses `array` so that the first element becomes the last, the second element becomes the second to last, and so on.
 
 **Note:** This method mutates `array` and is based on [`Array#reverse`](https://mdn.io/Array/reverse).
 
-_(Since 4.0.0)_
+**Parameters**
 
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
+| Name | Type | Description |
+|---|---|---|
 | `array` | `Array` | The array to modify. |
 
-### Returns
+**Returns**
 
-(`Array`): Returns `array`.
+- `(Array)`: Returns `array`.
 
-### Example
+**Example**
 
 ```javascript
 var array = [1, 2, 3];
@@ -1038,755 +561,108 @@ console.log(array);
 // => [3, 2, 1]
 ```
 
----
-
-## slice
-
-Creates a slice of `array` from `start` up to, but not including, `end`.
-
-**Note:** This method is used instead of [`Array#slice`](https://mdn.io/Array/slice) to ensure dense arrays are returned.
-
-_(Since 3.0.0)_
-
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `array` | `Array` | The array to slice. |
-| `[start=0]` | `number` | The start position. |
-| `[end=array.length]` | `number` | The end position. |
-
-### Returns
-
-(`Array`): Returns the slice of `array`.
-
----
-
-## sortedIndex
-
-Uses a binary search to determine the lowest index at which `value` should be inserted into `array` in order to maintain its sort order.
-
-_(Since 0.1.0)_
-
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `array` | `Array` | The sorted array to inspect. |
-| `value` | `*` | The value to evaluate. |
-
-### Returns
-
-(`number`): Returns the index at which `value` should be inserted into `array`.
-
-### Example
-
-```javascript
-_.sortedIndex([30, 50], 40);
-// => 1
-```
-
----
-
-## sortedIndexBy
-
-This method is like `_.sortedIndex` except that it accepts `iteratee` which is invoked for `value` and each element of `array` to compute their sort ranking. The iteratee is invoked with one argument: (value).
-
-_(Since 4.0.0)_
-
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `array` | `Array` | The sorted array to inspect. |
-| `value` | `*` | The value to evaluate. |
-| `[iteratee=_.identity]` | `Function` | The iteratee invoked per element. |
-
-### Returns
-
-(`number`): Returns the index at which `value` should be inserted into `array`.
-
-### Example
-
-```javascript
-var objects = [{ 'x': 4 }, { 'x': 5 }];
-
-_.sortedIndexBy(objects, { 'x': 4 }, function(o) { return o.x; });
-// => 0
-```
-
----
-
-## sortedIndexOf
-
-This method is like `_.indexOf` except that it performs a binary search on a sorted `array`.
-
-_(Since 4.0.0)_
-
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `array` | `Array` | The array to inspect. |
-| `value` | `*` | The value to search for. |
-
-### Returns
-
-(`number`): Returns the index of the matched value, else `-1`.
-
-### Example
-
-```javascript
-_.sortedIndexOf([4, 5, 5, 5, 6], 5);
-// => 1
-```
-
----
-
-## sortedLastIndex
-
-This method is like `_.sortedIndex` except that it returns the highest index at which `value` should be inserted into `array` in order to maintain its sort order.
-
-_(Since 3.0.0)_
-
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `array` | `Array` | The sorted array to inspect. |
-| `value` | `*` | The value to evaluate. |
-
-### Returns
-
-(`number`): Returns the index at which `value` should be inserted into `array`.
-
-### Example
-
-```javascript
-_.sortedLastIndex([4, 5, 5, 5, 6], 5);
-// => 4
-```
-
----
-
-## sortedLastIndexBy
-
-This method is like `_.sortedLastIndex` except that it accepts `iteratee` which is invoked for `value` and each element of `array` to compute their sort ranking. The iteratee is invoked with one argument: (value).
-
-_(Since 4.0.0)_
-
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `array` | `Array` | The sorted array to inspect. |
-| `value` | `*` | The value to evaluate. |
-| `[iteratee=_.identity]` | `Function` | The iteratee invoked per element. |
-
-### Returns
-
-(`number`): Returns the index at which `value` should be inserted into `array`.
-
-### Example
-
-```javascript
-var objects = [{ 'x': 4 }, { 'x': 5 }];
-
-_.sortedLastIndexBy(objects, { 'x': 4 }, 'x');
-// => 1
-```
-
----
-
-## sortedLastIndexOf
-
-This method is like `_.lastIndexOf` except that it performs a binary search on a sorted `array`.
-
-_(Since 4.0.0)_
-
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `array` | `Array` | The array to inspect. |
-| `value` | `*` | The value to search for. |
-
-### Returns
-
-(`number`): Returns the index of the matched value, else `-1`.
-
-### Example
-
-```javascript
-_.sortedLastIndexOf([4, 5, 5, 5, 6], 5);
-// => 3
-```
-
----
-
-## sortedUniq
+### `_.sortedUniq(array)`
 
 This method is like `_.uniq` except that it's designed and optimized for sorted arrays.
 
-_(Since 4.0.0)_
+**Parameters**
 
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
+| Name | Type | Description |
+|---|---|---|
 | `array` | `Array` | The array to inspect. |
 
-### Returns
+**Returns**
 
-(`Array`): Returns the new duplicate free array.
+- `(Array)`: Returns the new duplicate free array.
 
-### Example
+**Example**
 
 ```javascript
 _.sortedUniq([1, 1, 2]);
 // => [1, 2]
 ```
 
----
-
-## sortedUniqBy
-
-This method is like `_.uniqBy` except that it's designed and optimized for sorted arrays.
-
-_(Since 4.0.0)_
-
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `array` | `Array` | The array to inspect. |
-| `[iteratee]` | `Function` | The iteratee invoked per element. |
-
-### Returns
-
-(`Array`): Returns the new duplicate free array.
-
-### Example
-
-```javascript
-_.sortedUniqBy([1.1, 1.2, 2.3, 2.4], Math.floor);
-// => [1.1, 2.3]
-```
-
----
-
-## tail
-
-Gets all but the first element of `array`.
-
-_(Since 4.0.0)_
-
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `array` | `Array` | The array to query. |
-
-### Returns
-
-(`Array`): Returns the slice of `array`.
-
-### Example
-
-```javascript
-_.tail([1, 2, 3]);
-// => [2, 3]
-```
-
----
-
-## take
-
-Creates a slice of `array` with `n` elements taken from the beginning.
-
-_(Since 0.1.0)_
-
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `array` | `Array` | The array to query. |
-| `[n=1]` | `number` | The number of elements to take. |
-
-### Returns
-
-(`Array`): Returns the slice of `array`.
-
-### Example
-
-```javascript
-_.take([1, 2, 3]);
-// => [1]
-
-_.take([1, 2, 3], 2);
-// => [1, 2]
-
-_.take([1, 2, 3], 5);
-// => [1, 2, 3]
-
-_.take([1, 2, 3], 0);
-// => []
-```
-
----
-
-## takeRight
-
-Creates a slice of `array` with `n` elements taken from the end.
-
-_(Since 3.0.0)_
-
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `array` | `Array` | The array to query. |
-| `[n=1]` | `number` | The number of elements to take. |
-
-### Returns
-
-(`Array`): Returns the slice of `array`.
-
-### Example
-
-```javascript
-_.takeRight([1, 2, 3]);
-// => [3]
-
-_.takeRight([1, 2, 3], 2);
-// => [2, 3]
-
-_.takeRight([1, 2, 3], 5);
-// => [1, 2, 3]
-
-_.takeRight([1, 2, 3], 0);
-// => []
-```
-
----
-
-## takeRightWhile
-
-Creates a slice of `array` with elements taken from the end. Elements are taken until `predicate` returns falsey. The predicate is invoked with three arguments: (value, index, array).
-
-_(Since 3.0.0)_
-
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `array` | `Array` | The array to query. |
-| `[predicate=_.identity]` | `Function` | The function invoked per iteration. |
-
-### Returns
-
-(`Array`): Returns the slice of `array`.
-
-### Example
-
-```javascript
-var users = [
-  { 'user': 'barney',  'active': true },
-  { 'user': 'fred',    'active': false },
-  { 'user': 'pebbles', 'active': false }
-];
-
-_.takeRightWhile(users, function(o) { return !o.active; });
-// => objects for ['fred', 'pebbles']
-```
-
----
-
-## takeWhile
-
-Creates a slice of `array` with elements taken from the beginning. Elements are taken until `predicate` returns falsey. The predicate is invoked with three arguments: (value, index, array).
-
-_(Since 3.0.0)_
-
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `array` | `Array` | The array to query. |
-| `[predicate=_.identity]` | `Function` | The function invoked per iteration. |
-
-### Returns
-
-(`Array`): Returns the slice of `array`.
-
-### Example
-
-```javascript
-var users = [
-  { 'user': 'barney',  'active': false },
-  { 'user': 'fred',    'active': false },
-  { 'user': 'pebbles', 'active': true }
-];
-
-_.takeWhile(users, function(o) { return !o.active; });
-// => objects for ['barney', 'fred']
-```
-
----
-
-## union
+### `_.union(...[arrays])`
 
 Creates an array of unique values, in order, from all given arrays using [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero) for equality comparisons.
 
-_(Since 0.1.0)_
+**Parameters**
 
-### Parameters
+| Name | Type | Description |
+|---|---|---|
+| `...[arrays]` | `Array` | The arrays to inspect. |
 
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `[...arrays]` | `Array` | The arrays to inspect. |
+**Returns**
 
-### Returns
+- `(Array)`: Returns the new array of combined values.
 
-(`Array`): Returns the new array of combined values.
-
-### Example
+**Example**
 
 ```javascript
 _.union([2], [1, 2]);
 // => [2, 1]
 ```
 
----
-
-## unionBy
-
-This method is like `_.union` except that it accepts `iteratee` which is invoked for each element of each `arrays` to generate the criterion by which uniqueness is computed. Result values are chosen from the first array in which the value occurs. The iteratee is invoked with one argument: (value).
-
-_(Since 4.0.0)_
-
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `[...arrays]` | `Array` | The arrays to inspect. |
-| `[iteratee=_.identity]` | `Function` | The iteratee invoked per element. |
-
-### Returns
-
-(`Array`): Returns the new array of combined values.
-
-### Example
-
-```javascript
-_.unionBy([2.1], [1.2, 2.3], Math.floor);
-// => [2.1, 1.2]
-
-// The `_.property` iteratee shorthand.
-_.unionBy([{ 'x': 1 }], [{ 'x': 2 }, { 'x': 1 }], 'x');
-// => [{ 'x': 1 }, { 'x': 2 }]
-```
-
----
-
-## unionWith
-
-This method is like `_.union` except that it accepts `comparator` which is invoked to compare elements of `arrays`. Result values are chosen from the first array in which the value occurs. The comparator is invoked with two arguments: (arrVal, othVal).
-
-_(Since 4.0.0)_
-
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `[...arrays]` | `Array` | The arrays to inspect. |
-| `[comparator]` | `Function` | The comparator invoked per element. |
-
-### Returns
-
-(`Array`): Returns the new array of combined values.
-
-### Example
-
-```javascript
-var objects = [{ 'x': 1, 'y': 2 }, { 'x': 2, 'y': 1 }];
-var others = [{ 'x': 1, 'y': 1 }, { 'x': 1, 'y': 2 }];
-
-_.unionWith(objects, others, _.isEqual);
-// => [{ 'x': 1, 'y': 2 }, { 'x': 2, 'y': 1 }, { 'x': 1, 'y': 1 }]
-```
-
----
-
-## uniq
+### `_.uniq(array)`
 
 Creates a duplicate-free version of an array, using [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero) for equality comparisons, in which only the first occurrence of each element is kept. The order of result values is determined by the order they occur in the array.
 
-_(Since 0.1.0)_
+**Parameters**
 
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
+| Name | Type | Description |
+|---|---|---|
 | `array` | `Array` | The array to inspect. |
 
-### Returns
+**Returns**
 
-(`Array`): Returns the new duplicate free array.
+- `(Array)`: Returns the new duplicate free array.
 
-### Example
+**Example**
 
 ```javascript
 _.uniq([2, 1, 2]);
 // => [2, 1]
 ```
 
----
-
-## uniqBy
-
-This method is like `_.uniq` except that it accepts `iteratee` which is invoked for each element in `array` to generate the criterion by which uniqueness is computed. The order of result values is determined by the order they occur in the array. The iteratee is invoked with one argument: (value).
-
-_(Since 4.0.0)_
-
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `array` | `Array` | The array to inspect. |
-| `[iteratee=_.identity]` | `Function` | The iteratee invoked per element. |
-
-### Returns
-
-(`Array`): Returns the new duplicate free array.
-
-### Example
-
-```javascript
-_.uniqBy([2.1, 1.2, 2.3], Math.floor);
-// => [2.1, 1.2]
-
-// The `_.property` iteratee shorthand.
-_.uniqBy([{ 'x': 1 }, { 'x': 2 }, { 'x': 1 }], 'x');
-// => [{ 'x': 1 }, { 'x': 2 }]
-```
-
----
-
-## uniqWith
-
-This method is like `_.uniq` except that it accepts `comparator` which is invoked to compare elements of `array`. The order of result values is determined by the order they occur in the array.The comparator is invoked with two arguments: (arrVal, othVal).
-
-_(Since 4.0.0)_
-
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `array` | `Array` | The array to inspect. |
-| `[comparator]` | `Function` | The comparator invoked per element. |
-
-### Returns
-
-(`Array`): Returns the new duplicate free array.
-
-### Example
-
-```javascript
-var objects = [{ 'x': 1, 'y': 2 }, { 'x': 2, 'y': 1 }, { 'x': 1, 'y': 2 }];
-
-_.uniqWith(objects, _.isEqual);
-// => [{ 'x': 1, 'y': 2 }, { 'x': 2, 'y': 1 }]
-```
-
----
-
-## unzip
-
-This method is like `_.zip` except that it accepts an array of grouped elements and creates an array regrouping the elements to their pre-zip configuration.
-
-_(Since 1.2.0)_
-
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `array` | `Array` | The array of grouped elements to process. |
-
-### Returns
-
-(`Array`): Returns the new array of regrouped elements.
-
-### Example
-
-```javascript
-var zipped = _.zip(['a', 'b'], [1, 2], [true, false]);
-// => [['a', 1, true], ['b', 2, false]]
-
-_.unzip(zipped);
-// => [['a', 'b'], [1, 2], [true, false]]
-```
-
----
-
-## unzipWith
-
-This method is like `_.unzip` except that it accepts `iteratee` to specify how regrouped values should be combined. The iteratee is invoked with the elements of each group: (...group).
-
-_(Since 3.8.0)_
-
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `array` | `Array` | The array of grouped elements to process. |
-| `[iteratee=_.identity]` | `Function` | The function to combine regrouped values. |
-
-### Returns
-
-(`Array`): Returns the new array of regrouped elements.
-
-### Example
-
-```javascript
-var zipped = _.zip([1, 2], [10, 20], [100, 200]);
-// => [[1, 10, 100], [2, 20, 200]]
-
-_.unzipWith(zipped, _.add);
-// => [111, 222]
-```
-
----
-
-## without
+### `_.without(array, ...[values])`
 
 Creates an array excluding all given values using [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero) for equality comparisons.
 
 **Note:** Unlike `_.pull`, this method returns a new array.
 
-_(Since 0.1.0)_
+**Parameters**
 
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
+| Name | Type | Description |
+|---|---|---|
 | `array` | `Array` | The array to inspect. |
-| `[...values]` | `*` | The values to exclude. |
+| `...[values]` | `*` | The values to exclude. |
 
-### Returns
+**Returns**
 
-(`Array`): Returns the new array of filtered values.
+- `(Array)`: Returns the new array of filtered values.
 
-### Example
+**Example**
 
 ```javascript
 _.without([2, 1, 2, 3], 1, 2);
 // => [3]
 ```
 
----
-
-## xor
-
-Creates an array of unique values that is the [symmetric difference](https://en.wikipedia.org/wiki/Symmetric_difference) of the given arrays. The order of result values is determined by the order they occur in the arrays.
-
-_(Since 2.4.0)_
-
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `[...arrays]` | `Array` | The arrays to inspect. |
-
-### Returns
-
-(`Array`): Returns the new array of filtered values.
-
-### Example
-
-```javascript
-_.xor([2, 1], [2, 3]);
-// => [1, 3]
-```
-
----
-
-## xorBy
-
-This method is like `_.xor` except that it accepts `iteratee` which is invoked for each element of each `arrays` to generate the criterion by which they're compared. The order of result values is determined by the order they occur in the arrays. The iteratee is invoked with one argument: (value).
-
-_(Since 4.0.0)_
-
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `[...arrays]` | `Array` | The arrays to inspect. |
-| `[iteratee=_.identity]` | `Function` | The iteratee invoked per element. |
-
-### Returns
-
-(`Array`): Returns the new array of filtered values.
-
-### Example
-
-```javascript
-_.xorBy([2.1, 1.2], [2.3, 3.4], Math.floor);
-// => [1.2, 3.4]
-
-// The `_.property` iteratee shorthand.
-_.xorBy([{ 'x': 1 }], [{ 'x': 2 }, { 'x': 1 }], 'x');
-// => [{ 'x': 2 }]
-```
-
----
-
-## xorWith
-
-This method is like `_.xor` except that it accepts `comparator` which is invoked to compare elements of `arrays`. The order of result values is determined by the order they occur in the arrays. The comparator is invoked with two arguments: (arrVal, othVal).
-
-_(Since 4.0.0)_
-
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `[...arrays]` | `Array` | The arrays to inspect. |
-| `[comparator]` | `Function` | The comparator invoked per element. |
-
-### Returns
-
-(`Array`): Returns the new array of filtered values.
-
-### Example
-
-```javascript
-var objects = [{ 'x': 1, 'y': 2 }, { 'x': 2, 'y': 1 }];
-var others = [{ 'x': 1, 'y': 1 }, { 'x': 1, 'y': 2 }];
-
-_.xorWith(objects, others, _.isEqual);
-// => [{ 'x': 2, 'y': 1 }, { 'x': 1, 'y': 1 }]
-```
-
----
-
-## zip
+### `_.zip(...[arrays])`
 
 Creates an array of grouped elements, the first of which contains the first elements of the given arrays, the second of which contains the second elements of the given arrays, and so on.
 
-_(Since 0.1.0)_
+**Parameters**
 
-### Parameters
+| Name | Type | Description |
+|---|---|---|
+| `...[arrays]` | `Array` | The arrays to process. |
 
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `[...arrays]` | `Array` | The arrays to process. |
+**Returns**
 
-### Returns
+- `(Array)`: Returns the new array of grouped elements.
 
-(`Array`): Returns the new array of grouped elements.
-
-### Example
+**Example**
 
 ```javascript
 _.zip(['a', 'b'], [1, 2], [true, false]);
@@ -1795,80 +671,4 @@ _.zip(['a', 'b'], [1, 2], [true, false]);
 
 ---
 
-## zipObject
-
-This method is like `_.fromPairs` except that it accepts two arrays, one of property identifiers and one of corresponding values.
-
-_(Since 0.4.0)_
-
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `[props=[]]` | `Array` | The property identifiers. |
-| `[values=[]]` | `Array` | The property values. |
-
-### Returns
-
-(`Object`): Returns the new object.
-
-### Example
-
-```javascript
-_.zipObject(['a', 'b'], [1, 2]);
-// => { 'a': 1, 'b': 2 }
-```
-
----
-
-## zipObjectDeep
-
-This method is like `_.zipObject` except that it supports property paths.
-
-_(Since 4.1.0)_
-
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `[props=[]]` | `Array` | The property identifiers. |
-| `[values=[]]` | `Array` | The property values. |
-
-### Returns
-
-(`Object`): Returns the new object.
-
-### Example
-
-```javascript
-_.zipObjectDeep(['a.b[0].c', 'a.b[1].d'], [1, 2]);
-// => { 'a': { 'b': [{ 'c': 1 }, { 'd': 2 }] } }
-```
-
----
-
-## zipWith
-
-This method is like `_.zip` except that it accepts `iteratee` to specify how grouped values should be combined. The iteratee is invoked with the elements of each group: (...group).
-
-_(Since 3.8.0)_
-
-### Parameters
-
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `[...arrays]` | `Array` | The arrays to process. |
-| `[iteratee=_.identity]` | `Function` | The function to combine grouped values. |
-
-### Returns
-
-(`Array`): Returns the new array of grouped elements.
-
-### Example
-
-```javascript
-_.zipWith([1, 2], [10, 20], [100, 200], function(a, b, c) {
-  return a + b + c;
-});
-// => [111, 222]
-```
+You've now explored the array manipulation capabilities of Lodash. To continue, you might want to delve into [Collection](./api-collection.md) functions, which work on both arrays and objects, or explore the [String](./api-string.md) utilities for text manipulation.
