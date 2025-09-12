@@ -1,6 +1,8 @@
 # 日期
 
-Lodash 提供了一个用于处理日期的工具函数，主要用于获取当前时间戳。该函数可用于性能测量、日志记录或任何需要高分辨率时间戳的场景。
+本节提供了处理 Date 对象的 Lodash 函数的详细参考。这些实用工具可用于获取当前时间戳和执行与日期相关的操作。
+
+如需更多实用函数，您可能也会对 [Util](./api-util.md) 和 [Lang](./api-lang.md) API 类别感兴趣。
 
 ---
 
@@ -8,25 +10,37 @@ Lodash 提供了一个用于处理日期的工具函数，主要用于获取当�
 
 获取自 Unix 纪元（1970 年 1 月 1 日 00:00:00 UTC）以来经过的毫秒数时间戳。
 
-该方法是 `Date.now()` 的高分辨率替代方案。
-
 ### 参数
 
-该函数不接受任何参数。
+此函数不接受任何参数。
 
 ### 返回值
 
-(`number`): 返回当前时间戳。
+<x-field data-name="timestamp" data-type="number" data-desc="返回自 Unix 纪元以来的当前时间戳（以毫秒为单位）。"></x-field>
 
 ### 示例
 
-```javascript icon=logos:javascript
+`_.now()` 函数可用于性能计时和创建唯一时间戳。
+
+```javascript Measuring Time icon=logos:javascript
+// 延迟执行一个函数，并测量其执行所需的时间。
 _.defer(function(stamp) {
   console.log(_.now() - stamp);
 }, _.now());
-// => 记录延迟调用所花费的毫秒数。
+// => 输出延迟调用所需的毫秒数。
 ```
 
 ---
 
-本节介绍了 Lodash 的日期工具。如需了解更复杂的与时间相关的函数调度，请浏览 [函数](./api-function.md) 分类下的方法，例如 `_.defer` 和 `_.delay`。
+## 后续步骤
+
+在处理日期之后，您可能会发现这些相关的 API 部分对您的项目很有用。
+
+<x-cards>
+  <x-card data-title="Function" data-icon="lucide:function-square" data-href="/api/function">
+    探索用于控制函数执行的去抖动、节流、柯里化等函数。
+  </x-card>
+  <x-card data-title="Lang" data-icon="lucide:languages" data-href="/api/lang">
+    探索用于类型检查、克隆和类型转换的语言实用工具。
+  </x-card>
+</x-cards>

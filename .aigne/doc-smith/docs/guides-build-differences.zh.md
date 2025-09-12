@@ -1,68 +1,96 @@
-# 构建差异
+# 构建版本差异
 
-Lodash 提供了多种构建版本和模块格式，以适应不同的环境和项目需求。选择合适的构建版本是优化应用程序性能和包大小的关键。本指南将解释可用的选项以及如何创建自定义构建。
+Lodash 是一个功能多样的库，提供多种构建版本和模块格式，让你能够为项目的特定需求选择最佳选项，无论是在优化打包体积、在不同 JavaScript 环境中工作，还是在使用函数式编程风格。
 
-## 官方构建版本
+本指南将解释主要的构建版本、可用的模块格式，以及如何创建自定义构建版本以实现最高效率。
 
-Lodash 提供两种主要的预编译构建版本：全面的 **完整构建** 和轻量级的 **核心构建**。这些构建版本非常适合在浏览器或偏好使用单个文件的环境中进行快速设置。
+## 主要构建版本
 
-| 构建版本 | Gzipped 大小 | 描述 |
-| :--- | :--- | :--- |
-| [完整构建](https://raw.githubusercontent.com/lodash/lodash/4.17.21/dist/lodash.js) | ~24 kB | 包含 Lodash 方法的全集。最适合服务器端应用程序或包大小不是关键限制的场景。 |
-| [核心构建](https://raw.githubusercontent.com/lodash/lodash/4.17.21/dist/lodash.core.js) | ~4 kB | 一个最小化的构建版本，包含一部分流行的核心 Lodash 工具。非常适合对每个千字节都很在意的项目。 |
+Lodash 提供两个主要的构建版本，你可以直接下载或通过 CDN 访问。它们之间的选择取决于你所需方法的数量和打包体积的限制。
 
-如需更多 CDN 选项，可以访问 [jsDelivr](https://www.jsdelivr.com/projects/lodash)。
+| 构建版本 | Gzipped 大小 (约) | 描述 |
+|---|---|---|
+| **完整构建** | ~24 kB | 完整的 Lodash 库。包含所有可用方法，是通用场景下最常见的选择。 |
+| **核心构建** | ~4 kB | 一个轻量级版本，包含一部分流行和核心的 Lodash 方法。非常适合对体积要求严格的项目。 |
 
-## 模块格式
+## 模块格式与用法
 
-针对现代开发工作流，Lodash 提供了多种模块格式，这些格式提供了更大的灵活性和优化机会。
+根据你的环境，Lodash 可以通过多种方式集成到你的项目中。
 
-<x-cards data-columns="2">
-  <x-card data-title="UMD (lodash)" data-icon="mdi:npm">
-    npm 上的标准包。它使用 UMD 格式，使其能够通过 `<script>` 标签与浏览器兼容，并能通过 `require('lodash')` 在 Node.js 中使用。
-  </x-card>
-  <x-card data-title="ES Modules (lodash-es)" data-icon="logos:esmodules">
-    提供 ES 模块，允许 Webpack 或 Rollup 等现代打包工具执行 tree-shaking，从而只包含你使用的代码。
-  </x-card>
-  <x-card data-title="Functional (lodash/fp)" data-icon="material-symbols:function">
-    一种函数式编程变体，其方法具有不可变、自动柯里化、迭代优先和数据置后的特点。详情请参阅 [FP 指南](./fp-guide.md)。
-  </x-card>
-  <x-card data-title="Per-Method Packages" data-icon="ph:package-duotone">
-    每个 Lodash 方法都作为独立的包发布（例如，`lodash.at`）。这为实现最小包大小提供了最细粒度的控制。
-  </x-card>
-</x-cards>
+### 在浏览器中使用
 
-## 优化包大小
+要在浏览器中直接使用，你可以通过 `<script>` 标签引入完整构建版本。这会创建一个全局变量 `_`。
 
-除了选择合适的构建版本，你还可以使用多种技术进一步减小包大小。
-
-### 按需引入方法
-
-你可以只导入你需要的方法，而不是导入整个库。这是帮助打包工具消除未使用代码的最直接方法。
-
-```javascript Cherry-picking in Node.js icon=logos:nodejs-icon
-// 只加载 'at' 方法
-var at = require('lodash/at');
-
-// 只从 FP 构建中加载 'curryN' 方法
-var curryN = require('lodash/fp/curryN');
+```html HTML icon=logos:html-5
+<script src="lodash.js"></script>
 ```
 
-### 使用构建工具和插件
+也可以通过 [jsDelivr](https://www.jsdelivr.com/projects/lodash) 等服务获取 CDN 副本。
 
-对于较大的项目，手动按需引入可能很繁琐。生态系统提供了能够自动化此过程的插件。
+### 在 Node.js 中使用 (CommonJS)
 
-- **[babel-plugin-lodash](https://www.npmjs.com/package/babel-plugin-lodash)**：一个 Babel 插件，可将你的 Lodash 导入转换为按需引入的方式，因此你可以编写 `import { at } from 'lodash'` 并获得优化后的结果。
-- **[lodash-webpack-plugin](https://www.npmjs.com/package/lodash-webpack-plugin)**：一个 Webpack 插件，与 `babel-plugin-lodash` 配合使用，通过将方法调用替换为更具体或更小的替代方案来进一步优化构建。
+使用 Node.js 时，你可以通过 npm 安装 Lodash，并 `require` 你需要的构建版本。
 
-### 生成自定义构建
+```shell Shell icon=mdi:bash
+$ npm i --save lodash
+```
 
-你可以使用 `lodash-cli` 直接从源代码生成你自己的自定义构建。这使你可以完全控制所包含的模块。
+```javascript Node.js Usage icon=logos:nodejs
+// 加载完整构建版本。
+var _ = require('lodash');
 
-```shell Generating Builds with lodash-cli icon=mdi:console
-# 生成标准完整构建
+// 加载核心构建版本以减小体积。
+var _ = require('lodash/core');
+
+// 加载 FP 构建版本以进行函数式编程。
+var fp = require('lodash/fp');
+```
+
+### 配合现代打包工具使用 (ES 模块)
+
+对于使用 webpack、Rollup 或 Vite 等打包工具的应用程序，你可以通过仅导入所需的方法来显著减小最终的打包体积。这通常被称为“按需挑选”。
+
+这种方法与 `lodash-es` 等提供 ES 模块的包结合使用效果最好，可以实现有效的摇树优化。
+
+```javascript Cherry-picking Methods icon=logos:javascript
+// 按需挑选方法以减小打包体积。
+import at from 'lodash/at';
+import curryN from 'lodash/fp/curryN';
+```
+
+要自动化此过程，你可以使用 [babel-plugin-lodash](https://www.npmjs.com/package/babel-plugin-lodash) 和 [lodash-webpack-plugin](https://www.npmjs.com/package/lodash-webpack-plugin) 等工具。
+
+## 专用构建版本
+
+除了主要的构建版本，Lodash 还为不同的编程范式和使用场景提供了专门的版本。
+
+### 函数式编程 (FP)
+
+`lodash/fp` 构建版本提供的方法是不可变的、自动柯里化的，并遵循迭代函数优先、数据最后的参数顺序。这种风格受到函数式编程实践者的青睐。
+
+```javascript Loading the FP Build icon=logos:javascript
+var fp = require('lodash/fp');
+```
+
+### 按方法划分的包
+
+为了最大限度地控制打包体积，每个 Lodash 方法都可作为独立的 npm 包使用。这对于只需要一两个辅助函数的小型项目或库来说是理想的选择。
+
+示例包包括 `lodash.at`、`lodash.curry` 等。你可以在 npm 上通过 [`lodash-modularized` 关键词](https://www.npmjs.com/browse/keyword/lodash-modularized)找到所有这些包。
+
+### 其他模块格式
+
+Lodash 也适用于其他模块系统：
+- **`lodash-amd`**：适用于使用异步模块定义 (AMD) 的项目。
+
+## 创建自定义构建版本
+
+你可以使用 `lodash-cli` 生成自己的自定义 Lodash 构建版本。这允许你创建一个只包含项目所用特定方法的文件。
+
+```shell Creating Builds with lodash-cli icon=mdi:bash
+# 生成完整构建版本
 $ lodash -o ./dist/lodash.js
 
-# 生成核心构建
+# 生成核心构建版本
 $ lodash core -o ./dist/lodash.core.js
 ```

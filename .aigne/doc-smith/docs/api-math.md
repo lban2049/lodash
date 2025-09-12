@@ -1,57 +1,49 @@
 # Math
 
-This section provides a detailed reference for Lodash's mathematical utility functions. These functions perform basic arithmetic operations, calculate aggregates like sum and mean, and provide rounding utilities.
+Lodash's Math functions provide a robust set of utilities for performing common mathematical operations. These functions handle basic arithmetic, rounding, and statistical calculations like finding maximum, minimum, and mean values within collections.
 
-For functions that operate on or return numbers in other contexts, see the [Number](./api-number.md) documentation.
+For more specialized numeric operations, you may also want to explore the [Number](./api-number.md) category functions.
 
 ---
 
-## _.add
+## add
 
 Adds two numbers.
 
-**Since:** 3.4.0
-
 ### Parameters
 
-| Name     | Type     | Description                        |
-|----------|----------|------------------------------------|
-| `augend` | `number` | The first number in an addition.   |
-| `addend` | `number` | The second number in an addition.  |
+<x-field data-name="augend" data-type="number" data-required="true" data-desc="The first number in an addition."></x-field>
+<x-field data-name="addend" data-type="number" data-required="true" data-desc="The second number in an addition."></x-field>
 
 ### Returns
 
-- `(number)`: Returns the total.
+<x-field data-name="" data-type="number" data-desc="Returns the total."></x-field>
 
 ### Example
 
-```javascript
+```javascript Add two numbers
 _.add(6, 4);
 // => 10
 ```
 
 ---
 
-## _.ceil
+## ceil
 
 Computes `number` rounded up to `precision`.
 
-**Since:** 3.10.0
-
 ### Parameters
 
-| Name        | Type     | Description                   |
-|-------------|----------|-------------------------------|
-| `number`    | `number` | The number to round up.       |
-| `[precision=0]` | `number` | The precision to round up to. |
+<x-field data-name="number" data-type="number" data-required="true" data-desc="The number to round up."></x-field>
+<x-field data-name="precision" data-type="number" data-default="0" data-desc="The precision to round up to."></x-field>
 
 ### Returns
 
-- `(number)`: Returns the rounded up number.
+<x-field data-name="" data-type="number" data-desc="Returns the rounded up number."></x-field>
 
 ### Example
 
-```javascript
+```javascript Rounding examples
 _.ceil(4.006);
 // => 5
 
@@ -64,52 +56,44 @@ _.ceil(6040, -2);
 
 ---
 
-## _.divide
+## divide
 
 Divides two numbers.
 
-**Since:** 4.7.0
-
 ### Parameters
 
-| Name       | Type     | Description                      |
-|------------|----------|----------------------------------|
-| `dividend` | `number` | The first number in a division.  |
-| `divisor`  | `number` | The second number in a division. |
+<x-field data-name="dividend" data-type="number" data-required="true" data-desc="The first number in a division."></x-field>
+<x-field data-name="divisor" data-type="number" data-required="true" data-desc="The second number in a division."></x-field>
 
 ### Returns
 
-- `(number)`: Returns the quotient.
+<x-field data-name="" data-type="number" data-desc="Returns the quotient."></x-field>
 
 ### Example
 
-```javascript
+```javascript Divide two numbers
 _.divide(6, 4);
 // => 1.5
 ```
 
 ---
 
-## _.floor
+## floor
 
 Computes `number` rounded down to `precision`.
 
-**Since:** 3.10.0
-
 ### Parameters
 
-| Name        | Type     | Description                     |
-|-------------|----------|---------------------------------|
-| `number`    | `number` | The number to round down.       |
-| `[precision=0]` | `number` | The precision to round down to. |
+<x-field data-name="number" data-type="number" data-required="true" data-desc="The number to round down."></x-field>
+<x-field data-name="precision" data-type="number" data-default="0" data-desc="The precision to round down to."></x-field>
 
 ### Returns
 
-- `(number)`: Returns the rounded down number.
+<x-field data-name="" data-type="number" data-desc="Returns the rounded down number."></x-field>
 
 ### Example
 
-```javascript
+```javascript Rounding down examples
 _.floor(4.006);
 // => 4
 
@@ -122,25 +106,21 @@ _.floor(4060, -2);
 
 ---
 
-## _.max
+## max
 
 Computes the maximum value of `array`. If `array` is empty or falsey, `undefined` is returned.
 
-**Since:** 0.1.0
-
 ### Parameters
 
-| Name    | Type    | Description                 |
-|---------|---------|-----------------------------|
-| `array` | `Array` | The array to iterate over.  |
+<x-field data-name="array" data-type="Array" data-required="true" data-desc="The array to iterate over."></x-field>
 
 ### Returns
 
-- `(*)`: Returns the maximum value.
+<x-field data-name="" data-type="*" data-desc="Returns the maximum value."></x-field>
 
 ### Example
 
-```javascript
+```javascript Find maximum value
 _.max([4, 2, 8, 6]);
 // => 8
 
@@ -150,26 +130,22 @@ _.max([]);
 
 ---
 
-## _.maxBy
+## maxBy
 
-This method is like `_.max` except that it accepts `iteratee` which is invoked for each element in `array` to generate the criterion by which the value is ranked. The iteratee is invoked with one argument: (value).
-
-**Since:** 4.0.0
+This method is like `_.max` except that it accepts `iteratee` which is invoked for each element in `array` to generate the criterion by which the value is ranked.
 
 ### Parameters
 
-| Name       | Type     | Description                       |
-|------------|----------|-----------------------------------|
-| `array`    | `Array`  | The array to iterate over.        |
-| `[iteratee=_.identity]` | `Function` | The iteratee invoked per element. |
+<x-field data-name="array" data-type="Array" data-required="true" data-desc="The array to iterate over."></x-field>
+<x-field data-name="iteratee" data-type="Function" data-default="_.identity" data-desc="The iteratee invoked per element."></x-field>
 
 ### Returns
 
-- `(*)`: Returns the maximum value.
+<x-field data-name="" data-type="*" data-desc="Returns the maximum value."></x-field>
 
 ### Example
 
-```javascript
+```javascript Find maximum value by iteratee
 var objects = [{ 'n': 1 }, { 'n': 2 }];
 
 _.maxBy(objects, function(o) { return o.n; });
@@ -182,51 +158,43 @@ _.maxBy(objects, 'n');
 
 ---
 
-## _.mean
+## mean
 
 Computes the mean of the values in `array`.
 
-**Since:** 4.0.0
-
 ### Parameters
 
-| Name    | Type    | Description                 |
-|---------|---------|-----------------------------|
-| `array` | `Array` | The array to iterate over.  |
+<x-field data-name="array" data-type="Array" data-required="true" data-desc="The array to iterate over."></x-field>
 
 ### Returns
 
-- `(number)`: Returns the mean.
+<x-field data-name="" data-type="number" data-desc="Returns the mean."></x-field>
 
 ### Example
 
-```javascript
+```javascript Calculate the mean
 _.mean([4, 2, 8, 6]);
 // => 5
 ```
 
 ---
 
-## _.meanBy
+## meanBy
 
-This method is like `_.mean` except that it accepts `iteratee` which is invoked for each element in `array` to generate the value to be averaged. The iteratee is invoked with one argument: (value).
-
-**Since:** 4.7.0
+This method is like `_.mean` except that it accepts `iteratee` which is invoked for each element in `array` to generate the value to be averaged.
 
 ### Parameters
 
-| Name       | Type     | Description                       |
-|------------|----------|-----------------------------------|
-| `array`    | `Array`  | The array to iterate over.        |
-| `[iteratee=_.identity]` | `Function` | The iteratee invoked per element. |
+<x-field data-name="array" data-type="Array" data-required="true" data-desc="The array to iterate over."></x-field>
+<x-field data-name="iteratee" data-type="Function" data-default="_.identity" data-desc="The iteratee invoked per element."></x-field>
 
 ### Returns
 
-- `(number)`: Returns the mean.
+<x-field data-name="" data-type="number" data-desc="Returns the mean."></x-field>
 
 ### Example
 
-```javascript
+```javascript Calculate mean by iteratee
 var objects = [{ 'n': 4 }, { 'n': 2 }, { 'n': 8 }, { 'n': 6 }];
 
 _.meanBy(objects, function(o) { return o.n; });
@@ -239,25 +207,21 @@ _.meanBy(objects, 'n');
 
 ---
 
-## _.min
+## min
 
 Computes the minimum value of `array`. If `array` is empty or falsey, `undefined` is returned.
 
-**Since:** 0.1.0
-
 ### Parameters
 
-| Name    | Type    | Description                 |
-|---------|---------|-----------------------------|
-| `array` | `Array` | The array to iterate over.  |
+<x-field data-name="array" data-type="Array" data-required="true" data-desc="The array to iterate over."></x-field>
 
 ### Returns
 
-- `(*)`: Returns the minimum value.
+<x-field data-name="" data-type="*" data-desc="Returns the minimum value."></x-field>
 
 ### Example
 
-```javascript
+```javascript Find minimum value
 _.min([4, 2, 8, 6]);
 // => 2
 
@@ -267,26 +231,22 @@ _.min([]);
 
 ---
 
-## _.minBy
+## minBy
 
-This method is like `_.min` except that it accepts `iteratee` which is invoked for each element in `array` to generate the criterion by which the value is ranked. The iteratee is invoked with one argument: (value).
-
-**Since:** 4.0.0
+This method is like `_.min` except that it accepts `iteratee` which is invoked for each element in `array` to generate the criterion by which the value is ranked.
 
 ### Parameters
 
-| Name       | Type     | Description                       |
-|------------|----------|-----------------------------------|
-| `array`    | `Array`  | The array to iterate over.        |
-| `[iteratee=_.identity]` | `Function` | The iteratee invoked per element. |
+<x-field data-name="array" data-type="Array" data-required="true" data-desc="The array to iterate over."></x-field>
+<x-field data-name="iteratee" data-type="Function" data-default="_.identity" data-desc="The iteratee invoked per element."></x-field>
 
 ### Returns
 
-- `(*)`: Returns the minimum value.
+<x-field data-name="" data-type="*" data-desc="Returns the minimum value."></x-field>
 
 ### Example
 
-```javascript
+```javascript Find minimum value by iteratee
 var objects = [{ 'n': 1 }, { 'n': 2 }];
 
 _.minBy(objects, function(o) { return o.n; });
@@ -299,52 +259,44 @@ _.minBy(objects, 'n');
 
 ---
 
-## _.multiply
+## multiply
 
-Multiplies two numbers.
-
-**Since:** 4.7.0
+Multiply two numbers.
 
 ### Parameters
 
-| Name         | Type     | Description                             |
-|--------------|----------|-----------------------------------------|
-| `multiplier` | `number` | The first number in a multiplication.   |
-| `multiplicand` | `number` | The second number in a multiplication.  |
+<x-field data-name="multiplier" data-type="number" data-required="true" data-desc="The first number in a multiplication."></x-field>
+<x-field data-name="multiplicand" data-type="number" data-required="true" data-desc="The second number in a multiplication."></x-field>
 
 ### Returns
 
-- `(number)`: Returns the product.
+<x-field data-name="" data-type="number" data-desc="Returns the product."></x-field>
 
 ### Example
 
-```javascript
+```javascript Multiply two numbers
 _.multiply(6, 4);
 // => 24
 ```
 
 ---
 
-## _.round
+## round
 
 Computes `number` rounded to `precision`.
 
-**Since:** 3.10.0
-
 ### Parameters
 
-| Name        | Type     | Description                |
-|-------------|----------|----------------------------|
-| `number`    | `number` | The number to round.       |
-| `[precision=0]` | `number` | The precision to round to. |
+<x-field data-name="number" data-type="number" data-required="true" data-desc="The number to round."></x-field>
+<x-field data-name="precision" data-type="number" data-default="0" data-desc="The precision to round to."></x-field>
 
 ### Returns
 
-- `(number)`: Returns the rounded number.
+<x-field data-name="" data-type="number" data-desc="Returns the rounded number."></x-field>
 
 ### Example
 
-```javascript
+```javascript Rounding examples
 _.round(4.006);
 // => 4
 
@@ -357,77 +309,65 @@ _.round(4060, -2);
 
 ---
 
-## _.subtract
+## subtract
 
-Subtracts two numbers.
-
-**Since:** 4.0.0
+Subtract two numbers.
 
 ### Parameters
 
-| Name         | Type     | Description                         |
-|--------------|----------|-------------------------------------|
-| `minuend`    | `number` | The first number in a subtraction.  |
-| `subtrahend` | `number` | The second number in a subtraction. |
+<x-field data-name="minuend" data-type="number" data-required="true" data-desc="The first number in a subtraction."></x-field>
+<x-field data-name="subtrahend" data-type="number" data-required="true" data-desc="The second number in a subtraction."></x-field>
 
 ### Returns
 
-- `(number)`: Returns the difference.
+<x-field data-name="" data-type="number" data-desc="Returns the difference."></x-field>
 
 ### Example
 
-```javascript
+```javascript Subtract two numbers
 _.subtract(6, 4);
 // => 2
 ```
 
 ---
 
-## _.sum
+## sum
 
 Computes the sum of the values in `array`.
 
-**Since:** 3.4.0
-
 ### Parameters
 
-| Name    | Type    | Description                 |
-|---------|---------|-----------------------------|
-| `array` | `Array` | The array to iterate over.  |
+<x-field data-name="array" data-type="Array" data-required="true" data-desc="The array to iterate over."></x-field>
 
 ### Returns
 
-- `(number)`: Returns the sum.
+<x-field data-name="" data-type="number" data-desc="Returns the sum."></x-field>
 
 ### Example
 
-```javascript
+```javascript Sum an array
 _.sum([4, 2, 8, 6]);
 // => 20
 ```
 
 ---
 
-## _.sumBy
+## sumBy
 
-This method is like `_.sum` except that it accepts `iteratee` which is invoked for each element in `array` to generate the value to be summed. The iteratee is invoked with one argument: (value).
-
-**Since:** 4.0.0
+This method is like `_.sum` except that it accepts `iteratee` which is invoked for each element in `array` to generate the value to be summed.
 
 ### Parameters
 
-| Name       | Type     | Description                       |
-|------------|----------|-----------------------------------|
-| `array`    | `Array`  | The array to iterate over.        |
-| `[iteratee=_.identity]` | `Function` | The iteratee invoked per element. |
+<x-field data-name="array" data-type="Array" data-required="true" data-desc="The array to iterate over."></x-field>
+<x-field data-name="iteratee" data-type="Function" data-default="_.identity" data-desc="The iteratee invoked per element."></x-field>
 
 ### Returns
 
-- `(number)`: Returns the sum.
+<x-field data-name="" data-type="number" data-desc="Returns the sum."></x-field>
 
 ### Example
 
-```javascript
+```javascript Sum by iteratee
 var objects = [{ 'n': 4 }, { 'n': 2 }, { 'n': 8 }, { 'n': 6 }];
 
 _.sumBy(objects, function(o) { return o.n; });
@@ -437,3 +377,5 @@ _.sumBy(objects, function(o) { return o.n; });
 _.sumBy(objects, 'n');
 // => 20
 ```
+
+After exploring these mathematical utilities, you might find the functions in the [Number](./api-number.md) section useful for more specific numeric checks and transformations.

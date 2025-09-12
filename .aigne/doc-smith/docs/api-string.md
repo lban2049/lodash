@@ -1,26 +1,22 @@
 # String
 
-Lodash provides a robust suite of functions designed for powerful and flexible string manipulation and inspection. These utilities simplify common tasks such as case conversion, trimming, padding, and creating templates. They are optimized for performance and handle edge cases gracefully, making string manipulation in JavaScript more predictable and declarative.
-
-For an overview of all available function categories, please refer to the main [API Reference](./api.md).
+This section provides a detailed reference for all Lodash functions designed for string manipulation and inspection. These utilities help with common tasks like case conversion, trimming, padding, searching, and template interpolation.
 
 ## _.camelCase
 
-Converts a string to [camel case](https://en.wikipedia.org/wiki/CamelCase).
+Converts `string` to [camel case](https://en.wikipedia.org/wiki/CamelCase).
 
-### Parameters
+**Parameters**
 
-| Parameter | Type | Description |
-|---|---|---|
-| `[string='']` | `string` | The string to convert. |
+<x-field data-name="string" data-type="string" data-default="''" data-required="false" data-desc="The string to convert."></x-field>
 
-### Returns
+**Returns**
 
-`(string)`: Returns the camel-cased string.
+<x-field data-name="" data-type="string" data-desc="Returns the camel cased string."></x-field>
 
-### Example
+**Example**
 
-```javascript icon=logos:javascript
+```javascript
 _.camelCase('Foo Bar');
 // => 'fooBar'
 
@@ -31,73 +27,61 @@ _.camelCase('__FOO_BAR__');
 // => 'fooBar'
 ```
 
----
-
 ## _.capitalize
 
-Converts the first character of a string to upper case and the remaining to lower case.
+Converts the first character of `string` to upper case and the remaining to lower case.
 
-### Parameters
+**Parameters**
 
-| Parameter | Type | Description |
-|---|---|---|
-| `[string='']` | `string` | The string to capitalize. |
+<x-field data-name="string" data-type="string" data-default="''" data-required="false" data-desc="The string to capitalize."></x-field>
 
-### Returns
+**Returns**
 
-`(string)`: Returns the capitalized string.
+<x-field data-name="" data-type="string" data-desc="Returns the capitalized string."></x-field>
 
-### Example
+**Example**
 
-```javascript icon=logos:javascript
+```javascript
 _.capitalize('FRED');
 // => 'Fred'
 ```
 
----
-
 ## _.deburr
 
-Deburrs a string by converting [Latin-1 Supplement](https://en.wikipedia.org/wiki/Latin-1_Supplement_(Unicode_block)#Character_table) and [Latin Extended-A](https://en.wikipedia.org/wiki/Latin_Extended-A) letters to basic Latin letters and removing [combining diacritical marks](https://en.wikipedia.org/wiki/Combining_Diacritical_Marks).
+Deburrs `string` by converting [Latin-1 Supplement](https://en.wikipedia.org/wiki/Latin-1_Supplement_(Unicode_block)#Character_table) and [Latin Extended-A](https://en.wikipedia.org/wiki/Latin_Extended-A) letters to basic Latin letters and removing [combining diacritical marks](https://en.wikipedia.org/wiki/Combining_Diacritical_Marks).
 
-### Parameters
+**Parameters**
 
-| Parameter | Type | Description |
-|---|---|---|
-| `[string='']` | `string` | The string to deburr. |
+<x-field data-name="string" data-type="string" data-default="''" data-required="false" data-desc="The string to deburr."></x-field>
 
-### Returns
+**Returns**
 
-`(string)`: Returns the deburred string.
+<x-field data-name="" data-type="string" data-desc="Returns the deburred string."></x-field>
 
-### Example
+**Example**
 
-```javascript icon=logos:javascript
+```javascript
 _.deburr('déjà vu');
 // => 'deja vu'
 ```
 
----
-
 ## _.endsWith
 
-Checks if a string ends with the given target string.
+Checks if `string` ends with the given target string.
 
-### Parameters
+**Parameters**
 
-| Parameter | Type | Description |
-|---|---|---|
-| `[string='']` | `string` | The string to inspect. |
-| `[target]` | `string` | The string to search for. |
-| `[position=string.length]` | `number` | The position to search up to. |
+<x-field data-name="string" data-type="string" data-default="''" data-required="false" data-desc="The string to inspect."></x-field>
+<x-field data-name="target" data-type="string" data-required="false" data-desc="The string to search for."></x-field>
+<x-field data-name="position" data-type="number" data-default="string.length" data-required="false" data-desc="The position to search up to."></x-field>
 
-### Returns
+**Returns**
 
-`(boolean)`: Returns `true` if the string ends with the target, else `false`.
+<x-field data-name="" data-type="boolean" data-desc="Returns true if string ends with target, else false."></x-field>
 
-### Example
+**Example**
 
-```javascript icon=logos:javascript
+```javascript
 _.endsWith('abc', 'c');
 // => true
 
@@ -108,73 +92,61 @@ _.endsWith('abc', 'b', 2);
 // => true
 ```
 
----
-
 ## _.escape
 
-Converts the characters `&`, `<`, `>`, `"`, and `'` in a string to their corresponding HTML entities.
+Converts the characters "&", "<", ">", '"', and "'" in `string` to their corresponding HTML entities.
 
 **Note:** No other characters are escaped. For more comprehensive escaping, consider a third-party library like [_he_](https://mths.be/he).
 
-### Parameters
+**Parameters**
 
-| Parameter | Type | Description |
-|---|---|---|
-| `[string='']` | `string` | The string to escape. |
+<x-field data-name="string" data-type="string" data-default="''" data-required="false" data-desc="The string to escape."></x-field>
 
-### Returns
+**Returns**
 
-`(string)`: Returns the escaped string.
+<x-field data-name="" data-type="string" data-desc="Returns the escaped string."></x-field>
 
-### Example
+**Example**
 
-```javascript icon=logos:javascript
+```javascript
 _.escape('fred, barney, & pebbles');
 // => 'fred, barney, &amp; pebbles'
 ```
 
----
-
 ## _.escapeRegExp
 
-Escapes the `RegExp` special characters `^`, `$`, `\`, `.`, `*`, `+`, `?`, `(`, `)`, `[`, `]`, `{`, `}`, and `|` in a string.
+Escapes the `RegExp` special characters "^", "$", "\", ".", "*", "+", "?", "(", ")", "[", "]", "{", "}", and "|" in `string`.
 
-### Parameters
+**Parameters**
 
-| Parameter | Type | Description |
-|---|---|---|
-| `[string='']` | `string` | The string to escape. |
+<x-field data-name="string" data-type="string" data-default="''" data-required="false" data-desc="The string to escape."></x-field>
 
-### Returns
+**Returns**
 
-`(string)`: Returns the escaped string.
+<x-field data-name="" data-type="string" data-desc="Returns the escaped string."></x-field>
 
-### Example
+**Example**
 
-```javascript icon=logos:javascript
+```javascript
 _.escapeRegExp('[lodash](https://lodash.com/)');
 // => '\[lodash\]\(https://lodash\.com/\)'
 ```
 
----
-
 ## _.kebabCase
 
-Converts a string to [kebab case](https://en.wikipedia.org/wiki/Letter_case#Special_case_styles).
+Converts `string` to [kebab case](https://en.wikipedia.org/wiki/Letter_case#Special_case_styles).
 
-### Parameters
+**Parameters**
 
-| Parameter | Type | Description |
-|---|---|---|
-| `[string='']` | `string` | The string to convert. |
+<x-field data-name="string" data-type="string" data-default="''" data-required="false" data-desc="The string to convert."></x-field>
 
-### Returns
+**Returns**
 
-`(string)`: Returns the kebab-cased string.
+<x-field data-name="" data-type="string" data-desc="Returns the kebab cased string."></x-field>
 
-### Example
+**Example**
 
-```javascript icon=logos:javascript
+```javascript
 _.kebabCase('Foo Bar');
 // => 'foo-bar'
 
@@ -185,25 +157,21 @@ _.kebabCase('__FOO_BAR__');
 // => 'foo-bar'
 ```
 
----
-
 ## _.lowerCase
 
-Converts a string, as space-separated words, to lower case.
+Converts `string`, as space separated words, to lower case.
 
-### Parameters
+**Parameters**
 
-| Parameter | Type | Description |
-|---|---|---|
-| `[string='']` | `string` | The string to convert. |
+<x-field data-name="string" data-type="string" data-default="''" data-required="false" data-desc="The string to convert."></x-field>
 
-### Returns
+**Returns**
 
-`(string)`: Returns the lower-cased string.
+<x-field data-name="" data-type="string" data-desc="Returns the lower cased string."></x-field>
 
-### Example
+**Example**
 
-```javascript icon=logos:javascript
+```javascript
 _.lowerCase('--Foo-Bar--');
 // => 'foo bar'
 
@@ -214,25 +182,21 @@ _.lowerCase('__FOO_BAR__');
 // => 'foo bar'
 ```
 
----
-
 ## _.lowerFirst
 
-Converts the first character of a string to lower case.
+Converts the first character of `string` to lower case.
 
-### Parameters
+**Parameters**
 
-| Parameter | Type | Description |
-|---|---|---|
-| `[string='']` | `string` | The string to convert. |
+<x-field data-name="string" data-type="string" data-default="''" data-required="false" data-desc="The string to convert."></x-field>
 
-### Returns
+**Returns**
 
-`(string)`: Returns the converted string.
+<x-field data-name="" data-type="string" data-desc="Returns the converted string."></x-field>
 
-### Example
+**Example**
 
-```javascript icon=logos:javascript
+```javascript
 _.lowerFirst('Fred');
 // => 'fred'
 
@@ -240,27 +204,23 @@ _.lowerFirst('FRED');
 // => 'fRED'
 ```
 
----
-
 ## _.pad
 
-Pads a string on the left and right sides if it's shorter than `length`. Padding characters are truncated if they can't be evenly divided by `length`.
+Pads `string` on the left and right sides if it's shorter than `length`. Padding characters are truncated if they can't be evenly divided by `length`.
 
-### Parameters
+**Parameters**
 
-| Parameter | Type | Description |
-|---|---|---|
-| `[string='']` | `string` | The string to pad. |
-| `[length=0]` | `number` | The padding length. |
-| `[chars=' ']` | `string` | The string used as padding. |
+<x-field data-name="string" data-type="string" data-default="''" data-required="false" data-desc="The string to pad."></x-field>
+<x-field data-name="length" data-type="number" data-default="0" data-required="false" data-desc="The padding length."></x-field>
+<x-field data-name="chars" data-type="string" data-default="' '" data-required="false" data-desc="The string used as padding."></x-field>
 
-### Returns
+**Returns**
 
-`(string)`: Returns the padded string.
+<x-field data-name="" data-type="string" data-desc="Returns the padded string."></x-field>
 
-### Example
+**Example**
 
-```javascript icon=logos:javascript
+```javascript
 _.pad('abc', 8);
 // => '  abc   '
 
@@ -271,27 +231,23 @@ _.pad('abc', 3);
 // => 'abc'
 ```
 
----
-
 ## _.padEnd
 
-Pads a string on the right side if it's shorter than `length`. Padding characters are truncated if they exceed `length`.
+Pads `string` on the right side if it's shorter than `length`. Padding characters are truncated if they exceed `length`.
 
-### Parameters
+**Parameters**
 
-| Parameter | Type | Description |
-|---|---|---|
-| `[string='']` | `string` | The string to pad. |
-| `[length=0]` | `number` | The padding length. |
-| `[chars=' ']` | `string` | The string used as padding. |
+<x-field data-name="string" data-type="string" data-default="''" data-required="false" data-desc="The string to pad."></x-field>
+<x-field data-name="length" data-type="number" data-default="0" data-required="false" data-desc="The padding length."></x-field>
+<x-field data-name="chars" data-type="string" data-default="' '" data-required="false" data-desc="The string used as padding."></x-field>
 
-### Returns
+**Returns**
 
-`(string)`: Returns the padded string.
+<x-field data-name="" data-type="string" data-desc="Returns the padded string."></x-field>
 
-### Example
+**Example**
 
-```javascript icon=logos:javascript
+```javascript
 _.padEnd('abc', 6);
 // => 'abc   '
 
@@ -302,27 +258,23 @@ _.padEnd('abc', 3);
 // => 'abc'
 ```
 
----
-
 ## _.padStart
 
-Pads a string on the left side if it's shorter than `length`. Padding characters are truncated if they exceed `length`.
+Pads `string` on the left side if it's shorter than `length`. Padding characters are truncated if they exceed `length`.
 
-### Parameters
+**Parameters**
 
-| Parameter | Type | Description |
-|---|---|---|
-| `[string='']` | `string` | The string to pad. |
-| `[length=0]` | `number` | The padding length. |
-| `[chars=' ']` | `string` | The string used as padding. |
+<x-field data-name="string" data-type="string" data-default="''" data-required="false" data-desc="The string to pad."></x-field>
+<x-field data-name="length" data-type="number" data-default="0" data-required="false" data-desc="The padding length."></x-field>
+<x-field data-name="chars" data-type="string" data-default="' '" data-required="false" data-desc="The string used as padding."></x-field>
 
-### Returns
+**Returns**
 
-`(string)`: Returns the padded string.
+<x-field data-name="" data-type="string" data-desc="Returns the padded string."></x-field>
 
-### Example
+**Example**
 
-```javascript icon=logos:javascript
+```javascript
 _.padStart('abc', 6);
 // => '   abc'
 
@@ -333,26 +285,24 @@ _.padStart('abc', 3);
 // => 'abc'
 ```
 
----
-
 ## _.parseInt
 
-Converts a string to an integer of the specified radix. If `radix` is `undefined` or `0`, a `radix` of `10` is used unless the value is a hexadecimal, in which case a `radix` of `16` is used.
+Converts `string` to an integer of the specified radix. If `radix` is `undefined` or `0`, a `radix` of `10` is used unless `value` is a hexadecimal, in which case a `radix` of `16` is used.
 
-### Parameters
+**Note:** This method aligns with the [ES5 implementation](https://es5.github.io/#x15.1.2.2) of `parseInt`.
 
-| Parameter | Type | Description |
-|---|---|---|
-| `string` | `string` | The string to convert. |
-| `[radix=10]` | `number` | The radix to interpret `value` by. |
+**Parameters**
 
-### Returns
+<x-field data-name="string" data-type="string" data-required="true" data-desc="The string to convert."></x-field>
+<x-field data-name="radix" data-type="number" data-default="10" data-required="false" data-desc="The radix to interpret value by."></x-field>
 
-`(number)`: Returns the converted integer.
+**Returns**
 
-### Example
+<x-field data-name="" data-type="number" data-desc="Returns the converted integer."></x-field>
 
-```javascript icon=logos:javascript
+**Example**
+
+```javascript
 _.parseInt('08');
 // => 8
 
@@ -360,26 +310,22 @@ _.map(['6', '08', '10'], _.parseInt);
 // => [6, 8, 10]
 ```
 
----
-
 ## _.repeat
 
 Repeats the given string `n` times.
 
-### Parameters
+**Parameters**
 
-| Parameter | Type | Description |
-|---|---|---|
-| `[string='']` | `string` | The string to repeat. |
-| `[n=1]` | `number` | The number of times to repeat the string. |
+<x-field data-name="string" data-type="string" data-default="''" data-required="false" data-desc="The string to repeat."></x-field>
+<x-field data-name="n" data-type="number" data-default="1" data-required="false" data-desc="The number of times to repeat the string."></x-field>
 
-### Returns
+**Returns**
 
-`(string)`: Returns the repeated string.
+<x-field data-name="" data-type="string" data-desc="Returns the repeated string."></x-field>
 
-### Example
+**Example**
 
-```javascript icon=logos:javascript
+```javascript
 _.repeat('*', 3);
 // => '***'
 
@@ -390,50 +336,44 @@ _.repeat('abc', 0);
 // => ''
 ```
 
----
-
 ## _.replace
 
-Replaces matches for `pattern` in a string with `replacement`. This method is based on [`String#replace`](https://mdn.io/String/replace).
+Replaces matches for `pattern` in `string` with `replacement`.
 
-### Parameters
+**Note:** This method is based on [`String#replace`](https://mdn.io/String/replace).
 
-| Parameter | Type | Description |
-|---|---|---|
-| `[string='']` | `string` | The string to modify. |
-| `pattern` | `RegExp` \| `string` | The pattern to replace. |
-| `replacement` | `Function` \| `string` | The match replacement. |
+**Parameters**
 
-### Returns
+<x-field data-name="string" data-type="string" data-default="''" data-required="false" data-desc="The string to modify."></x-field>
+<x-field data-name="pattern" data-type="RegExp|string" data-required="true" data-desc="The pattern to replace."></x-field>
+<x-field data-name="replacement" data-type="Function|string" data-required="true" data-desc="The match replacement."></x-field>
 
-`(string)`: Returns the modified string.
+**Returns**
 
-### Example
+<x-field data-name="" data-type="string" data-desc="Returns the modified string."></x-field>
 
-```javascript icon=logos:javascript
+**Example**
+
+```javascript
 _.replace('Hi Fred', 'Fred', 'Barney');
 // => 'Hi Barney'
 ```
 
----
-
 ## _.snakeCase
 
-Converts a string to [snake case](https://en.wikipedia.org/wiki/Snake_case).
+Converts `string` to [snake case](https://en.wikipedia.org/wiki/Snake_case).
 
-### Parameters
+**Parameters**
 
-| Parameter | Type | Description |
-|---|---|---|
-| `[string='']` | `string` | The string to convert. |
+<x-field data-name="string" data-type="string" data-default="''" data-required="false" data-desc="The string to convert."></x-field>
 
-### Returns
+**Returns**
 
-`(string)`: Returns the snake-cased string.
+<x-field data-name="" data-type="string" data-desc="Returns the snake cased string."></x-field>
 
-### Example
+**Example**
 
-```javascript icon=logos:javascript
+```javascript
 _.snakeCase('Foo Bar');
 // => 'foo_bar'
 
@@ -444,50 +384,44 @@ _.snakeCase('--FOO-BAR--');
 // => 'foo_bar'
 ```
 
----
-
 ## _.split
 
-Splits a string by `separator`. This method is based on [`String#split`](https://mdn.io/String/split).
+Splits `string` by `separator`.
 
-### Parameters
+**Note:** This method is based on [`String#split`](https://mdn.io/String/split).
 
-| Parameter | Type | Description |
-|---|---|---|
-| `[string='']` | `string` | The string to split. |
-| `separator` | `RegExp` \| `string` | The separator pattern to split by. |
-| `[limit]` | `number` | The length to truncate results to. |
+**Parameters**
 
-### Returns
+<x-field data-name="string" data-type="string" data-default="''" data-required="false" data-desc="The string to split."></x-field>
+<x-field data-name="separator" data-type="RegExp|string" data-required="true" data-desc="The separator pattern to split by."></x-field>
+<x-field data-name="limit" data-type="number" data-required="false" data-desc="The length to truncate results to."></x-field>
 
-`(Array)`: Returns the string segments.
+**Returns**
 
-### Example
+<x-field data-name="" data-type="Array" data-desc="Returns the string segments."></x-field>
 
-```javascript icon=logos:javascript
+**Example**
+
+```javascript
 _.split('a-b-c', '-', 2);
 // => ['a', 'b']
 ```
 
----
-
 ## _.startCase
 
-Converts a string to [start case](https://en.wikipedia.org/wiki/Letter_case#Stylistic_or_specialised_usage).
+Converts `string` to [start case](https://en.wikipedia.org/wiki/Letter_case#Stylistic_or_specialised_usage).
 
-### Parameters
+**Parameters**
 
-| Parameter | Type | Description |
-|---|---|---|
-| `[string='']` | `string` | The string to convert. |
+<x-field data-name="string" data-type="string" data-default="''" data-required="false" data-desc="The string to convert."></x-field>
 
-### Returns
+**Returns**
 
-`(string)`: Returns the start-cased string.
+<x-field data-name="" data-type="string" data-desc="Returns the start cased string."></x-field>
 
-### Example
+**Example**
 
-```javascript icon=logos:javascript
+```javascript
 _.startCase('--foo-bar--');
 // => 'Foo Bar'
 
@@ -498,27 +432,23 @@ _.startCase('__FOO_BAR__');
 // => 'FOO BAR'
 ```
 
----
-
 ## _.startsWith
 
-Checks if a string starts with the given target string.
+Checks if `string` starts with the given target string.
 
-### Parameters
+**Parameters**
 
-| Parameter | Type | Description |
-|---|---|---|
-| `[string='']` | `string` | The string to inspect. |
-| `[target]` | `string` | The string to search for. |
-| `[position=0]` | `number` | The position to search from. |
+<x-field data-name="string" data-type="string" data-default="''" data-required="false" data-desc="The string to inspect."></x-field>
+<x-field data-name="target" data-type="string" data-required="false" data-desc="The string to search for."></x-field>
+<x-field data-name="position" data-type="number" data-default="0" data-required="false" data-desc="The position to search from."></x-field>
 
-### Returns
+**Returns**
 
-`(boolean)`: Returns `true` if the string starts with the target, else `false`.
+<x-field data-name="" data-type="boolean" data-desc="Returns true if string starts with target, else false."></x-field>
 
-### Example
+**Example**
 
-```javascript icon=logos:javascript
+```javascript
 _.startsWith('abc', 'a');
 // => true
 
@@ -529,142 +459,132 @@ _.startsWith('abc', 'b', 1);
 // => true
 ```
 
----
-
 ## _.template
 
-Creates a compiled template function that can interpolate data properties in "interpolate" delimiters, HTML-escape values in "escape" delimiters, and execute JavaScript in "evaluate" delimiters. Data properties are accessible as free variables within the template.
+Creates a compiled template function that can interpolate data properties in "interpolate" delimiters, HTML-escape data in "escape" delimiters, and execute JavaScript in "evaluate" delimiters.
 
-### Parameters
+**Parameters**
 
-| Parameter | Type | Description |
-|---|---|---|
-| `[string='']` | `string` | The template string. |
-| `[options={}]` | `Object` | The options object. |
+<x-field data-name="string" data-type="string" data-default="''" data-required="false" data-desc="The template string."></x-field>
+<x-field data-name="options" data-type="Object" data-default="{}" data-required="false" data-desc="The options object.">
+  <x-field data-name="escape" data-type="RegExp" data-desc="The HTML 'escape' delimiter."></x-field>
+  <x-field data-name="evaluate" data-type="RegExp" data-desc="The 'evaluate' delimiter."></x-field>
+  <x-field data-name="imports" data-type="Object" data-desc="An object to import into the template as free variables."></x-field>
+  <x-field data-name="interpolate" data-type="RegExp" data-desc="The 'interpolate' delimiter."></x-field>
+  <x-field data-name="sourceURL" data-type="string" data-desc="The sourceURL of the compiled template."></x-field>
+  <x-field data-name="variable" data-type="string" data-desc="The data object variable name."></x-field>
+</x-field>
 
-### Returns
+**Returns**
 
-`(Function)`: Returns the compiled template function.
+<x-field data-name="" data-type="Function" data-desc="Returns the compiled template function."></x-field>
 
-### Examples
+**Example**
 
-```javascript Using the 'interpolate' delimiter icon=logos:javascript
+```javascript
+// Use the 'interpolate' delimiter to create a compiled template.
 var compiled = _.template('hello <%= user %>!');
 compiled({ 'user': 'fred' });
 // => 'hello fred!'
-```
 
-```javascript Using the HTML 'escape' delimiter icon=logos:javascript
+// Use the HTML 'escape' delimiter to escape data property values.
 var compiled = _.template('<b><%- value %></b>');
 compiled({ 'value': '<script>' });
 // => '<b>&lt;script&gt;</b>'
 ```
 
-```javascript Using the 'evaluate' delimiter icon=logos:javascript
-var compiled = _.template('<% _.forEach(users, function(user) { %><li><%- user %></li><% }); %>');
-compiled({ 'users': ['fred', 'barney'] });
-// => '<li>fred</li><li>barney</li>'
-```
-
----
-
 ## _.toLower
 
-Converts a string, as a whole, to lower case, similar to `String#toLowerCase`.
+Converts `string`, as a whole, to lower case, similar to `String#toLowerCase`.
 
-### Parameters
+**Parameters**
 
-| Parameter | Type | Description |
-|---|---|---|
-| `[string='']` | `string` | The string to convert. |
+<x-field data-name="string" data-type="string" data-default="''" data-required="false" data-desc="The string to convert."></x-field>
 
-### Returns
+**Returns**
 
-`(string)`: Returns the lower-cased string.
+<x-field data-name="" data-type="string" data-desc="Returns the lower cased string."></x-field>
 
-### Example
+**Example**
 
-```javascript icon=logos:javascript
+```javascript
 _.toLower('--Foo-Bar--');
 // => '--foo-bar--'
 
 _.toLower('fooBar');
 // => 'foobar'
-```
 
----
+_.toLower('__FOO_BAR__');
+// => '__foo_bar__'
+```
 
 ## _.toUpper
 
-Converts a string, as a whole, to upper case, similar to `String#toUpperCase`.
+Converts `string`, as a whole, to upper case, similar to `String#toUpperCase`.
 
-### Parameters
+**Parameters**
 
-| Parameter | Type | Description |
-|---|---|---|
-| `[string='']` | `string` | The string to convert. |
+<x-field data-name="string" data-type="string" data-default="''" data-required="false" data-desc="The string to convert."></x-field>
 
-### Returns
+**Returns**
 
-`(string)`: Returns the upper-cased string.
+<x-field data-name="" data-type="string" data-desc="Returns the upper cased string."></x-field>
 
-### Example
+**Example**
 
-```javascript icon=logos:javascript
+```javascript
 _.toUpper('--foo-bar--');
 // => '--FOO-BAR--'
 
 _.toUpper('fooBar');
 // => 'FOOBAR'
-```
 
----
+_.toUpper('__foo_bar__');
+// => '__FOO_BAR__'
+```
 
 ## _.trim
 
-Removes leading and trailing whitespace or specified characters from a string.
+Removes leading and trailing whitespace or specified characters from `string`.
 
-### Parameters
+**Parameters**
 
-| Parameter | Type | Description |
-|---|---|---|
-| `[string='']` | `string` | The string to trim. |
-| `[chars=whitespace]` | `string` | The characters to trim. |
+<x-field data-name="string" data-type="string" data-default="''" data-required="false" data-desc="The string to trim."></x-field>
+<x-field data-name="chars" data-type="string" data-default="whitespace" data-required="false" data-desc="The characters to trim."></x-field>
 
-### Returns
+**Returns**
 
-`(string)`: Returns the trimmed string.
+<x-field data-name="" data-type="string" data-desc="Returns the trimmed string."></x-field>
 
-### Example
+**Example**
 
-```javascript icon=logos:javascript
+```javascript
 _.trim('  abc  ');
 // => 'abc'
 
 _.trim('-_-abc-_-', '_-');
 // => 'abc'
-```
 
----
+_.map(['  foo  ', '  bar  '], _.trim);
+// => ['foo', 'bar']
+```
 
 ## _.trimEnd
 
-Removes trailing whitespace or specified characters from a string.
+Removes trailing whitespace or specified characters from `string`.
 
-### Parameters
+**Parameters**
 
-| Parameter | Type | Description |
-|---|---|---|
-| `[string='']` | `string` | The string to trim. |
-| `[chars=whitespace]` | `string` | The characters to trim. |
+<x-field data-name="string" data-type="string" data-default="''" data-required="false" data-desc="The string to trim."></x-field>
+<x-field data-name="chars" data-type="string" data-default="whitespace" data-required="false" data-desc="The characters to trim."></x-field>
 
-### Returns
+**Returns**
 
-`(string)`: Returns the trimmed string.
+<x-field data-name="" data-type="string" data-desc="Returns the trimmed string."></x-field>
 
-### Example
+**Example**
 
-```javascript icon=logos:javascript
+```javascript
 _.trimEnd('  abc  ');
 // => '  abc'
 
@@ -672,56 +592,49 @@ _.trimEnd('-_-abc-_-', '_-');
 // => '-_-abc'
 ```
 
----
-
 ## _.trimStart
 
-Removes leading whitespace or specified characters from a string.
+Removes leading whitespace or specified characters from `string`.
 
-### Parameters
+**Parameters**
 
-| Parameter | Type | Description |
-|---|---|---|
-| `[string='']` | `string` | The string to trim. |
-| `[chars=whitespace]` | `string` | The characters to trim. |
+<x-field data-name="string" data-type="string" data-default="''" data-required="false" data-desc="The string to trim."></x-field>
+<x-field data-name="chars" data-type="string" data-default="whitespace" data-required="false" data-desc="The characters to trim."></x-field>
 
-### Returns
+**Returns**
 
-`(string)`: Returns the trimmed string.
+<x-field data-name="" data-type="string" data-desc="Returns the trimmed string."></x-field>
 
-### Example
+**Example**
 
-```javascript icon=logos:javascript
+```javascript
 _.trimStart('  abc  ');
 // => 'abc  '
 
 _.trimStart('-_-abc-_-', '_-');
-// => 'abc-_-' 
+// => 'abc-_-'
 ```
-
----
 
 ## _.truncate
 
-Truncates a string if it's longer than the given maximum string length. The last characters of the truncated string are replaced with an omission string which defaults to `...`.
+Truncates `string` if it's longer than the given maximum string length. The last characters of the truncated string are replaced with the omission string which defaults to "...".
 
-### Parameters
+**Parameters**
 
-| Parameter | Type | Description |
-|---|---|---|
-| `[string='']` | `string` | The string to truncate. |
-| `[options={}]` | `Object` | The options object. |
-| `[options.length=30]`| `number`| The maximum string length.|
-| `[options.omission='...']`| `string`| The string to indicate text is omitted.|
-| `[options.separator]`| `RegExp`\|`string`| The separator pattern to truncate to.|
+<x-field data-name="string" data-type="string" data-default="''" data-required="false" data-desc="The string to truncate."></x-field>
+<x-field data-name="options" data-type="Object" data-default="{}" data-required="false" data-desc="The options object.">
+  <x-field data-name="length" data-type="number" data-default="30" data-desc="The maximum string length."></x-field>
+  <x-field data-name="omission" data-type="string" data-default="'...'" data-desc="The string to indicate text is omitted."></x-field>
+  <x-field data-name="separator" data-type="RegExp|string" data-desc="The separator pattern to truncate to."></x-field>
+</x-field>
 
-### Returns
+**Returns**
 
-`(string)`: Returns the truncated string.
+<x-field data-name="" data-type="string" data-desc="Returns the truncated string."></x-field>
 
-### Example
+**Example**
 
-```javascript icon=logos:javascript
+```javascript
 _.truncate('hi-diddly-ho there, neighborino');
 // => 'hi-diddly-ho there, neighbo...'
 
@@ -732,74 +645,65 @@ _.truncate('hi-diddly-ho there, neighborino', {
 // => 'hi-diddly-ho there,...'
 ```
 
----
-
 ## _.unescape
 
-The inverse of `_.escape`; this method converts the HTML entities `&amp;`, `&lt;`, `&gt;`, `&quot;`, and `&#39;` in a string to their corresponding characters.
+The inverse of `_.escape`; this method converts the HTML entities `&amp;`, `&lt;`, `&gt;`, `&quot;`, and `&#39;` in `string` to their corresponding characters.
 
-### Parameters
+**Parameters**
 
-| Parameter | Type | Description |
-|---|---|---|
-| `[string='']` | `string` | The string to unescape. |
+<x-field data-name="string" data-type="string" data-default="''" data-required="false" data-desc="The string to unescape."></x-field>
 
-### Returns
+**Returns**
 
-`(string)`: Returns the unescaped string.
+<x-field data-name="" data-type="string" data-desc="Returns the unescaped string."></x-field>
 
-### Example
+**Example**
 
-```javascript icon=logos:javascript
+```javascript
 _.unescape('fred, barney, &amp; pebbles');
 // => 'fred, barney, & pebbles'
 ```
 
----
-
 ## _.upperCase
 
-Converts a string, as space-separated words, to upper case.
+Converts `string`, as space separated words, to upper case.
 
-### Parameters
+**Parameters**
 
-| Parameter | Type | Description |
-|---|---|---|
-| `[string='']` | `string` | The string to convert. |
+<x-field data-name="string" data-type="string" data-default="''" data-required="false" data-desc="The string to convert."></x-field>
 
-### Returns
+**Returns**
 
-`(string)`: Returns the upper-cased string.
+<x-field data-name="" data-type="string" data-desc="Returns the upper cased string."></x-field>
 
-### Example
+**Example**
 
-```javascript icon=logos:javascript
+```javascript
 _.upperCase('--foo-bar');
 // => 'FOO BAR'
 
 _.upperCase('fooBar');
 // => 'FOO BAR'
-```
 
----
+_.upperCase('__foo_bar__');
+// => 'FOO BAR'
+```
 
 ## _.upperFirst
 
-Converts the first character of a string to upper case.
+Converts the first character of `string` to upper case.
 
-### Parameters
+**Parameters**
 
-| Parameter | Type | Description |
-|---|---|---|
-| `[string='']` | `string` | The string to convert. |
+<x-field data-name="string" data-type="string" data-default="''" data-required="false" data-desc="The string to convert."></x-field>
 
-### Returns
+**Returns**
 
-`(string)`: Returns the converted string.
+<x-field data-name="" data-type="string" data-desc="Returns the converted string."></x-field>
 
-### Example
+**Example**
 
-```javascript icon=logos:javascript
+```javascript
 _.upperFirst('fred');
 // => 'Fred'
 
@@ -807,37 +711,25 @@ _.upperFirst('FRED');
 // => 'FRED'
 ```
 
----
-
 ## _.words
 
-Splits a string into an array of its words.
+Splits `string` into an array of its words.
 
-### Parameters
+**Parameters**
 
-| Parameter | Type | Description |
-|---|---|---|
-| `[string='']` | `string` | The string to inspect. |
-| `[pattern]` | `RegExp` \| `string` | The pattern to match words. |
+<x-field data-name="string" data-type="string" data-default="''" data-required="false" data-desc="The string to inspect."></x-field>
+<x-field data-name="pattern" data-type="RegExp|string" data-required="false" data-desc="The pattern to match words."></x-field>
 
-### Returns
+**Returns**
 
-`(Array)`: Returns the words of the string.
+<x-field data-name="" data-type="Array" data-desc="Returns the words of string."></x-field>
 
-### Example
+**Example**
 
-```javascript icon=logos:javascript
+```javascript
 _.words('fred, barney, & pebbles');
 // => ['fred', 'barney', 'pebbles']
 
 _.words('fred, barney, & pebbles', /[^, ]+/g);
 // => ['fred', 'barney', '&', 'pebbles']
 ```
-
-## Next Steps
-
-Now that you've explored the string manipulation functions, you might be interested in other utility functions that can help with your development workflow.
-
-<x-card data-title="Util API" data-icon="lucide:wrench" data-href="/api/util">
-Explore miscellaneous utility functions, including function composition, iteration, and unique ID generation.
-</x-card>

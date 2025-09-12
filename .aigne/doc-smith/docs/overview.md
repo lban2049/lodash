@@ -1,69 +1,53 @@
 # Overview
 
-Welcome to the official documentation for Lodash v4.17.21. Lodash is a modern JavaScript utility library delivering modularity, performance, and extras. It makes JavaScript easier by taking the hassle out of working with arrays, numbers, objects, and strings.
+Welcome to the official documentation for Lodash v4.17.21. Lodash is a modern JavaScript utility library delivering modularity, performance, and extras.
 
-Lodash is released under the [MIT license](https://raw.githubusercontent.com/lodash/lodash/4.17.21/LICENSE) and is designed for modern, high-performance environments.
+Lodash makes JavaScript easier by taking the hassle out of working with arrays, numbers, objects, strings, and more. It is released under the [MIT license](https://raw.githubusercontent.com/lodash/lodash/4.17.21/LICENSE) and is designed to have a consistent API and high performance across all modern environments.
 
 ## Why Use Lodash?
 
-Lodash's modular methods provide a consistent, high-performance, and customizable approach to common programming tasks. Its core strengths lie in:
+Lodash’s modular methods provide a rich toolkit for common programming tasks, helping you write more maintainable and concise code. Its core strengths lie in:
 
-*   **Iterating Collections**: Simplify complex iterations over arrays, objects, and strings with powerful and concise helper functions.
-*   **Manipulating Data**: Streamline the manipulation and testing of values, from simple data transformations to complex object manipulations.
-*   **Creating Functions**: Build powerful, reusable logic with utilities for creating composite, curried, and debounced functions.
-
-## Exploring the Documentation
-
-This documentation is designed to help you find what you need quickly. Here are the main sections:
-
-<x-cards data-columns="2">
-  <x-card data-title="API Reference" data-icon="lucide:book-open" data-href="/api">
-    A comprehensive, searchable reference for all Lodash methods, organized by data type for quick look-up.
+<x-cards data-columns="3">
+  <x-card data-title="Comprehensive Utilities" data-icon="lucide:library">
+    A vast collection of functions for iterating over arrays, objects, and strings.
   </x-card>
-  <x-card data-title="Functional Programming Guide" data-icon="lucide:function-square" data-href="/fp-guide">
-    Learn about the FP-variant of Lodash, which promotes immutability with auto-curried, iteratee-first, data-last methods.
+  <x-card data-title="Value Manipulation" data-icon="lucide:edit">
+    Powerful tools for manipulating and testing values with ease and precision.
   </x-card>
-  <x-card data-title="Guides" data-icon="lucide:compass" data-href="/guides">
-    Explore technical guides for advanced use cases, including performance optimization and using different library builds.
-  </x-card>
-  <x-card data-title="Contributing & Community" data-icon="lucide:users" data-href="/contributing">
-    Find out how to contribute to the project and connect with the community through our discussion channels.
+  <x-card data-title="Functional Programming" data-icon="lucide:function-square">
+    Features like function composition and currying to support a functional programming style.
   </x-card>
 </x-cards>
 
-## Quick Start
+## Navigating the Documentation
 
-Get up and running with Lodash in minutes. For detailed instructions for browsers, Node.js, and bundlers, please see the [Getting Started](./getting-started.md) guide.
+This documentation is designed to help you find the information you need quickly. Whether you're a new user or an experienced developer, you can use the following sections to get started and dive deep into the library's features.
 
-### Installation
+<x-cards data-columns="3">
+  <x-card data-title="Getting Started" data-href="/getting-started" data-icon="lucide:rocket">
+    Quickly install and start using Lodash in your browser or Node.js projects.
+  </x-card>
+  <x-card data-title="API Reference" data-href="/api" data-icon="lucide:book-open">
+    A comprehensive, searchable reference for every Lodash method, organized by category.
+  </x-card>
+  <x-card data-title="FP Guide" data-href="/fp-guide" data-icon="lucide:workflow">
+    Explore Lodash's functional programming features, including immutability and auto-currying.
+  </x-card>
+  <x-card data-title="Guides" data-href="/guides" data-icon="lucide:compass">
+    Find technical guides for advanced use cases like performance optimization and custom builds.
+  </x-card>
+  <x-card data-title="Security" data-href="/security" data-icon="lucide:shield">
+    Learn about our security policy and how to report vulnerabilities.
+  </x-card>
+  <x-card data-title="Contributing" data-href="/contributing" data-icon="lucide:users">
+    Join the community, contribute to the project, and connect with other developers.
+  </x-card>
+</x-cards>
 
-To add Lodash to your project, install it via npm:
+## Community
 
-```shell npm install
-$ npm i --save lodash
-```
+Join the conversation and stay up to date with the latest Lodash news and developments.
 
-### Basic Usage
-
-Once installed, you can import and use Lodash methods in your code:
-
-```javascript Usage Example icon=logos:javascript
-// Load the full build.
-var _ = require('lodash');
-
-var users = [
-  { 'user': 'barney',  'active': false },
-  { 'user': 'fred',    'active': false },
-  { 'user': 'pebbles', 'active': true }
-];
-
-// Find the first active user
-var activeUser = _.find(users, function(o) { return o.active; });
-
-console.log(activeUser);
-// => { 'user': 'pebbles', 'active': true }
-```
-
----
-
-Ready to begin? Head over to the [Getting Started](./getting-started.md) section to integrate Lodash into your project.
+- **Chat:** Connect with the community on [Gitter](https://gitter.im/lodash/lodash).
+- **Twitter:** Follow us on [Twitter](https://twitter.com/bestiejs) for announcements.

@@ -1,57 +1,49 @@
 # 数学
 
-本节提供了 Lodash 数学工具函数的详细参考。这些函数可执行基本算术运算、计算总和与平均值等聚合数据，并提供舍入功能。
+Lodash 的数学函数提供了一套强大的实用工具，用于执行常见的数学运算。这些函数处理基本算术、四舍五入以及统计计算，如在集合中查找最大值、最小值和平均值。
 
-如需了解在其他上下文中操作或返回数字的函数，请参阅 [Number](./api-number.md) 文档。
+如需更专业的数值运算，你可能还需要了解 [Number](./api-number.md) 分类的函数。
 
 ---
 
-## _.add
+## add
 
 将两个数字相加。
 
-**版本：** 3.4.0
-
 ### 参数
 
-| Name     | Type     | Description                        |
-|----------|----------|------------------------------------|
-| `augend` | `number` | 加法中的第一个数字。   |
-| `addend` | `number` | 加法中的第二个数字。  |
+<x-field data-name="augend" data-type="number" data-required="true" data-desc="加法运算中的第一个数。"></x-field>
+<x-field data-name="addend" data-type="number" data-required="true" data-desc="加法运算中的第二个数。"></x-field>
 
 ### 返回值
 
-- `(number)`: 返回总和。
+<x-field data-name="" data-type="number" data-desc="返回总和。"></x-field>
 
 ### 示例
 
-```javascript
+```javascript 将两个数字相加
 _.add(6, 4);
 // => 10
 ```
 
 ---
 
-## _.ceil
+## ceil
 
-计算 `number` 向上舍入到 `precision` 的值。
-
-**版本：** 3.10.0
+计算 `number` 向上舍入到 `precision` 的结果。
 
 ### 参数
 
-| Name        | Type     | Description                   |
-|-------------|----------|-------------------------------|
-| `number`    | `number` | 要向上舍入的数字。       |
-| `[precision=0]` | `number` | 向上舍入的精度。 |
+<x-field data-name="number" data-type="number" data-required="true" data-desc="要向上舍入的数字。"></x-field>
+<x-field data-name="precision" data-type="number" data-default="0" data-desc="向上舍入的精度。"></x-field>
 
 ### 返回值
 
-- `(number)`: 返回向上舍入后的数字。
+<x-field data-name="" data-type="number" data-desc="返回向上舍入后的数字。"></x-field>
 
 ### 示例
 
-```javascript
+```javascript 舍入示例
 _.ceil(4.006);
 // => 5
 
@@ -64,52 +56,44 @@ _.ceil(6040, -2);
 
 ---
 
-## _.divide
+## divide
 
 将两个数字相除。
 
-**版本：** 4.7.0
-
 ### 参数
 
-| Name       | Type     | Description                      |
-|------------|----------|----------------------------------|
-| `dividend` | `number` | 除法中的第一个数字。  |
-| `divisor`  | `number` | 除法中的第二个数字。 |
+<x-field data-name="dividend" data-type="number" data-required="true" data-desc="除法运算中的第一个数。"></x-field>
+<x-field data-name="divisor" data-type="number" data-required="true" data-desc="除法运算中的第二个数。"></x-field>
 
 ### 返回值
 
-- `(number)`: 返回商。
+<x-field data-name="" data-type="number" data-desc="返回商。"></x-field>
 
 ### 示例
 
-```javascript
+```javascript 两数相除
 _.divide(6, 4);
 // => 1.5
 ```
 
 ---
 
-## _.floor
+## floor
 
-计算 `number` 向下舍入到 `precision` 的值。
-
-**版本：** 3.10.0
+计算 `number` 向下舍入到 `precision` 的结果。
 
 ### 参数
 
-| Name        | Type     | Description                     |
-|-------------|----------|---------------------------------|
-| `number`    | `number` | 要向下舍入的数字。       |
-| `[precision=0]` | `number` | 向下舍入的精度。 |
+<x-field data-name="number" data-type="number" data-required="true" data-desc="要向下舍入的数字。"></x-field>
+<x-field data-name="precision" data-type="number" data-default="0" data-desc="向下舍入的精度。"></x-field>
 
 ### 返回值
 
-- `(number)`: 返回向下舍入后的数字。
+<x-field data-name="" data-type="number" data-desc="返回向下舍入后的数字。"></x-field>
 
 ### 示例
 
-```javascript
+```javascript 向下舍入示例
 _.floor(4.006);
 // => 4
 
@@ -122,25 +106,21 @@ _.floor(4060, -2);
 
 ---
 
-## _.max
+## max
 
 计算 `array` 的最大值。如果 `array` 为空或假值，则返回 `undefined`。
 
-**版本：** 0.1.0
-
 ### 参数
 
-| Name    | Type    | Description                 |
-|---------|---------|-----------------------------|
-| `array` | `Array` | 要迭代的数组。  |
+<x-field data-name="array" data-type="Array" data-required="true" data-desc="要迭代的数组。"></x-field>
 
 ### 返回值
 
-- `(*)`: 返回最大值。
+<x-field data-name="" data-type="*" data-desc="返回最大值。"></x-field>
 
 ### 示例
 
-```javascript
+```javascript 查找最大值
 _.max([4, 2, 8, 6]);
 // => 8
 
@@ -150,114 +130,98 @@ _.max([]);
 
 ---
 
-## _.maxBy
+## maxBy
 
-此方法类似于 `_.max`，但它接受一个 `iteratee`，该函数会为 `array` 中的每个元素调用，以生成用于排序的标准。iteratee 调用时会传入一个参数：(value)。
-
-**版本：** 4.0.0
+此方法类似于 `_.max`，但它接受 `iteratee`，该函数会为 `array` 中的每个元素调用，以生成用于排序的标准。
 
 ### 参数
 
-| Name       | Type     | Description                       |
-|------------|----------|-----------------------------------|
-| `array`    | `Array`  | 要迭代的数组。        |
-| `[iteratee=_.identity]` | `Function` | 每个元素调用的 iteratee。 |
+<x-field data-name="array" data-type="Array" data-required="true" data-desc="要迭代的数组。"></x-field>
+<x-field data-name="iteratee" data-type="Function" data-default="_.identity" data-desc="每个元素调用的迭代函数。"></x-field>
 
 ### 返回值
 
-- `(*)`: 返回最大值。
+<x-field data-name="" data-type="*" data-desc="返回最大值。"></x-field>
 
 ### 示例
 
-```javascript
+```javascript 通过迭代函数查找最大值
 var objects = [{ 'n': 1 }, { 'n': 2 }];
 
 _.maxBy(objects, function(o) { return o.n; });
 // => { 'n': 2 }
 
-// `_.property` iteratee 的简写。
+// The `_.property` iteratee shorthand.
 _.maxBy(objects, 'n');
 // => { 'n': 2 }
 ```
 
 ---
 
-## _.mean
+## mean
 
 计算 `array` 中值的平均值。
 
-**版本：** 4.0.0
-
 ### 参数
 
-| Name    | Type    | Description                 |
-|---------|---------|-----------------------------|
-| `array` | `Array` | 要迭代的数组。  |
+<x-field data-name="array" data-type="Array" data-required="true" data-desc="要迭代的数组。"></x-field>
 
 ### 返回值
 
-- `(number)`: 返回平均值。
+<x-field data-name="" data-type="number" data-desc="返回平均值。"></x-field>
 
 ### 示例
 
-```javascript
+```javascript 计算平均值
 _.mean([4, 2, 8, 6]);
 // => 5
 ```
 
 ---
 
-## _.meanBy
+## meanBy
 
-此方法类似于 `_.mean`，但它接受一个 `iteratee`，该函数会为 `array` 中的每个元素调用，以生成用于计算平均值的值。iteratee 调用时会传入一个参数：(value)。
-
-**版本：** 4.7.0
+此方法类似于 `_.mean`，但它接受 `iteratee`，该函数会为 `array` 中的每个元素调用，以生成要计算平均值的值。
 
 ### 参数
 
-| Name       | Type     | Description                       |
-|------------|----------|-----------------------------------|
-| `array`    | `Array`  | 要迭代的数组。        |
-| `[iteratee=_.identity]` | `Function` | 每个元素调用的 iteratee。 |
+<x-field data-name="array" data-type="Array" data-required="true" data-desc="要迭代的数组。"></x-field>
+<x-field data-name="iteratee" data-type="Function" data-default="_.identity" data-desc="每个元素调用的迭代函数。"></x-field>
 
 ### 返回值
 
-- `(number)`: 返回平均值。
+<x-field data-name="" data-type="number" data-desc="返回平均值。"></x-field>
 
 ### 示例
 
-```javascript
+```javascript 通过迭代函数计算平均值
 var objects = [{ 'n': 4 }, { 'n': 2 }, { 'n': 8 }, { 'n': 6 }];
 
 _.meanBy(objects, function(o) { return o.n; });
 // => 5
 
-// `_.property` iteratee 的简写。
+// The `_.property` iteratee shorthand.
 _.meanBy(objects, 'n');
 // => 5
 ```
 
 ---
 
-## _.min
+## min
 
 计算 `array` 的最小值。如果 `array` 为空或假值，则返回 `undefined`。
 
-**版本：** 0.1.0
-
 ### 参数
 
-| Name    | Type    | Description                 |
-|---------|---------|-----------------------------|
-| `array` | `Array` | 要迭代的数组。  |
+<x-field data-name="array" data-type="Array" data-required="true" data-desc="要迭代的数组。"></x-field>
 
 ### 返回值
 
-- `(*)`: 返回最小值。
+<x-field data-name="" data-type="*" data-desc="返回最小值。"></x-field>
 
 ### 示例
 
-```javascript
+```javascript 查找最小值
 _.min([4, 2, 8, 6]);
 // => 2
 
@@ -267,84 +231,72 @@ _.min([]);
 
 ---
 
-## _.minBy
+## minBy
 
-此方法类似于 `_.min`，但它接受一个 `iteratee`，该函数会为 `array` 中的每个元素调用，以生成用于排序的标准。iteratee 调用时会传入一个参数：(value)。
-
-**版本：** 4.0.0
+此方法类似于 `_.min`，但它接受 `iteratee`，该函数会为 `array` 中的每个元素调用，以生成用于排序的标准。
 
 ### 参数
 
-| Name       | Type     | Description                       |
-|------------|----------|-----------------------------------|
-| `array`    | `Array`  | 要迭代的数组。        |
-| `[iteratee=_.identity]` | `Function` | 每个元素调用的 iteratee。 |
+<x-field data-name="array" data-type="Array" data-required="true" data-desc="要迭代的数组。"></x-field>
+<x-field data-name="iteratee" data-type="Function" data-default="_.identity" data-desc="每个元素调用的迭代函数。"></x-field>
 
 ### 返回值
 
-- `(*)`: 返回最小值。
+<x-field data-name="" data-type="*" data-desc="返回最小值。"></x-field>
 
 ### 示例
 
-```javascript
+```javascript 通过迭代函数查找最小值
 var objects = [{ 'n': 1 }, { 'n': 2 }];
 
 _.minBy(objects, function(o) { return o.n; });
 // => { 'n': 1 }
 
-// `_.property` iteratee 的简写。
+// The `_.property` iteratee shorthand.
 _.minBy(objects, 'n');
 // => { 'n': 1 }
 ```
 
 ---
 
-## _.multiply
+## multiply
 
 将两个数字相乘。
 
-**版本：** 4.7.0
-
 ### 参数
 
-| Name         | Type     | Description                             |
-|--------------|----------|-----------------------------------------|
-| `multiplier` | `number` | 乘法中的第一个数字。   |
-| `multiplicand` | `number` | 乘法中的第二个数字。  |
+<x-field data-name="multiplier" data-type="number" data-required="true" data-desc="乘法运算中的第一个数。"></x-field>
+<x-field data-name="multiplicand" data-type="number" data-required="true" data-desc="乘法运算中的第二个数。"></x-field>
 
 ### 返回值
 
-- `(number)`: 返回乘积。
+<x-field data-name="" data-type="number" data-desc="返回乘积。"></x-field>
 
 ### 示例
 
-```javascript
+```javascript 两数相乘
 _.multiply(6, 4);
 // => 24
 ```
 
 ---
 
-## _.round
+## round
 
-计算 `number` 四舍五入到 `precision` 的值。
-
-**版本：** 3.10.0
+计算 `number` 四舍五入到 `precision` 的结果。
 
 ### 参数
 
-| Name        | Type     | Description                |
-|-------------|----------|----------------------------|
-| `number`    | `number` | 要四舍五入的数字。       |
-| `[precision=0]` | `number` | 四舍五入的精度。 |
+<x-field data-name="number" data-type="number" data-required="true" data-desc="要四舍五入的数字。"></x-field>
+<x-field data-name="precision" data-type="number" data-default="0" data-desc="四舍五入的精度。"></x-field>
 
 ### 返回值
 
-- `(number)`: 返回四舍五入后的数字。
+<x-field data-name="" data-type="number" data-desc="返回四舍五入后的数字。"></x-field>
 
 ### 示例
 
-```javascript
+```javascript 舍入示例
 _.round(4.006);
 // => 4
 
@@ -357,83 +309,73 @@ _.round(4060, -2);
 
 ---
 
-## _.subtract
+## subtract
 
 将两个数字相减。
 
-**版本：** 4.0.0
-
 ### 参数
 
-| Name         | Type     | Description                         |
-|--------------|----------|-------------------------------------|
-| `minuend`    | `number` | 减法中的第一个数字。  |
-| `subtrahend` | `number` | 减法中的第二个数字。 |
+<x-field data-name="minuend" data-type="number" data-required="true" data-desc="减法运算中的第一个数。"></x-field>
+<x-field data-name="subtrahend" data-type="number" data-required="true" data-desc="减法运算中的第二个数。"></x-field>
 
 ### 返回值
 
-- `(number)`: 返回差值。
+<x-field data-name="" data-type="number" data-desc="返回差值。"></x-field>
 
 ### 示例
 
-```javascript
+```javascript 两数相减
 _.subtract(6, 4);
 // => 2
 ```
 
 ---
 
-## _.sum
+## sum
 
 计算 `array` 中值的总和。
 
-**版本：** 3.4.0
-
 ### 参数
 
-| Name    | Type    | Description                 |
-|---------|---------|-----------------------------|
-| `array` | `Array` | 要迭代的数组。  |
+<x-field data-name="array" data-type="Array" data-required="true" data-desc="要迭代的数组。"></x-field>
 
 ### 返回值
 
-- `(number)`: 返回总和。
+<x-field data-name="" data-type="number" data-desc="返回总和。"></x-field>
 
 ### 示例
 
-```javascript
+```javascript 对数组求和
 _.sum([4, 2, 8, 6]);
 // => 20
 ```
 
 ---
 
-## _.sumBy
+## sumBy
 
-此方法类似于 `_.sum`，但它接受一个 `iteratee`，该函数会为 `array` 中的每个元素调用，以生成用于求和的值。iteratee 调用时会传入一个参数：(value)。
-
-**版本：** 4.0.0
+此方法类似于 `_.sum`，但它接受 `iteratee`，该函数会为 `array` 中的每个元素调用，以生成要求和的值。
 
 ### 参数
 
-| Name       | Type     | Description                       |
-|------------|----------|-----------------------------------|
-| `array`    | `Array`  | 要迭代的数组。        |
-| `[iteratee=_.identity]` | `Function` | 每个元素调用的 iteratee。 |
+<x-field data-name="array" data-type="Array" data-required="true" data-desc="要迭代的数组。"></x-field>
+<x-field data-name="iteratee" data-type="Function" data-default="_.identity" data-desc="每个元素调用的迭代函数。"></x-field>
 
 ### 返回值
 
-- `(number)`: 返回总和。
+<x-field data-name="" data-type="number" data-desc="返回总和。"></x-field>
 
 ### 示例
 
-```javascript
+```javascript 通过迭代函数求和
 var objects = [{ 'n': 4 }, { 'n': 2 }, { 'n': 8 }, { 'n': 6 }];
 
 _.sumBy(objects, function(o) { return o.n; });
 // => 20
 
-// `_.property` iteratee 的简写。
+// The `_.property` iteratee shorthand.
 _.sumBy(objects, 'n');
 // => 20
 ```
+
+在了解了这些数学实用工具之后，你可能会发现 [Number](./api-number.md) 部分的函数对于更具体的数值检查和转换很有用。

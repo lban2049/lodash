@@ -1,60 +1,54 @@
 # 集合
 
-Lodash 提供了一套丰富的函数，用于处理集合（可以是数组或对象）。这些函数使你能够以一致且强大的方式对数据进行迭代、筛选、分组、排序和转换。有关专门用于数组或对象的方法，请参阅 [Array](./api-array.md) 和 [Object](./api-object.md) 部分。
+集合函数对于遍历和操作数据组（包括数组和对象）至关重要。这些方法提供了强大而简洁的方式来执行过滤、映射和归约等常见操作。
+
+**注意：** 在遍历对象时，Lodash 会将任何带有 `length` 属性的对象视作类数组集合。对于遍历普通对象的属性，建议使用 [Object](./api-object.md) 分类中的函数，例如 `_.forOwn` 或 `_.forIn`。
 
 ---
 
-### countBy
+## _.countBy
 
-通过 `iteratee` 处理 `collection` 中的每个元素，创建一个由生成的结果作为键的对象。每个键对应的值是 `iteratee` 返回该键的次数。iteratee 调用时会传入一个参数：`(value)`。
+创建一个由键组成的对象，这些键是通过对 `collection` 的每个元素运行 `iteratee` 的结果生成的。每个键对应的值是 `iteratee` 返回该键的次数。
 
-**语法**
-```typescript
-_.countBy(collection, [iteratee=_.identity])
-```
+### 参数
 
-**参数**
-| Name | Type | Description |
-|---|---|---|
-| `collection` | `Array` or `Object` | 要迭代的集合。 |
-| `[iteratee=_.identity]` | `Function` | 用于转换键的迭代函数。 |
+<x-field data-name="collection" data-type="Array|Object" data-required="true" data-desc="要遍历的集合。"></x-field>
+<x-field data-name="iteratee" data-type="Function" data-default="_.identity" data-required="false" data-desc="用于转换键的迭代函数。调用时带有一个参数：(value)。"></x-field>
 
-**返回值**
-- `(Object)`: 返回组合的聚合对象。
+### 返回值
 
-**示例**
+<x-field data-name="" data-type="Object" data-desc="返回组合后的聚合对象。"></x-field>
+
+### 示例
+
 ```javascript
 _.countBy([6.1, 4.2, 6.3], Math.floor);
 // => { '4': 1, '6': 2 }
 
-// `_.property` iteratee 的简写形式。
+// `_.property` 迭代器的简写形式。
 _.countBy(['one', 'two', 'three'], 'length');
 // => { '3': 2, '5': 1 }
 ```
 
 ---
 
-### every
+## _.every
 
-检查 `predicate` 是否对 `collection` 的**所有**元素都返回真值。一旦 `predicate` 返回假值，迭代就会停止。predicate 调用时会传入三个参数：`(value, index|key, collection)`。
+检查 `predicate` 是否对 `collection` 的 **所有** 元素都返回真值。一旦 `predicate` 返回假值，遍历就会停止。
 
-**注意：** 此方法对[空集合](https://en.wikipedia.org/wiki/Empty_set)返回 `true`，因为[空集合中的所有元素都为真](https://en.wikipedia.org/wiki/Vacuous_truth)。
+**注意：** 此方法对[空集合](https://en.wikipedia.org/wiki/Empty_set)返回 `true`，因为空集合的所有元素都[被认为是真](https://en.wikipedia.org/wiki/Vacuous_truth)。
 
-**语法**
-```typescript
-_.every(collection, [predicate=_.identity])
-```
+### 参数
 
-**参数**
-| Name | Type | Description |
-|---|---|---|
-| `collection` | `Array` or `Object` | 要迭代的集合。 |
-| `[predicate=_.identity]` | `Function` | 每次迭代调用的函数。 |
+<x-field data-name="collection" data-type="Array|Object" data-required="true" data-desc="要遍历的集合。"></x-field>
+<x-field data-name="predicate" data-type="Function" data-default="_.identity" data-required="false" data-desc="每次遍历时调用的函数。它接收三个参数：(value, index|key, collection)。"></x-field>
 
-**返回值**
-- `(boolean)`: 如果所有元素都通过谓词检查，则返回 `true`，否则返回 `false`。
+### 返回值
 
-**示例**
+<x-field data-name="" data-type="boolean" data-desc="如果所有元素都通过谓词检查，则返回 `true`，否则返回 `false`。"></x-field>
+
+### 示例
+
 ```javascript
 _.every([true, 1, null, 'yes'], Boolean);
 // => false
@@ -64,32 +58,36 @@ var users = [
   { 'user': 'fred',   'age': 40, 'active': false }
 ];
 
-// `_.matchesProperty` iteratee 的简写形式。
+// `_.matches` 迭代器的简写形式。
+_.every(users, { 'user': 'barney', 'active': false });
+// => false
+
+// `_.matchesProperty` 迭代器的简写形式。
 _.every(users, ['active', false]);
 // => true
+
+// `_.property` 迭代器的简写形式。
+_.every(users, 'active');
+// => false
 ```
 
 ---
 
-### filter
+## _.filter
 
-遍历 `collection` 的元素，返回一个数组，包含所有 `predicate` 返回真值的元素。predicate 调用时会传入三个参数：`(value, index|key, collection)`。
+遍历 `collection` 的元素，返回一个由所有 `predicate` 返回真值的元素组成的新数组。
 
-**语法**
-```typescript
-_.filter(collection, [predicate=_.identity])
-```
+### 参数
 
-**参数**
-| Name | Type | Description |
-|---|---|---|
-| `collection` | `Array` or `Object` | 要迭代的集合。 |
-| `[predicate=_.identity]` | `Function` | 每次迭代调用的函数。 |
+<x-field data-name="collection" data-type="Array|Object" data-required="true" data-desc="要遍历的集合。"></x-field>
+<x-field data-name="predicate" data-type="Function" data-default="_.identity" data-required="false" data-desc="每次遍历时调用的函数。它接收三个参数：(value, index|key, collection)。"></x-field>
 
-**返回值**
-- `(Array)`: 返回新的已筛选数组。
+### 返回值
 
-**示例**
+<x-field data-name="" data-type="Array" data-desc="返回新的已过滤数组。"></x-field>
+
+### 示例
+
 ```javascript
 var users = [
   { 'user': 'barney', 'age': 36, 'active': true },
@@ -97,35 +95,39 @@ var users = [
 ];
 
 _.filter(users, function(o) { return !o.active; });
-// => objects for ['fred']
+// => ['fred'] 的对象
 
-// `_.matches` iteratee 的简写形式。
+// `_.matches` 迭代器的简写形式。
 _.filter(users, { 'age': 36, 'active': true });
-// => objects for ['barney']
+// => ['barney'] 的对象
+
+// `_.matchesProperty` 迭代器的简写形式。
+_.filter(users, ['active', false]);
+// => ['fred'] 的对象
+
+// `_.property` 迭代器的简写形式。
+_.filter(users, 'active');
+// => ['barney'] 的对象
 ```
 
 ---
 
-### find
+## _.find
 
-遍历 `collection` 的元素，返回 `predicate` 返回真值的第一个元素。predicate 调用时会传入三个参数：`(value, index|key, collection)`。
+遍历 `collection` 的元素，返回第一个 `predicate` 返回真值的元素。
 
-**语法**
-```typescript
-_.find(collection, [predicate=_.identity], [fromIndex=0])
-```
+### 参数
 
-**参数**
-| Name | Type | Description |
-|---|---|---|
-| `collection` | `Array` or `Object` | 要检查的集合。 |
-| `[predicate=_.identity]` | `Function` | 每次迭代调用的函数。 |
-| `[fromIndex=0]` | `number` | 开始搜索的索引。 |
+<x-field data-name="collection" data-type="Array|Object" data-required="true" data-desc="要检查的集合。"></x-field>
+<x-field data-name="predicate" data-type="Function" data-default="_.identity" data-required="false" data-desc="每次遍历时调用的函数。它接收三个参数：(value, index|key, collection)。"></x-field>
+<x-field data-name="fromIndex" data-type="number" data-default="0" data-required="false" data-desc="开始搜索的索引。"></x-field>
 
-**返回值**
-- `(*)`: 返回匹配的元素，否则返回 `undefined`。
+### 返回值
 
-**示例**
+<x-field data-name="" data-type="*" data-desc="返回匹配的元素，否则返回 `undefined`。"></x-field>
+
+### 示例
+
 ```javascript
 var users = [
   { 'user': 'barney',  'age': 36, 'active': true },
@@ -134,35 +136,39 @@ var users = [
 ];
 
 _.find(users, function(o) { return o.age < 40; });
-// => object for 'barney'
+// => 'barney' 的对象
 
-// `_.property` iteratee 的简写形式。
+// `_.matches` 迭代器的简写形式。
+_.find(users, { 'age': 1, 'active': true });
+// => 'pebbles' 的对象
+
+// `_.matchesProperty` 迭代器的简写形式。
+_.find(users, ['active', false]);
+// => 'fred' 的对象
+
+// `_.property` 迭代器的简写形式。
 _.find(users, 'active');
-// => object for 'barney'
+// => 'barney' 的对象
 ```
 
 ---
 
-### findLast
+## _.findLast
 
-此方法类似于 `_.find`，区别在于它从右到左遍历 `collection` 的元素。
+此方法类似于 `_.find`，只是它从右到左遍历 `collection` 的元素。
 
-**语法**
-```typescript
-_.findLast(collection, [predicate=_.identity], [fromIndex=collection.length-1])
-```
+### 参数
 
-**参数**
-| Name | Type | Description |
-|---|---|---|
-| `collection` | `Array` or `Object` | 要检查的集合。 |
-| `[predicate=_.identity]` | `Function` | 每次迭代调用的函数。 |
-| `[fromIndex=collection.length-1]` | `number` | 开始搜索的索引。 |
+<x-field data-name="collection" data-type="Array|Object" data-required="true" data-desc="要检查的集合。"></x-field>
+<x-field data-name="predicate" data-type="Function" data-default="_.identity" data-required="false" data-desc="每次遍历时调用的函数。"></x-field>
+<x-field data-name="fromIndex" data-type="number" data-default="collection.length-1" data-required="false" data-desc="开始搜索的索引。"></x-field>
 
-**返回值**
-- `(*)`: 返回匹配的元素，否则返回 `undefined`。
+### 返回值
 
-**示例**
+<x-field data-name="" data-type="*" data-desc="返回匹配的元素，否则返回 `undefined`。"></x-field>
+
+### 示例
+
 ```javascript
 _.findLast([1, 2, 3, 4], function(n) {
   return n % 2 == 1;
@@ -172,25 +178,21 @@ _.findLast([1, 2, 3, 4], function(n) {
 
 ---
 
-### flatMap
+## _.flatMap
 
-通过 `iteratee` 运行 `collection` 中的每个元素并展平映射结果，从而创建一个新的扁平化数组。iteratee 调用时会传入三个参数：`(value, index|key, collection)`。
+通过对 `collection` 中的每个元素运行 `iteratee` 并展平映射结果，创建一个已展平的数组。
 
-**语法**
-```typescript
-_.flatMap(collection, [iteratee=_.identity])
-```
+### 参数
 
-**参数**
-| Name | Type | Description |
-|---|---|---|
-| `collection` | `Array` or `Object` | 要迭代的集合。 |
-| `[iteratee=_.identity]` | `Function` | 每次迭代调用的函数。 |
+<x-field data-name="collection" data-type="Array|Object" data-required="true" data-desc="要遍历的集合。"></x-field>
+<x-field data-name="iteratee" data-type="Function" data-default="_.identity" data-required="false" data-desc="每次遍历时调用的函数。它接收三个参数：(value, index|key, collection)。"></x-field>
 
-**返回值**
-- `(Array)`: 返回新的扁平化数组。
+### 返回值
 
-**示例**
+<x-field data-name="" data-type="Array" data-desc="返回新的已展平数组。"></x-field>
+
+### 示例
+
 ```javascript
 function duplicate(n) {
   return [n, n];
@@ -202,25 +204,21 @@ _.flatMap([1, 2], duplicate);
 
 ---
 
-### flatMapDeep
+## _.flatMapDeep
 
-此方法类似于 `_.flatMap`，区别在于它会递归地展平映射结果。
+此方法类似于 `_.flatMap`，只是它会递归地展平映射结果。
 
-**语法**
-```typescript
-_.flatMapDeep(collection, [iteratee=_.identity])
-```
+### 参数
 
-**参数**
-| Name | Type | Description |
-|---|---|---|
-| `collection` | `Array` or `Object` | 要迭代的集合。 |
-| `[iteratee=_.identity]` | `Function` | 每次迭代调用的函数。 |
+<x-field data-name="collection" data-type="Array|Object" data-required="true" data-desc="要遍历的集合。"></x-field>
+<x-field data-name="iteratee" data-type="Function" data-default="_.identity" data-required="false" data-desc="每次遍历时调用的函数。"></x-field>
 
-**返回值**
-- `(Array)`: 返回新的扁平化数组。
+### 返回值
 
-**示例**
+<x-field data-name="" data-type="Array" data-desc="返回新的已展平数组。"></x-field>
+
+### 示例
+
 ```javascript
 function duplicate(n) {
   return [[[n, n]]];
@@ -232,26 +230,22 @@ _.flatMapDeep([1, 2], duplicate);
 
 ---
 
-### flatMapDepth
+## _.flatMapDepth
 
-此方法类似于 `_.flatMap`，区别在于它会根据 `depth` 的深度递归地展平映射结果。
+此方法类似于 `_.flatMap`，只是它会递归地展平映射结果，最多 `depth` 次。
 
-**语法**
-```typescript
-_.flatMapDepth(collection, [iteratee=_.identity], [depth=1])
-```
+### 参数
 
-**参数**
-| Name | Type | Description |
-|---|---|---|
-| `collection` | `Array` or `Object` | 要迭代的集合。 |
-| `[iteratee=_.identity]` | `Function` | 每次迭代调用的函数。 |
-| `[depth=1]` | `number` | 最大递归深度。 |
+<x-field data-name="collection" data-type="Array|Object" data-required="true" data-desc="要遍历的集合。"></x-field>
+<x-field data-name="iteratee" data-type="Function" data-default="_.identity" data-required="false" data-desc="每次遍历时调用的函数。"></x-field>
+<x-field data-name="depth" data-type="number" data-default="1" data-required="false" data-desc="最大递归深度。"></x-field>
 
-**返回值**
-- `(Array)`: 返回新的扁平化数组。
+### 返回值
 
-**示例**
+<x-field data-name="" data-type="Array" data-desc="返回新的已展平数组。"></x-field>
+
+### 示例
+
 ```javascript
 function duplicate(n) {
   return [[[n, n]]];
@@ -263,117 +257,101 @@ _.flatMapDepth([1, 2], duplicate, 2);
 
 ---
 
-### forEach (each)
+## _.forEach
 
-遍历 `collection` 的元素，并为每个元素调用 `iteratee`。iteratee 调用时会传入三个参数：`(value, index|key, collection)`。Iteratee 函数可以通过显式返回 `false` 来提前退出迭代。
+遍历 `collection` 的元素，并为每个元素调用 `iteratee`。迭代函数可以通过显式返回 `false` 来提前退出遍历。
 
-**语法**
-```typescript
-_.forEach(collection, [iteratee=_.identity])
-```
+### 参数
 
-**参数**
-| Name | Type | Description |
-|---|---|---|
-| `collection` | `Array` or `Object` | 要迭代的集合。 |
-| `[iteratee=_.identity]` | `Function` | 每次迭代调用的函数。 |
+<x-field data-name="collection" data-type="Array|Object" data-required="true" data-desc="要遍历的集合。"></x-field>
+<x-field data-name="iteratee" data-type="Function" data-default="_.identity" data-required="false" data-desc="每次遍历时调用的函数。它接收三个参数：(value, index|key, collection)。"></x-field>
 
-**返回值**
-- `(Array|Object)`: 返回 `collection`。
+### 返回值
 
-**示例**
+<x-field data-name="" data-type="Array|Object" data-desc="返回 `collection`。"></x-field>
+
+### 示例
+
 ```javascript
 _.forEach([1, 2], function(value) {
   console.log(value);
 });
-// => Logs `1` then `2`.
+// => 依次输出 `1` 和 `2`。
 
 _.forEach({ 'a': 1, 'b': 2 }, function(value, key) {
   console.log(key);
 });
-// => Logs 'a' then 'b' (iteration order is not guaranteed).
+// => 依次输出 'a' 和 'b'（不保证遍历顺序）。
 ```
 
 ---
 
-### forEachRight (eachRight)
+## _.forEachRight
 
-此方法类似于 `_.forEach`，区别在于它从右到左遍历 `collection` 的元素。
+此方法类似于 `_.forEach`，只是它从右到左遍历 `collection` 的元素。
 
-**语法**
-```typescript
-_.forEachRight(collection, [iteratee=_.identity])
-```
+### 参数
 
-**参数**
-| Name | Type | Description |
-|---|---|---|
-| `collection` | `Array` or `Object` | 要迭代的集合。 |
-| `[iteratee=_.identity]` | `Function` | 每次迭代调用的函数。 |
+<x-field data-name="collection" data-type="Array|Object" data-required="true" data-desc="要遍历的集合。"></x-field>
+<x-field data-name="iteratee" data-type="Function" data-default="_.identity" data-required="false" data-desc="每次遍历时调用的函数。"></x-field>
 
-**返回值**
-- `(Array|Object)`: 返回 `collection`。
+### 返回值
 
-**示例**
+<x-field data-name="" data-type="Array|Object" data-desc="返回 `collection`。"></x-field>
+
+### 示例
+
 ```javascript
 _.forEachRight([1, 2], function(value) {
   console.log(value);
 });
-// => Logs `2` then `1`.
+// => 依次输出 `2` 和 `1`。
 ```
 
 ---
 
-### groupBy
+## _.groupBy
 
-通过 `iteratee` 处理 `collection` 中的每个元素，创建一个由生成的结果作为键的对象。分组值的顺序由它们在 `collection` 中出现的顺序决定。每个键对应的值是一个数组，其中包含所有生成该键的元素。
+创建一个由键组成的对象，这些键是通过对 `collection` 的每个元素运行 `iteratee` 的结果生成的。分组值的顺序由它们在 `collection` 中出现的顺序决定。每个键对应的值是一个由生成该键的元素组成的数组。
 
-**语法**
-```typescript
-_.groupBy(collection, [iteratee=_.identity])
-```
+### 参数
 
-**参数**
-| Name | Type | Description |
-|---|---|---|
-| `collection` | `Array` or `Object` | 要迭代的集合。 |
-| `[iteratee=_.identity]` | `Function` | 用于转换键的迭代函数。 |
+<x-field data-name="collection" data-type="Array|Object" data-required="true" data-desc="要遍历的集合。"></x-field>
+<x-field data-name="iteratee" data-type="Function" data-default="_.identity" data-required="false" data-desc="用于转换键的迭代函数。"></x-field>
 
-**返回值**
-- `(Object)`: 返回组合的聚合对象。
+### 返回值
 
-**示例**
+<x-field data-name="" data-type="Object" data-desc="返回组合后的聚合对象。"></x-field>
+
+### 示例
+
 ```javascript
 _.groupBy([6.1, 4.2, 6.3], Math.floor);
 // => { '4': [4.2], '6': [6.1, 6.3] }
 
-// `_.property` iteratee 的简写形式。
+// `_.property` 迭代器的简写形式。
 _.groupBy(['one', 'two', 'three'], 'length');
 // => { '3': ['one', 'two'], '5': ['three'] }
 ```
 
 ---
 
-### includes
+## _.includes
 
-检查 `value` 是否在 `collection` 中。如果 `collection` 是一个字符串，则检查其是否包含 `value` 子字符串，否则使用 [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero) 进行等值比较。如果 `fromIndex` 为负数，则将其用作从 `collection` 末尾开始的偏移量。
+检查 `value` 是否在 `collection` 中。如果 `collection` 是一个字符串，则检查它是否包含 `value` 子字符串。否则，使用 `SameValueZero` 进行相等性比较。如果 `fromIndex` 为负数，则用作 `collection` 末尾的偏移量。
 
-**语法**
-```typescript
-_.includes(collection, value, [fromIndex=0])
-```
+### 参数
 
-**参数**
-| Name | Type | Description |
-|---|---|---|
-| `collection` | `Array`, `Object`, or `string` | 要检查的集合。 |
-| `value` | `*` | 要搜索的值。 |
-| `[fromIndex=0]` | `number` | 开始搜索的索引。 |
+<x-field data-name="collection" data-type="Array|Object|string" data-required="true" data-desc="要检查的集合。"></x-field>
+<x-field data-name="value" data-type="*" data-required="true" data-desc="要搜索的值。"></x-field>
+<x-field data-name="fromIndex" data-type="number" data-default="0" data-required="false" data-desc="开始搜索的索引。"></x-field>
 
-**返回值**
-- `(boolean)`: 如果找到 `value`，则返回 `true`，否则返回 `false`。
+### 返回值
 
-**示例**
+<x-field data-name="" data-type="boolean" data-desc="如果找到 `value`，则返回 `true`，否则返回 `false`。"></x-field>
+
+### 示例
+
 ```javascript
 _.includes([1, 2, 3], 1);
 // => true
@@ -390,26 +368,22 @@ _.includes('abcd', 'bc');
 
 ---
 
-### invokeMap
+## _.invokeMap
 
-调用 `collection` 中每个元素的 `path` 路径上的方法，返回一个包含每次调用结果的数组。任何附加参数都会提供给每个被调用的方法。如果 `path` 是一个函数，它将被调用并绑定 `this` 到 `collection` 中的每个元素。
+调用 `collection` 中每个元素在 `path` 上的方法，返回一个包含结果的数组。任何额外的参数都会提供给每个被调用的方法。如果 `path` 是一个函数，它会为 `collection` 中的每个元素调用，并将 `this` 绑定到该元素。
 
-**语法**
-```typescript
-_.invokeMap(collection, path, [args])
-```
+### 参数
 
-**参数**
-| Name | Type | Description |
-|---|---|---|
-| `collection` | `Array` or `Object` | 要迭代的集合。 |
-| `path` | `Array`, `Function`, or `string` | 要调用的方法的路径，或每次迭代调用的函数。 |
-| `[args]` | `...*` | 调用每个方法时传入的参数。 |
+<x-field data-name="collection" data-type="Array|Object" data-required="true" data-desc="要遍历的集合。"></x-field>
+<x-field data-name="path" data-type="Array|Function|string" data-required="true" data-desc="要调用的方法的路径或每次遍历时调用的函数。"></x-field>
+<x-field data-name="args" data-type="...*" data-required="false" data-desc="调用每个方法时使用的参数。"></x-field>
 
-**返回值**
-- `(Array)`: 返回结果数组。
+### 返回值
 
-**示例**
+<x-field data-name="" data-type="Array" data-desc="返回结果数组。"></x-field>
+
+### 示例
+
 ```javascript
 _.invokeMap([[5, 1, 7], [3, 2, 1]], 'sort');
 // => [[1, 5, 7], [1, 2, 3]]
@@ -420,25 +394,21 @@ _.invokeMap([123, 456], String.prototype.split, '');
 
 ---
 
-### keyBy
+## _.keyBy
 
-通过 `iteratee` 处理 `collection` 中的每个元素，创建一个由生成的结果作为键的对象。每个键对应的值是最后一个生成该键的元素。
+创建一个由键组成的对象，这些键是通过对 `collection` 的每个元素运行 `iteratee` 的结果生成的。每个键对应的值是最后一个负责生成该键的元素。
 
-**语法**
-```typescript
-_.keyBy(collection, [iteratee=_.identity])
-```
+### 参数
 
-**参数**
-| Name | Type | Description |
-|---|---|---|
-| `collection` | `Array` or `Object` | 要迭代的集合。 |
-| `[iteratee=_.identity]` | `Function` | 用于转换键的迭代函数。 |
+<x-field data-name="collection" data-type="Array|Object" data-required="true" data-desc="要遍历的集合。"></x-field>
+<x-field data-name="iteratee" data-type="Function" data-default="_.identity" data-required="false" data-desc="用于转换键的迭代函数。"></x-field>
 
-**返回值**
-- `(Object)`: 返回组合的聚合对象。
+### 返回值
 
-**示例**
+<x-field data-name="" data-type="Object" data-desc="返回组合后的聚合对象。"></x-field>
+
+### 示例
+
 ```javascript
 var array = [
   { 'dir': 'left', 'code': 97 },
@@ -456,25 +426,21 @@ _.keyBy(array, 'dir');
 
 ---
 
-### map
+## _.map
 
-通过 `iteratee` 运行 `collection` 中的每个元素，创建一个新数组。iteratee 调用时会传入三个参数：`(value, index|key, collection)`。
+通过对 `collection` 中的每个元素运行 `iteratee`，创建一个包含值的数组。迭代函数被调用时带有三个参数：`(value, index|key, collection)`。
 
-**语法**
-```typescript
-_.map(collection, [iteratee=_.identity])
-```
+### 参数
 
-**参数**
-| Name | Type | Description |
-|---|---|---|
-| `collection` | `Array` or `Object` | 要迭代的集合。 |
-| `[iteratee=_.identity]` | `Function` | 每次迭代调用的函数。 |
+<x-field data-name="collection" data-type="Array|Object" data-required="true" data-desc="要遍历的集合。"></x-field>
+<x-field data-name="iteratee" data-type="Function" data-default="_.identity" data-required="false" data-desc="每次遍历时调用的函数。"></x-field>
 
-**返回值**
-- `(Array)`: 返回新的映射后数组。
+### 返回值
 
-**示例**
+<x-field data-name="" data-type="Array" data-desc="返回新的映射后数组。"></x-field>
+
+### 示例
+
 ```javascript
 function square(n) {
   return n * n;
@@ -484,31 +450,36 @@ _.map([4, 8], square);
 // => [16, 64]
 
 _.map({ 'a': 4, 'b': 8 }, square);
-// => [16, 64] (iteration order is not guaranteed)
+// => [16, 64] (不保证遍历顺序)
+
+var users = [
+  { 'user': 'barney' },
+  { 'user': 'fred' }
+];
+
+// `_.property` 迭代器的简写形式。
+_.map(users, 'user');
+// => ['barney', 'fred']
 ```
 
 ---
 
-### orderBy
+## _.orderBy
 
-此方法类似于 `_.sortBy`，区别在于它允许指定用于排序的 iteratees 的排序顺序。如果未指定 `orders`，则所有值都按升序排序。否则，为相应的值指定 `'desc'`（降序）或 `'asc'`（升序）的排序顺序。
+此方法类似于 `_.sortBy`，只是它允许指定要排序的迭代器的排序顺序。如果未指定 `orders`，则所有值都按升序排序。否则，为相应的值指定 `"desc"` 表示降序，或 `"asc"` 表示升序。
 
-**语法**
-```typescript
-_.orderBy(collection, [iteratees=[_.identity]], [orders])
-```
+### 参数
 
-**参数**
-| Name | Type | Description |
-|---|---|---|
-| `collection` | `Array` or `Object` | 要迭代的集合。 |
-| `[iteratees=[_.identity]]` | `(Array[]|Function[]|Object[]|string[])` | 用于排序的迭代函数。 |
-| `[orders]` | `string[]` | `iteratees` 的排序顺序。 |
+<x-field data-name="collection" data-type="Array|Object" data-required="true" data-desc="要遍历的集合。"></x-field>
+<x-field data-name="iteratees" data-type="Array[]|Function[]|Object[]|string[]" data-default="[_.identity]" data-required="false" data-desc="用于排序的迭代器。"></x-field>
+<x-field data-name="orders" data-type="string[]" data-required="false" data-desc="`iteratees` 的排序顺序。"></x-field>
 
-**返回值**
-- `(Array)`: 返回新的已排序数组。
+### 返回值
 
-**示例**
+<x-field data-name="" data-type="Array" data-desc="返回新的已排序数组。"></x-field>
+
+### 示例
+
 ```javascript
 var users = [
   { 'user': 'fred',   'age': 48 },
@@ -517,32 +488,28 @@ var users = [
   { 'user': 'barney', 'age': 36 }
 ];
 
-// Sort by `user` in ascending order and by `age` in descending order.
+// 按 `user` 升序排序，按 `age` 降序排序。
 _.orderBy(users, ['user', 'age'], ['asc', 'desc']);
-// => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 40]]
+// => [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 40]] 的对象
 ```
 
 ---
 
-### partition
+## _.partition
 
-创建一个元素数组，分为两组：第一组包含 `predicate` 返回真值的元素，第二组包含 `predicate` 返回假值的元素。predicate 调用时会传入一个参数：`(value)`。
+创建一个元素数组，这些元素被分成两组。第一组包含 `predicate` 返回真值的元素，第二组包含其返回假值的元素。
 
-**语法**
-```typescript
-_.partition(collection, [predicate=_.identity])
-```
+### 参数
 
-**参数**
-| Name | Type | Description |
-|---|---|---|
-| `collection` | `Array` or `Object` | 要迭代的集合。 |
-| `[predicate=_.identity]` | `Function` | 每次迭代调用的函数。 |
+<x-field data-name="collection" data-type="Array|Object" data-required="true" data-desc="要遍历的集合。"></x-field>
+<x-field data-name="predicate" data-type="Function" data-default="_.identity" data-required="false" data-desc="每次遍历时调用的函数。"></x-field>
 
-**返回值**
-- `(Array)`: 返回分组后的元素数组。
+### 返回值
 
-**示例**
+<x-field data-name="" data-type="Array" data-desc="返回分组元素的数组，例如 `[[truthy_elements], [falsey_elements]]`。"></x-field>
+
+### 示例
+
 ```javascript
 var users = [
   { 'user': 'barney',  'age': 36, 'active': false },
@@ -551,31 +518,31 @@ var users = [
 ];
 
 _.partition(users, function(o) { return o.active; });
-// => objects for [['fred'], ['barney', 'pebbles']]
+// => [['fred'], ['barney', 'pebbles']] 的对象
+
+// `_.matches` 迭代器的简写形式。
+_.partition(users, { 'age': 1, 'active': false });
+// => [['pebbles'], ['barney', 'fred']] 的对象
 ```
 
 ---
 
-### reduce
+## _.reduce
 
-将 `collection` 归约为一个值，该值是通过 `iteratee` 遍历 `collection` 中每个元素并累积计算的结果，每次连续的调用都会提供上一次的返回值。如果未提供 `accumulator`，则使用 `collection` 的第一个元素作为初始值。iteratee 调用时会传入四个参数：`(accumulator, value, index|key, collection)`。
+将 `collection` 归约为一个值，该值是通过对 `collection` 中的每个元素运行 `iteratee` 的累积结果。如果未提供 `accumulator`，则使用 `collection` 的第一个元素作为初始值。迭代函数被调用时带有四个参数：`(accumulator, value, index|key, collection)`。
 
-**语法**
-```typescript
-_.reduce(collection, [iteratee=_.identity], [accumulator])
-```
+### 参数
 
-**参数**
-| Name | Type | Description |
-|---|---|---|
-| `collection` | `Array` or `Object` | 要迭代的集合。 |
-| `[iteratee=_.identity]` | `Function` | 每次迭代调用的函数。 |
-| `[accumulator]` | `*` | 初始值。 |
+<x-field data-name="collection" data-type="Array|Object" data-required="true" data-desc="要遍历的集合。"></x-field>
+<x-field data-name="iteratee" data-type="Function" data-default="_.identity" data-required="false" data-desc="每次遍历时调用的函数。"></x-field>
+<x-field data-name="accumulator" data-type="*" data-required="false" data-desc="初始值。"></x-field>
 
-**返回值**
-- `(*)`: 返回累积值。
+### 返回值
 
-**示例**
+<x-field data-name="" data-type="*" data-desc="返回累积的值。"></x-field>
+
+### 示例
+
 ```javascript
 _.reduce([1, 2], function(sum, n) {
   return sum + n;
@@ -586,31 +553,27 @@ _.reduce({ 'a': 1, 'b': 2, 'c': 1 }, function(result, value, key) {
   (result[value] || (result[value] = [])).push(key);
   return result;
 }, {});
-// => { '1': ['a', 'c'], '2': ['b'] } (iteration order is not guaranteed)
+// => { '1': ['a', 'c'], '2': ['b'] } (不保证遍历顺序)
 ```
 
 ---
 
-### reduceRight
+## _.reduceRight
 
-此方法类似于 `_.reduce`，区别在于它从右到左遍历 `collection` 的元素。
+此方法类似于 `_.reduce`，只是它从右到左遍历 `collection` 的元素。
 
-**语法**
-```typescript
-_.reduceRight(collection, [iteratee=_.identity], [accumulator])
-```
+### 参数
 
-**参数**
-| Name | Type | Description |
-|---|---|---|
-| `collection` | `Array` or `Object` | 要迭代的集合。 |
-| `[iteratee=_.identity]` | `Function` | 每次迭代调用的函数。 |
-| `[accumulator]` | `*` | 初始值。 |
+<x-field data-name="collection" data-type="Array|Object" data-required="true" data-desc="要遍历的集合。"></x-field>
+<x-field data-name="iteratee" data-type="Function" data-default="_.identity" data-required="false" data-desc="每次遍历时调用的函数。"></x-field>
+<x-field data-name="accumulator" data-type="*" data-required="false" data-desc="初始值。"></x-field>
 
-**返回值**
-- `(*)`: 返回累积值。
+### 返回值
 
-**示例**
+<x-field data-name="" data-type="*" data-desc="返回累积的值。"></x-field>
+
+### 示例
+
 ```javascript
 var array = [[0, 1], [2, 3], [4, 5]];
 
@@ -622,25 +585,21 @@ _.reduceRight(array, function(flattened, other) {
 
 ---
 
-### reject
+## _.reject
 
-与 `_.filter` 相反；此方法返回 `collection` 中 `predicate` **不**返回真值的元素。
+`_.filter` 的反向操作；此方法返回 `collection` 中 `predicate` **不** 返回真值的元素。
 
-**语法**
-```typescript
-_.reject(collection, [predicate=_.identity])
-```
+### 参数
 
-**参数**
-| Name | Type | Description |
-|---|---|---|
-| `collection` | `Array` or `Object` | 要迭代的集合。 |
-| `[predicate=_.identity]` | `Function` | 每次迭代调用的函数。 |
+<x-field data-name="collection" data-type="Array|Object" data-required="true" data-desc="要遍历的集合。"></x-field>
+<x-field data-name="predicate" data-type="Function" data-default="_.identity" data-required="false" data-desc="每次遍历时调用的函数。"></x-field>
 
-**返回值**
-- `(Array)`: 返回新的已筛选数组。
+### 返回值
 
-**示例**
+<x-field data-name="" data-type="Array" data-desc="返回新的已过滤数组。"></x-field>
+
+### 示例
+
 ```javascript
 var users = [
   { 'user': 'barney', 'age': 36, 'active': false },
@@ -648,29 +607,29 @@ var users = [
 ];
 
 _.reject(users, function(o) { return !o.active; });
-// => objects for ['fred']
+// => ['fred'] 的对象
+
+// `_.matches` 迭代器的简写形式。
+_.reject(users, { 'age': 40, 'active': true });
+// => ['barney'] 的对象
 ```
 
 ---
 
-### sample
+## _.sample
 
 从 `collection` 中获取一个随机元素。
 
-**语法**
-```typescript
-_.sample(collection)
-```
+### 参数
 
-**参数**
-| Name | Type | Description |
-|---|---|---|
-| `collection` | `Array` or `Object` | 要采样的集合。 |
+<x-field data-name="collection" data-type="Array|Object" data-required="true" data-desc="要采样的集合。"></x-field>
 
-**返回值**
-- `(*)`: 返回随机元素。
+### 返回值
 
-**示例**
+<x-field data-name="" data-type="*" data-desc="返回随机元素。"></x-field>
+
+### 示例
+
 ```javascript
 _.sample([1, 2, 3, 4]);
 // => 2
@@ -678,25 +637,21 @@ _.sample([1, 2, 3, 4]);
 
 ---
 
-### sampleSize
+## _.sampleSize
 
-从 `collection` 中获取 `n` 个随机元素，最多不超过 `collection` 的大小。
+从 `collection` 中获取 `n` 个唯一键上的随机元素，最多为 `collection` 的大小。
 
-**语法**
-```typescript
-_.sampleSize(collection, [n=1])
-```
+### 参数
 
-**参数**
-| Name | Type | Description |
-|---|---|---|
-| `collection` | `Array` or `Object` | 要采样的集合。 |
-| `[n=1]` | `number` | 要采样的元素数量。 |
+<x-field data-name="collection" data-type="Array|Object" data-required="true" data-desc="要采样的集合。"></x-field>
+<x-field data-name="n" data-type="number" data-default="1" data-required="false" data-desc="要采样的元素数量。"></x-field>
 
-**返回值**
-- `(Array)`: 返回随机元素。
+### 返回值
 
-**示例**
+<x-field data-name="" data-type="Array" data-desc="返回随机元素。"></x-field>
+
+### 示例
+
 ```javascript
 _.sampleSize([1, 2, 3], 2);
 // => [3, 1]
@@ -707,24 +662,20 @@ _.sampleSize([1, 2, 3], 4);
 
 ---
 
-### shuffle
+## _.shuffle
 
-创建一个打乱值的数组，使用 [Fisher-Yates shuffle](https://en.wikipedia.org/wiki/Fisher-Yates_shuffle) 算法的一个版本。
+创建一个经过洗牌的值的数组，使用 [Fisher-Yates 洗牌算法](https://en.wikipedia.org/wiki/Fisher-Yates_shuffle)的一个版本。
 
-**语法**
-```typescript
-_.shuffle(collection)
-```
+### 参数
 
-**参数**
-| Name | Type | Description |
-|---|---|---|
-| `collection` | `Array` or `Object` | 要打乱的集合。 |
+<x-field data-name="collection" data-type="Array|Object" data-required="true" data-desc="要洗牌的集合。"></x-field>
 
-**返回值**
-- `(Array)`: 返回新的已打乱数组。
+### 返回值
 
-**示例**
+<x-field data-name="" data-type="Array" data-desc="返回新的已洗牌数组。"></x-field>
+
+### 示例
+
 ```javascript
 _.shuffle([1, 2, 3, 4]);
 // => [4, 1, 3, 2]
@@ -732,24 +683,20 @@ _.shuffle([1, 2, 3, 4]);
 
 ---
 
-### size
+## _.size
 
-获取 `collection` 的大小，对于类数组值，返回其 `length` 属性，对于对象，返回其自身可枚举的字符串键属性的数量。
+获取 `collection` 的大小，对于类数组值返回其长度，对于对象返回其自身可枚举字符串键属性的数量。
 
-**语法**
-```typescript
-_.size(collection)
-```
+### 参数
 
-**参数**
-| Name | Type | Description |
-|---|---|---|
-| `collection` | `Array`, `Object`, or `string` | 要检查的集合。 |
+<x-field data-name="collection" data-type="Array|Object|string" data-required="true" data-desc="要检查的集合。"></x-field>
 
-**返回值**
-- `(number)`: 返回集合的大小。
+### 返回值
 
-**示例**
+<x-field data-name="" data-type="number" data-desc="返回集合大小。"></x-field>
+
+### 示例
+
 ```javascript
 _.size([1, 2, 3]);
 // => 3
@@ -763,25 +710,21 @@ _.size('pebbles');
 
 ---
 
-### some
+## _.some
 
-检查 `predicate` 是否对 `collection` 的**任何**元素返回真值。一旦 `predicate` 返回真值，迭代就会停止。
+检查 `predicate` 是否对 `collection` 的 **任何** 元素返回真值。一旦 `predicate` 返回真值，遍历就会停止。
 
-**语法**
-```typescript
-_.some(collection, [predicate=_.identity])
-```
+### 参数
 
-**参数**
-| Name | Type | Description |
-|---|---|---|
-| `collection` | `Array` or `Object` | 要迭代的集合。 |
-| `[predicate=_.identity]` | `Function` | 每次迭代调用的函数。 |
+<x-field data-name="collection" data-type="Array|Object" data-required="true" data-desc="要遍历的集合。"></x-field>
+<x-field data-name="predicate" data-type="Function" data-default="_.identity" data-required="false" data-desc="每次遍历时调用的函数。"></x-field>
 
-**返回值**
-- `(boolean)`: 如果有任何元素通过谓词检查，则返回 `true`，否则返回 `false`。
+### 返回值
 
-**示例**
+<x-field data-name="" data-type="boolean" data-desc="如果任何元素通过谓词检查，则返回 `true`，否则返回 `false`。"></x-field>
+
+### 示例
+
 ```javascript
 _.some([null, 0, 'yes', false], Boolean);
 // => true
@@ -791,32 +734,32 @@ var users = [
   { 'user': 'fred',   'active': false }
 ];
 
-// `_.matchesProperty` iteratee 的简写形式。
+// `_.matches` 迭代器的简写形式。
+_.some(users, { 'user': 'barney', 'active': false });
+// => false
+
+// `_.matchesProperty` 迭代器的简写形式。
 _.some(users, ['active', false]);
 // => true
 ```
 
 ---
 
-### sortBy
+## _.sortBy
 
-创建一个元素数组，根据通过每个 iteratee 运行集合中每个元素的结果进行升序排序。此方法执行稳定排序，这意味着它会保留相等元素的原始排序顺序。
+创建一个元素数组，按升序排序，排序依据是对集合中的每个元素通过每个迭代器运行的结果。此方法执行稳定排序，这意味着它保留了相等元素的原始排序顺序。
 
-**语法**
-```typescript
-_.sortBy(collection, [iteratees=[_.identity]])
-```
+### 参数
 
-**参数**
-| Name | Type | Description |
-|---|---|---|
-| `collection` | `Array` or `Object` | 要迭代的集合。 |
-| `[iteratees=[_.identity]]` | `...(Function|Function[])` | 用于排序的迭代函数。 |
+<x-field data-name="collection" data-type="Array|Object" data-required="true" data-desc="要遍历的集合。"></x-field>
+<x-field data-name="iteratees" data-type="...(Function|Function[])" data-default="[_.identity]" data-required="false" data-desc="用于排序的迭代器。"></x-field>
 
-**返回值**
-- `(Array)`: 返回新的已排序数组。
+### 返回值
 
-**示例**
+<x-field data-name="" data-type="Array" data-desc="返回新的已排序数组。"></x-field>
+
+### 示例
+
 ```javascript
 var users = [
   { 'user': 'fred',   'age': 48 },
@@ -826,8 +769,8 @@ var users = [
 ];
 
 _.sortBy(users, [function(o) { return o.user; }]);
-// => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 30]]
+// => [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 30]] 的对象
 
 _.sortBy(users, ['user', 'age']);
-// => objects for [['barney', 34], ['barney', 36], ['fred', 30], ['fred', 48]]
+// => [['barney', 34], ['barney', 36], ['fred', 30], ['fred', 48]] 的对象
 ```

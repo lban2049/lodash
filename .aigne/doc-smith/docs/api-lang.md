@@ -1,71 +1,172 @@
 # Lang
 
-Lodash's 'Lang' category provides a rich set of utility functions for fundamental language-level operations. These include robust type checking, deep and shallow cloning of objects, and various type conversion utilities. These functions form the bedrock for writing predictable and safe JavaScript code.
+Lodash's `Lang` category provides a suite of fundamental utility functions that handle language-level operations. These functions are essential for tasks such as type checking, value comparison, cloning, and type casting. They form the bedrock of many complex operations and help ensure code is robust and predictable.
 
-## Type Checking Utilities
+Whether you need to verify if a variable is an array, perform a deep clone of an object, or safely convert a value to a number, the functions in this section offer reliable and optimized solutions. For more specialized object manipulations, see the [Object](./api-object.md) section.
 
-These functions help you determine the type of a JavaScript value. They are essential for writing robust code that can handle different kinds of input gracefully.
+## Type Checking
 
-<x-cards data-columns="3">
-  <x-card data-title="isEqual()" data-icon="lucide:git-compare-arrows">Performs a deep comparison between two values.</x-card>
-  <x-card data-title="isArray()" data-icon="lucide:square-brackets">Checks if a value is classified as an Array object.</x-card>
-  <x-card data-title="isObject()" data-icon="lucide:braces">Checks if a value is the language type of Object.</x-card>
-  <x-card data-title="isString()" data-icon="lucide:type">Checks if a value is a string primitive or object.</x-card>
-  <x-card data-title="isNumber()" data-icon="lucide:binary">Checks if a value is a number primitive or object.</x-card>
-  <x-card data-title="isFunction()" data-icon="lucide:function-square">Checks if a value is classified as a Function object.</x-card>
-  <x-card data-title="isBoolean()" data-icon="lucide:toggle-right">Checks if a value is a boolean primitive or object.</x-card>
-  <x-card data-title="isEmpty()" data-icon="lucide:circle-slash">Checks if a value is empty (object, collection, map, or set).</x-card>
-  <x-card data-title="isNil()" data-icon="lucide:circle-help">Checks if a value is null or undefined.</x-card>
-</x-cards>
+These functions help you determine the type of a JavaScript value.
 
-### isEqual
+### isArguments
 
-Performs a deep comparison between two values to determine if they are equivalent. This method supports comparing arrays, objects, maps, sets, and more. It compares own, not inherited, enumerable properties.
+Checks if `value` is likely an `arguments` object.
 
 **Parameters**
 
-| Name | Type | Description |
-|---|---|---|
-| `value` | `*` | The value to compare. |
-| `other` | `*` | The other value to compare. |
+<x-field data-name="value" data-type="any" data-required="true" data-desc="The value to check."></x-field>
 
 **Returns**
 
-- `(boolean)`: Returns `true` if the values are equivalent, else `false`.
+<x-field data-name="" data-type="boolean" data-desc="Returns true if value is an arguments object, else false."></x-field>
 
-```javascript isEqual Example icon=logos:javascript
-var object = { 'a': 1 };
-var other = { 'a': 1 };
+**Example**
 
-_.isEqual(object, other);
+```javascript
+_.isArguments(function() { return arguments; }());
 // => true
 
-console.log(object === other);
+_.isArguments([1, 2, 3]);
+// => false
+```
+
+### isArray
+
+Checks if `value` is classified as an `Array` object.
+
+**Parameters**
+
+<x-field data-name="value" data-type="any" data-required="true" data-desc="The value to check."></x-field>
+
+**Returns**
+
+<x-field data-name="" data-type="boolean" data-desc="Returns true if value is an array, else false."></x-field>
+
+**Example**
+
+```javascript
+_.isArray([1, 2, 3]);
+// => true
+
+_.isArray('abc');
+// => false
+```
+
+### isArrayBuffer
+
+Checks if `value` is classified as an `ArrayBuffer` object.
+
+**Parameters**
+
+<x-field data-name="value" data-type="any" data-required="true" data-desc="The value to check."></x-field>
+
+**Returns**
+
+<x-field data-name="" data-type="boolean" data-desc="Returns true if value is an ArrayBuffer, else false."></x-field>
+
+**Example**
+
+```javascript
+_.isArrayBuffer(new ArrayBuffer(2));
+// => true
+
+_.isArrayBuffer(new Array(2));
+// => false
+```
+
+### isArrayLike
+
+Checks if `value` is array-like. A value is considered array-like if it's not a function and has a `value.length` that's an integer greater than or equal to `0` and less than or equal to `Number.MAX_SAFE_INTEGER`.
+
+**Parameters**
+
+<x-field data-name="value" data-type="any" data-required="true" data-desc="The value to check."></x-field>
+
+**Returns**
+
+<x-field data-name="" data-type="boolean" data-desc="Returns true if value is array-like, else false."></x-field>
+
+**Example**
+
+```javascript
+_.isArrayLike([1, 2, 3]);
+// => true
+
+_.isArrayLike('abc');
+// => true
+
+_.isArrayLike(_.noop);
+// => false
+```
+
+### isBoolean
+
+Checks if `value` is classified as a boolean primitive or object.
+
+**Parameters**
+
+<x-field data-name="value" data-type="any" data-required="true" data-desc="The value to check."></x-field>
+
+**Returns**
+
+<x-field data-name="" data-type="boolean" data-desc="Returns true if value is a boolean, else false."></x-field>
+
+**Example**
+
+```javascript
+_.isBoolean(false);
+// => true
+
+_.isBoolean(null);
+// => false
+```
+
+### isDate
+
+Checks if `value` is classified as a `Date` object.
+
+**Parameters**
+
+<x-field data-name="value" data-type="any" data-required="true" data-desc="The value to check."></x-field>
+
+**Returns**
+
+<x-field data-name="" data-type="boolean" data-desc="Returns true if value is a Date object, else false."></x-field>
+
+**Example**
+
+```javascript
+_.isDate(new Date());
+// => true
+
+_.isDate('Mon April 23 2012');
 // => false
 ```
 
 ### isEmpty
 
-Checks if `value` is an empty object, collection, map, or set. Objects are considered empty if they have no own enumerable string-keyed properties. Array-like values are considered empty if they have a length of 0.
+Checks if `value` is an empty object, collection, map, or set.
+
+Objects are considered empty if they have no own enumerable string keyed properties. Array-like values (e.g., `arguments` objects, arrays, strings) are considered empty if they have a `length` of `0`. Maps and sets are considered empty if they have a `size` of `0`.
 
 **Parameters**
 
-| Name | Type | Description |
-|---|---|---|
-| `value` | `*` | The value to check. |
+<x-field data-name="value" data-type="any" data-required="true" data-desc="The value to check."></x-field>
 
 **Returns**
 
-- `(boolean)`: Returns `true` if `value` is empty, else `false`.
+<x-field data-name="" data-type="boolean" data-desc="Returns true if value is empty, else false."></x-field>
 
-```javascript isEmpty Example icon=logos:javascript
+**Example**
+
+```javascript
 _.isEmpty(null);
 // => true
 
-_.isEmpty({});
+_.isEmpty(true);
 // => true
 
-_.isEmpty('');
+_.isEmpty(1);
 // => true
 
 _.isEmpty([1, 2, 3]);
@@ -75,102 +176,303 @@ _.isEmpty({ 'a': 1 });
 // => false
 ```
 
-### Other Type Checking Functions
+### isError
 
-| Function | Description |
-|---|---|
-| `isArguments(value)` | Checks if `value` is an `arguments` object. |
-| `isArray(value)` | Checks if `value` is an `Array`. |
-| `isArrayBuffer(value)` | Checks if `value` is an `ArrayBuffer`. |
-| `isArrayLike(value)` | Checks if `value` is array-like (e.g., arrays, strings). |
-| `isArrayLikeObject(value)` | Like `isArrayLike` but also checks if `value` is an object. |
-| `isBoolean(value)` | Checks if `value` is a boolean. |
-| `isBuffer(value)` | Checks if `value` is a Buffer. |
-| `isDate(value)` | Checks if `value` is a `Date` object. |
-| `isElement(value)` | Checks if `value` is a DOM element. |
-| `isEqualWith(value, other, [customizer])` | Like `isEqual` but accepts a customizer function. |
-| `isError(value)` | Checks if `value` is an `Error` object. |
-| `isFinite(value)` | Checks if `value` is a finite primitive number. |
-| `isFunction(value)` | Checks if `value` is a `Function`. |
-| `isInteger(value)` | Checks if `value` is an integer. |
-| `isLength(value)` | Checks if `value` is a valid array-like length. |
-| `isMap(value)` | Checks if `value` is a `Map` object. |
-| `isMatch(object, source)` | Performs a partial deep comparison to see if `object` contains `source`'s properties. |
-| `isMatchWith(object, source, [customizer])` | Like `isMatch` but accepts a customizer function. |
-| `isNaN(value)` | Checks if `value` is `NaN`. |
-| `isNative(value)` | Checks if `value` is a native function. |
-| `isNil(value)` | Checks if `value` is `null` or `undefined`. |
-| `isNull(value)` | Checks if `value` is `null`. |
-| `isNumber(value)` | Checks if `value` is a number. |
-| `isObject(value)` | Checks if `value` is an object (e.g., arrays, functions, objects, regexes). |
-| `isObjectLike(value)` | Checks if `value` is object-like (not `null` and `typeof` is 'object'). |
-| `isPlainObject(value)` | Checks if `value` is a plain object. |
-| `isRegExp(value)` | Checks if `value` is a `RegExp` object. |
-| `isSafeInteger(value)` | Checks if `value` is a safe integer. |
-| `isSet(value)` | Checks if `value` is a `Set` object. |
-| `isString(value)` | Checks if `value` is a string. |
-| `isSymbol(value)` | Checks if `value` is a `Symbol`. |
-| `isTypedArray(value)` | Checks if `value` is a typed array. |
-| `isUndefined(value)` | Checks if `value` is `undefined`. |
-| `isWeakMap(value)` | Checks if `value` is a `WeakMap` object. |
-| `isWeakSet(value)` | Checks if `value` is a `WeakSet` object. |
-
-
-## Cloning Utilities
-
-Creating copies of values, especially complex objects and arrays, is a common task. Lodash provides powerful utilities for both shallow and deep cloning.
-
-### clone
-
-Creates a shallow clone of `value`. For objects and arrays, the top-level structure is duplicated, but nested objects and arrays are shared by reference between the original and the clone.
+Checks if `value` is an `Error`, `EvalError`, `RangeError`, `ReferenceError`, `SyntaxError`, `TypeError`, or `URIError` object.
 
 **Parameters**
 
-| Name | Type | Description |
-|---|---|---|
-| `value` | `*` | The value to clone. |
+<x-field data-name="value" data-type="any" data-required="true" data-desc="The value to check."></x-field>
 
 **Returns**
 
-- `(*)`: Returns the shallow cloned value.
+<x-field data-name="" data-type="boolean" data-desc="Returns true if value is an error object, else false."></x-field>
 
-```javascript clone Example icon=logos:javascript
+**Example**
+
+```javascript
+_.isError(new Error());
+// => true
+
+_.isError(Error);
+// => false
+```
+
+### isFunction
+
+Checks if `value` is classified as a `Function` object.
+
+**Parameters**
+
+<x-field data-name="value" data-type="any" data-required="true" data-desc="The value to check."></x-field>
+
+**Returns**
+
+<x-field data-name="" data-type="boolean" data-desc="Returns true if value is a function, else false."></x-field>
+
+**Example**
+
+```javascript
+_.isFunction(_);
+// => true
+
+_.isFunction(/abc/);
+// => false
+```
+
+### isNil
+
+Checks if `value` is `null` or `undefined`.
+
+**Parameters**
+
+<x-field data-name="value" data-type="any" data-required="true" data-desc="The value to check."></x-field>
+
+**Returns**
+
+<x-field data-name="" data-type="boolean" data-desc="Returns true if value is nullish, else false."></x-field>
+
+**Example**
+
+```javascript
+_.isNil(null);
+// => true
+
+_.isNil(void 0);
+// => true
+
+_.isNil(NaN);
+// => false
+```
+
+### isNull
+
+Checks if `value` is `null`.
+
+**Parameters**
+
+<x-field data-name="value" data-type="any" data-required="true" data-desc="The value to check."></x-field>
+
+**Returns**
+
+<x-field data-name="" data-type="boolean" data-desc="Returns true if value is null, else false."></x-field>
+
+**Example**
+
+```javascript
+_.isNull(null);
+// => true
+
+_.isNull(void 0);
+// => false
+```
+
+### isNumber
+
+Checks if `value` is classified as a `Number` primitive or object. To exclude `Infinity`, `-Infinity`, and `NaN`, use `_.isFinite`.
+
+**Parameters**
+
+<x-field data-name="value" data-type="any" data-required="true" data-desc="The value to check."></x-field>
+
+**Returns**
+
+<x-field data-name="" data-type="boolean" data-desc="Returns true if value is a number, else false."></x-field>
+
+**Example**
+
+```javascript
+_.isNumber(3);
+// => true
+
+_.isNumber(Infinity);
+// => true
+
+_.isNumber('3');
+// => false
+```
+
+### isObject
+
+Checks if `value` is the language type of `Object` (e.g., arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`).
+
+**Parameters**
+
+<x-field data-name="value" data-type="any" data-required="true" data-desc="The value to check."></x-field>
+
+**Returns**
+
+<x-field data-name="" data-type="boolean" data-desc="Returns true if value is an object, else false."></x-field>
+
+**Example**
+
+```javascript
+_.isObject({});
+// => true
+
+_.isObject([1, 2, 3]);
+// => true
+
+_.isObject(null);
+// => false
+```
+
+### isPlainObject
+
+Checks if `value` is a plain object, i.e., an object created by the `Object` constructor or one with a `[[Prototype]]` of `null`.
+
+**Parameters**
+
+<x-field data-name="value" data-type="any" data-required="true" data-desc="The value to check."></x-field>
+
+**Returns**
+
+<x-field data-name="" data-type="boolean" data-desc="Returns true if value is a plain object, else false."></x-field>
+
+**Example**
+
+```javascript
+function Foo() {
+  this.a = 1;
+}
+
+_.isPlainObject(new Foo());
+// => false
+
+_.isPlainObject({ 'x': 0, 'y': 0 });
+// => true
+```
+
+### isString
+
+Checks if `value` is classified as a `String` primitive or object.
+
+**Parameters**
+
+<x-field data-name="value" data-type="any" data-required="true" data-desc="The value to check."></x-field>
+
+**Returns**
+
+<x-field data-name="" data-type="boolean" data-desc="Returns true if value is a string, else false."></x-field>
+
+**Example**
+
+```javascript
+_.isString('abc');
+// => true
+
+_.isString(1);
+// => false
+```
+
+### isSymbol
+
+Checks if `value` is classified as a `Symbol` primitive or object.
+
+**Parameters**
+
+<x-field data-name="value" data-type="any" data-required="true" data-desc="The value to check."></x-field>
+
+**Returns**
+
+<x-field data-name="" data-type="boolean" data-desc="Returns true if value is a symbol, else false."></x-field>
+
+**Example**
+
+```javascript
+_.isSymbol(Symbol.iterator);
+// => true
+
+_.isSymbol('abc');
+// => false
+```
+
+### isUndefined
+
+Checks if `value` is `undefined`.
+
+**Parameters**
+
+<x-field data-name="value" data-type="any" data-required="true" data-desc="The value to check."></x-field>
+
+**Returns**
+
+<x-field data-name="" data-type="boolean" data-desc="Returns true if value is undefined, else false."></x-field>
+
+**Example**
+
+```javascript
+_.isUndefined(void 0);
+// => true
+
+_.isUndefined(null);
+// => false
+```
+
+## Cloning
+
+Create shallow or deep copies of values.
+
+### clone
+
+Creates a shallow clone of `value`. This method supports cloning arrays, booleans, date objects, maps, numbers, `Object` objects, regexes, sets, strings, symbols, and typed arrays.
+
+**Parameters**
+
+<x-field data-name="value" data-type="any" data-required="true" data-desc="The value to clone."></x-field>
+
+**Returns**
+
+<x-field data-name="" data-type="any" data-desc="Returns the cloned value."></x-field>
+
+**Example**
+
+```javascript
 var objects = [{ 'a': 1 }, { 'b': 2 }];
 
 var shallow = _.clone(objects);
-
 console.log(shallow[0] === objects[0]);
 // => true
 ```
 
 ### cloneDeep
 
-This method is like `_.clone` except that it recursively clones `value`. All nested objects and arrays are also duplicated, creating a completely independent copy.
+This method is like `_.clone` except that it recursively clones `value`.
 
 **Parameters**
 
-| Name | Type | Description |
-|---|---|---|
-| `value` | `*` | The value to recursively clone. |
+<x-field data-name="value" data-type="any" data-required="true" data-desc="The value to recursively clone."></x-field>
 
 **Returns**
 
-- `(*)`: Returns the deep cloned value.
+<x-field data-name="" data-type="any" data-desc="Returns the deep cloned value."></x-field>
 
-```javascript cloneDeep Example icon=logos:javascript
+**Example**
+
+```javascript
 var objects = [{ 'a': 1 }, { 'b': 2 }];
- 
+
 var deep = _.cloneDeep(objects);
- 
 console.log(deep[0] === objects[0]);
 // => false
 ```
 
-### cloneWith & cloneDeepWith
+### cloneWith
 
-These are advanced versions of `clone` and `cloneDeep` that accept a `customizer` function. This function is invoked to produce the cloned value for each property. If the customizer returns `undefined`, cloning is handled by the standard Lodash logic.
+Like `_.clone`, but accepts a `customizer` function to produce the cloned value. If `customizer` returns `undefined`, cloning is handled by the method.
 
-```javascript cloneWith Example icon=logos:javascript
+**Parameters**
+
+<x-field data-name="value" data-type="any" data-required="true" data-desc="The value to clone."></x-field>
+<x-field data-name="customizer" data-type="Function" data-required="false" data-desc="The function to customize cloning."></x-field>
+
+**Returns**
+
+<x-field data-name="" data-type="any" data-desc="Returns the cloned value."></x-field>
+
+**Example**
+
+```javascript
 function customizer(value) {
   if (_.isElement(value)) {
     return value.cloneNode(false);
@@ -183,54 +485,184 @@ console.log(el === document.body);
 // => false
 console.log(el.nodeName);
 // => 'BODY'
-console.log(el.childNodes.length);
-// => 0
 ```
 
-## Type Conversion & Casting
+### cloneDeepWith
 
-These functions convert values from one type to another, such as converting a string to a number or ensuring a value is an array.
-
-### toArray
-
-Converts `value` to an array. It works on array-like values (like `arguments` objects), strings (splits into characters), and objects (extracts values).
+Like `_.cloneWith`, but it recursively clones `value`.
 
 **Parameters**
 
-| Name | Type | Description |
-|---|---|---|
-| `value` | `*` | The value to convert. |
+<x-field data-name="value" data-type="any" data-required="true" data-desc="The value to recursively clone."></x-field>
+<x-field data-name="customizer" data-type="Function" data-required="false" data-desc="The function to customize cloning."></x-field>
 
 **Returns**
 
-- `(Array)`: Returns the converted array.
+<x-field data-name="" data-type="any" data-desc="Returns the deep cloned value."></x-field>
 
-```javascript toArray Example icon=logos:javascript
+**Example**
+
+```javascript
+function customizer(value) {
+  if (_.isElement(value)) {
+    return value.cloneNode(true);
+  }
+}
+
+var el = _.cloneDeepWith(document.body, customizer);
+
+console.log(el === document.body);
+// => false
+```
+
+## Comparison & Conformance
+
+Functions for comparing values and checking object structures.
+
+### eq
+
+Performs a [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero) comparison between two values to determine if they are equivalent. This means `NaN` is equal to `NaN`.
+
+**Parameters**
+
+<x-field data-name="value" data-type="any" data-required="true" data-desc="The value to compare."></x-field>
+<x-field data-name="other" data-type="any" data-required="true" data-desc="The other value to compare."></x-field>
+
+**Returns**
+
+<x-field data-name="" data-type="boolean" data-desc="Returns true if the values are equivalent, else false."></x-field>
+
+**Example**
+
+```javascript
+_.eq('a', 'a');
+// => true
+
+_.eq('a', Object('a'));
+// => false
+
+_.eq(NaN, NaN);
+// => true
+```
+
+### isEqual
+
+Performs a deep comparison between two values to determine if they are equivalent.
+
+**Parameters**
+
+<x-field data-name="value" data-type="any" data-required="true" data-desc="The value to compare."></x-field>
+<x-field data-name="other" data-type="any" data-required="true" data-desc="The other value to compare."></x-field>
+
+**Returns**
+
+<x-field data-name="" data-type="boolean" data-desc="Returns true if the values are equivalent, else false."></x-field>
+
+**Example**
+
+```javascript
+var object = { 'a': 1 };
+var other = { 'a': 1 };
+
+_.isEqual(object, other);
+// => true
+
+object === other;
+// => false
+```
+
+### gt, gte, lt, lte
+
+These functions perform relational comparisons between two values.
+
+- `gt(value, other)`: Checks if `value` is greater than `other`.
+- `gte(value, other)`: Checks if `value` is greater than or equal to `other`.
+- `lt(value, other)`: Checks if `value` is less than `other`.
+- `lte(value, other)`: Checks if `value` is less than or equal to `other`.
+
+**Example**
+
+```javascript
+_.gt(3, 1);
+// => true
+
+_.gte(3, 3);
+// => true
+
+_.lt(1, 3);
+// => true
+
+_.lte(1, 3);
+// => true
+```
+
+## Type Casting & Conversion
+
+Functions to convert values from one type to another.
+
+### castArray
+
+Casts `value` as an array if it's not one. If `value` is already an array, it's returned as is.
+
+**Parameters**
+
+<x-field data-name="value" data-type="any" data-required="true" data-desc="The value to inspect."></x-field>
+
+**Returns**
+
+<x-field data-name="" data-type="Array" data-desc="Returns the cast array."></x-field>
+
+**Example**
+
+```javascript
+_.castArray(1);
+// => [1]
+
+_.castArray({ 'a': 1 });
+// => [{ 'a': 1 }]
+
+var array = [1, 2, 3];
+_.castArray(array) === array;
+// => true
+```
+
+### toArray
+
+Converts `value` to an array. For array-like values or strings, it creates a new array. For objects, it creates an array of the object's values.
+
+**Parameters**
+
+<x-field data-name="value" data-type="any" data-required="true" data-desc="The value to convert."></x-field>
+
+**Returns**
+
+<x-field data-name="" data-type="Array" data-desc="Returns the converted array."></x-field>
+
+**Example**
+
+```javascript
 _.toArray({ 'a': 1, 'b': 2 });
 // => [1, 2]
 
 _.toArray('abc');
 // => ['a', 'b', 'c']
-
-_.toArray(null);
-// => []
 ```
 
 ### toNumber
 
-Converts `value` to a number. It can handle strings, symbols, and objects with a `valueOf` method.
+Converts `value` to a number.
 
 **Parameters**
 
-| Name | Type | Description |
-|---|---|---|
-| `value` | `*` | The value to process. |
+<x-field data-name="value" data-type="any" data-required="true" data-desc="The value to process."></x-field>
 
 **Returns**
 
-- `(number)`: Returns the number.
+<x-field data-name="" data-type="number" data-desc="Returns the number."></x-field>
 
-```javascript toNumber Example icon=logos:javascript
+**Example**
+
+```javascript
 _.toNumber(3.2);
 // => 3.2
 
@@ -239,46 +671,33 @@ _.toNumber('3.2');
 
 _.toNumber(Infinity);
 // => Infinity
-
-_.toNumber(Symbol.iterator);
-// => NaN
 ```
 
-### Other Conversion Functions
+### toString
 
-| Function | Description |
-|---|---|
-| `castArray(value)` | Casts `value` as an array if it's not one. If it's already an array, it's returned as is. |
-| `toFinite(value)` | Converts `value` to a finite number. `Infinity` is converted to the largest representable number. |
-| `toInteger(value)` | Converts `value` to an integer, truncating any decimal part. |
-| `toLength(value)` | Converts `value` to an integer suitable for an array-like length (0 to `MAX_ARRAY_LENGTH`). |
-| `toPlainObject(value)` | Converts `value` to a plain object by flattening inherited enumerable properties to own properties. |
-| `toSafeInteger(value)` | Converts `value` to a safe integer (within `Number.MIN_SAFE_INTEGER` and `Number.MAX_SAFE_INTEGER`). |
-| `toString(value)` | Converts `value` to a string. `null` and `undefined` become empty strings. |
+Converts `value` to a string. An empty string is returned for `null` and `undefined` values. The sign of `-0` is preserved.
 
-## Comparison Utilities
+**Parameters**
 
-Perform comparisons between two values.
+<x-field data-name="value" data-type="any" data-required="true" data-desc="The value to convert."></x-field>
 
-| Function | Description |
-|---|---|
-| `eq(value, other)` | Performs a `SameValueZero` comparison (like `===` but `NaN` equals `NaN`). |
-| `gt(value, other)` | Checks if `value` is greater than `other`. |
-| `gte(value, other)` | Checks if `value` is greater than or equal to `other`. |
-| `lt(value, other)` | Checks if `value` is less than `other`. |
-| `lte(value, other)` | Checks if `value` is less than or equal to `other`. |
+**Returns**
 
-```javascript Comparison Example icon=logos:javascript
-_.gt(3, 1);
-// => true
+<x-field data-name="" data-type="string" data-desc="Returns the converted string."></x-field>
 
-_.lte(3, 3);
-// => true
+**Example**
 
-_.eq(NaN, NaN);
-// => true
+```javascript
+_.toString(null);
+// => ''
+
+_.toString(-0);
+// => '-0'
+
+_.toString([1, 2, 3]);
+// => '1,2,3'
 ```
 
 ---
 
-Now that you're familiar with Lodash's language utilities, you may want to explore how to manipulate data structures. Check out the [Math](./api-math.md) functions for numerical operations or dive into the [Object](./api-object.md) section for powerful object manipulation tools.
+This section covers the core language utilities in Lodash. Mastering these functions will help you write cleaner and more reliable code. To learn about manipulating object properties, continue to the [Object](./api-object.md) documentation.

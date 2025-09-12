@@ -1,104 +1,85 @@
 # Getting Started
 
-This guide provides concise, copy-paste ready instructions to get you up and running with Lodash in your project. Whether you're working in a web browser or a Node.js environment, you can start using Lodash's powerful utility functions in just a few steps.
+Welcome to Lodash! This guide will get you up and running quickly. Lodash makes JavaScript easier by taking the hassle out of working with arrays, numbers, objects, and strings.
 
-## In a Browser
+We'll cover how to install and use Lodash in both browser and Node.js environments.
 
-The simplest way to start using Lodash in a browser is to include it via a `<script>` tag. You can download a copy directly or use a Content Delivery Network (CDN) to serve the file.
+## Installation
 
-```html title="index.html"
+You can add Lodash to your project in several ways, depending on your environment.
+
+### In a Browser
+
+For direct use in a browser, you can use a `<script>` tag. You can download the full build or link to a CDN.
+
+```html HTML Setup icon=logos:html-5
 <script src="lodash.js"></script>
 ```
 
-For convenience, you can use a popular CDN like jsDelivr to include Lodash without having to host the file yourself:
+You can find various CDN options, including minified and core builds, on [jsDelivr](https://www.jsdelivr.com/projects/lodash).
 
-```html title="index.html"
+**Example using a CDN:**
+```html Using a CDN icon=logos:html-5
 <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
 ```
 
-Once included, the Lodash library will be available via the global `_` variable.
+### In Node.js (Using npm)
 
-```javascript Example Usage icon=logos:javascript
-const array = [1, 2, 3, 4];
-const chunkedArray = _.chunk(array, 2);
+The recommended way to install Lodash for a Node.js project is through npm.
 
-console.log(chunkedArray);
-// => [[1, 2], [3, 4]]
+```shell Install with npm icon=logos:npm
+$ npm i --save lodash
 ```
 
-<x-card data-title="Find CDN Copies" data-icon="lucide:package-check" data-href="https://www.jsdelivr.com/projects/lodash" data-cta="View CDNs">
-  Explore different versions and builds of Lodash available on the jsDelivr CDN.
-</x-card>
+Once installed, you can require it in your project:
 
-## Using Node.js and npm
-
-For server-side applications or projects using a module bundler (like Webpack, Rollup, or Browserify), you can install Lodash as a dependency using npm.
-
-### Installation
-
-Run the following command in your project's terminal:
-
-```shell Installation Command icon=logos:npm
-npm i --save lodash
-```
-
-### Basic Usage
-
-Once installed, you can require the full library in your Node.js files.
-
-```javascript icon=logos:nodejs
+```javascript Basic Usage icon=logos:nodejs
 // Load the full build.
 const _ = require('lodash');
 
-const users = [
-  { 'user': 'barney',  'active': false },
-  { 'user': 'fred',    'active': false },
-  { 'user': 'pebbles', 'active': true }
-];
+const anArray = [1, 2, 3, 4, 5, 6];
+const chunkedArray = _.chunk(anArray, 2);
 
-const activeUser = _.find(users, { 'active': true });
-
-console.log(activeUser);
-// => { user: 'pebbles', active: true }
+console.log(chunkedArray);
+// => [[1, 2], [3, 4], [5, 6]]
 ```
 
-### Modular Imports
+## Module Formats
 
-Lodash is highly modular, allowing you to load only the parts you need to keep your application's bundle size small. This is great for performance, especially in front-end applications.
+Lodash is highly modular, allowing you to load only the parts you need to keep your project's bundle size small. Here are the common ways to use it:
 
-Here are a few ways to load modules:
+*   **Full Build**: Loads the entire library. Ideal for quick prototyping or when many functions are needed.
+    ```javascript icon=logos:javascript
+    const _ = require('lodash');
+    ```
 
-**Core Build**
+*   **Core Build**: A smaller build that includes essential and commonly used functions.
+    ```javascript icon=logos:javascript
+    const _ = require('lodash/core');
+    ```
 
-Load a smaller, core build with the most essential functions.
+*   **Cherry-pick Methods**: Import individual functions to minimize your bundle size. This is the best approach for production web applications.
+    ```javascript icon=logos:javascript
+    const at = require('lodash/at');
+    const curryN = require('lodash/fp/curryN');
+    ```
 
-```javascript Core Build
-const _ = require('lodash/core');
-```
+*   **FP Module**: For a functional programming approach with immutable, auto-curried, iteratee-first, and data-last methods.
+    ```javascript icon=logos:javascript
+    const fp = require('lodash/fp');
+    ```
 
-**Functional Programming (FP) Build**
+For a more detailed comparison of the available builds and how to create your own, please see our guide on [Build Differences](./guides-build-differences.md).
 
-For a functional programming style with immutable, auto-curried, and data-last methods.
+## What's Next?
 
-```javascript FP Build
-const fp = require('lodash/fp');
-```
+Now that you have Lodash installed, here are some next steps to continue your journey:
 
-**Cherry-pick Methods**
-
-For maximum bundle size optimization, you can import individual methods. This is the recommended approach for modern web development.
-
-```javascript Cherry-picking
-const at = require('lodash/at');
-const curryN = require('lodash/fp/curryN');
-
-const object = { 'a': [{ 'b': { 'c': 3 } }, 4] };
-const values = at(object, ['a[0].b.c', 'a[1]']);
-
-console.log(values);
-// => [3, 4]
-```
-
-## Next Steps
-
-Now that you have Lodash installed, you're ready to explore its powerful features. Dive into the complete [API Reference](./api.md) to see the full list of available methods and find the perfect utility for your needs.
+<x-cards>
+  <x-card data-title="API Reference" data-icon="lucide:book-open" data-href="/api">
+    Explore the full list of Lodash functions, organized by category with detailed examples for each.
+  </x-card>
+  <x-card data-title="Functional Programming Guide" data-icon="lucide:function-square" data-href="/fp-guide">
+    Learn about the FP variant of Lodash, which provides powerful tools for functional programming patterns.
+  </x-card>
+</x-cards>

@@ -1,196 +1,313 @@
 # Function
 
-Lodash provides a powerful suite of utilities for manipulating and working with functions. These helpers allow you to control invocation timing, alter function signatures, and compose complex logic from simpler pieces. Whether you need to limit the rate of function calls with `_.debounce` and `_.throttle`, create partially applied functions with `_.partial`, or build pipelines with `_.flow`, these utilities are essential tools for writing clean and efficient JavaScript.
+Lodash provides a powerful suite of utilities for manipulating functions. These helpers allow you to control invocation frequency, alter function signatures, and compose complex behaviors from simpler pieces. Common use cases include delaying or limiting function calls with `debounce` and `throttle`, creating reusable, partially applied functions with `partial` and `curry`, and managing function execution flow with `after` and `before`.
 
-This section provides a detailed reference for each function utility. For utilities that help with sequential method chaining, see the [Seq](./api-seq.md) documentation.
-
-## Function Reference
-
-| Function | Description |
-|---|---|
-| `_.after(n, func)` | Creates a function that invokes `func` once it's called `n` or more times. |
-| `_.ary(func, [n=func.length])` | Creates a function that invokes `func`, with up to `n` arguments, ignoring any additional arguments. |
-| `_.before(n, func)` | Creates a function that invokes `func`, with the `this` binding and arguments of the created function, while it's called less than `n` times. |
-| `_.bind(func, thisArg, [partials])` | Creates a function that invokes `func` with the `this` binding of `thisArg` and `partials` prepended to the arguments it receives. |
-| `_.bindKey(object, key, [partials])` | Creates a function that invokes the method at `object[key]` with `partials` prepended to the arguments it receives. |
-| `_.curry(func, [arity=func.length])` | Creates a function that accepts arguments of `func` and either invokes `func` returning its result, if at least `arity` number of arguments have been provided, or returns a function that accepts the remaining `func` arguments. |
-| `_.curryRight(func, [arity=func.length])` | Like `_.curry` except that arguments are applied to `func` in the manner of `_.partialRight`. |
-| `_.debounce(func, [wait=0], [options={}])` | Creates a debounced function that delays invoking `func` until after `wait` milliseconds have elapsed since the last time the debounced function was invoked. |
-| `_.defer(func, [args])` | Defers invoking the `func` until the current call stack has cleared. |
-| `_.delay(func, wait, [args])` | Invokes `func` after `wait` milliseconds. |
-| `_.flip(func)` | Creates a function that invokes `func` with arguments reversed. |
-| `_.memoize(func, [resolver])` | Creates a function that memoizes the result of `func`. |
-| `_.negate(predicate)` | Creates a function that negates the result of the predicate `func`. |
-| `_.once(func)` | Creates a function that is restricted to invoking `func` once. |
-| `_.overArgs(func, [transforms])` | Creates a function that invokes `func` with its arguments transformed. |
-| `_.partial(func, [partials])` | Creates a function that invokes `func` with `partials` prepended to the arguments it receives. |
-| `_.partialRight(func, [partials])` | Like `_.partial` except that partially applied arguments are appended to the arguments it receives. |
-| `_.rearg(func, indexes)` | Creates a function that invokes `func` with arguments arranged according to the specified `indexes`. |
-| `_.rest(func, [start=func.length-1])` | Creates a function that invokes `func` with the `this` binding of the created function and arguments from `start` and beyond provided as an array. |
-| `_.spread(func, [start=0])` | Creates a function that invokes `func` with an array of arguments. |
-| `_.throttle(func, [wait=0], [options={}])` | Creates a throttled function that only invokes `func` at most once per every `wait` milliseconds. |
-| `_.unary(func)` | Creates a function that accepts up to one argument, ignoring any additional arguments. |
-| `_.wrap(value, [wrapper=identity])` | Creates a function that provides `value` to `wrapper` as its first argument. |
+These tools are fundamental to writing clean, efficient, and functional JavaScript. For a deeper dive into these concepts, check out our [Functional Programming Guide](./fp-guide.md).
 
 ---
 
-### `_.after(n, func)`
+## after
 
 Creates a function that invokes `func` once it's called `n` or more times.
 
-**Parameters**
+### Parameters
 
-| Name | Type | Description |
-|---|---|---|
-| `n` | `number` | The number of calls before `func` is invoked. |
-| `func` | `Function` | The function to restrict. |
+<x-field data-name="n" data-type="number" data-required="true" data-desc="The number of calls before func is invoked."></x-field>
+<x-field data-name="func" data-type="Function" data-required="true" data-desc="The function to restrict."></x-field>
 
-**Returns**
+### Returns
 
-- `(Function)`: Returns the new restricted function.
+<x-field data-name="restricted" data-type="Function" data-desc="Returns the new restricted function."></x-field>
 
-**Example**
+### Example
 
-```javascript Trigger after multiple events icon=logos:javascript
+```javascript icon=logos:javascript
 var saves = ['profile', 'settings'];
-
+ 
 var done = _.after(saves.length, function() {
   console.log('done saving!');
 });
-
+ 
 _.forEach(saves, function(type) {
-  // Simulating async save
-  setTimeout(done, 100);
+  asyncSave({ 'type': type, 'complete': done });
 });
 // => Logs 'done saving!' after the two async saves have completed.
 ```
 
 ---
 
-### `_.ary(func, [n=func.length])`
+## ary
 
-Creates a function that invokes `func` with up to `n` arguments, ignoring any additional arguments.
+Creates a function that invokes `func`, with up to `n` arguments, ignoring any additional arguments.
 
-**Parameters**
+### Parameters
 
-| Name | Type | Description |
-|---|---|---|
-| `func` | `Function` | The function to cap arguments for. |
-| `[n=func.length]` | `number` | The arity cap. |
+<x-field data-name="func" data-type="Function" data-required="true" data-desc="The function to cap arguments for."></x-field>
+<x-field data-name="n" data-type="number" data-default="func.length" data-required="false" data-desc="The arity cap."></x-field>
 
-**Returns**
+### Returns
 
-- `(Function)`: Returns the new capped function.
+<x-field data-name="capped" data-type="Function" data-desc="Returns the new capped function."></x-field>
 
-**Example**
+### Example
 
-```javascript Cap arguments for an iteratee icon=logos:javascript
+```javascript icon=logos:javascript
 _.map(['6', '8', '10'], _.ary(parseInt, 1));
 // => [6, 8, 10]
 ```
 
 ---
 
-### `_.before(n, func)`
+## before
 
-Creates a function that invokes `func` while it's called less than `n` times. Subsequent calls to the created function return the result of the last `func` invocation.
+Creates a function that invokes `func`, with the `this` binding and arguments of the created function, while it's called less than `n` times. Subsequent calls to the created function return the result of the last `func` invocation.
 
-**Parameters**
+### Parameters
 
-| Name | Type | Description |
-|---|---|---|
-| `n` | `number` | The number of calls at which `func` is no longer invoked. |
-| `func` | `Function` | The function to restrict. |
+<x-field data-name="n" data-type="number" data-required="true" data-desc="The number of calls at which func is no longer invoked."></x-field>
+<x-field data-name="func" data-type="Function" data-required="true" data-desc="The function to restrict."></x-field>
 
-**Returns**
+### Returns
 
-- `(Function)`: Returns the new restricted function.
+<x-field data-name="restricted" data-type="Function" data-desc="Returns the new restricted function."></x-field>
 
-**Example**
+### Example
 
-```javascript Limit event handler invocations icon=logos:javascript
-// Assuming jQuery is available
-// jQuery(element).on('click', _.before(5, addContactToList));
+```javascript icon=logos:javascript
+jQuery(element).on('click', _.before(5, addContactToList));
 // => Allows adding up to 4 contacts to the list.
 ```
 
 ---
 
-### `_.debounce(func, [wait=0], [options={}])`
+## bind
 
-Creates a debounced function that delays invoking `func` until after `wait` milliseconds have elapsed since the last time the debounced function was invoked. The debounced function comes with a `cancel` method to cancel delayed `func` invocations and a `flush` method to immediately invoke them.
+Creates a function that invokes `func` with the `this` binding of `thisArg` and `partials` prepended to the arguments it receives. The `_.bind.placeholder` value (`_`) may be used as a placeholder for partially applied arguments.
 
-**Parameters**
+### Parameters
 
-| Name | Type | Description |
-|---|---|---|
-| `func` | `Function` | The function to debounce. |
-| `[wait=0]` | `number` | The number of milliseconds to delay. |
-| `[options={}]` | `Object` | The options object. |
-| `[options.leading=false]` | `boolean` | Specify invoking on the leading edge of the timeout. |
-| `[options.maxWait]` | `number` | The maximum time `func` is allowed to be delayed before it's invoked. |
-| `[options.trailing=true]` | `boolean` | Specify invoking on the trailing edge of the timeout. |
+<x-field data-name="func" data-type="Function" data-required="true" data-desc="The function to bind."></x-field>
+<x-field data-name="thisArg" data-type="any" data-required="true" data-desc="The 'this' binding of func."></x-field>
+<x-field data-name="partials" data-type="...any" data-required="false" data-desc="The arguments to be partially applied."></x-field>
 
-**Returns**
+### Returns
 
-- `(Function)`: Returns the new debounced function.
+<x-field data-name="bound" data-type="Function" data-desc="Returns the new bound function."></x-field>
 
-**Example**
+### Example
 
-```javascript Debounce a resize handler icon=logos:javascript
-// Assuming jQuery is available
+```javascript icon=logos:javascript
+function greet(greeting, punctuation) {
+  return greeting + ' ' + this.user + punctuation;
+}
+
+var object = { 'user': 'fred' };
+
+var bound = _.bind(greet, object, 'hi');
+bound('!');
+// => 'hi fred!'
+
+// Bound with placeholders.
+var bound = _.bind(greet, object, _, '!');
+bound('hi');
+// => 'hi fred!'
+```
+
+---
+
+## bindKey
+
+Creates a function that invokes the method at `object[key]` with `partials` prepended to its arguments. This method allows bound functions to reference methods that may be redefined later.
+
+### Parameters
+
+<x-field data-name="object" data-type="Object" data-required="true" data-desc="The object to invoke the method on."></x-field>
+<x-field data-name="key" data-type="string" data-required="true" data-desc="The key of the method."></x-field>
+<x-field data-name="partials" data-type="...any" data-required="false" data-desc="The arguments to be partially applied."></x-field>
+
+### Returns
+
+<x-field data-name="bound" data-type="Function" data-desc="Returns the new bound function."></x-field>
+
+### Example
+
+```javascript icon=logos:javascript
+var object = {
+  'user': 'fred',
+  'greet': function(greeting, punctuation) {
+    return greeting + ' ' + this.user + punctuation;
+  }
+};
+
+var bound = _.bindKey(object, 'greet', 'hi');
+bound('!');
+// => 'hi fred!'
+
+object.greet = function(greeting, punctuation) {
+  return greeting + 'ya ' + this.user + punctuation;
+};
+
+bound('!');
+// => 'hiya fred!'
+```
+
+---
+
+## curry
+
+Creates a function that accepts arguments of `func` and either invokes `func` returning its result, if at least `arity` arguments have been provided, or returns a function that accepts the remaining arguments.
+
+### Parameters
+
+<x-field data-name="func" data-type="Function" data-required="true" data-desc="The function to curry."></x-field>
+<x-field data-name="arity" data-type="number" data-default="func.length" data-required="false" data-desc="The arity of func."></x-field>
+
+### Returns
+
+<x-field data-name="curried" data-type="Function" data-desc="Returns the new curried function."></x-field>
+
+### Example
+
+```javascript icon=logos:javascript
+var abc = function(a, b, c) {
+  return [a, b, c];
+};
+
+var curried = _.curry(abc);
+
+curried(1)(2)(3);
+// => [1, 2, 3]
+
+curried(1, 2)(3);
+// => [1, 2, 3]
+
+// Curried with placeholders.
+curried(1)(_, 3)(2);
+// => [1, 2, 3]
+```
+
+---
+
+## debounce
+
+Creates a debounced function that delays invoking `func` until after `wait` milliseconds have passed since the last time the debounced function was invoked.
+
+### Parameters
+
+<x-field data-name="func" data-type="Function" data-required="true" data-desc="The function to debounce."></x-field>
+<x-field data-name="wait" data-type="number" data-default="0" data-required="false" data-desc="The number of milliseconds to delay."></x-field>
+<x-field data-name="options" data-type="Object" data-required="false" data-desc="The options object.">
+  <x-field data-name="leading" data-type="boolean" data-default="false" data-required="false" data-desc="Specify invoking on the leading edge of the timeout."></x-field>
+  <x-field data-name="maxWait" data-type="number" data-required="false" data-desc="The maximum time func is allowed to be delayed before it's invoked."></x-field>
+  <x-field data-name="trailing" data-type="boolean" data-default="true" data-required="false" data-desc="Specify invoking on the trailing edge of the timeout."></x-field>
+</x-field>
+
+### Returns
+
+<x-field data-name="debounced" data-type="Function" data-desc="Returns the new debounced function, which has 'cancel' and 'flush' methods."></x-field>
+
+### Example
+
+```javascript icon=logos:javascript
 // Avoid costly calculations while the window size is in flux.
-// jQuery(window).on('resize', _.debounce(calculateLayout, 150));
+jQuery(window).on('resize', _.debounce(calculateLayout, 150));
+
+// Cancel the trailing debounced invocation.
+jQuery(window).on('popstate', debounced.cancel);
 ```
 
 ---
 
-### `_.throttle(func, [wait=0], [options={}])`
+## defer
 
-Creates a throttled function that only invokes `func` at most once per every `wait` milliseconds. The throttled function comes with a `cancel` method to cancel delayed `func` invocations and a `flush` method to immediately invoke them.
+Defers invoking the `func` until the current call stack has cleared, similar to `setTimeout` with a timeout of 0.
 
-**Parameters**
+### Parameters
 
-| Name | Type | Description |
-|---|---|---|
-| `func` | `Function` | The function to throttle. |
-| `[wait=0]` | `number` | The number of milliseconds to throttle invocations to. |
-| `[options={}]` | `Object` | The options object. |
-| `[options.leading=true]` | `boolean` | Specify invoking on the leading edge of the timeout. |
-| `[options.trailing=true]` | `boolean` | Specify invoking on the trailing edge of the timeout. |
+<x-field data-name="func" data-type="Function" data-required="true" data-desc="The function to defer."></x-field>
+<x-field data-name="args" data-type="...any" data-required="false" data-desc="The arguments to invoke func with."></x-field>
 
-**Returns**
+### Returns
 
-- `(Function)`: Returns the new throttled function.
+<x-field data-name="timerId" data-type="number" data-desc="Returns the timer id."></x-field>
 
-**Example**
+### Example
 
-```javascript Throttle a scroll handler icon=logos:javascript
-// Assuming jQuery is available
-// Avoid excessively updating the position while scrolling.
-// jQuery(window).on('scroll', _.throttle(updatePosition, 100));
+```javascript icon=logos:javascript
+_.defer(function(text) {
+  console.log(text);
+}, 'deferred');
+// => Logs 'deferred' after one millisecond.
 ```
 
 ---
 
-### `_.memoize(func, [resolver])`
+## delay
 
-Creates a function that memoizes the result of `func`. If `resolver` is provided, it determines the cache key for storing the result based on the arguments. By default, the first argument is used as the cache key. The cache is exposed as the `cache` property on the memoized function.
+Invokes `func` after `wait` milliseconds. Any additional arguments are provided to `func` when it's invoked.
 
-**Parameters**
+### Parameters
 
-| Name | Type | Description |
-|---|---|---|
-| `func` | `Function` | The function to have its output memoized. |
-| `[resolver]` | `Function` | The function to resolve the cache key. |
+<x-field data-name="func" data-type="Function" data-required="true" data-desc="The function to delay."></x-field>
+<x-field data-name="wait" data-type="number" data-required="true" data-desc="The number of milliseconds to delay invocation."></x-field>
+<x-field data-name="args" data-type="...any" data-required="false" data-desc="The arguments to invoke func with."></x-field>
 
-**Returns**
+### Returns
 
-- `(Function)`: Returns the new memoized function.
+<x-field data-name="timerId" data-type="number" data-desc="Returns the timer id."></x-field>
 
-**Example**
+### Example
 
-```javascript Memoize a function icon=logos:javascript
+```javascript icon=logos:javascript
+_.delay(function(text) {
+  console.log(text);
+}, 1000, 'later');
+// => Logs 'later' after one second.
+```
+
+---
+
+## flip
+
+Creates a function that invokes `func` with arguments reversed.
+
+### Parameters
+
+<x-field data-name="func" data-type="Function" data-required="true" data-desc="The function to flip arguments for."></x-field>
+
+### Returns
+
+<x-field data-name="flipped" data-type="Function" data-desc="Returns the new flipped function."></x-field>
+
+### Example
+
+```javascript icon=logos:javascript
+var flipped = _.flip(function() {
+  return _.toArray(arguments);
+});
+
+flipped('a', 'b', 'c', 'd');
+// => ['d', 'c', 'b', 'a']
+```
+
+---
+
+## memoize
+
+Creates a function that memoizes the result of `func`. The cache is exposed as the `cache` property on the memoized function.
+
+### Parameters
+
+<x-field data-name="func" data-type="Function" data-required="true" data-desc="The function to have its output memoized."></x-field>
+<x-field data-name="resolver" data-type="Function" data-required="false" data-desc="The function to resolve the cache key. By default, the first argument is used."></x-field>
+
+### Returns
+
+<x-field data-name="memoized" data-type="Function" data-desc="Returns the new memoized function."></x-field>
+
+### Example
+
+```javascript icon=logos:javascript
 var object = { 'a': 1, 'b': 2 };
 var other = { 'c': 3, 'd': 4 };
 
@@ -213,4 +330,139 @@ values(object);
 
 ---
 
-You've now explored the core function utilities in Lodash. These tools are fundamental for managing asynchronous operations, creating reusable function configurations, and building robust applications. To continue, explore the miscellaneous utilities in the [Util](./api-util.md) section or dive into language-level helpers in the [Lang](./api-lang.md) section.
+## negate
+
+Creates a function that negates the result of the predicate `func`.
+
+### Parameters
+
+<x-field data-name="predicate" data-type="Function" data-required="true" data-desc="The predicate to negate."></x-field>
+
+### Returns
+
+<x-field data-name="negated" data-type="Function" data-desc="Returns the new negated function."></x-field>
+
+### Example
+
+```javascript icon=logos:javascript
+function isEven(n) {
+  return n % 2 == 0;
+}
+
+_.filter([1, 2, 3, 4, 5, 6], _.negate(isEven));
+// => [1, 3, 5]
+```
+
+---
+
+## once
+
+Creates a function that is restricted to invoking `func` once. Repeat calls return the value of the first invocation.
+
+### Parameters
+
+<x-field data-name="func" data-type="Function" data-required="true" data-desc="The function to restrict."></x-field>
+
+### Returns
+
+<x-field data-name="restricted" data-type="Function" data-desc="Returns the new restricted function."></x-field>
+
+### Example
+
+```javascript icon=logos:javascript
+var initialize = _.once(createApplication);
+initialize();
+initialize();
+// => `createApplication` is invoked only once.
+```
+
+---
+
+## partial
+
+Creates a function that invokes `func` with `partials` prepended to the arguments it receives. This method is like `_.bind` but does not alter the `this` binding.
+
+### Parameters
+
+<x-field data-name="func" data-type="Function" data-required="true" data-desc="The function to partially apply arguments to."></x-field>
+<x-field data-name="partials" data-type="...any" data-required="false" data-desc="The arguments to be partially applied."></x-field>
+
+### Returns
+
+<x-field data-name="partialized" data-type="Function" data-desc="Returns the new partially applied function."></x-field>
+
+### Example
+
+```javascript icon=logos:javascript
+function greet(greeting, name) {
+  return greeting + ' ' + name;
+}
+
+var sayHelloTo = _.partial(greet, 'hello');
+sayHelloTo('fred');
+// => 'hello fred'
+
+// Partially applied with placeholders.
+var greetFred = _.partial(greet, _, 'fred');
+greetFred('hi');
+// => 'hi fred'
+```
+
+---
+
+## throttle
+
+Creates a throttled function that only invokes `func` at most once per every `wait` milliseconds.
+
+### Parameters
+
+<x-field data-name="func" data-type="Function" data-required="true" data-desc="The function to throttle."></x-field>
+<x-field data-name="wait" data-type="number" data-default="0" data-required="false" data-desc="The number of milliseconds to throttle invocations to."></x-field>
+<x-field data-name="options" data-type="Object" data-required="false" data-desc="The options object.">
+  <x-field data-name="leading" data-type="boolean" data-default="true" data-required="false" data-desc="Specify invoking on the leading edge of the timeout."></x-field>
+  <x-field data-name="trailing" data-type="boolean" data-default="true" data-required="false" data-desc="Specify invoking on the trailing edge of the timeout."></x-field>
+</x-field>
+
+### Returns
+
+<x-field data-name="throttled" data-type="Function" data-desc="Returns the new throttled function, which has 'cancel' and 'flush' methods."></x-field>
+
+### Example
+
+```javascript icon=logos:javascript
+// Avoid excessively updating the position while scrolling.
+jQuery(window).on('scroll', _.throttle(updatePosition, 100));
+
+// Cancel the trailing throttled invocation.
+jQuery(window).on('popstate', throttled.cancel);
+```
+
+---
+
+## wrap
+
+Creates a function that provides `value` to `wrapper` as its first argument. Any additional arguments are appended to those provided to the `wrapper`.
+
+### Parameters
+
+<x-field data-name="value" data-type="any" data-required="true" data-desc="The value to wrap."></x-field>
+<x-field data-name="wrapper" data-type="Function" data-default="identity" data-required="false" data-desc="The wrapper function."></x-field>
+
+### Returns
+
+<x-field data-name="wrapped" data-type="Function" data-desc="Returns the new function."></x-field>
+
+### Example
+
+```javascript icon=logos:javascript
+var p = _.wrap(_.escape, function(func, text) {
+  return '<p>' + func(text) + '</p>';
+});
+
+p('fred, barney, & pebbles');
+// => '<p>fred, barney, &amp; pebbles</p>'
+```
+
+---
+
+This section has covered Lodash's core function utilities. To explore other utility types, continue to the [Lang](./api-lang.md) section for type-checking and cloning functions.

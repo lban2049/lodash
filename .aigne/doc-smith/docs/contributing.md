@@ -1,37 +1,23 @@
 # Contributing & Community
 
-Lodash is an open-source project that thrives on community contributions. Whether you're reporting a bug, suggesting a feature, or writing code, your involvement is highly valued. This document provides the resources you need to get involved.
+Lodash is an open-source project that thrives on the contributions of its vibrant community. We welcome and appreciate all forms of contribution, from bug reports and feature suggestions to code enhancements and documentation improvements.
 
 ## How to Contribute
 
-The primary resource for contributors is our `CONTRIBUTING.md` file on GitHub. It contains detailed information on our development process, coding standards, and how to submit pull requests.
+The primary resource for contributors is the official **[Contributing Guide](https://github.com/lodash/lodash/blob/master/.github/CONTRIBUTING.md)** on GitHub. This guide provides comprehensive details on the development process, including how to set up your environment, submit issues, create pull requests, and adhere to the project's coding standards.
 
-<x-card data-title="Contribution Guidelines" data-icon="lucide:file-text" data-href="https://github.com/lodash/lodash/blob/master/.github/CONTRIBUTING.md" data-cta="Read the Guide">
-For detailed information on how to contribute, including our code standards, pull request process, and how to set up your development environment, please review our official contribution guide on GitHub.
-</x-card>
+Before you begin, we also recommend reviewing the project **[Wiki](https://github.com/lodash/lodash/wiki)**, which contains the official changelog, roadmap, and other essential project information. This will help you understand the current priorities and direction of the library.
 
-## Community Channels
+## Code of Conduct
 
-Connect with other Lodash users and maintainers through our community channels. Ask questions, share your projects, or just say hello.
+To foster a positive, respectful, and inclusive environment, the Lodash project has adopted the JS Foundation's **[Code of Conduct](https://js.foundation/conduct/)**. We expect all participants in our community—including contributors, maintainers, and users—to abide by these guidelines in all project-related interactions.
 
-<x-cards data-columns="2">
-  <x-card data-title="Gitter Chat" data-icon="lucide:message-square" data-href="https://gitter.im/lodash/lodash" data-cta="Join Chat">
-    For real-time discussions, questions, and collaboration with the community and maintainers.
-  </x-card>
-  <x-card data-title="Twitter Updates" data-icon="lucide:twitter" data-href="https://twitter.com/bestiejs" data-cta="Follow Us">
-    Follow the official Twitter account for the latest news, releases, and announcements from the Lodash team.
-  </x-card>
-</x-cards>
+## Join the Discussion
 
-## Project Governance & Resources
+Connect with other Lodash users and contributors through our community channels. Whether you need help, want to share an idea, or simply wish to engage with the community, these platforms are the best places to do so.
 
-Our project is guided by a set of principles and public-facing documentation to ensure transparency and a healthy community.
-
-<x-cards data-columns="2">
-  <x-card data-title="Code of Conduct" data-icon="lucide:shield" data-href="https://js.foundation/conduct/" data-cta="View Policy">
-    We are committed to providing a welcoming and inclusive environment. All participants are expected to adhere to the JS Foundation Code of Conduct.
-  </x-card>
-  <x-card data-title="Project Wiki" data-icon="lucide:book-open" data-href="https://github.com/lodash/lodash/wiki" data-cta="Visit Wiki">
-    Find more information about the project's changelog, roadmap, and other important documentation on our GitHub Wiki.
-  </x-card>
-</x-cards>
+| Platform      | Link                                            | Description                                                                    |
+|---------------|-------------------------------------------------|--------------------------------------------------------------------------------|
+| **Gitter Chat** | [gitter.im/lodash/lodash](https://gitter.im/lodash/lodash) | The main channel for real-time discussions with the community and core team.   |
+| **Twitter**     | [@bestiejs](https://twitter.com/bestiejs)         | Follow for official news, releases, and other important announcements.         |
+| **GitHub Wiki** | [lodash/lodash/wiki](https://github.com/lodash/lodash/wiki) | Access the project's changelog, roadmap, and other vital documentation.        |

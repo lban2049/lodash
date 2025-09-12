@@ -1,61 +1,58 @@
 # Util
 
-The Util category provides a collection of miscellaneous utility functions that offer powerful, reusable logic for common programming tasks. These functions range from creating callbacks and composite functions to generating unique IDs and handling default values. They are essential tools for writing cleaner, more declarative code.
+The Util category provides a collection of miscellaneous utility functions that don't neatly fit into other categories. These functions help with common programming tasks such as creating function compositions, generating unique IDs, managing properties, and more. They are powerful tools for simplifying complex logic and improving code readability.
+
+For more function-related utilities, explore the [Function](./api-function.md) category. For type-checking and cloning, see the [Lang](./api-lang.md) category.
 
 ---
 
-### _.attempt(func, ...args)
+### attempt
 
 Attempts to invoke `func`, returning either the result or the caught error object. Any additional arguments are provided to `func` when it's invoked.
 
-**Since**
-3.0.0
+**Parameters**
 
-**Arguments**
-
-| Param    | Type     | Description                    |
-| :------- | :------- | :----------------------------- |
-| `func`   | `Function` | The function to attempt.       |
-| `[args]` | `...*`   | The arguments to invoke `func` with. |
+<x-field data-name="func" data-type="Function" data-required="true" data-desc="The function to attempt."></x-field>
+<x-field data-name="...args" data-type="any" data-required="false" data-desc="The arguments to invoke func with."></x-field>
 
 **Returns**
 
-`(*)`: Returns the `func` result or error object.
+<x-field data-name="" data-type="any" data-desc="Returns the func result or error object."></x-field>
 
 **Example**
 
 ```javascript
-// Avoid throwing errors for invalid selectors.
-var elements = _.attempt(function(selector) {
-  return document.querySelectorAll(selector);
-}, '>_>');
+// Avoid throwing errors for invalid operations.
+var elements = _.attempt(function(value) {
+  if (typeof value !== 'number') {
+    throw new TypeError('Expected a number');
+  }
+  return value * 2;
+}, 'oops');
 
 if (_.isError(elements)) {
+  console.log('Caught an error!');
   elements = [];
 }
+// => Logs 'Caught an error!'
 ```
 
 ---
 
-### _.bindAll(object, methodNames)
+### bindAll
 
-Binds methods of an object to the object itself, overwriting the existing method.
+Binds methods of an object to the object itself, overwriting the existing methods. This is useful for ensuring that methods have the correct `this` context when passed as callbacks.
 
 **Note:** This method doesn't set the "length" property of bound functions.
 
-**Since**
-0.1.0
+**Parameters**
 
-**Arguments**
-
-| Param         | Type                | Description                           |
-| :------------ | :------------------ | :------------------------------------ |
-| `object`      | `Object`            | The object to bind methods to.        |
-| `methodNames` | `...(string|string[])` | The object method names to bind.      |
+<x-field data-name="object" data-type="Object" data-required="true" data-desc="The object to bind and assign the bound methods to."></x-field>
+<x-field data-name="...methodNames" data-type="string|string[]" data-required="true" data-desc="The object method names to bind."></x-field>
 
 **Returns**
 
-`(Object)`: Returns `object`.
+<x-field data-name="" data-type="Object" data-desc="Returns the modified object."></x-field>
 
 **Example**
 
@@ -68,28 +65,85 @@ var view = {
 };
 
 _.bindAll(view, ['click']);
-jQuery(element).on('click', view.click);
-// => Logs 'clicked docs' when clicked.
+
+// When view.click is used as a callback, `this` will refer to `view`.
+// setTimeout(view.click, 100); // => Logs 'clicked docs' after 100ms.
 ```
 
 ---
 
-### _.constant(value)
+### cond
 
-Creates a function that returns `value`.
+Creates a function that iterates over `pairs` and invokes the corresponding function of the first predicate to return truthy. The predicate-function pairs are invoked with the `this` binding and arguments of the created function.
 
-**Since**
-2.4.0
+**Parameters**
 
-**Arguments**
-
-| Param   | Type | Description                            |
-| :------ | :--- | :------------------------------------- |
-| `value` | `*`  | The value to return from the new function. |
+<x-field data-name="pairs" data-type="Array" data-required="true" data-desc="The predicate-function pairs."></x-field>
 
 **Returns**
 
-`(Function)`: Returns the new constant function.
+<x-field data-name="" data-type="Function" data-desc="Returns the new composite function."></x-field>
+
+**Example**
+
+```javascript
+var func = _.cond([
+  [_.matches({ 'a': 1 }),           _.constant('matches A')],
+  [_.conforms({ 'b': _.isNumber }), _.constant('matches B')],
+  [_.stubTrue,                      _.constant('no match')]
+]);
+
+func({ 'a': 1, 'b': 2 });
+// => 'matches A'
+
+func({ 'a': 0, 'b': 1 });
+// => 'matches B'
+
+func({ 'a': '1', 'b': '2' });
+// => 'no match'
+```
+
+---
+
+### conforms
+
+Creates a function that invokes the predicate properties of `source` with the corresponding property values of a given object, returning `true` if all predicates return truthy, else `false`.
+
+**Note:** The created function is equivalent to `_.conformsTo` with `source` partially applied.
+
+**Parameters**
+
+<x-field data-name="source" data-type="Object" data-required="true" data-desc="The object of property predicates to conform to."></x-field>
+
+**Returns**
+
+<x-field data-name="" data-type="Function" data-desc="Returns the new spec function."></x-field>
+
+**Example**
+
+```javascript
+var objects = [
+  { 'a': 2, 'b': 1 },
+  { 'a': 1, 'b': 2 }
+];
+
+_.filter(objects, _.conforms({ 'b': function(n) { return n > 1; } }));
+// => [{ 'a': 1, 'b': 2 }]
+```
+
+---
+
+### constant
+
+Creates a function that returns the `value` it was created with. No matter what arguments are passed to the function, it will always return the same value.
+
+**Parameters**
+
+<x-field data-name="value" data-type="any" data-required="true" data-desc="The value to return from the new function."></x-field>
+
+**Returns**
+
+<x-field data-name="" data-type="Function" data-desc="Returns the new constant function."></x-field>
 
 **Example**
 
@@ -105,23 +159,18 @@ console.log(objects[0] === objects[1]);
 
 ---
 
-### _.defaultTo(value, defaultValue)
+### defaultTo
 
 Checks `value` to determine whether a default value should be returned in its place. The `defaultValue` is returned if `value` is `NaN`, `null`, or `undefined`.
 
-**Since**
-4.14.0
+**Parameters**
 
-**Arguments**
-
-| Param          | Type | Description           |
-| :------------- | :--- | :-------------------- |
-| `value`        | `*`  | The value to check.   |
-| `defaultValue` | `*`  | The default value.    |
+<x-field data-name="value" data-type="any" data-required="true" data-desc="The value to check."></x-field>
+<x-field data-name="defaultValue" data-type="any" data-required="true" data-desc="The default value."></x-field>
 
 **Returns**
 
-`(*)`: Returns the resolved value.
+<x-field data-name="" data-type="any" data-desc="Returns the resolved value."></x-field>
 
 **Example**
 
@@ -135,50 +184,95 @@ _.defaultTo(undefined, 10);
 
 ---
 
-### _.identity(value)
+### flow
 
-This method returns the first argument it receives.
+Creates a function that returns the result of invoking the given functions from left to right. Each successive function is invoked with the return value of the previous.
 
-**Since**
-0.1.0
+**Parameters**
 
-**Arguments**
-
-| Param   | Type | Description |
-| :------ | :--- | :---------- |
-| `value` | `*`  | Any value.  |
+<x-field data-name="...funcs" data-type="Function|Function[]" data-required="false" data-desc="The functions to invoke."></x-field>
 
 **Returns**
 
-`(*)`: Returns `value`.
+<x-field data-name="" data-type="Function" data-desc="Returns the new composite function."></x-field>
+
+**Example**
+
+```javascript
+function square(n) {
+  return n * n;
+}
+
+var addSquare = _.flow([_.add, square]);
+addSquare(1, 2);
+// => 9
+```
+
+---
+
+### flowRight
+
+This method is like `_.flow` except that it creates a function that invokes the given functions from right to left.
+
+**Parameters**
+
+<x-field data-name="...funcs" data-type="Function|Function[]" data-required="false" data-desc="The functions to invoke."></x-field>
+
+**Returns**
+
+<x-field data-name="" data-type="Function" data-desc="Returns the new composite function."></x-field>
+
+**Example**
+
+```javascript
+function square(n) {
+  return n * n;
+}
+
+var addSquare = _.flowRight([square, _.add]);
+addSquare(1, 2);
+// => 9
+```
+
+---
+
+### identity
+
+This method returns the first argument it receives. It's useful as a default iteratee.
+
+**Parameters**
+
+<x-field data-name="value" data-type="any" data-required="true" data-desc="Any value."></x-field>
+
+**Returns**
+
+<x-field data-name="" data-type="any" data-desc="Returns value."></x-field>
 
 **Example**
 
 ```javascript
 var object = { 'a': 1 };
 
-console.log(_.identity(object) === object);
+_.identity(object) === object;
 // => true
 ```
 
 ---
 
-### _.iteratee([func=_.identity])
+### iteratee
 
-Creates a function that invokes `func` with the arguments of the created function. If `func` is a property name, the created function returns the property value for a given element. If `func` is an array or object, the created function returns `true` for elements that contain the equivalent source properties, otherwise it returns `false`.
+Creates a function that can be used as an iteratee for other Lodash methods. It accepts various shorthands:
+- **String**: Creates a `_.property` iteratee.
+- **Array**: Creates a `_.matchesProperty` iteratee.
+- **Object**: Creates a `_.matches` iteratee.
 
-**Since**
-4.0.0
+**Parameters**
 
-**Arguments**
-
-| Param  | Type | Description                      |
-| :----- | :--- | :------------------------------- |
-| `func` | `*`  | The value to convert to a callback. |
+<x-field data-name="func" data-type="any" data-default="_.identity" data-desc="The value to convert to a callback."></x-field>
 
 **Returns**
 
-`(Function)`: Returns the callback.
+<x-field data-name="" data-type="Function" data-desc="Returns the callback."></x-field>
 
 **Example**
 
@@ -194,7 +288,7 @@ _.filter(users, _.iteratee({ 'user': 'barney', 'active': true }));
 
 // The `_.matchesProperty` iteratee shorthand.
 _.filter(users, _.iteratee(['user', 'fred']));
-// => [{ 'user': 'fred', 'age': 40 }]
+// => [{ 'user': 'fred', 'age': 40, 'active': false }]
 
 // The `_.property` iteratee shorthand.
 _.map(users, _.iteratee('user'));
@@ -203,22 +297,17 @@ _.map(users, _.iteratee('user'));
 
 ---
 
-### _.matches(source)
+### matches
 
 Creates a function that performs a partial deep comparison between a given object and `source`, returning `true` if the given object has equivalent property values, else `false`.
 
-**Since**
-3.0.0
+**Parameters**
 
-**Arguments**
-
-| Param    | Type   | Description                         |
-| :------- | :----- | :---------------------------------- |
-| `source` | `Object` | The object of property values to match. |
+<x-field data-name="source" data-type="Object" data-required="true" data-desc="The object of property values to match."></x-field>
 
 **Returns**
 
-`(Function)`: Returns the new spec function.
+<x-field data-name="" data-type="Function" data-desc="Returns the new spec function."></x-field>
 
 **Example**
 
@@ -234,23 +323,18 @@ _.filter(objects, _.matches({ 'a': 4, 'c': 6 }));
 
 ---
 
-### _.matchesProperty(path, srcValue)
+### matchesProperty
 
 Creates a function that performs a partial deep comparison between the value at `path` of a given object to `srcValue`, returning `true` if the object value is equivalent, else `false`.
 
-**Since**
-3.2.0
+**Parameters**
 
-**Arguments**
-
-| Param      | Type          | Description                   |
-| :--------- | :------------ | :---------------------------- |
-| `path`     | `Array|string`  | The path of the property to get. |
-| `srcValue` | `*`           | The value to match.           |
+<x-field data-name="path" data-type="Array|string" data-required="true" data-desc="The path of the property to get."></x-field>
+<x-field data-name="srcValue" data-type="any" data-required="true" data-desc="The value to match."></x-field>
 
 **Returns**
 
-`(Function)`: Returns the new spec function.
+<x-field data-name="" data-type="Function" data-desc="Returns the new spec function."></x-field>
 
 **Example**
 
@@ -266,23 +350,18 @@ _.find(objects, _.matchesProperty('a', 4));
 
 ---
 
-### _.method(path, ...args)
+### method
 
 Creates a function that invokes the method at `path` of a given object. Any additional arguments are provided to the invoked method.
 
-**Since**
-3.7.0
+**Parameters**
 
-**Arguments**
-
-| Param    | Type          | Description                         |
-| :------- | :------------ | :---------------------------------- |
-| `path`   | `Array|string`  | The path of the method to invoke.   |
-| `[args]` | `...*`        | The arguments to invoke the method with. |
+<x-field data-name="path" data-type="Array|string" data-required="true" data-desc="The path of the method to invoke."></x-field>
+<x-field data-name="...args" data-type="any" data-required="false" data-desc="The arguments to invoke the method with."></x-field>
 
 **Returns**
 
-`(Function)`: Returns the new invoker function.
+<x-field data-name="" data-type="Function" data-desc="Returns the new invoker function."></x-field>
 
 **Example**
 
@@ -294,19 +373,92 @@ var objects = [
 
 _.map(objects, _.method('a.b'));
 // => [2, 1]
-
-_.map(objects, _.method(['a', 'b']));
-// => [2, 1]
 ```
 
 ---
 
-### _.noop()
+### methodOf
 
-This method returns `undefined`.
+The opposite of `_.method`; this method creates a function that invokes the method at a given path of `object`. Any additional arguments are provided to the invoked method.
 
-**Since**
-2.3.0
+**Parameters**
+
+<x-field data-name="object" data-type="Object" data-required="true" data-desc="The object to query."></x-field>
+<x-field data-name="...args" data-type="any" data-required="false" data-desc="The arguments to invoke the method with."></x-field>
+
+**Returns**
+
+<x-field data-name="" data-type="Function" data-desc="Returns the new invoker function."></x-field>
+
+**Example**
+
+```javascript
+var array = [0, 1, 2],
+    object = { 'a': array, 'b': array, 'c': array };
+
+_.map(['a[2]', 'c[0]'], _.methodOf(object));
+// => [2, 0]
+```
+
+---
+
+### mixin
+
+Adds all own enumerable string keyed function properties of a source object to the destination object. If `object` is a function, then methods are added to its prototype as well.
+
+**Parameters**
+
+<x-field data-name="object" data-type="Function|Object" data-default="lodash" data-desc="The destination object."></x-field>
+<x-field data-name="source" data-type="Object" data-required="true" data-desc="The object of functions to add."></x-field>
+<x-field data-name="options" data-type="Object" data-required="false" data-desc="The options object.">
+  <x-field data-name="chain" data-type="boolean" data-default="true" data-desc="Specify whether mixins are chainable."></x-field>
+</x-field>
+
+**Returns**
+
+<x-field data-name="" data-type="Function|Object" data-desc="Returns object."></x-field>
+
+**Example**
+
+```javascript
+function vowels(string) {
+  return _.filter(string, function(v) {
+    return /[aeiou]/i.test(v);
+  });
+}
+
+_.mixin({ 'vowels': vowels });
+_.vowels('fred');
+// => ['e']
+
+_('fred').vowels().value();
+// => ['e']
+```
+
+---
+
+### noConflict
+
+Reverts the `_` variable to its previous value and returns a reference to the `lodash` function. This is useful for avoiding namespace collisions in environments where another library might also use the underscore variable.
+
+**Returns**
+
+<x-field data-name="" data-type="Function" data-desc="Returns the lodash function."></x-field>
+
+**Example**
+
+```javascript
+// In a browser environment where another library uses `_`
+var lodash = _.noConflict();
+// `_` is now restored to its original value.
+// `lodash` can be used to call Lodash functions.
+```
+
+---
+
+### noop
+
+This method returns `undefined`. It's a useful placeholder for functions or callbacks that do nothing.
 
 **Example**
 
@@ -317,22 +469,124 @@ _.times(2, _.noop);
 
 ---
 
-### _.property(path)
+### nthArg
 
-Creates a function that returns the value at `path` of a given object.
+Creates a function that gets the argument at index `n`. If `n` is negative, the nth argument from the end is returned.
 
-**Since**
-2.4.0
+**Parameters**
 
-**Arguments**
-
-| Param  | Type          | Description                   |
-| :----- | :------------ | :---------------------------- |
-| `path` | `Array|string`  | The path of the property to get. |
+<x-field data-name="n" data-type="number" data-default="0" data-desc="The index of the argument to return."></x-field>
 
 **Returns**
 
-`(Function)`: Returns the new accessor function.
+<x-field data-name="" data-type="Function" data-desc="Returns the new pass-thru function."></x-field>
+
+**Example**
+
+```javascript
+var func = _.nthArg(1);
+func('a', 'b', 'c', 'd');
+// => 'b'
+
+var func = _.nthArg(-2);
+func('a', 'b', 'c', 'd');
+// => 'c'
+```
+
+---
+
+### over
+
+Creates a function that invokes `iteratees` with the arguments it receives and returns their results as an array.
+
+**Parameters**
+
+<x-field data-name="...iteratees" data-type="Function|Function[]" data-default="_.identity" data-desc="The iteratees to invoke."></x-field>
+
+**Returns**
+
+<x-field data-name="" data-type="Function" data-desc="Returns the new function."></x-field>
+
+**Example**
+
+```javascript
+var func = _.over([Math.max, Math.min]);
+
+func(1, 2, 3, 4);
+// => [4, 1]
+```
+
+---
+
+### overEvery
+
+Creates a function that checks if **all** of the `predicates` return truthy when invoked with the arguments it receives.
+
+**Parameters**
+
+<x-field data-name="...predicates" data-type="Function|Function[]" data-default="_.identity" data-desc="The predicates to check."></x-field>
+
+**Returns**
+
+<x-field data-name="" data-type="Function" data-desc="Returns the new function."></x-field>
+
+**Example**
+
+```javascript
+var func = _.overEvery([Boolean, isFinite]);
+
+func('1');
+// => true
+
+func(null);
+// => false
+
+func(NaN);
+// => false
+```
+
+---
+
+### overSome
+
+Creates a function that checks if **any** of the `predicates` return truthy when invoked with the arguments it receives.
+
+**Parameters**
+
+<x-field data-name="...predicates" data-type="Function|Function[]" data-default="_.identity" data-desc="The predicates to check."></x-field>
+
+**Returns**
+
+<x-field data-name="" data-type="Function" data-desc="Returns the new function."></x-field>
+
+**Example**
+
+```javascript
+var func = _.overSome([Boolean, isFinite]);
+
+func('1');
+// => true
+
+func(null);
+// => true
+
+func(NaN);
+// => false
+```
+
+---
+
+### property
+
+Creates a function that returns the value at `path` of a given object.
+
+**Parameters**
+
+<x-field data-name="path" data-type="Array|string" data-required="true" data-desc="The path of the property to get."></x-field>
+
+**Returns**
+
+<x-field data-name="" data-type="Function" data-desc="Returns the new accessor function."></x-field>
 
 **Example**
 
@@ -351,24 +605,43 @@ _.map(_.sortBy(objects, _.property(['a', 'b'])), 'a.b');
 
 ---
 
-### _.range([start=0], end, [step=1])
+### propertyOf
 
-Creates an array of numbers (positive and/or negative) progressing from `start` up to, but not including, `end`.
+The opposite of `_.property`; this method creates a function that returns the value at a given path of `object`.
 
-**Since**
-0.1.0
+**Parameters**
 
-**Arguments**
-
-| Param   | Type   | Description                         |
-| :------ | :----- | :---------------------------------- |
-| `start` | `number` | The start of the range.             |
-| `end`   | `number` | The end of the range.               |
-| `step`  | `number` | The value to increment or decrement by. |
+<x-field data-name="object" data-type="Object" data-required="true" data-desc="The object to query."></x-field>
 
 **Returns**
 
-`(Array)`: Returns the range of numbers.
+<x-field data-name="" data-type="Function" data-desc="Returns the new accessor function."></x-field>
+
+**Example**
+
+```javascript
+var array = [0, 1, 2],
+    object = { 'a': array, 'b': array, 'c': array };
+
+_.map(['a[2]', 'c[0]'], _.propertyOf(object));
+// => [2, 0]
+```
+
+---
+
+### range
+
+Creates an array of numbers (positive and/or negative) progressing from `start` up to, but not including, `end`.
+
+**Parameters**
+
+<x-field data-name="start" data-type="number" data-default="0" data-desc="The start of the range."></x-field>
+<x-field data-name="end" data-type="number" data-required="true" data-desc="The end of the range."></x-field>
+<x-field data-name="step" data-type="number" data-default="1" data-desc="The value to increment or decrement by."></x-field>
+
+**Returns**
+
+<x-field data-name="" data-type="Array" data-desc="Returns the range of numbers."></x-field>
 
 **Example**
 
@@ -381,27 +654,146 @@ _.range(-4);
 
 _.range(1, 5);
 // => [1, 2, 3, 4]
+
+_.range(0, 20, 5);
+// => [0, 5, 10, 15]
 ```
 
 ---
 
-### _.times(n, [iteratee=_.identity])
+### rangeRight
 
-Invokes the iteratee `n` times, returning an array of the results of each invocation. The iteratee is invoked with one argument: (index).
+This method is like `_.range` except that it populates values in descending order.
 
-**Since**
-0.1.0
+**Parameters**
 
-**Arguments**
-
-| Param      | Type     | Description                      |
-| :--------- | :------- | :------------------------------- |
-| `n`        | `number` | The number of times to invoke `iteratee`. |
-| `iteratee` | `Function` | The function invoked per iteration. |
+<x-field data-name="start" data-type="number" data-default="0" data-desc="The start of the range."></x-field>
+<x-field data-name="end" data-type="number" data-required="true" data-desc="The end of the range."></x-field>
+<x-field data-name="step" data-type="number" data-default="1" data-desc="The value to increment or decrement by."></x-field>
 
 **Returns**
 
-`(Array)`: Returns the array of results.
+<x-field data-name="" data-type="Array" data-desc="Returns the range of numbers."></x-field>
+
+**Example**
+
+```javascript
+_.rangeRight(4);
+// => [3, 2, 1, 0]
+
+_.rangeRight(1, 5);
+// => [4, 3, 2, 1]
+```
+
+---
+
+### stubArray
+
+This method returns a new empty array. It's useful as a default value or callback that should return an array.
+
+**Returns**
+
+<x-field data-name="" data-type="Array" data-desc="Returns the new empty array."></x-field>
+
+**Example**
+
+```javascript
+var arrays = _.times(2, _.stubArray);
+
+console.log(arrays);
+// => [[], []]
+
+console.log(arrays[0] === arrays[1]);
+// => false
+```
+
+---
+
+### stubFalse
+
+This method returns `false`. It's useful as a default predicate that always fails.
+
+**Returns**
+
+<x-field data-name="" data-type="boolean" data-desc="Returns false."></x-field>
+
+**Example**
+
+```javascript
+_.times(2, _.stubFalse);
+// => [false, false]
+```
+
+---
+
+### stubObject
+
+This method returns a new empty object. It's useful as a default value or callback that should return an object.
+
+**Returns**
+
+<x-field data-name="" data-type="Object" data-desc="Returns the new empty object."></x-field>
+
+**Example**
+
+```javascript
+var objects = _.times(2, _.stubObject);
+
+console.log(objects);
+// => [{}, {}]
+
+console.log(objects[0] === objects[1]);
+// => false
+```
+
+---
+
+### stubString
+
+This method returns an empty string. It's useful as a default value or callback that should return a string.
+
+**Returns**
+
+<x-field data-name="" data-type="string" data-desc="Returns the empty string."></x-field>
+
+**Example**
+
+```javascript
+_.times(2, _.stubString);
+// => ['', '']
+```
+
+---
+
+### stubTrue
+
+This method returns `true`. It's useful as a default predicate that always passes.
+
+**Returns**
+
+<x-field data-name="" data-type="boolean" data-desc="Returns true."></x-field>
+
+**Example**
+
+```javascript
+_.times(2, _.stubTrue);
+// => [true, true]
+```
+
+---
+
+### times
+
+Invokes the iteratee `n` times, returning an array of the results of each invocation. The iteratee is invoked with one argument: `index`.
+
+**Parameters**
+
+<x-field data-name="n" data-type="number" data-required="true" data-desc="The number of times to invoke iteratee."></x-field>
+<x-field data-name="iteratee" data-type="Function" data-default="_.identity" data-desc="The function invoked per iteration."></x-field>
+
+**Returns**
+
+<x-field data-name="" data-type="Array" data-desc="Returns the array of results."></x-field>
 
 **Example**
 
@@ -415,33 +807,48 @@ _.times(4, _.constant(0));
 
 ---
 
-### _.uniqueId([prefix=''])
+### toPath
 
-Generates a unique ID. If `prefix` is given, the ID is appended to it.
+Converts `value` to a property path array. This is useful for normalizing property accessors.
 
-**Since**
-0.1.0
+**Parameters**
 
-**Arguments**
-
-| Param    | Type   | Description                   |
-| :------- | :----- | :---------------------------- |
-| `prefix` | `string` | The value to prefix the ID with. |
+<x-field data-name="value" data-type="any" data-required="true" data-desc="The value to convert."></x-field>
 
 **Returns**
 
-`(string)`: Returns the unique ID.
+<x-field data-name="" data-type="Array" data-desc="Returns the new property path array."></x-field>
+
+**Example**
+
+```javascript
+_.toPath('a.b.c');
+// => ['a', 'b', 'c']
+
+_.toPath('a[0].b.c');
+// => ['a', '0', 'b', 'c']
+```
+
+---
+
+### uniqueId
+
+Generates a unique ID. If `prefix` is given, the ID is appended to it.
+
+**Parameters**
+
+<x-field data-name="prefix" data-type="string" data-default="''" data-desc="The value to prefix the ID with."></x-field>
+
+**Returns**
+
+<x-field data-name="" data-type="string" data-desc="Returns the unique ID."></x-field>
 
 **Example**
 
 ```javascript
 _.uniqueId('contact_');
-// => 'contact_104'
+// => 'contact_1'
 
 _.uniqueId();
-// => '105'
+// => '2'
 ```
-
----
-
-This concludes the reference for Lodash's miscellaneous utility functions. To explore other categories, you can return to the main [API Reference](./api.md).
